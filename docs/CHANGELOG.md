@@ -1,0 +1,117 @@
+# Changelog
+
+This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
+
+## 2026-06-24
+
+### Centered MVP homepage redesign
+
+- Reworked the homepage to match the approved centered mockup direction.
+- Removed the separate right-side `Today's Wend plan` / snapshot-style panel because it looked like a feature but duplicated the real answer controls.
+- Changed the hero to a single-column centered layout with two anchors: `Get Today's Answer` to `#answer` and `Start with a Hint` to `#hints`.
+- Moved the real interactive `WendAnswerReveal` module directly under the hero so the first functional section is the daily answer card.
+- Updated `WendAnswerReveal` to use the homepage module structure: title, date / puzzle / difficulty / word-count metadata, left grid, right reveal controls, and row-level `Get Word` buttons.
+- Reorganized homepage support content into bordered modules for spoiler-safe hints, step-by-step explanation, Wend FAQ, fast tip, common mistake, difficulty note, and recent Wend answers.
+- Reduced shared card radius from `rounded-xl` to `rounded-lg` to stay closer to the approved 8px bordered-card visual style.
+- Updated `tests/seo-metadata.test.mjs` to prevent reintroducing a right-side plan/snapshot panel and to require the centered hero plus real answer reveal module.
+
+### Structured card-based frontend polish
+
+- Added shared layout classes in `src/app/globals.css`: `content-card`, `section-heading`, `section-icon`, and `inner-card`.
+- Applied a clearer card-and-divider structure inspired by the referenced Wend answer page: each major module now has a white card, light gray border, icon-led heading, and inner bordered rows.
+- Updated the homepage right-side action card, archive block, FAQ block, and help block to use the shared card structure.
+- Updated `/linkedin-wend-answer-today` sections for hero, answer reveal, hints, explanation, tips, practice CTA, related resources, and visible FAQ.
+- Rendered the existing Today FAQ as visible accordion-style rows instead of only JSON-LD.
+- Updated `HintAccordion`, `ArchiveList`, `RelatedGames`, and `WendAnswerReveal` to use the same visual language.
+- Added regression coverage so the shared card primitives remain present and the answer reveal keeps the icon-led card structure.
+
+### Homepage hero action card clarification
+
+- Replaced the homepage right-side static Wend grid preview with a `Today’s Wend plan` action card.
+- The old grid looked interactive but only acted as a visual preview, which made the homepage purpose unclear.
+- The new card explains the intended flow: start with a hint, reveal one word, then reveal all only if needed.
+- Primary homepage CTA now points to `/linkedin-wend-answer-today#answer`, where the real interactive answer reveal lives.
+- Updated `tests/seo-metadata.test.mjs` to prevent reintroducing a fake interactive grid preview on the homepage.
+
+### Wend user-pain P0/P1 optimization
+
+- Added `src/components/WendAnswerReveal.tsx`, a Wend-first answer card with `Reveal Letter`, `Get Word`, `Reveal all`, and `Clear all`.
+- Reused the existing `WendGrid` path-highlighting logic and extended its cell click callback so clicked cells can reveal a single letter without exposing the full answer.
+- Replaced the generic solver block on `/linkedin-wend-answer-today` with the Wend answer reveal card.
+- Replaced the archived full-path reveal block on Wend history pages with the same Wend answer reveal card.
+- Added daily puzzle fields: `fastTip`, `commonMistake`, and `difficultyNote`.
+- Rendered fast solving tip, common mistake, and difficulty note on Today and history detail pages.
+- Added `/where-is-linkedin-wend` for users who cannot find Wend or need the direct official game link.
+- Expanded FAQ coverage for Wend access, Wend not showing, loading issues, and streak-safe help.
+- Removed `Practice` from primary desktop and mobile navigation so `/wend-unlimited` stays a retention CTA instead of competing with Today.
+- Added `npm run test:wend-mvp` and `tests/wend-mvp.test.mjs` to guard the Wend-first MVP behavior.
+- Updated `README.md`, `docs/DAILY_UPDATE_RUNBOOK.md`, and `docs/SEO_RUNBOOK.md` with the new checks, JSON fields, and access page.
+
+### Wend-first information architecture
+
+- Repositioned the homepage around Wend only instead of a broad LinkedIn Games hub.
+- Removed the homepage `All Games` section and active secondary-game promotion.
+- Updated homepage title and description to focus on Wend daily hints, solver help, and archives.
+- Updated `RelatedGames` into `More Wend Resources`, removing Patches and Zip links.
+- Updated `site.description`, FAQ copy, and `public/llms.txt` to describe the site as a Wend resource.
+- Updated `tests/seo-metadata.test.mjs` to guard against homepage, related-link, and `llms.txt` promotion of secondary games during the Wend-first MVP window.
+
+### Homepage TDK update
+
+- Updated the homepage title to `Wend Answer Today & LinkedIn Games Answers | Daily Hints & Solutions`; later superseded by the Wend-first title above.
+- Updated the homepage description to target daily LinkedIn Games answers, spoiler-safe hints, and solvers; later narrowed by the Wend-first positioning above.
+- Added homepage keywords for Wend answer intent.
+- Extended `pageMetadata()` with `keywords` and `absoluteTitle` support so the homepage title can render exactly without the root layout title template appending the brand.
+- Updated `tests/seo-metadata.test.mjs` to guard the homepage TDK.
+- Updated `docs/SEO_RUNBOOK.md` with the current homepage TDK.
+
+### SEO P0/P1 metadata hardening
+
+- Added dynamic Open Graph image generation at `/api/og` with a `1200x630` ImageResponse.
+- Updated `pageMetadata()` to output Open Graph images, Twitter `summary_large_image`, optional article times, page-specific OG copy, and optional robots settings.
+- Shortened core Wend TDK titles so the root layout can append the brand without making titles too long.
+- Added route-specific sitemap priorities and change frequencies.
+- Temporarily set Patches and Zip pages to `noindex,follow` and removed them from `sitemap.ts` until their daily data is verified.
+- Updated `scripts/smoke-local.mjs` so noindex pages are checked separately from public indexable pages.
+- Added `tests/seo-metadata.test.mjs` and `npm run test:seo-metadata`.
+- Added `docs/SEO_RUNBOOK.md` for TDK, OG image, index strategy, and sitemap rules.
+
+### Duplicate SEO route removal
+
+- Removed the indexable `/linkedin-games-answers-today` page that reused the homepage content.
+- Added a route handler that returns a `301` redirect from `/linkedin-games-answers-today` to `/`.
+- Removed `/linkedin-games-answers-today` from `src/app/sitemap.ts`.
+- Updated `scripts/smoke-local.mjs` to verify the legacy URL redirects instead of treating it as a normal public page.
+- Added `tests/seo-routes.test.mjs` and `npm run test:seo-routes` to prevent this duplicate page from returning.
+
+### Wend daily data freshness
+
+- Added `data/puzzles/wend/2026-06-24.json` for the June 24, 2026 Wend page.
+- Updated `src/lib/puzzles.ts` so `todayWend` now imports the June 24, 2026 JSON first.
+- Added `scripts/latest-date.mjs` to find the newest `YYYY-MM-DD.json` file under `data/puzzles/wend`.
+- Added `npm run latest:wend` for quick latest-date inspection.
+- Added `tests/latest-date.test.mjs` and `npm run test:latest-date`.
+- Updated local smoke coverage to include `/linkedin-wend-answer-16-june-24-2026`.
+
+### Verification
+
+The following checks passed after the change:
+
+```bash
+npm run test:latest-date
+npm run latest:wend
+npm run typecheck
+npm run build
+npm run smoke:local
+```
+
+### Known Risk
+
+- `data/puzzles/wend/2026-06-24.json` is marked with `isVerified: false`. Before public launch, replace the placeholder content with verified real puzzle data and set `isVerified` according to the actual verification status.
+
+## Pending Launch Items
+
+These are known issues from the current audit and are not resolved by the June 24 data freshness change:
+
+- Add analytics, preferably Plausible for a lightweight MVP.
+- Pin `next`, `react`, `react-dom`, and other `latest` dependencies.

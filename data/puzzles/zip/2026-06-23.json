@@ -1,0 +1,24 @@
+{
+  "game": "zip",
+  "puzzleNumber": 11,
+  "date": "2026-06-23",
+  "dateLabel": "June 23, 2026",
+  "difficulty": "Medium",
+  "grid": [
+    ["1", "", "", "", "5"],
+    ["", "", "2", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "3", "", ""],
+    ["4", "", "", "", "6"]
+  ],
+  "path": [[0,0], [1,1], [1,2], [2,2], [3,2], [4,1], [4,0], [3,1], [2,1], [2,3], [3,4], [4,4]],
+  "hints": [
+    "Begin by joining the first two fixed numbers without trapping the center.",
+    "The middle column matters more than the corners.",
+    "Save the lower-right connection for the final stretch."
+  ],
+  "answer": "Follow the revealed path from 1 through 6.",
+  "explanation": "The path works best when the numbered anchors are connected in order while leaving the center open for the final turn.",
+  "isVerified": true,
+  "updatedAt": "2026-06-23T07:28:00Z"
+}

@@ -1,0 +1,186 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { BookOpen, CircleHelp, Lightbulb, Route, ShieldCheck, Sparkles } from "lucide-react";
+import { HintAccordion } from "@/components/HintAccordion";
+import { JsonLd } from "@/components/JsonLd";
+import { RelatedGames } from "@/components/RelatedGames";
+import { WendAnswerReveal } from "@/components/WendAnswerReveal";
+import { formatUpdated } from "@/lib/dates";
+import { todayWend } from "@/lib/puzzles";
+import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
+
+const path = "/linkedin-wend-answer-today";
+const description =
+  "Get today’s LinkedIn Wend hints, answer, word path, and spoiler-safe solver. Reveal one letter, one word, or the full path only when you need it.";
+
+export const metadata: Metadata = pageMetadata({
+  title: `LinkedIn Wend Answer Today - ${todayWend.dateLabel}`,
+  description,
+  path,
+  type: "article",
+  imageTitle: "LinkedIn Wend Answer Today",
+  imageSubtitle: `${todayWend.dateLabel} - Puzzle #${todayWend.puzzleNumber}`,
+  publishedTime: todayWend.date,
+  modifiedTime: todayWend.updatedAt,
+});
+
+const faq = [
+  {
+    question: "Can I reveal the full Wend answer immediately?",
+    answer: "Yes. Use Reveal all if you are ready, or use Reveal Letter and Get Word to protect the rest of the puzzle.",
+  },
+  {
+    question: "Does the solver use official screenshots?",
+    answer: "No. The grid is rendered with custom HTML elements and does not use official game assets.",
+  },
+];
+
+export default function WendTodayPage() {
+  return (
+    <main className="page-shell">
+      <JsonLd data={breadcrumbJson([{ name: "Home", path: "/" }, { name: "Wend Answer Today", path }])} />
+      <JsonLd
+        data={articleJson({
+          headline: "LinkedIn Wend Answer Today",
+          description,
+          path,
+          datePublished: todayWend.date,
+          dateModified: todayWend.updatedAt,
+        })}
+      />
+      <JsonLd data={faqJson(faq)} />
+
+      <section className="content-card grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+        <div className="min-w-0">
+          <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">
+            LinkedIn Wend Answer Today
+          </h1>
+          <div className="mt-3 flex flex-wrap gap-2 text-sm font-semibold text-slate-700 sm:text-base">
+            <span className="rounded-lg bg-white px-3 py-2">{todayWend.dateLabel}</span>
+            <span className="rounded-lg bg-white px-3 py-2">Puzzle #{todayWend.puzzleNumber}</span>
+            <span className="rounded-lg bg-white px-3 py-2">Updated {formatUpdated(todayWend.updatedAt)}</span>
+          </div>
+          <h2 className="mt-5 break-words text-xl font-black leading-tight text-ink sm:text-2xl">
+            Wend #{todayWend.puzzleNumber} Hints, Word Path
+            <span className="block">& Solution for {todayWend.dateLabel}</span>
+          </h2>
+          <p className="mt-3 max-w-xl text-base leading-7 text-slate-700">
+            Need a nudge, not a spoiler? Start with a gentle hint, reveal one word, or view the full path
+            only when you need it.
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <a className="btn btn-secondary" href="#hints">
+              Hint 1
+            </a>
+            <a className="btn btn-primary" href="#answer">
+              Get Word
+            </a>
+            <a className="btn btn-success" href="#answer">
+              Reveal all
+            </a>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link className="chip" href="/linkedin-wend-solver">
+              Open Solver
+            </Link>
+            <a className="chip" href="https://www.linkedin.com/games/" rel="nofollow noopener" target="_blank">
+              Open LinkedIn Games
+            </a>
+          </div>
+        </div>
+        <div className="inner-card p-4">
+          <p className="text-sm font-bold uppercase tracking-[0.08em] text-brand">Streak-safe help</p>
+          <h2 className="mt-2 text-2xl font-black text-ink">Save your streak without spoiling the whole puzzle</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-700">
+            Start with today’s hint, then reveal one letter or one word only if the path is still stuck.
+          </p>
+        </div>
+      </section>
+
+      <section className="section" id="answer">
+        <WendAnswerReveal puzzle={todayWend} />
+      </section>
+
+      <section className="section content-card" id="hints">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <CircleHelp aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Spoiler-safe hints</span>
+        </h2>
+        <div className="mt-5">
+          <HintAccordion hints={todayWend.hints} />
+        </div>
+      </section>
+
+      <section className="section content-card">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <Route aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Step-by-step explanation</span>
+        </h2>
+        <p className="section-copy">{todayWend.explanation}</p>
+      </section>
+
+      <section className="section grid gap-3 md:grid-cols-3">
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <Lightbulb aria-hidden className="h-5 w-5 text-hint" />
+            Fast solving tip
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
+        </article>
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <ShieldCheck aria-hidden className="h-5 w-5 text-brand" />
+            Common mistake
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
+        </article>
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <BookOpen aria-hidden className="h-5 w-5 text-success" />
+            Difficulty note
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
+        </article>
+      </section>
+
+      <section className="section content-card">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <Sparkles aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Finished today’s Wend?</span>
+        </h2>
+        <p className="mt-2 text-slate-700">Try unofficial Wend-style practice puzzles without waiting for tomorrow.</p>
+        <Link className="btn btn-primary mt-4" href="/wend-unlimited">
+          Try Unlimited Practice
+        </Link>
+      </section>
+
+      <section className="section content-card">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <CircleHelp aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Today’s LinkedIn Wend FAQ</span>
+        </h2>
+        <div className="mt-5 space-y-3">
+          {faq.map((item) => (
+            <details className="inner-card group overflow-hidden" key={item.question}>
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left text-base font-black text-ink">
+                <span>{item.question}</span>
+                <span className="text-xl leading-none text-slate-500 transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="border-t border-line px-4 py-3 text-sm leading-6 text-slate-700">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <RelatedGames />
+    </main>
+  );
+}

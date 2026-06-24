@@ -1,0 +1,33 @@
+{
+  "name": "wend-answer-today",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "npm run typecheck",
+    "latest:wend": "node scripts/latest-date.mjs data/puzzles/wend --json",
+    "smoke:local": "node scripts/smoke-local.mjs",
+    "test:latest-date": "node tests/latest-date.test.mjs",
+    "test:wend-mvp": "node tests/wend-mvp.test.mjs",
+    "test:seo-metadata": "node tests/seo-metadata.test.mjs",
+    "test:seo-routes": "node tests/seo-routes.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "latest"
+  }
+}

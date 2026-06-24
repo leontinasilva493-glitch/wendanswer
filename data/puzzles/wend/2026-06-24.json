@@ -1,0 +1,57 @@
+{
+  "game": "wend",
+  "puzzleNumber": 16,
+  "date": "2026-06-24",
+  "dateLabel": "June 24, 2026",
+  "updatedAt": "2026-06-24T07:20:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    ["H", "I", "N", "T", "S"],
+    ["P", "A", "T", "H", "E"],
+    ["W", "O", "R", "D", "L"],
+    ["C", "L", "U", "E", "R"],
+    ["A", "B", "C", "D", "E"]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with the clearest edge paths before testing the center letters."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Several short paths read cleanly from left to right."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "Use the upper rows to confirm the first two words, then solve downward."
+    }
+  ],
+  "answers": [
+    {
+      "word": "HINT",
+      "path": [[0, 0], [0, 1], [0, 2], [0, 3]]
+    },
+    {
+      "word": "PATH",
+      "path": [[1, 0], [1, 1], [1, 2], [1, 3]]
+    },
+    {
+      "word": "WORD",
+      "path": [[2, 0], [2, 1], [2, 2], [2, 3]]
+    },
+    {
+      "word": "CLUE",
+      "path": [[3, 0], [3, 1], [3, 2], [3, 3]]
+    }
+  ],
+  "explanation": "This June 24 Wend entry is structured for the MVP update flow: reveal the obvious edge paths first, then use the remaining rows to confirm the answer set.",
+  "quickHint": "Look for clean left-to-right paths.",
+  "fastTip": "Check the short horizontal paths first before testing the lower rows.",
+  "commonMistake": "Do not reveal the full board too early if one short word is enough to keep your streak moving.",
+  "difficultyNote": "Medium because the MVP placeholder grid is straightforward but still path-based.",
+  "relatedGames": ["patches", "zip", "tango", "queens"],
+  "isVerified": false
+}

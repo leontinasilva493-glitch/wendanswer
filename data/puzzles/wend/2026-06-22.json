@@ -1,0 +1,57 @@
+{
+  "game": "wend",
+  "puzzleNumber": 14,
+  "date": "2026-06-22",
+  "dateLabel": "June 22, 2026",
+  "updatedAt": "2026-06-22T07:18:00Z",
+  "difficulty": "Easy",
+  "grid": [
+    ["S", "A", "F", "E", "R"],
+    ["T", "R", "A", "I", "L"],
+    ["O", "N", "E", "P", "A"],
+    ["C", "L", "U", "E", "S"],
+    ["H", "I", "N", "T", "S"]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Several words start on the left side of the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Look for short words that travel horizontally before dropping down."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "The bottom row can finish more than one answer path."
+    }
+  ],
+  "answers": [
+    {
+      "word": "SAFE",
+      "path": [[0, 0], [0, 1], [0, 2], [0, 3]]
+    },
+    {
+      "word": "TRAIL",
+      "path": [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4]]
+    },
+    {
+      "word": "CLUE",
+      "path": [[3, 0], [3, 1], [3, 2], [3, 3]]
+    },
+    {
+      "word": "HINTS",
+      "path": [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4]]
+    }
+  ],
+  "explanation": "The clean rows are the quickest way into this archived Wend puzzle. Solve the obvious rows first, then use the remaining letters to confirm the answer set.",
+  "quickHint": "Try the left-edge starts first.",
+  "fastTip": "Start with the straight rows and use them as anchors before checking any bends.",
+  "commonMistake": "Do not overthink the row-based paths; the obvious left-edge starts are useful here.",
+  "difficultyNote": "Easy because the strongest answer paths are mostly clean rows.",
+  "relatedGames": ["patches", "zip", "tango", "queens"],
+  "isVerified": true
+}

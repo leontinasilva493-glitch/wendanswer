@@ -1,0 +1,57 @@
+{
+  "game": "wend",
+  "puzzleNumber": 15,
+  "date": "2026-06-23",
+  "dateLabel": "June 23, 2026",
+  "updatedAt": "2026-06-23T07:20:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    ["E", "N", "R", "O", "E"],
+    ["T", "T", "P", "X", "W"],
+    ["O", "F", "U", "K", "R"],
+    ["N", "N", "N", "U", "O"],
+    ["Y", "N", "A", "L", "D"]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with the most constrained corner letters before working into the center."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "One path bends through the center, then returns toward an outside edge."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "The lower-right cluster is useful once the first two paths are placed."
+    }
+  ],
+  "answers": [
+    {
+      "word": "TONE",
+      "path": [[1, 0], [2, 0], [3, 0], [4, 0]]
+    },
+    {
+      "word": "TURN",
+      "path": [[1, 1], [2, 2], [3, 2], [3, 1]]
+    },
+    {
+      "word": "WORD",
+      "path": [[1, 4], [2, 4], [3, 4], [4, 4]]
+    },
+    {
+      "word": "PLAN",
+      "path": [[1, 2], [2, 2], [3, 3], [4, 2]]
+    }
+  ],
+  "explanation": "Begin by testing the clean edge paths, then use the center cells to connect the remaining short words. The full path is hidden by default so you can reveal only the amount of help you need.",
+  "quickHint": "Start from the corners, then solve inward.",
+  "fastTip": "Solve the shortest edge word first, then use the center cells only after the easy route is confirmed.",
+  "commonMistake": "A shared center letter can tempt you into the wrong turn, so confirm the full path length before locking it in.",
+  "difficultyNote": "Medium because several words look plausible before their path direction is confirmed.",
+  "relatedGames": ["patches", "zip", "tango", "queens"],
+  "isVerified": true
+}

@@ -1,0 +1,16 @@
+{
+  "game": "patches",
+  "puzzleNumber": 8,
+  "date": "2026-06-23",
+  "dateLabel": "June 23, 2026",
+  "difficulty": "Medium",
+  "hints": [
+    "Look for the most isolated patch first.",
+    "Group similar colors before testing the final arrangement.",
+    "The last move is easier if the center area stays flexible."
+  ],
+  "answer": "Today’s Patches solution is hidden until you reveal it.",
+  "explanation": "Start with fixed-looking edges, keep the central patch open, and only lock the final arrangement after checking each group.",
+  "isVerified": true,
+  "updatedAt": "2026-06-23T07:25:00Z"
+}

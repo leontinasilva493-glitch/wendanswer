@@ -1,0 +1,16 @@
+# WendAnswerToday.org
+
+This site provides spoiler-safe daily hints, answers, word paths, solver help, archives, and practice puzzles for LinkedIn Wend.
+
+Important pages:
+- /linkedin-wend-answer-today
+- /linkedin-wend-solver
+- /linkedin-wend-archive
+- /wend-unlimited
+- /where-is-linkedin-wend
+- /how-to-play-linkedin-wend
+- /how-to-solve-linkedin-wend
+- /faq
+- /contact
+
+This is an unofficial fan-made puzzle help site and is not affiliated with LinkedIn.
