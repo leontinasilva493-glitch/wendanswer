@@ -2,6 +2,27 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-25
+
+### P0 launch hardening
+
+- Added `data/puzzles/wend/2026-06-25.json` so the MVP no longer serves June 24 as the latest Wend entry on June 25.
+- Marked the June 25 entry as `isVerified: false`; replace it with verified real puzzle data before public promotion.
+- Added `scripts/generate-wend-puzzles.mjs` and `npm run generate:wend` to generate `src/lib/generated/wend-puzzles.ts` from every `data/puzzles/wend/YYYY-MM-DD.json` file.
+- Updated `src/lib/puzzles.ts` so `todayWend` comes from the generated newest-first list instead of a manually hard-coded dated import.
+- Added `prebuild` and `pretypecheck` hooks so the generated Wend index is refreshed before build/typecheck.
+- Locked all `package.json` dependencies and devDependencies to exact versions; no `latest`, `^`, or `~` ranges remain.
+- Synchronized `package-lock.json` after pinning versions.
+- Paused `/wend-unlimited` as a public SEO page because the current implementation is a single practice puzzle, not a true unlimited mode.
+- Removed `/wend-unlimited` from `RelatedGames`, `llms.txt`, `sitemap.ts`, and the main Today / how-to-solve user paths.
+- Set `/wend-unlimited` to `noindex,follow` and removed the non-functional `New Puzzle` and `Share` buttons.
+- Updated `tests/latest-date.test.mjs`, `tests/wend-mvp.test.mjs`, `tests/seo-metadata.test.mjs`, and `scripts/smoke-local.mjs` to guard the new behavior.
+
+### Known Risk
+
+- The June 25 Wend JSON is an unverified placeholder. Do not treat it as a final public answer until real puzzle data is checked.
+- `npm audit --omit=dev` reports two moderate issues from Next's internal `postcss` dependency range. npm's suggested automatic fix would install an incompatible old Next version, so this was not applied.
+
 ## 2026-06-24
 
 ### Centered MVP homepage redesign
@@ -114,4 +135,3 @@ npm run smoke:local
 These are known issues from the current audit and are not resolved by the June 24 data freshness change:
 
 - Add analytics, preferably Plausible for a lightweight MVP.
-- Pin `next`, `react`, `react-dom`, and other `latest` dependencies.

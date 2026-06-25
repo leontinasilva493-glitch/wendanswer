@@ -1,0 +1,57 @@
+{
+  "game": "wend",
+  "puzzleNumber": 17,
+  "date": "2026-06-25",
+  "dateLabel": "June 25, 2026",
+  "updatedAt": "2026-06-25T07:20:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    ["S", "T", "A", "R", "T"],
+    ["R", "O", "U", "T", "E"],
+    ["L", "I", "N", "K", "S"],
+    ["W", "O", "R", "D", "S"],
+    ["P", "A", "T", "H", "S"]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start by checking the clean edge paths before using the center row."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Several answer paths can be confirmed from left to right."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "Use the lower rows to confirm the final path after the first two words are clear."
+    }
+  ],
+  "answers": [
+    {
+      "word": "START",
+      "path": [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]]
+    },
+    {
+      "word": "ROUTE",
+      "path": [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4]]
+    },
+    {
+      "word": "LINKS",
+      "path": [[2, 0], [2, 1], [2, 2], [2, 3], [2, 4]]
+    },
+    {
+      "word": "WORDS",
+      "path": [[3, 0], [3, 1], [3, 2], [3, 3], [3, 4]]
+    }
+  ],
+  "explanation": "This June 25 Wend entry keeps the MVP daily update flow current while the verified real puzzle data is pending. Replace it with the checked answer set before public launch.",
+  "quickHint": "Start with the top edge path.",
+  "fastTip": "Confirm the obvious horizontal paths first, then compare the remaining row letters.",
+  "commonMistake": "Do not treat this unverified placeholder as a final public answer.",
+  "difficultyNote": "Medium placeholder difficulty until the real June 25 puzzle is verified.",
+  "relatedGames": [],
+  "isVerified": false
+}

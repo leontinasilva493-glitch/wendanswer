@@ -14,6 +14,7 @@ Open `http://127.0.0.1:3000`.
 ## Useful Commands
 
 ```bash
+npm run generate:wend
 npm run latest:wend
 npm run test:latest-date
 npm run test:wend-mvp
@@ -45,6 +46,7 @@ The MVP homepage is intentionally Wend-first and answer-first:
 Any functional change should update Markdown documentation in the same pass when it affects one of these areas:
 
 - Daily puzzle data, import paths, archive routes, or sitemap entries.
+- Dependency version pins or package-lock changes.
 - SEO metadata, canonical URLs, redirects, robots, sitemap, or social sharing previews.
 - Analytics, event tracking, launch checks, smoke tests, or build scripts.
 - User-facing game pages, solver behavior, archive behavior, or error/status pages.

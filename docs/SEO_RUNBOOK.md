@@ -61,7 +61,7 @@ Recommended intent split:
 - `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
-- `/wend-unlimited`: `Wend Unlimited Practice`
+- `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real unlimited mode exists.
 - `/linkedin-wend-answer-{slug}`: `LinkedIn Wend Answer #{number} - {date}`
 
 Avoid making every page compete for the same generic keyword.
@@ -93,7 +93,6 @@ Indexable:
 - Wend Archive.
 - Wend history detail pages.
 - Wend how-to pages.
-- Wend Unlimited.
 - FAQ, contact, status, and legal pages.
 
 Temporarily `noindex,follow`:
@@ -102,8 +101,9 @@ Temporarily `noindex,follow`:
 - `/linkedin-patches-archive`
 - `/linkedin-zip-answer-today`
 - `/linkedin-zip-solver`
+- `/wend-unlimited`
 
-Reason: Patches and Zip are not yet part of the verified daily update workflow. Keeping them accessible but out of search and out of primary navigation prevents thin or stale sample pages from diluting launch quality.
+Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited is paused during the MVP because the current page is a single practice puzzle, not a true unlimited generator. Keeping these routes accessible but out of search and out of primary navigation prevents thin or stale pages from diluting launch quality.
 
 To make Patches or Zip indexable later:
 
@@ -121,7 +121,6 @@ Current priorities:
 - `/linkedin-wend-answer-today`: `0.95`
 - `/linkedin-wend-solver`: `0.85`
 - `/linkedin-wend-archive`: `0.75`
-- `/wend-unlimited`: `0.7`
 - `/where-is-linkedin-wend`: `0.65`
 - Wend how-to pages: `0.65`
 - Wend history detail pages: `0.65`
@@ -146,4 +145,4 @@ Local spot checks:
 - Home HTML includes `og:image` and `twitter:image`.
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
-- Patches and Zip pages include `noindex, follow`.
+- Patches, Zip, and paused practice pages include `noindex, follow`.

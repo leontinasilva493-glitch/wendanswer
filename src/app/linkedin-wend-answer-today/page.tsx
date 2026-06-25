@@ -154,9 +154,9 @@ export default function WendTodayPage() {
           </span>
           <span>Finished today’s Wend?</span>
         </h2>
-        <p className="mt-2 text-slate-700">Try unofficial Wend-style practice puzzles without waiting for tomorrow.</p>
-        <Link className="btn btn-primary mt-4" href="/wend-unlimited">
-          Try Unlimited Practice
+        <p className="mt-2 text-slate-700">Browse previous Wend answers after finishing today's puzzle.</p>
+        <Link className="btn btn-primary mt-4" href="/linkedin-wend-archive">
+          View Wend Archive
         </Link>
       </section>
 

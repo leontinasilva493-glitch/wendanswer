@@ -1,9 +1,7 @@
-import wendToday from "../../data/puzzles/wend/2026-06-24.json";
-import wendPrevious from "../../data/puzzles/wend/2026-06-23.json";
-import wendOlder from "../../data/puzzles/wend/2026-06-22.json";
 import patchesToday from "../../data/puzzles/patches/2026-06-23.json";
 import zipToday from "../../data/puzzles/zip/2026-06-23.json";
 import { wendSlug } from "./dates";
+import { generatedWendPuzzles } from "./generated/wend-puzzles";
 
 export type Cell = [number, number];
 
@@ -46,7 +44,7 @@ export type SimplePuzzle = {
   path?: Cell[];
 };
 
-export const wendPuzzles = [wendToday, wendPrevious, wendOlder] as WendPuzzle[];
+export const wendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
 export const todayWend = wendPuzzles[0];
 export const todayPatches = patchesToday as SimplePuzzle;
 export const todayZip = zipToday as SimplePuzzle;

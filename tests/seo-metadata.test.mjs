@@ -34,6 +34,7 @@ assert.match(homeSource, /absoluteTitle:\s*true/, "homepage title should render 
 assert.doesNotMatch(homeSource, /todayWend\.grid\.flatMap/, "homepage should not show a fake interactive grid preview");
 assert.doesNotMatch(homeSource, /Today Snapshot/, "homepage should not add a separate snapshot card");
 assert.doesNotMatch(homeSource, /Wend plan/i, "homepage should not add a separate plan card");
+assert.doesNotMatch(homeSource, /wend-unlimited/, "homepage should not promote paused practice mode");
 assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should use a centered single-column layout");
 assert.match(homeSource, /<WendAnswerReveal puzzle=\{todayWend\}/, "homepage should surface the real answer reveal module");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
@@ -49,11 +50,13 @@ assert.match(answerRevealSource, /Clear all/, "answer reveal should include the 
 assert.match(answerRevealSource, /Get Word/, "answer reveal should reveal one word at a time");
 
 const relatedGamesSource = read("src/components/RelatedGames.tsx");
+assert.doesNotMatch(relatedGamesSource, /wend-unlimited/, "related links should not promote paused practice mode");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {
   assert.equal(relatedGamesSource.includes(secondaryGame), false, `related links should not promote ${secondaryGame}`);
 }
 
 const llmsSource = read("public/llms.txt");
+assert.doesNotMatch(llmsSource, /wend-unlimited/, "llms.txt should not promote paused practice mode");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {
   assert.equal(llmsSource.includes(secondaryGame), false, `llms.txt should not promote ${secondaryGame}`);
 }
@@ -70,6 +73,7 @@ for (const excluded of [
   "/linkedin-patches-archive",
   "/linkedin-zip-answer-today",
   "/linkedin-zip-solver",
+  "/wend-unlimited",
 ]) {
   assert.equal(
     sitemapSource.includes(`"${excluded}"`),
@@ -84,6 +88,7 @@ for (const file of [
   "src/app/linkedin-patches-archive/page.tsx",
   "src/app/linkedin-zip-answer-today/page.tsx",
   "src/app/linkedin-zip-solver/page.tsx",
+  "src/app/wend-unlimited/page.tsx",
 ]) {
   const source = read(file);
   assert.match(source, /robots:\s*noindexFollow/, `${file} should be noindex,follow until daily data is verified`);

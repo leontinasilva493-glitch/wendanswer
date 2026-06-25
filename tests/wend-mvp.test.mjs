@@ -25,16 +25,29 @@ for (const expected of ["content-card", "section-heading", "section-icon", "inne
   assert.match(globalCss, new RegExp(expected), `global styles should define ${expected}`);
 }
 
+const packageJson = JSON.parse(read("package.json"));
+for (const [groupName, group] of Object.entries({
+  dependencies: packageJson.dependencies,
+  devDependencies: packageJson.devDependencies,
+})) {
+  for (const [name, version] of Object.entries(group)) {
+    assert.notEqual(version, "latest", `${groupName}.${name} should be pinned, not latest`);
+    assert.doesNotMatch(version, /^[\^~]/, `${groupName}.${name} should use an exact version`);
+  }
+}
+
 const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");
 assert.match(todaySource, /WendAnswerReveal/, "Today page should use WendAnswerReveal");
 assert.match(todaySource, /Save your streak without spoiling/, "Today page should lead with the streak-safe positioning");
 assert.doesNotMatch(todaySource, /<WendSolver puzzle=\{todayWend\}/, "Today answer page should not use the generic solver as the primary answer reveal");
 assert.match(todaySource, /content-card/, "Today page should separate major modules with card borders");
+assert.doesNotMatch(todaySource, /wend-unlimited/, "Today page should not promote paused practice mode");
 
 const homeSource = read("src/app/page.tsx");
 assert.match(homeSource, /Save your streak without spoiling/, "Homepage hero should lead with the streak-safe positioning");
 assert.match(homeSource, /<WendAnswerReveal puzzle=\{todayWend\}/, "Homepage should place the real answer reveal under the hero");
 assert.doesNotMatch(homeSource, /Today Snapshot|Wend plan/i, "Homepage should not use a separate right-side plan or snapshot card");
+assert.doesNotMatch(homeSource, /wend-unlimited/, "Homepage should not promote paused practice mode");
 
 const archiveDetailSource = read("src/app/[slug]/page.tsx");
 assert.match(archiveDetailSource, /WendAnswerReveal/, "History detail pages should use WendAnswerReveal");

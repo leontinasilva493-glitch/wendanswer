@@ -1,12 +1,11 @@
 # WendAnswerToday.org
 
-This site provides spoiler-safe daily hints, answers, word paths, solver help, archives, and practice puzzles for LinkedIn Wend.
+This site provides spoiler-safe daily hints, answers, word paths, solver help, and archives for LinkedIn Wend.
 
 Important pages:
 - /linkedin-wend-answer-today
 - /linkedin-wend-solver
 - /linkedin-wend-archive
-- /wend-unlimited
 - /where-is-linkedin-wend
 - /how-to-play-linkedin-wend
 - /how-to-solve-linkedin-wend

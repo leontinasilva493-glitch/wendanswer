@@ -17,7 +17,7 @@ YYYY-MM-DD.json
 Example:
 
 ```text
-data/puzzles/wend/2026-06-24.json
+data/puzzles/wend/2026-06-25.json
 ```
 
 2. Fill the JSON fields carefully:
@@ -38,12 +38,17 @@ data/puzzles/wend/2026-06-24.json
 - `relatedGames`
 - `isVerified`
 
-3. Update `src/lib/puzzles.ts` so the newest Wend JSON is imported as `wendToday`.
+3. Regenerate the Wend puzzle index:
 
-The order should stay newest first:
+```bash
+npm run generate:wend
+```
+
+This updates `src/lib/generated/wend-puzzles.ts` from every `YYYY-MM-DD.json` file under `data/puzzles/wend/`.
+Do not hand-edit dated Wend imports in `src/lib/puzzles.ts`; `todayWend` comes from the generated newest-first list:
 
 ```ts
-export const wendPuzzles = [wendToday, wendPrevious, wendOlder] as WendPuzzle[];
+export const wendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
 export const todayWend = wendPuzzles[0];
 ```
 
@@ -69,9 +74,9 @@ Expected output shape:
 
 ```json
 {
-  "latestDate": "2026-06-24",
-  "latestFile": "data\\puzzles\\wend\\2026-06-24.json",
-  "count": 3
+  "latestDate": "2026-06-25",
+  "latestFile": "data\\puzzles\\wend\\2026-06-25.json",
+  "count": 4
 }
 ```
 
@@ -86,6 +91,7 @@ If the latest date is wrong, check:
 Run these before considering the daily update done:
 
 ```bash
+npm run generate:wend
 npm run test:latest-date
 npm run test:wend-mvp
 npm run test:seo-metadata
@@ -110,7 +116,7 @@ Open these pages locally:
 
 - `http://127.0.0.1:3000/`
 - `http://127.0.0.1:3000/linkedin-wend-answer-today`
-- The newest Wend archive detail page, for example `http://127.0.0.1:3000/linkedin-wend-answer-16-june-24-2026`
+- The newest Wend archive detail page, for example `http://127.0.0.1:3000/linkedin-wend-answer-17-june-25-2026`
 
 Confirm the visible page shows the newest date and puzzle number.
 
@@ -118,8 +124,9 @@ Confirm the visible page shows the newest date and puzzle number.
 
 If the Today page shows yesterday's puzzle:
 
-- Check `src/lib/puzzles.ts` imports.
+- Run `npm run generate:wend`.
 - Run `npm run latest:wend`.
+- Check `src/lib/generated/wend-puzzles.ts` lists the newest JSON first.
 - Confirm `todayWend = wendPuzzles[0]`.
 - Restart `npm run dev` if the dev server was already running.
 

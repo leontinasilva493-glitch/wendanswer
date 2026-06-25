@@ -8,7 +8,6 @@ const staticPaths = [
   "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
-  "/wend-unlimited",
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",
   "/how-to-solve-linkedin-wend",
@@ -25,7 +24,6 @@ function priorityForPath(path: string) {
   if (path === "/linkedin-wend-answer-today") return 0.95;
   if (path === "/linkedin-wend-solver") return 0.85;
   if (path === "/linkedin-wend-archive") return 0.75;
-  if (path === "/wend-unlimited") return 0.7;
   if (path === "/where-is-linkedin-wend") return 0.65;
   if (path.startsWith("/how-to-")) return 0.65;
   if (["/faq", "/contact", "/status"].includes(path)) return 0.4;

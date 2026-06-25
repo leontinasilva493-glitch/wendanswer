@@ -33,8 +33,8 @@ export default function HowToSolveWendPage() {
         <Link className="chip" href="/linkedin-wend-solver">
           Open Wend Solver
         </Link>
-        <Link className="chip" href="/wend-unlimited">
-          Practice
+        <Link className="chip" href="/linkedin-wend-archive">
+          View Archive
         </Link>
       </section>
     </main>

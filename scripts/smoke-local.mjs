@@ -5,8 +5,8 @@ const paths = [
   "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
+  "/linkedin-wend-answer-17-june-25-2026",
   "/linkedin-wend-answer-16-june-24-2026",
-  "/wend-unlimited",
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",
   "/how-to-solve-linkedin-wend",
@@ -26,6 +26,7 @@ const noindexPaths = [
   "/linkedin-patches-archive",
   "/linkedin-zip-answer-today",
   "/linkedin-zip-solver",
+  "/wend-unlimited",
 ];
 
 const redirectChecks = [

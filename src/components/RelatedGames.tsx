@@ -9,7 +9,6 @@ export function RelatedGames() {
     ["Find Wend", "/where-is-linkedin-wend"],
     ["How to Play", "/how-to-play-linkedin-wend"],
     ["Solving Tips", "/how-to-solve-linkedin-wend"],
-    ["Unlimited Practice", "/wend-unlimited"],
   ];
 
   return (
