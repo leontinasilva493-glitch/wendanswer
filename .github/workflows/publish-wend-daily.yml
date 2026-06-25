@@ -1,0 +1,22 @@
+name: Publish Wend Daily
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  publish-wend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run publish:wend
+        env:
+          WEND_DAILY_SOURCE_URL: ${{ secrets.WEND_DAILY_SOURCE_URL }}
+          WEND_DEPLOY_COMMAND: ${{ secrets.WEND_DEPLOY_COMMAND }}

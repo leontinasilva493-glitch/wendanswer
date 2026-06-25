@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
-import { findWendBySlug, getWendNeighbors, wendPuzzles } from "@/lib/puzzles";
+import { findWendByArchiveSlug, findWendBySlug, getWendNeighbors, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, pageMetadata } from "@/lib/seo";
-import { wendSlug } from "@/lib/dates";
+import { wendArchiveSlug } from "@/lib/dates";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -15,20 +15,25 @@ type PageProps = {
 
 export function generateStaticParams() {
   return wendPuzzles.map((puzzle) => ({
-    slug: `linkedin-wend-answer-${wendSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`,
+    slug: wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel),
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const puzzleSlug = slug.replace(/^linkedin-wend-answer-/, "");
-  const puzzle = findWendBySlug(puzzleSlug);
+  const puzzle =
+    slug.startsWith("wend-answer-puzzle-")
+      ? findWendByArchiveSlug(slug)
+      : slug.startsWith("linkedin-wend-answer-")
+        ? findWendBySlug(slug.replace(/^linkedin-wend-answer-/, ""))
+        : null;
   if (!puzzle) return {};
 
+  const canonicalSlug = wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel);
   return pageMetadata({
     title: `LinkedIn Wend Answer #${puzzle.puzzleNumber} - ${puzzle.dateLabel}`,
     description: `Archived LinkedIn Wend answer for ${puzzle.dateLabel}, including spoiler-safe hints, word path, solver, and explanation.`,
-    path: `/${slug}`,
+    path: `/${canonicalSlug}`,
     type: "article",
     imageTitle: `LinkedIn Wend Answer #${puzzle.puzzleNumber}`,
     imageSubtitle: puzzle.dateLabel,
@@ -39,13 +44,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function WendArchiveDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  if (!slug.startsWith("linkedin-wend-answer-")) notFound();
-  const puzzleSlug = slug.replace(/^linkedin-wend-answer-/, "");
-  const puzzle = findWendBySlug(puzzleSlug);
+  if (!slug.startsWith("wend-answer-puzzle-") && !slug.startsWith("linkedin-wend-answer-")) notFound();
+
+  if (slug.startsWith("linkedin-wend-answer-")) {
+    const puzzleSlug = slug.replace(/^linkedin-wend-answer-/, "");
+    const legacyPuzzle = findWendBySlug(puzzleSlug);
+    if (!legacyPuzzle) notFound();
+    permanentRedirect(`/${wendArchiveSlug(legacyPuzzle.puzzleNumber, legacyPuzzle.dateLabel)}`);
+  }
+
+  const puzzle = findWendByArchiveSlug(slug);
   if (!puzzle) notFound();
 
   const neighbors = getWendNeighbors(puzzle.puzzleNumber);
-  const path = `/${slug}`;
+  const path = `/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`;
 
   return (
     <main className="page-shell">
@@ -105,12 +117,12 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
 
       <section className="section flex flex-wrap gap-2">
         {neighbors.previous ? (
-          <Link className="chip" href={`/linkedin-wend-answer-${wendSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
+          <Link className="chip" href={`/${wendArchiveSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
             Previous puzzle
           </Link>
         ) : null}
         {neighbors.next ? (
-          <Link className="chip" href={`/linkedin-wend-answer-${wendSlug(neighbors.next.puzzleNumber, neighbors.next.dateLabel)}`}>
+          <Link className="chip" href={`/${wendArchiveSlug(neighbors.next.puzzleNumber, neighbors.next.dateLabel)}`}>
             Next puzzle
           </Link>
         ) : null}

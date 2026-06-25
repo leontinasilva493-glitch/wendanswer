@@ -5,8 +5,8 @@ const paths = [
   "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
-  "/linkedin-wend-answer-17-june-25-2026",
-  "/linkedin-wend-answer-16-june-24-2026",
+  "/wend-answer-puzzle-17-june-25-2026",
+  "/wend-answer-puzzle-16-june-24-2026",
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",
   "/how-to-solve-linkedin-wend",
@@ -34,6 +34,11 @@ const redirectChecks = [
     path: "/linkedin-games-answers-today",
     status: 301,
     destinationPath: "/",
+  },
+  {
+    path: "/linkedin-wend-answer-17-june-25-2026",
+    status: 308,
+    destinationPath: "/wend-answer-puzzle-17-june-25-2026",
   },
 ];
 

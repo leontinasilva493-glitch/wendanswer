@@ -5,7 +5,7 @@ import { RelatedGames } from "@/components/RelatedGames";
 import { WendSolver } from "@/components/WendSolver";
 import { getWendNeighbors, todayWend } from "@/lib/puzzles";
 import { breadcrumbJson, pageMetadata } from "@/lib/seo";
-import { wendSlug } from "@/lib/dates";
+import { wendArchiveSlug } from "@/lib/dates";
 
 export const metadata: Metadata = pageMetadata({
   title: "LinkedIn Wend Solver for Today's Puzzle",
@@ -41,7 +41,7 @@ export default function WendSolverPage() {
 
       <section className="section flex flex-wrap gap-2">
         {neighbors.previous ? (
-          <Link className="chip" href={`/linkedin-wend-answer-${wendSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
+          <Link className="chip" href={`/${wendArchiveSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
             Previous puzzle
           </Link>
         ) : null}

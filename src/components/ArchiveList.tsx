@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { WendPuzzle } from "@/lib/puzzles";
-import { wendSlug } from "@/lib/dates";
+import { wendArchiveSlug } from "@/lib/dates";
 
 export function ArchiveList({ puzzles }: { puzzles: WendPuzzle[] }) {
   return (
@@ -18,7 +18,7 @@ export function ArchiveList({ puzzles }: { puzzles: WendPuzzle[] }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 sm:justify-end">
-            <Link className="chip" href={`/linkedin-wend-answer-${wendSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}>
+            <Link className="chip" href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}>
               View answer
             </Link>
             <Link className="chip" href="/linkedin-wend-solver">

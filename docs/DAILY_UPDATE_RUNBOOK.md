@@ -1,10 +1,34 @@
 # Daily Update Runbook
 
-Use this runbook during the first 14 launch days to keep the daily pages fresh and make local failures easy to trace.
+Use this runbook during the first 14 launch days to keep the daily pages fresh, fast, and easy to trace.
 
 ## Goal
 
-Publish the newest daily puzzle data, confirm the correct page is served locally, and keep a small record of what changed.
+Publish the newest verified daily puzzle data within five minutes of the 8:00 UTC Wend reset, confirm the correct pages are served locally, and keep a small record of what changed.
+
+## Fast Publish Target
+
+The daily operating target is:
+
+- 8:00 UTC: Wend is expected to release a new puzzle.
+- 8:00-8:05 UTC: publish verified data to the site.
+- If the official page is slow, blocked, or ambiguous, do not publish placeholder data as verified.
+
+The automated entry point is:
+
+```bash
+npm run publish:wend
+```
+
+The script supports these environment variables:
+
+- `WEND_DAILY_SOURCE_URL`: normalized official-page capture that returns the daily Wend JSON, or an HTML page containing a `wend-puzzle-data` JSON script tag.
+- `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing.
+- `WEND_DEPLOY_COMMAND`: optional deployment command to run after generation and fast tests.
+- `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
+- `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
+
+GitHub Actions runs `.github/workflows/publish-wend-daily.yml` every day at `0 8 * * *` UTC and can also be triggered manually.
 
 ## Wend Daily Data Update
 
@@ -53,6 +77,20 @@ export const todayWend = wendPuzzles[0];
 ```
 
 4. If the new puzzle creates a new archive detail page slug, add that route to `scripts/smoke-local.mjs` so local smoke testing covers it.
+
+Canonical archive URLs use this format:
+
+```text
+/wend-answer-puzzle-{puzzleNumber}-{month-day-year}
+```
+
+Example:
+
+```text
+/wend-answer-puzzle-17-june-25-2026
+```
+
+The older `/linkedin-wend-answer-{number}-{date}` URLs are legacy and should redirect to the canonical archive URL.
 
 5. Update `docs/CHANGELOG.md` with:
 
@@ -116,7 +154,8 @@ Open these pages locally:
 
 - `http://127.0.0.1:3000/`
 - `http://127.0.0.1:3000/linkedin-wend-answer-today`
-- The newest Wend archive detail page, for example `http://127.0.0.1:3000/linkedin-wend-answer-17-june-25-2026`
+- The newest Wend archive detail page, for example `http://127.0.0.1:3000/wend-answer-puzzle-17-june-25-2026`
+- The matching legacy archive URL redirects, for example `http://127.0.0.1:3000/linkedin-wend-answer-17-june-25-2026`
 
 Confirm the visible page shows the newest date and puzzle number.
 
@@ -132,8 +171,8 @@ If the Today page shows yesterday's puzzle:
 
 If a new archive page returns 404:
 
-- Confirm `findWendBySlug()` can find the puzzle.
-- Confirm the generated slug matches the expected route.
+- Confirm `findWendByArchiveSlug()` can find the puzzle.
+- Confirm the generated slug matches `/wend-answer-puzzle-{number}-{date}`.
 - Confirm the puzzle is included in `wendPuzzles`.
 
 If smoke testing fails:

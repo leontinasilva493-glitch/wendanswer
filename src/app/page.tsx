@@ -4,7 +4,7 @@ import { ArrowRight, CircleHelp, Lightbulb, ListChecks, Route, Zap } from "lucid
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
-import { wendSlug } from "@/lib/dates";
+import { wendArchiveSlug } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
 
@@ -163,7 +163,7 @@ export default function HomePage() {
           {recentPuzzles.map((puzzle) => (
             <Link
               className="inner-card block p-4 transition hover:border-brand"
-              href={`/linkedin-wend-answer-${wendSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}
+              href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}
               key={puzzle.date}
             >
               <div className="flex items-start justify-between gap-3">

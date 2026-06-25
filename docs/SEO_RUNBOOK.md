@@ -62,7 +62,7 @@ Recommended intent split:
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
 - `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real unlimited mode exists.
-- `/linkedin-wend-answer-{slug}`: `LinkedIn Wend Answer #{number} - {date}`
+- `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
 Avoid making every page compete for the same generic keyword.
 
@@ -113,6 +113,16 @@ To make Patches or Zip indexable later:
 4. Update `scripts/smoke-local.mjs`.
 5. Run the full verification commands.
 
+## Wend URL Strategy
+
+Use one permanent high-authority daily URL plus canonical dated archives:
+
+- Daily evergreen URL: `/linkedin-wend-answer-today`
+- Archive URL pattern: `/wend-answer-puzzle-{puzzleNumber}-{month-day-year}`
+- Example archive URL: `/wend-answer-puzzle-17-june-25-2026`
+
+The sitemap should publish only canonical archive URLs. Legacy archive URLs shaped like `/linkedin-wend-answer-{number}-{date}` should redirect to the matching canonical archive page to avoid duplicate indexed answer pages.
+
 ## Sitemap Priorities
 
 Current priorities:
@@ -145,4 +155,5 @@ Local spot checks:
 - Home HTML includes `og:image` and `twitter:image`.
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
+- `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
 - Patches, Zip, and paused practice pages include `noindex, follow`.

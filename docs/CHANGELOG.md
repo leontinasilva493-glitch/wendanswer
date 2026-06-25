@@ -4,6 +4,17 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-25
 
+### Wend fast publishing and canonical archive URLs
+
+- Added `scripts/publish-wend-daily.mjs` and `npm run publish:wend` as the daily automation entry point for publishing verified Wend data inside the five-minute post-reset window.
+- Added `.github/workflows/publish-wend-daily.yml` to run the publish command every day at 8:00 UTC and via manual workflow dispatch.
+- The publish script validates required JSON fields, refuses unverified public data by default, regenerates `src/lib/generated/wend-puzzles.ts`, runs fast route/data tests, and can run an optional deployment command through `WEND_DEPLOY_COMMAND`.
+- Added canonical archive URL support using `/wend-answer-puzzle-{number}-{month-day-year}`, for example `/wend-answer-puzzle-17-june-25-2026`.
+- Updated archive links, sitemap entries, static params, neighboring puzzle links, and smoke coverage to use the canonical archive URL.
+- Legacy `/linkedin-wend-answer-{number}-{date}` archive URLs now redirect to the matching canonical archive URL.
+- Added `tests/wend-archive-url.test.mjs` and `tests/wend-publish-automation.test.mjs` with npm scripts to guard the new URL and automation behavior.
+- Updated `README.md`, `docs/DAILY_UPDATE_RUNBOOK.md`, and `docs/SEO_RUNBOOK.md` with the fast publish workflow and canonical URL rules.
+
 ### P0 launch hardening
 
 - Added `data/puzzles/wend/2026-06-25.json` so the MVP no longer serves June 24 as the latest Wend entry on June 25.

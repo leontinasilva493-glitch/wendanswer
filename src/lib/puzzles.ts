@@ -1,6 +1,6 @@
 import patchesToday from "../../data/puzzles/patches/2026-06-23.json";
 import zipToday from "../../data/puzzles/zip/2026-06-23.json";
-import { wendSlug } from "./dates";
+import { wendArchiveSlug, wendSlug } from "./dates";
 import { generatedWendPuzzles } from "./generated/wend-puzzles";
 
 export type Cell = [number, number];
@@ -85,6 +85,12 @@ export const games = [
 export function findWendBySlug(slug: string) {
   return wendPuzzles.find(
     (puzzle) => wendSlug(puzzle.puzzleNumber, puzzle.dateLabel) === slug,
+  );
+}
+
+export function findWendByArchiveSlug(slug: string) {
+  return wendPuzzles.find(
+    (puzzle) => wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel) === slug,
   );
 }
 

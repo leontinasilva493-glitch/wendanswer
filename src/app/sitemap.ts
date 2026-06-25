@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
-import { wendSlug } from "@/lib/dates";
+import { wendArchiveSlug } from "@/lib/dates";
 import { wendPuzzles } from "@/lib/puzzles";
 
 const staticPaths = [
@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const history = wendPuzzles.map((puzzle) => ({
-    url: `${site.url}/linkedin-wend-answer-${wendSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`,
+    url: `${site.url}/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`,
     lastModified: new Date(puzzle.updatedAt),
     changeFrequency: "monthly" as const,
     priority: 0.65,
