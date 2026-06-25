@@ -7,3 +7,5 @@ dist
 *.tsbuildinfo
 *.docx
 自用/
+
+.vercel
