@@ -1,0 +1,67 @@
+{
+  "game": "wend",
+  "puzzleNumber": 18,
+  "date": "2026-06-26",
+  "dateLabel": "June 26, 2026",
+  "updatedAt": "2026-06-26T07:00:22Z",
+  "difficulty": "Medium",
+  "grid": [
+    [null, null, "A", "D", "D", null, null],
+    [null, null, "E", "R", "P", null, null],
+    ["U", "I", "M", "C", "A", "R", "T"],
+    ["M", "A", "E", "R", "E", "V", "X"],
+    ["E", "T", "S", "U", "T", "I", "E"],
+    [null, null, "P", "L", "I", null, null],
+    [null, null, "P", "O", "S", null, null]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "The three-letter word is on the top row."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Several longer answers snake around the center instead of reading straight across."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "The eight-letter answer starts from the bottom center and finishes in the middle-right cluster."
+    }
+  ],
+  "answers": [
+    {
+      "word": "ADD",
+      "path": [[0, 2], [0, 3], [0, 4]]
+    },
+    {
+      "word": "PLUS",
+      "path": [[5, 2], [5, 3], [4, 3], [4, 2]]
+    },
+    {
+      "word": "EXTRA",
+      "path": [[4, 6], [3, 6], [2, 6], [2, 5], [2, 4]]
+    },
+    {
+      "word": "CREATE",
+      "path": [[2, 3], [3, 3], [3, 2], [3, 1], [4, 1], [4, 0]]
+    },
+    {
+      "word": "PREMIUM",
+      "path": [[1, 4], [1, 3], [1, 2], [2, 2], [2, 1], [2, 0], [3, 0]]
+    },
+    {
+      "word": "POSITIVE",
+      "path": [[6, 2], [6, 3], [6, 4], [5, 4], [4, 4], [4, 5], [3, 5], [3, 4]]
+    }
+  ],
+  "explanation": "The June 26 Wend solution uses every open cell exactly once: ADD fills the top row, PLUS bends upward from the lower center, EXTRA climbs the right edge, CREATE turns through the center-left, PREMIUM runs from the upper middle into the left side, and POSITIVE starts at the bottom before ending in the middle-right cluster.",
+  "quickHint": "Start with ADD on the top row, then look for PLUS near the lower center.",
+  "fastTip": "Lock in ADD and PLUS first; their paths are highly constrained by the blocked corners.",
+  "commonMistake": "Do not treat the seven-column board as a 5x5 or 6x6 grid. The June 26 puzzle is a 7x7 LinkedIn Wend board with blocked corner cells.",
+  "difficultyNote": "Medium because the open center gives several plausible turns before the long words are confirmed.",
+  "relatedGames": ["patches", "zip", "tango", "queens"],
+  "isVerified": true
+}

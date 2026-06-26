@@ -10,6 +10,7 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
 
   const nextWord = puzzle.answers.find((answer) => !visibleWords.has(answer.word));
   const firstLetter = puzzle.answers[0]?.path[0];
+  const progress = puzzle.answers.length === 0 ? 0 : (visibleWords.size / puzzle.answers.length) * 100;
 
   const wordSet = useMemo(() => new Set(visibleWords), [visibleWords]);
   const letterSet = useMemo(() => new Set(visibleLetters), [visibleLetters]);
@@ -64,7 +65,7 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
           <div className="mt-3 h-2 rounded-full bg-slate-100">
             <div
               className="h-2 rounded-full bg-success"
-              style={{ width: `${(visibleWords.size / puzzle.answers.length) * 100}%` }}
+              style={{ width: `${progress}%` }}
             />
           </div>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">

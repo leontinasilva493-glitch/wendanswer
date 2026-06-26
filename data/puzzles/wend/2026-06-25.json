@@ -17,25 +17,46 @@
     {
       "level": 1,
       "title": "Gentle nudge",
-      "text": "This board has the same 6x6 letter layout and blocked cells shown in the LinkedIn screenshot."
+      "text": "The shortest answer starts on the top row and runs left across the corner."
     },
     {
       "level": 2,
       "title": "Direction clue",
-      "text": "Official answer paths are still pending verification."
+      "text": "One six-letter word runs from the top row down the right edge."
     },
     {
       "level": 3,
       "title": "Almost there",
-      "text": "Do not use the old placeholder answer set for this LinkedIn board."
+      "text": "The longest answer starts on Q and bends through the lower-right letters."
     }
   ],
-  "answers": [],
-  "explanation": "The visible board now matches the LinkedIn Wend screenshot: a 6x6 letter grid with two gray blocked-wall regions. Official answer words and paths are intentionally withheld until verified.",
-  "quickHint": "Board captured from the LinkedIn screenshot; answers pending verification.",
-  "fastTip": "Use only verified official paths before publishing answer reveals.",
-  "commonMistake": "Do not reuse the old placeholder 5x5 answer set for the real LinkedIn board.",
-  "difficultyNote": "Pending until the official answer word lengths and paths are verified.",
+  "answers": [
+    {
+      "word": "TOY",
+      "path": [[0, 2], [0, 1], [0, 0]]
+    },
+    {
+      "word": "RACK",
+      "path": [[5, 1], [5, 2], [5, 3], [5, 4]]
+    },
+    {
+      "word": "SPIRAL",
+      "path": [[0, 3], [0, 4], [0, 5], [1, 5], [2, 5], [3, 5]]
+    },
+    {
+      "word": "AUCTION",
+      "path": [[2, 1], [1, 1], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]
+    },
+    {
+      "word": "QUANTITY",
+      "path": [[3, 2], [2, 2], [2, 3], [3, 3], [3, 4], [4, 4], [4, 5], [5, 5]]
+    }
+  ],
+  "explanation": "The June 25 Wend board uses every open letter exactly once: TOY clears the top-left edge, RACK clears the bottom center, SPIRAL runs across the top-right into the right edge, AUCTION bends down the left side, and QUANTITY starts at Q before turning through the lower-right letters.",
+  "quickHint": "Start with TOY on the top row, then use the long Q path last.",
+  "fastTip": "Clear TOY and RACK first; they are constrained edge paths and reduce the remaining route quickly.",
+  "commonMistake": "Do not send AUCTION through the center U. That U belongs to QUANTITY.",
+  "difficultyNote": "Medium because repeated A, U, T, and I letters make several tempting false turns.",
   "relatedGames": [],
-  "isVerified": false
+  "isVerified": true
 }

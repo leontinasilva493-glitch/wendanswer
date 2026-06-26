@@ -7,11 +7,15 @@ This file records changes that are useful for debugging, rollback decisions, and
 ### LinkedIn Wend board parity investigation
 
 - Replaced the June 25 placeholder 5x5 Wend grid with the 6x6 letter layout and gray blocked-cell regions shown in the LinkedIn screenshot.
+- Added the June 26 Wend #18 verified 7x7 board, blocked cells, answer words, and official path coordinates: `ADD`, `PLUS`, `EXTRA`, `CREATE`, `PREMIUM`, and `POSITIVE`.
+- Filled the June 25 Wend #17 verified answer words and paths: `TOY`, `RACK`, `SPIRAL`, `AUCTION`, and `QUANTITY`.
 - Updated `WendGrid` to render variable board sizes, LinkedIn-style light square cells, and connected gray wall blocks with dark borders instead of hard-coded 5-column card tiles.
+- Removed the custom site watermark from the rendered Wend board so the game surface is closer to LinkedIn's native board.
+- Fixed the proxy rule that accidentally redirected `/linkedin-wend-answer-today` as if it were an old dated archive URL.
 - Changed Wend grid data to allow `null` blocked cells and updated TypeScript types accordingly.
 - Strengthened publish validation to follow LinkedIn's orthogonal adjacency rule, reject paths through blocked cells, reject overlapping answer paths, and require every open cell to be used exactly once before verified publication.
-- Added `tests/wend-linkedin-parity.test.mjs` to guard against regressing back to the placeholder 5x5 board.
-- Kept the June 25 puzzle `isVerified: false` and removed the old placeholder answers instead of inventing unverified answer words or paths.
+- Added `tests/wend-linkedin-parity.test.mjs` to guard against regressing back to the placeholder 5x5 board or stale daily data.
+- Updated the latest-date expectation so `todayWend` resolves to June 26 / Wend #18 instead of June 25 / Wend #17.
 
 ### Wend publish reliability hardening
 

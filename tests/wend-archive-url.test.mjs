@@ -27,6 +27,11 @@ assert.match(
 );
 assert.match(
   proxySource,
+  /\^\\d\+-/,
+  "proxy should only redirect numbered legacy archive URLs, not /linkedin-wend-answer-today",
+);
+assert.match(
+  proxySource,
   /canonicalWendArchivePrefix = "\/wend-answer-puzzle-"/,
   "legacy Wend archive redirects should point to canonical archive URLs",
 );

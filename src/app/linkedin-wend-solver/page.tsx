@@ -10,7 +10,7 @@ import { wendArchiveSlug } from "@/lib/dates";
 export const metadata: Metadata = pageMetadata({
   title: "LinkedIn Wend Solver for Today's Puzzle",
   description:
-    "Use a spoiler-safe LinkedIn Wend solver with a custom 5x5 grid, reveal one letter, reveal one word, reveal all paths, and clear the board.",
+    "Use a spoiler-safe LinkedIn Wend solver with the current LinkedIn board shape, reveal one letter, reveal one word, reveal all paths, and clear the board.",
   path: "/linkedin-wend-solver",
   imageTitle: "LinkedIn Wend Solver",
   imageSubtitle: `${todayWend.dateLabel} - Puzzle #${todayWend.puzzleNumber}`,

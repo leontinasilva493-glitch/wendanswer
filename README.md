@@ -62,7 +62,7 @@ The source URL is expected to be a normalized, verified Wend JSON source. Do not
 
 Wend pages should mirror LinkedIn's real board, not placeholder examples:
 
-- Use the actual LinkedIn grid dimensions for that day. The current captured board is 6x6.
+- Use the actual LinkedIn grid dimensions for that day. Recent captured boards include June 25's 6x6 board and June 26's 7x7 board.
 - Represent blocked gray wall cells as `null` in `grid`.
 - Keep open letter cells as one-letter strings.
 - Do not publish answer words or paths unless they are verified against the official puzzle.

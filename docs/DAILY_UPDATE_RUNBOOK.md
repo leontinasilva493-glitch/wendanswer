@@ -78,7 +78,7 @@ YYYY-MM-DD.json
 Example:
 
 ```text
-data/puzzles/wend/2026-06-25.json
+data/puzzles/wend/2026-06-26.json
 ```
 
 2. Fill the JSON fields carefully:
@@ -124,7 +124,7 @@ Canonical archive URLs use this format:
 Example:
 
 ```text
-/wend-answer-puzzle-17-june-25-2026
+/wend-answer-puzzle-18-june-26-2026
 ```
 
 The older `/linkedin-wend-answer-{number}-{date}` URLs are legacy and should redirect to the canonical archive URL.
@@ -149,9 +149,9 @@ Expected output shape:
 
 ```json
 {
-  "latestDate": "2026-06-25",
-  "latestFile": "data\\puzzles\\wend\\2026-06-25.json",
-  "count": 4
+  "latestDate": "2026-06-26",
+  "latestFile": "data\\puzzles\\wend\\2026-06-26.json",
+  "count": 5
 }
 ```
 
@@ -194,8 +194,8 @@ Open these pages locally:
 
 - `http://127.0.0.1:3000/`
 - `http://127.0.0.1:3000/linkedin-wend-answer-today`
-- The newest Wend archive detail page, for example `http://127.0.0.1:3000/wend-answer-puzzle-17-june-25-2026`
-- The matching legacy archive URL redirects, for example `http://127.0.0.1:3000/linkedin-wend-answer-17-june-25-2026`
+- The newest Wend archive detail page, for example `http://127.0.0.1:3000/wend-answer-puzzle-18-june-26-2026`
+- The matching legacy archive URL redirects, for example `http://127.0.0.1:3000/linkedin-wend-answer-18-june-26-2026`
 
 Confirm the visible page shows the newest date and puzzle number.
 

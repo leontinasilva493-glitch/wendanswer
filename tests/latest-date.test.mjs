@@ -16,10 +16,10 @@ const result = JSON.parse(output);
 const generatedSource = fs.readFileSync(path.join(root, "src/lib/generated/wend-puzzles.ts"), "utf8");
 const puzzleSource = fs.readFileSync(path.join(root, "src/lib/puzzles.ts"), "utf8");
 
-assert.equal(result.latestDate, "2026-06-25");
-assert.equal(result.latestFile, path.normalize("data/puzzles/wend/2026-06-25.json"));
-assert.equal(result.count, 4);
-assert.match(generatedSource, /2026-06-25\.json/, "generated Wend index should import the latest JSON first");
+assert.equal(result.latestDate, "2026-06-26");
+assert.equal(result.latestFile, path.normalize("data/puzzles/wend/2026-06-26.json"));
+assert.equal(result.count, 5);
+assert.match(generatedSource, /2026-06-26\.json/, "generated Wend index should import the latest JSON first");
 assert.match(generatedSource, /generatedWendPuzzles/, "generated Wend index should export generatedWendPuzzles");
 assert.doesNotMatch(
   puzzleSource,

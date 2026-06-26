@@ -7,6 +7,8 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (pathname.startsWith(legacyWendArchivePrefix)) {
     const slug = pathname.slice(legacyWendArchivePrefix.length);
+    if (!/^\d+-/.test(slug)) return NextResponse.next();
+
     const url = request.nextUrl.clone();
     url.pathname = `${canonicalWendArchivePrefix}${slug}`;
     return NextResponse.redirect(url, 308);

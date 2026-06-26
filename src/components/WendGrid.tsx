@@ -100,7 +100,6 @@ export function WendGrid({
           }),
         )}
       </div>
-      <p className="mt-2 text-center text-xs text-slate-500">wendanswertoday.org</p>
     </div>
   );
 }
