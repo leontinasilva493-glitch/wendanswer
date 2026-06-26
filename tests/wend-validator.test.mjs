@@ -17,6 +17,7 @@ const validPuzzle = {
   answers: [
     { word: "CAT", path: [[0, 0], [0, 1], [0, 2]] },
     { word: "DOG", path: [[1, 0], [1, 1], [1, 2]] },
+    { word: "RUN", path: [[2, 0], [2, 1], [2, 2]] },
   ],
   explanation: "Rows spell the answer words.",
   quickHint: "Start with rows.",
@@ -34,11 +35,11 @@ assert.throws(
     validateWendPuzzle(
       {
         ...validPuzzle,
-        answers: [{ word: "CAT", path: [[0, 0], [1, 1], [1, 2]] }],
+        answers: [{ word: "CAT", path: [[0, 0], [0, 1], [1, 1]] }],
       },
       { expectedDate: "2026-06-26" },
     ),
-  /spells COG, expected CAT/,
+  /spells CAO, expected CAT/,
 );
 
 assert.throws(
@@ -46,11 +47,59 @@ assert.throws(
     validateWendPuzzle(
       {
         ...validPuzzle,
-        answers: [{ word: "CAT", path: [[0, 0], [0, 2], [0, 1]] }],
+        answers: [{ word: "CA", path: [[0, 0], [1, 1]] }],
       },
       { expectedDate: "2026-06-26" },
     ),
-  /is not adjacent/,
+  /is not orthogonally adjacent/,
+);
+
+assert.throws(
+  () =>
+    validateWendPuzzle(
+      {
+        ...validPuzzle,
+        grid: [
+          ["C", null, "T"],
+          ["D", "A", "G"],
+          ["R", "U", "N"],
+        ],
+        answers: [{ word: "CA", path: [[0, 0], [0, 1]] }],
+      },
+      { expectedDate: "2026-06-26" },
+    ),
+  /blocked cell/,
+);
+
+assert.throws(
+  () =>
+    validateWendPuzzle(
+      {
+        ...validPuzzle,
+        answers: [
+          { word: "CAT", path: [[0, 0], [0, 1], [0, 2]] },
+          { word: "DOG", path: [[1, 0], [1, 1], [1, 2]] },
+        ],
+      },
+      { expectedDate: "2026-06-26" },
+    ),
+  /does not use every open cell/,
+);
+
+assert.throws(
+  () =>
+    validateWendPuzzle(
+      {
+        ...validPuzzle,
+        answers: [
+          { word: "CAT", path: [[0, 0], [0, 1], [0, 2]] },
+          { word: "TOG", path: [[0, 2], [1, 1], [1, 2]] },
+          { word: "RUN", path: [[2, 0], [2, 1], [2, 2]] },
+        ],
+      },
+      { expectedDate: "2026-06-26" },
+    ),
+  /uses r1c3 more than once/,
 );
 
 assert.throws(

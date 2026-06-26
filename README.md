@@ -58,6 +58,16 @@ Wend's target release time is treated as 8:00 UTC. The production goal is to pub
 
 The source URL is expected to be a normalized, verified Wend JSON source. Do not assume LinkedIn's official game page is crawlable without a logged-in session; test that separately before treating official scraping as the primary path.
 
+## Wend Board Model
+
+Wend pages should mirror LinkedIn's real board, not placeholder examples:
+
+- Use the actual LinkedIn grid dimensions for that day. The current captured board is 6x6.
+- Represent blocked gray wall cells as `null` in `grid`.
+- Keep open letter cells as one-letter strings.
+- Do not publish answer words or paths unless they are verified against the official puzzle.
+- A verified solution must use every open cell exactly once, never pass through `null` cells, and connect letters orthogonally.
+
 ## Documentation Rule
 
 Any functional change should update Markdown documentation in the same pass when it affects one of these areas:

@@ -17,7 +17,7 @@ export type WendPuzzle = {
   dateLabel: string;
   updatedAt: string;
   difficulty: string;
-  grid: string[][];
+  grid: Array<Array<string | null>>;
   hints: { level: number; title: string; text: string }[];
   answers: WendAnswer[];
   explanation: string;

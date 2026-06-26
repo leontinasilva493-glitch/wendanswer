@@ -4,6 +4,15 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-26
 
+### LinkedIn Wend board parity investigation
+
+- Replaced the June 25 placeholder 5x5 Wend grid with the 6x6 letter layout and gray blocked-cell regions shown in the LinkedIn screenshot.
+- Updated `WendGrid` to render variable board sizes, LinkedIn-style light square cells, and connected gray wall blocks with dark borders instead of hard-coded 5-column card tiles.
+- Changed Wend grid data to allow `null` blocked cells and updated TypeScript types accordingly.
+- Strengthened publish validation to follow LinkedIn's orthogonal adjacency rule, reject paths through blocked cells, reject overlapping answer paths, and require every open cell to be used exactly once before verified publication.
+- Added `tests/wend-linkedin-parity.test.mjs` to guard against regressing back to the placeholder 5x5 board.
+- Kept the June 25 puzzle `isVerified: false` and removed the old placeholder answers instead of inventing unverified answer words or paths.
+
 ### Wend publish reliability hardening
 
 - Added `scripts/validate-wend-puzzle.mjs` to validate required fields, expected publish date, verified status, grid shape, in-grid path coordinates, adjacent path steps, and path-spelled answer words before publishing.

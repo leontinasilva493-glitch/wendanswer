@@ -53,6 +53,19 @@ The publish script refuses data unless:
 - Answer paths stay inside the grid.
 - Consecutive path cells are adjacent.
 - Each path spells the declared answer word.
+- No path enters a blocked `null` cell.
+- Answer paths do not overlap.
+- The final answer set uses every open letter cell exactly once.
+
+## Wend Board Data Model
+
+Match LinkedIn's live board exactly:
+
+- `grid` can be any rectangular board size, not only 5x5.
+- Use a string for visible letter cells, for example `"Y"`.
+- Use `null` for gray blocked wall cells.
+- Do not fill `answers` with placeholder words. If the board is captured but the official solution is not verified, keep `answers: []` and `isVerified: false`.
+- When `isVerified` is `false`, Today pages show a verification-pending notice instead of answer reveals.
 
 ## Wend Daily Data Update
 

@@ -15,6 +15,7 @@
     "test:latest-date": "node tests/latest-date.test.mjs",
     "test:wend-archive-url": "node tests/wend-archive-url.test.mjs",
     "test:wend-freshness": "node tests/wend-freshness.test.mjs",
+    "test:wend-linkedin": "node tests/wend-linkedin-parity.test.mjs",
     "test:wend-mvp": "node tests/wend-mvp.test.mjs",
     "test:wend-publish": "node tests/wend-publish-automation.test.mjs",
     "test:wend-validator": "node tests/wend-validator.test.mjs",
