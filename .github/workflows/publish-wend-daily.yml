@@ -2,8 +2,15 @@ name: Publish Wend Daily
 
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "0,1,3,5 8 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-wend-daily
+  cancel-in-progress: false
 
 jobs:
   publish-wend:
@@ -11,6 +18,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -20,3 +29,14 @@ jobs:
         env:
           WEND_DAILY_SOURCE_URL: ${{ secrets.WEND_DAILY_SOURCE_URL }}
           WEND_DEPLOY_COMMAND: ${{ secrets.WEND_DEPLOY_COMMAND }}
+          WEND_ALERT_WEBHOOK_URL: ${{ secrets.WEND_ALERT_WEBHOOK_URL }}
+          WEND_PERSIST_TO_GIT: "true"
+      - name: Smoke production
+        run: |
+          if [ -n "$WEND_PUBLIC_BASE_URL" ]; then
+            SMOKE_BASE_URL="$WEND_PUBLIC_BASE_URL" npm run smoke:local
+          else
+            echo "WEND_PUBLIC_BASE_URL is not configured; skipping production smoke."
+          fi
+        env:
+          WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL }}

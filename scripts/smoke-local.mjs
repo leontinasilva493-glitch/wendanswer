@@ -1,12 +1,42 @@
+import fs from "node:fs";
+import path from "node:path";
+
 const baseUrl = process.env.SMOKE_BASE_URL || "http://127.0.0.1:3000";
+const root = process.cwd();
+
+function monthSlug(dateLabel) {
+  return dateLabel.toLowerCase().replace(",", "").replace(/\s+/g, "-");
+}
+
+function wendArchivePath(puzzle) {
+  return `/wend-answer-puzzle-${puzzle.puzzleNumber}-${monthSlug(puzzle.dateLabel)}`;
+}
+
+function legacyWendArchivePath(puzzle) {
+  return `/linkedin-wend-answer-${puzzle.puzzleNumber}-${monthSlug(puzzle.dateLabel)}`;
+}
+
+function readRecentWendPuzzles(limit = 2) {
+  const inputDir = path.join(root, "data", "puzzles", "wend");
+  return fs
+    .readdirSync(inputDir)
+    .filter((file) => /^\d{4}-\d{2}-\d{2}\.json$/.test(file))
+    .sort()
+    .reverse()
+    .slice(0, limit)
+    .map((file) => JSON.parse(fs.readFileSync(path.join(inputDir, file), "utf8")));
+}
+
+const recentWendPuzzles = readRecentWendPuzzles();
+const latestWendPuzzle = recentWendPuzzles[0];
+const archivePaths = recentWendPuzzles.map(wendArchivePath);
 
 const paths = [
   "/",
   "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
-  "/wend-answer-puzzle-17-june-25-2026",
-  "/wend-answer-puzzle-16-june-24-2026",
+  ...archivePaths,
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",
   "/how-to-solve-linkedin-wend",
@@ -36,9 +66,9 @@ const redirectChecks = [
     destinationPath: "/",
   },
   {
-    path: "/linkedin-wend-answer-17-june-25-2026",
+    path: legacyWendArchivePath(latestWendPuzzle),
     status: 308,
-    destinationPath: "/wend-answer-puzzle-17-june-25-2026",
+    destinationPath: wendArchivePath(latestWendPuzzle),
   },
 ];
 

@@ -123,6 +123,15 @@ Use one permanent high-authority daily URL plus canonical dated archives:
 
 The sitemap should publish only canonical archive URLs. Legacy archive URLs shaped like `/linkedin-wend-answer-{number}-{date}` should redirect to the matching canonical archive page to avoid duplicate indexed answer pages.
 
+## Stale Today Protection
+
+After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not show yesterday's answer as today's answer. The pages render dynamically and only show answer reveals when the latest puzzle is both:
+
+- `isVerified: true`
+- dated as the expected current Wend date for the 8:00 UTC release window
+
+If either check fails, the page shows a verification-pending notice and keeps hints, word paths, and reveal controls hidden.
+
 ## Sitemap Priorities
 
 Current priorities:

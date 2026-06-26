@@ -56,13 +56,13 @@ assert.doesNotMatch(
 const smokeSource = read("scripts/smoke-local.mjs");
 assert.match(
   smokeSource,
-  /\/wend-answer-puzzle-17-june-25-2026/,
-  "smoke test should cover the newest canonical Wend archive URL",
+  /readRecentWendPuzzles/,
+  "smoke test should derive recent Wend archive URLs from puzzle data",
 );
 assert.match(
   smokeSource,
-  /\/linkedin-wend-answer-17-june-25-2026/,
-  "smoke test should verify the old Wend archive URL redirects",
+  /legacyWendArchivePath\(latestWendPuzzle\)/,
+  "smoke test should verify the latest old Wend archive URL redirects",
 );
 
 console.log("wend archive URL test passed");

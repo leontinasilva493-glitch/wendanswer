@@ -4,9 +4,13 @@ import { ArrowRight, CircleHelp, Lightbulb, ListChecks, Route, Zap } from "lucid
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
+import { WendVerificationNotice } from "@/components/WendVerificationNotice";
 import { wendArchiveSlug } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
+import { isWendReadyForToday, wendReadiness } from "@/lib/wend-status";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
   title: "Wend Answer Today | Daily Hints, Solver & Archive",
@@ -48,6 +52,9 @@ const faq = [
 
 export default function HomePage() {
   const recentPuzzles = wendPuzzles.slice(0, 3);
+  const wendReady = isWendReadyForToday(todayWend);
+  const readiness = wendReadiness(todayWend);
+  const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
 
   return (
     <main className="page-shell">
@@ -73,84 +80,95 @@ export default function HomePage() {
       </section>
 
       <section className="section" id="answer">
-        <WendAnswerReveal puzzle={todayWend} />
+        {wendReady ? <WendAnswerReveal puzzle={todayWend} /> : <WendVerificationNotice expectedDate={readiness.expectedDate} puzzle={lastVerifiedWend} />}
       </section>
 
-      <section className="section grid gap-6 lg:grid-cols-3" id="hints">
-        <div className="content-card">
-          <h2 className="section-heading">
-            <span className="section-icon">
-              <Lightbulb aria-hidden className="h-5 w-5" />
-            </span>
-            <span>Spoiler-safe hints</span>
-          </h2>
-          <div className="mt-5">
-            <HintAccordion hints={todayWend.hints} />
-          </div>
-        </div>
+      {wendReady ? (
+        <>
+          <section className="section grid gap-6 lg:grid-cols-3" id="hints">
+            <div className="content-card">
+              <h2 className="section-heading">
+                <span className="section-icon">
+                  <Lightbulb aria-hidden className="h-5 w-5" />
+                </span>
+                <span>Spoiler-safe hints</span>
+              </h2>
+              <div className="mt-5">
+                <HintAccordion hints={todayWend.hints} />
+              </div>
+            </div>
 
-        <div className="content-card">
-          <h2 className="section-heading">
-            <span className="section-icon">
-              <Route aria-hidden className="h-5 w-5" />
-            </span>
-            <span>Step-by-step explanation</span>
-          </h2>
-          <p className="mt-4 text-base leading-7 text-slate-700">{todayWend.explanation}</p>
-          <Link className="btn btn-ghost mt-5 gap-2 border-brand text-brand" href="/linkedin-wend-answer-today">
-            View Full Walkthrough
-            <ArrowRight aria-hidden className="h-5 w-5" />
-          </Link>
-        </div>
+            <div className="content-card">
+              <h2 className="section-heading">
+                <span className="section-icon">
+                  <Route aria-hidden className="h-5 w-5" />
+                </span>
+                <span>Step-by-step explanation</span>
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-700">{todayWend.explanation}</p>
+              <Link className="btn btn-ghost mt-5 gap-2 border-brand text-brand" href="/linkedin-wend-answer-today">
+                View Full Walkthrough
+                <ArrowRight aria-hidden className="h-5 w-5" />
+              </Link>
+            </div>
 
-        <div className="content-card">
-          <h2 className="section-heading">
-            <span className="section-icon">
-              <CircleHelp aria-hidden className="h-5 w-5" />
-            </span>
-            <span>Wend FAQ</span>
-          </h2>
-          <div className="mt-5 space-y-3">
-            {faq.map((item) => (
-              <details className="inner-card group overflow-hidden" key={item.question}>
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left text-sm font-black text-ink">
-                  <span>{item.question}</span>
-                  <CircleHelp aria-hidden className="h-4 w-4 shrink-0 text-slate-500" />
-                </summary>
-                <p className="border-t border-line px-4 py-3 text-sm leading-6 text-slate-700">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-          <Link className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand" href="/faq">
-            View all FAQs
-            <ArrowRight aria-hidden className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
+            <div className="content-card">
+              <h2 className="section-heading">
+                <span className="section-icon">
+                  <CircleHelp aria-hidden className="h-5 w-5" />
+                </span>
+                <span>Wend FAQ</span>
+              </h2>
+              <div className="mt-5 space-y-3">
+                {faq.map((item) => (
+                  <details className="inner-card group overflow-hidden" key={item.question}>
+                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left text-sm font-black text-ink">
+                      <span>{item.question}</span>
+                      <CircleHelp aria-hidden className="h-4 w-4 shrink-0 text-slate-500" />
+                    </summary>
+                    <p className="border-t border-line px-4 py-3 text-sm leading-6 text-slate-700">{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+              <Link className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand" href="/faq">
+                View all FAQs
+                <ArrowRight aria-hidden className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
 
-      <section className="section grid gap-3 md:grid-cols-3">
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-lg font-black text-ink">
-            <Zap aria-hidden className="h-5 w-5 text-hint" />
-            Fast solving tip
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
-        </article>
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-lg font-black text-ink">
-            <ListChecks aria-hidden className="h-5 w-5 text-brand" />
-            Common mistake
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
-        </article>
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-lg font-black text-ink">
-            <CircleHelp aria-hidden className="h-5 w-5 text-success" />
-            Difficulty note
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
-        </article>
-      </section>
+          <section className="section grid gap-3 md:grid-cols-3">
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-lg font-black text-ink">
+                <Zap aria-hidden className="h-5 w-5 text-hint" />
+                Fast solving tip
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
+            </article>
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-lg font-black text-ink">
+                <ListChecks aria-hidden className="h-5 w-5 text-brand" />
+                Common mistake
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
+            </article>
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-lg font-black text-ink">
+                <CircleHelp aria-hidden className="h-5 w-5 text-success" />
+                Difficulty note
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
+            </article>
+          </section>
+        </>
+      ) : (
+        <section className="section content-card" id="hints">
+          <h2 className="section-title">Spoiler-safe help resumes after verification</h2>
+          <p className="section-copy">
+            Today&apos;s hints, word paths, and answer reveals stay hidden until the current puzzle is verified.
+          </p>
+        </section>
+      )}
 
       <section className="section content-card">
         <h2 className="section-heading">

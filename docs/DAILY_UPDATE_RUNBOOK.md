@@ -25,10 +25,34 @@ The script supports these environment variables:
 - `WEND_DAILY_SOURCE_URL`: normalized official-page capture that returns the daily Wend JSON, or an HTML page containing a `wend-puzzle-data` JSON script tag.
 - `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing.
 - `WEND_DEPLOY_COMMAND`: optional deployment command to run after generation and fast tests.
+- `WEND_PERSIST_TO_GIT`: set to `true` in CI so generated JSON and `src/lib/generated/wend-puzzles.ts` are committed and pushed before deploy.
+- `WEND_ALERT_WEBHOOK_URL`: one Discord-compatible webhook for publish failures.
+- `WEND_EXPECTED_DATE`: optional override for manual backfills. Normal daily publishing uses the current UTC date.
 - `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
 - `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
 
-GitHub Actions runs `.github/workflows/publish-wend-daily.yml` every day at `0 8 * * *` UTC and can also be triggered manually.
+GitHub Actions runs `.github/workflows/publish-wend-daily.yml` at `0,1,3,5 8 * * *` UTC and can also be triggered manually. These retries are a fallback publish window, not a guarantee that GitHub Actions will start exactly on time.
+
+## Phase 0 Risk Check
+
+Before treating official LinkedIn scraping as the primary path, run a spike:
+
+- Confirm whether the official Wend page exposes puzzle data without a logged-in session.
+- If a logged-in session is required, treat scraping as a risky auxiliary signal because session cookies, two-factor prompts, and account checks can fail without warning.
+- Until that is proven stable, use `WEND_DAILY_SOURCE_URL` as a normalized verified JSON feed or use `WEND_DAILY_INPUT_FILE` for human-verified emergency publishing.
+- Never publish old answers as today. The Today page now shows a verification-pending notice when the latest local puzzle is stale or unverified.
+
+## Publish Validation
+
+The publish script refuses data unless:
+
+- Required fields are present.
+- `game` is `wend`.
+- `date` equals the expected publish date.
+- `isVerified` is `true`.
+- Answer paths stay inside the grid.
+- Consecutive path cells are adjacent.
+- Each path spells the declared answer word.
 
 ## Wend Daily Data Update
 
@@ -131,7 +155,10 @@ Run these before considering the daily update done:
 ```bash
 npm run generate:wend
 npm run test:latest-date
+npm run test:wend-freshness
+npm run test:wend-validator
 npm run test:wend-mvp
+npm run test:wend-publish
 npm run test:seo-metadata
 npm run test:seo-routes
 npm run typecheck

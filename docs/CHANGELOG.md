@@ -2,6 +2,19 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-26
+
+### Wend publish reliability hardening
+
+- Added `scripts/validate-wend-puzzle.mjs` to validate required fields, expected publish date, verified status, grid shape, in-grid path coordinates, adjacent path steps, and path-spelled answer words before publishing.
+- Updated `scripts/publish-wend-daily.mjs` to use the dedicated validator, support `WEND_PERSIST_TO_GIT=true`, commit generated Wend data back to the repository, and send a single webhook alert through `WEND_ALERT_WEBHOOK_URL` on failure.
+- Updated `.github/workflows/publish-wend-daily.yml` to retry at `0,1,3,5 8 * * *` UTC, serialize overlapping runs, and grant `contents: write` for generated data commits.
+- Added dynamic freshness protection for `/` and `/linkedin-wend-answer-today`; stale or unverified data now shows a verification-pending notice instead of old answers, hints, or reveal controls.
+- Added `src/lib/wend-status.ts` and `src/components/WendVerificationNotice.tsx`.
+- Updated `scripts/smoke-local.mjs` to derive the latest Wend archive URL from data instead of hard-coding a dated puzzle.
+- Added `tests/wend-freshness.test.mjs` and `tests/wend-validator.test.mjs`; expanded publish automation coverage for git persistence and webhook alerting.
+- Updated launch docs to call out the official LinkedIn scraping spike as a Phase 0 risk check rather than assuming unauthenticated official-page scraping is reliable.
+
 ## 2026-06-25
 
 ### Wend fast publishing and canonical archive URLs

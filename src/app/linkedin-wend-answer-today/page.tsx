@@ -5,21 +5,25 @@ import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
+import { WendVerificationNotice } from "@/components/WendVerificationNotice";
 import { formatUpdated } from "@/lib/dates";
-import { todayWend } from "@/lib/puzzles";
+import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
+import { isWendReadyForToday, wendReadiness } from "@/lib/wend-status";
 
 const path = "/linkedin-wend-answer-today";
 const description =
   "Get today’s LinkedIn Wend hints, answer, word path, and spoiler-safe solver. Reveal one letter, one word, or the full path only when you need it.";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = pageMetadata({
-  title: `LinkedIn Wend Answer Today - ${todayWend.dateLabel}`,
+  title: "LinkedIn Wend Answer Today",
   description,
   path,
   type: "article",
   imageTitle: "LinkedIn Wend Answer Today",
-  imageSubtitle: `${todayWend.dateLabel} - Puzzle #${todayWend.puzzleNumber}`,
+  imageSubtitle: "Verified hints, word path, and solution status.",
   publishedTime: todayWend.date,
   modifiedTime: todayWend.updatedAt,
 });
@@ -36,18 +40,24 @@ const faq = [
 ];
 
 export default function WendTodayPage() {
+  const wendReady = isWendReadyForToday(todayWend);
+  const readiness = wendReadiness(todayWend);
+  const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
+
   return (
     <main className="page-shell">
       <JsonLd data={breadcrumbJson([{ name: "Home", path: "/" }, { name: "Wend Answer Today", path }])} />
-      <JsonLd
-        data={articleJson({
-          headline: "LinkedIn Wend Answer Today",
-          description,
-          path,
-          datePublished: todayWend.date,
-          dateModified: todayWend.updatedAt,
-        })}
-      />
+      {wendReady ? (
+        <JsonLd
+          data={articleJson({
+            headline: "LinkedIn Wend Answer Today",
+            description,
+            path,
+            datePublished: todayWend.date,
+            dateModified: todayWend.updatedAt,
+          })}
+        />
+      ) : null}
       <JsonLd data={faqJson(faq)} />
 
       <section className="content-card grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
@@ -98,20 +108,22 @@ export default function WendTodayPage() {
       </section>
 
       <section className="section" id="answer">
-        <WendAnswerReveal puzzle={todayWend} />
+        {wendReady ? <WendAnswerReveal puzzle={todayWend} /> : <WendVerificationNotice expectedDate={readiness.expectedDate} puzzle={lastVerifiedWend} />}
       </section>
 
-      <section className="section content-card" id="hints">
-        <h2 className="section-heading">
-          <span className="section-icon">
-            <CircleHelp aria-hidden className="h-5 w-5" />
-          </span>
-          <span>Spoiler-safe hints</span>
-        </h2>
-        <div className="mt-5">
-          <HintAccordion hints={todayWend.hints} />
-        </div>
-      </section>
+      {wendReady ? (
+        <>
+          <section className="section content-card" id="hints">
+            <h2 className="section-heading">
+              <span className="section-icon">
+                <CircleHelp aria-hidden className="h-5 w-5" />
+              </span>
+              <span>Spoiler-safe hints</span>
+            </h2>
+            <div className="mt-5">
+              <HintAccordion hints={todayWend.hints} />
+            </div>
+          </section>
 
       <section className="section content-card">
         <h2 className="section-heading">
@@ -123,29 +135,38 @@ export default function WendTodayPage() {
         <p className="section-copy">{todayWend.explanation}</p>
       </section>
 
-      <section className="section grid gap-3 md:grid-cols-3">
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-            <Lightbulb aria-hidden className="h-5 w-5 text-hint" />
-            Fast solving tip
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
-        </article>
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-            <ShieldCheck aria-hidden className="h-5 w-5 text-brand" />
-            Common mistake
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
-        </article>
-        <article className="content-card">
-          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-            <BookOpen aria-hidden className="h-5 w-5 text-success" />
-            Difficulty note
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
-        </article>
-      </section>
+          <section className="section grid gap-3 md:grid-cols-3">
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+                <Lightbulb aria-hidden className="h-5 w-5 text-hint" />
+                Fast solving tip
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
+            </article>
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+                <ShieldCheck aria-hidden className="h-5 w-5 text-brand" />
+                Common mistake
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
+            </article>
+            <article className="content-card">
+              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+                <BookOpen aria-hidden className="h-5 w-5 text-success" />
+                Difficulty note
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
+            </article>
+          </section>
+        </>
+      ) : (
+        <section className="section content-card" id="hints">
+          <h2 className="section-title">Today&apos;s answer is not published yet</h2>
+          <p className="section-copy">
+            Hints, word paths, and reveal controls appear here after the current Wend puzzle passes verification.
+          </p>
+        </section>
+      )}
 
       <section className="section content-card">
         <h2 className="section-heading">
