@@ -4,6 +4,20 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-27
 
+### Publish Wend #19 and make daily source extraction real
+
+- Added verified Wend #19 data for June 27, 2026 with the 8x8 board, blocked cells, answer words, and full path coordinates.
+- Upgraded `publish-wend-daily.mjs` so it can extract a Wend puzzle from HTML containing `data-row`, `data-col`, `data-word-index`, and `data-letter-index` cell attributes, instead of only accepting prebuilt JSON.
+- Added a public fallback source URL for the daily publish job when `WEND_DAILY_SOURCE_URL` is not configured, while still allowing `WEND_DAILY_INPUT_FILE` to override the network source for manual publishes.
+- Added a GitHub Actions failure-issue fallback so a broken daily publish creates a visible `automation` / `wend-publish` issue instead of silently falling behind.
+- Updated latest-date, LinkedIn parity, and publish automation tests to guard Wend #19 and the HTML extraction path.
+
+### Remove verification-pending UI from public pages
+
+- Removed the public verification-pending notice component and all pending/not-published copy from the homepage and Today page.
+- Kept the freshness check, but when the current-day puzzle is missing or unverified the pages now render the latest verified Wend puzzle through the normal answer module.
+- Updated tests to forbid pending/verification copy in public page sources and require the consistent `displayWend` fallback path.
+
 ### Wend pending fallback game module
 
 - Kept the freshness gate intact when the current Wend date is missing or unverified, but replaced the empty game area with the latest verified archived Wend puzzle.

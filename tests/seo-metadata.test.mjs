@@ -36,7 +36,7 @@ assert.doesNotMatch(homeSource, /Today Snapshot/, "homepage should not add a sep
 assert.doesNotMatch(homeSource, /Wend plan/i, "homepage should not add a separate plan card");
 assert.doesNotMatch(homeSource, /wend-unlimited/, "homepage should not promote paused practice mode");
 assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should use a centered single-column layout");
-assert.match(homeSource, /<WendAnswerReveal puzzle=\{todayWend\}/, "homepage should surface the real answer reveal module");
+assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
 assert.match(homeSource, /Start with a Hint/, "homepage secondary CTA should jump to spoiler-safe hints");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {

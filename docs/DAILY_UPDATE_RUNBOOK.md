@@ -22,7 +22,8 @@ npm run publish:wend
 
 The script supports these environment variables:
 
-- `WEND_DAILY_SOURCE_URL`: normalized official-page capture that returns the daily Wend JSON, or an HTML page containing a `wend-puzzle-data` JSON script tag.
+- `WEND_DAILY_SOURCE_URL`: normalized official-page capture that returns the daily Wend JSON, an HTML page containing a `wend-puzzle-data` JSON script tag, or an HTML page with `data-row`, `data-col`, `data-word-index`, and `data-letter-index` cell attributes.
+- `WEND_DAILY_FALLBACK_SOURCE_URL`: optional public fallback source used when `WEND_DAILY_SOURCE_URL` is not configured. The script defaults this to the public HTML fallback source currently used by the automation.
 - `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing.
 - `WEND_DEPLOY_COMMAND`: optional deployment command to run after generation and fast tests.
 - `WEND_PERSIST_TO_GIT`: set to `true` in CI so generated JSON and `src/lib/generated/wend-puzzles.ts` are committed and pushed before deploy.
@@ -78,7 +79,7 @@ YYYY-MM-DD.json
 Example:
 
 ```text
-data/puzzles/wend/2026-06-26.json
+data/puzzles/wend/2026-06-27.json
 ```
 
 2. Fill the JSON fields carefully:
@@ -149,9 +150,9 @@ Expected output shape:
 
 ```json
 {
-  "latestDate": "2026-06-26",
-  "latestFile": "data\\puzzles\\wend\\2026-06-26.json",
-  "count": 5
+  "latestDate": "2026-06-27",
+  "latestFile": "data\\puzzles\\wend\\2026-06-27.json",
+  "count": 6
 }
 ```
 

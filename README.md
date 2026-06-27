@@ -48,7 +48,7 @@ The MVP homepage is intentionally Wend-first and answer-first:
 
 Wend's target release time is treated as 8:00 UTC. The production goal is to publish verified daily data inside five minutes:
 
-- `npm run publish:wend` reads `WEND_DAILY_SOURCE_URL`, or `WEND_DAILY_INPUT_FILE`, validates the normalized Wend JSON, writes `data/puzzles/wend/YYYY-MM-DD.json`, regenerates the puzzle index, and optionally runs `WEND_DEPLOY_COMMAND`.
+- `npm run publish:wend` reads `WEND_DAILY_INPUT_FILE`, `WEND_DAILY_SOURCE_URL`, or the public `WEND_DAILY_FALLBACK_SOURCE_URL`, validates the normalized Wend JSON or HTML cell-coordinate extraction, writes `data/puzzles/wend/YYYY-MM-DD.json`, regenerates the puzzle index, and optionally runs `WEND_DEPLOY_COMMAND`.
 - `.github/workflows/publish-wend-daily.yml` retries during the launch window at `0,1,3,5 8 * * *` UTC and also supports manual `workflow_dispatch`.
 - The script refuses to publish `isVerified: false` data unless `ALLOW_UNVERIFIED_WEND_PUBLISH=true` is explicitly set for private dry runs.
 - The script validates Wend geometry before publishing: coordinates must be in-grid, adjacent, and spell each answer word.
@@ -56,7 +56,7 @@ Wend's target release time is treated as 8:00 UTC. The production goal is to pub
 - `WEND_ALERT_WEBHOOK_URL` can point at one Discord-compatible webhook for publish failure alerts.
 - `/linkedin-wend-answer-today` remains the permanent daily entry. Archive pages use `/wend-answer-puzzle-{number}-{month-day-year}`, for example `/wend-answer-puzzle-17-june-25-2026`.
 
-The source URL is expected to be a normalized, verified Wend JSON source. Do not assume LinkedIn's official game page is crawlable without a logged-in session; test that separately before treating official scraping as the primary path.
+The source URL can be a normalized, verified Wend JSON source, a page with a `wend-puzzle-data` JSON script tag, or an HTML page whose puzzle cells expose `data-row`, `data-col`, `data-word-index`, and `data-letter-index` attributes. Do not assume LinkedIn's official game page is crawlable without a logged-in session; test that separately before treating official scraping as the primary path.
 
 ## Wend Board Model
 

@@ -6,11 +6,10 @@ import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
-import { WendVerificationNotice } from "@/components/WendVerificationNotice";
 import { formatUpdated } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
-import { isWendReadyForToday, wendReadiness } from "@/lib/wend-status";
+import { isWendReadyForToday } from "@/lib/wend-status";
 
 const path = "/linkedin-wend-answer-today";
 const fallbackDescription =
@@ -62,8 +61,8 @@ const faq = [
 
 export default function WendTodayPage() {
   const wendReady = isWendReadyForToday(todayWend);
-  const readiness = wendReadiness(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
+  const displayWend = wendReady ? todayWend : lastVerifiedWend;
   const description = pageDescription(wendReady);
 
   return (
@@ -130,72 +129,54 @@ export default function WendTodayPage() {
       </section>
 
       <section className="section" id="answer">
-        {wendReady ? (
-          <WendAnswerReveal puzzle={todayWend} />
-        ) : (
-          <div className="space-y-4">
-            <WendVerificationNotice expectedDate={readiness.expectedDate} fallbackShown puzzle={lastVerifiedWend} />
-            <WendAnswerReveal archived puzzle={lastVerifiedWend} />
-          </div>
-        )}
+        <WendAnswerReveal archived={!wendReady} puzzle={displayWend} />
       </section>
 
-      {wendReady ? (
-        <>
-          <section className="section content-card" id="hints">
-            <h2 className="section-heading">
-              <span className="section-icon">
-                <CircleHelp aria-hidden className="h-5 w-5" />
-              </span>
-              <span>Spoiler-safe hints</span>
-            </h2>
-            <div className="mt-5">
-              <HintAccordion hints={todayWend.hints} />
-            </div>
-          </section>
+      <section className="section content-card" id="hints">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <CircleHelp aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Spoiler-safe hints</span>
+        </h2>
+        <div className="mt-5">
+          <HintAccordion hints={displayWend.hints} />
+        </div>
+      </section>
 
-          <section className="section content-card">
-            <h2 className="section-heading">
-              <span className="section-icon">
-                <Route aria-hidden className="h-5 w-5" />
-              </span>
-              <span>Step-by-step explanation</span>
-            </h2>
-            <p className="section-copy">{todayWend.explanation}</p>
-          </section>
+      <section className="section content-card">
+        <h2 className="section-heading">
+          <span className="section-icon">
+            <Route aria-hidden className="h-5 w-5" />
+          </span>
+          <span>Step-by-step explanation</span>
+        </h2>
+        <p className="section-copy">{displayWend.explanation}</p>
+      </section>
 
-          <section className="section grid gap-3 md:grid-cols-3">
-            <article className="content-card">
-              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-                <Lightbulb aria-hidden className="h-5 w-5 text-hint" />
-                Fast solving tip
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.fastTip}</p>
-            </article>
-            <article className="content-card">
-              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-                <ShieldCheck aria-hidden className="h-5 w-5 text-brand" />
-                Common mistake
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.commonMistake}</p>
-            </article>
-            <article className="content-card">
-              <h2 className="flex items-center gap-2 text-xl font-black text-ink">
-                <BookOpen aria-hidden className="h-5 w-5 text-success" />
-                Difficulty note
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{todayWend.difficultyNote}</p>
-            </article>
-          </section>
-        </>
-      ) : (
-        <section className="section content-card" id="hints">
-          <h2 className="section-title">Today&apos;s answer is not published yet</h2>
-          <p className="section-copy">
-            Hints, word paths, and reveal controls appear here after the current Wend puzzle passes verification.
-          </p>
-        </section>
-      )}
+      <section className="section grid gap-3 md:grid-cols-3">
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <Lightbulb aria-hidden className="h-5 w-5 text-hint" />
+            Fast solving tip
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{displayWend.fastTip}</p>
+        </article>
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <ShieldCheck aria-hidden className="h-5 w-5 text-brand" />
+            Common mistake
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{displayWend.commonMistake}</p>
+        </article>
+        <article className="content-card">
+          <h2 className="flex items-center gap-2 text-xl font-black text-ink">
+            <BookOpen aria-hidden className="h-5 w-5 text-success" />
+            Difficulty note
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-700">{displayWend.difficultyNote}</p>
+        </article>
+      </section>
 
       <section className="section content-card">
         <h2 className="section-heading">

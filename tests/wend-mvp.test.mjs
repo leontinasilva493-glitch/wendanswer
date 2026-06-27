@@ -55,7 +55,7 @@ assert.doesNotMatch(todaySource, /wend-unlimited/, "Today page should not promot
 
 const homeSource = read("src/app/page.tsx");
 assert.match(homeSource, /Save your streak without spoiling/, "Homepage hero should lead with the streak-safe positioning");
-assert.match(homeSource, /<WendAnswerReveal puzzle=\{todayWend\}/, "Homepage should place the real answer reveal under the hero");
+assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "Homepage should place the real answer reveal under the hero with latest verified fallback support");
 assert.doesNotMatch(homeSource, /Today Snapshot|Wend plan/i, "Homepage should not use a separate right-side plan or snapshot card");
 assert.doesNotMatch(homeSource, /wend-unlimited/, "Homepage should not promote paused practice mode");
 

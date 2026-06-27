@@ -1,0 +1,343 @@
+{
+  "game": "wend",
+  "puzzleNumber": 19,
+  "date": "2026-06-27",
+  "dateLabel": "June 27, 2026",
+  "updatedAt": "2026-06-27T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "F",
+      "D",
+      "L",
+      "O",
+      "G",
+      "A",
+      "E",
+      "S"
+    ],
+    [
+      "I",
+      "R",
+      "E",
+      "T",
+      "A",
+      "W",
+      "R",
+      "E"
+    ],
+    [
+      "S",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "D"
+    ],
+    [
+      "H",
+      null,
+      "C",
+      "I",
+      "L",
+      "O",
+      null,
+      "N"
+    ],
+    [
+      "L",
+      null,
+      "A",
+      null,
+      null,
+      "C",
+      null,
+      "E"
+    ],
+    [
+      "A",
+      null,
+      "R",
+      null,
+      null,
+      "C",
+      null,
+      "V"
+    ],
+    [
+      "N",
+      "I",
+      "D",
+      "N",
+      "A",
+      "O",
+      "R",
+      "A"
+    ],
+    [
+      "L",
+      "E",
+      "M",
+      "O",
+      "D",
+      "E",
+      "B",
+      "L"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with CARDINAL; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "All answer paths have the same length, so use the blocked-cell lanes instead of word length to choose your next route."
+    }
+  ],
+  "answers": [
+    {
+      "word": "CARDINAL",
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "GOLDFISH",
+      "path": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "LEMONADE",
+      "path": [
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "BROCCOLI",
+      "path": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "SEAWATER",
+      "path": [
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "LAVENDER",
+      "path": [
+        [
+          7,
+          7
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    }
+  ],
+  "explanation": "The June 27, 2026 Wend solution uses every open cell exactly once across CARDINAL, GOLDFISH, LEMONADE, BROCCOLI, SEAWATER, LAVENDER. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating CARDINAL, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "When every word has the same length, solve by lane shape: lock the edge paths first, then fill the middle routes.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because all 6 answers have the same length, so the board shape matters more than word length.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}

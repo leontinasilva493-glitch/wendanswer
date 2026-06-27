@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: publish-wend-daily
@@ -28,9 +29,53 @@ jobs:
       - run: npm run publish:wend
         env:
           WEND_DAILY_SOURCE_URL: ${{ secrets.WEND_DAILY_SOURCE_URL }}
+          WEND_DAILY_FALLBACK_SOURCE_URL: ${{ vars.WEND_DAILY_FALLBACK_SOURCE_URL }}
           WEND_DEPLOY_COMMAND: ${{ secrets.WEND_DEPLOY_COMMAND }}
           WEND_ALERT_WEBHOOK_URL: ${{ secrets.WEND_ALERT_WEBHOOK_URL }}
           WEND_PERSIST_TO_GIT: "true"
+      - name: Open failure issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().slice(0, 10);
+            const title = `Wend daily publish failed - ${date}`;
+            const { owner, repo } = context.repo;
+            for (const label of [
+              { name: "automation", color: "0A66C2", description: "Automated workflow follow-up" },
+              { name: "wend-publish", color: "D97706", description: "Wend daily publish automation" },
+            ]) {
+              try {
+                await github.rest.issues.getLabel({ owner, repo, name: label.name });
+              } catch (error) {
+                if (error.status === 404) {
+                  await github.rest.issues.createLabel({ owner, repo, ...label });
+                } else {
+                  throw error;
+                }
+              }
+            }
+            const existing = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+              labels: "automation,wend-publish",
+            });
+            if (!existing.data.some((issue) => issue.title === title)) {
+              await github.rest.issues.create({
+                owner,
+                repo,
+                title,
+                labels: ["automation", "wend-publish"],
+                body: [
+                  "The scheduled Wend publish workflow failed.",
+                  "",
+                  `Run: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
+                  "",
+                  "Check whether the source URL still exposes JSON or data-row/data-col HTML cells, then rerun the workflow manually.",
+                ].join("\n"),
+              });
+            }
       - name: Smoke production
         run: |
           if [ -n "$WEND_PUBLIC_BASE_URL" ]; then
