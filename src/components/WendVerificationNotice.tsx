@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { WendPuzzle } from "@/lib/puzzles";
+import { wendArchiveSlug } from "@/lib/dates";
 
 export function WendVerificationNotice({
   puzzle,
@@ -20,6 +21,9 @@ export function WendVerificationNotice({
         Last verified puzzle available here: Wend #{puzzle.puzzleNumber} from {puzzle.dateLabel}.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
+        <Link className="btn btn-primary" href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}>
+          Open last verified answer
+        </Link>
         <Link className="chip" href="/linkedin-wend-archive">
           View archive
         </Link>

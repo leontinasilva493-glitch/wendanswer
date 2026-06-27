@@ -21,7 +21,7 @@ assert.match(noticeSource, /Last verified puzzle/i, "pending notice should show 
 
 for (const page of ["src/app/page.tsx", "src/app/linkedin-wend-answer-today/page.tsx"]) {
   const source = read(page);
-  assert.match(source, /dynamic\s*=\s*"force-dynamic"/, `${page} should render dynamically so stale data does not masquerade as today's answer`);
+  assert.match(source, /revalidate\s*=\s*60/, `${page} should use 60-second ISR so freshness checks update without forcing every request dynamic`);
   assert.match(source, /isWendReadyForToday/, `${page} should check whether today's Wend data is verified and current`);
   assert.match(source, /WendVerificationNotice/, `${page} should show a pending verification notice when data is stale or unverified`);
   assert.match(source, /wendReady \?/, `${page} should gate answer reveals behind the readiness check`);

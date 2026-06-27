@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BookOpen, CircleHelp, Lightbulb, Route, ShieldCheck, Sparkles } from "lucide-react";
+import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
@@ -12,21 +13,41 @@ import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
 import { isWendReadyForToday, wendReadiness } from "@/lib/wend-status";
 
 const path = "/linkedin-wend-answer-today";
-const description =
+const fallbackDescription =
   "Get today’s LinkedIn Wend hints, answer, word path, and spoiler-safe solver. Reveal one letter, one word, or the full path only when you need it.";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
-export const metadata: Metadata = pageMetadata({
-  title: "LinkedIn Wend Answer Today",
-  description,
-  path,
-  type: "article",
-  imageTitle: "LinkedIn Wend Answer Today",
-  imageSubtitle: "Verified hints, word path, and solution status.",
-  publishedTime: todayWend.date,
-  modifiedTime: todayWend.updatedAt,
-});
+function pageTitle(wendReady: boolean) {
+  return wendReady
+    ? `LinkedIn Wend Answer Today - ${todayWend.dateLabel} | Wend #${todayWend.puzzleNumber}`
+    : "LinkedIn Wend Answer Today";
+}
+
+function pageDescription(wendReady: boolean) {
+  return wendReady
+    ? `Get the verified LinkedIn Wend answer for ${todayWend.dateLabel}, puzzle #${todayWend.puzzleNumber}, with spoiler-safe hints, word path, and reveal controls.`
+    : fallbackDescription;
+}
+
+export function generateMetadata(): Metadata {
+  const wendReady = isWendReadyForToday(todayWend);
+  const title = pageTitle(wendReady);
+  const description = pageDescription(wendReady);
+
+  return pageMetadata({
+    title,
+    description,
+    path,
+    type: "article",
+    imageTitle: title,
+    imageSubtitle: wendReady
+      ? `${todayWend.dateLabel} - Wend #${todayWend.puzzleNumber}`
+      : "Verified hints, word path, and solution status.",
+    publishedTime: wendReady ? todayWend.date : undefined,
+    modifiedTime: wendReady ? todayWend.updatedAt : undefined,
+  });
+}
 
 const faq = [
   {
@@ -43,6 +64,7 @@ export default function WendTodayPage() {
   const wendReady = isWendReadyForToday(todayWend);
   const readiness = wendReadiness(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
+  const description = pageDescription(wendReady);
 
   return (
     <main className="page-shell">
@@ -125,15 +147,15 @@ export default function WendTodayPage() {
             </div>
           </section>
 
-      <section className="section content-card">
-        <h2 className="section-heading">
-          <span className="section-icon">
-            <Route aria-hidden className="h-5 w-5" />
-          </span>
-          <span>Step-by-step explanation</span>
-        </h2>
-        <p className="section-copy">{todayWend.explanation}</p>
-      </section>
+          <section className="section content-card">
+            <h2 className="section-heading">
+              <span className="section-icon">
+                <Route aria-hidden className="h-5 w-5" />
+              </span>
+              <span>Step-by-step explanation</span>
+            </h2>
+            <p className="section-copy">{todayWend.explanation}</p>
+          </section>
 
           <section className="section grid gap-3 md:grid-cols-3">
             <article className="content-card">
@@ -190,13 +212,7 @@ export default function WendTodayPage() {
         </h2>
         <div className="mt-5 space-y-3">
           {faq.map((item) => (
-            <details className="inner-card group overflow-hidden" key={item.question}>
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left text-base font-black text-ink">
-                <span>{item.question}</span>
-                <span className="text-xl leading-none text-slate-500 transition group-open:rotate-180">⌄</span>
-              </summary>
-              <p className="border-t border-line px-4 py-3 text-sm leading-6 text-slate-700">{item.answer}</p>
-            </details>
+            <FaqDetails answer={item.answer} key={item.question} question={item.question} textSize="text-base" />
           ))}
         </div>
       </section>

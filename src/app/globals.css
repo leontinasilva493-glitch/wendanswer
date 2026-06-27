@@ -269,3 +269,29 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+@media (max-width: 420px) {
+  .wend-cell-letter {
+    @apply text-[clamp(0.85rem,5vw,1.25rem)];
+  }
+
+  .wend-cell-start {
+    outline-width: 4px;
+  }
+
+  .wend-cell-check {
+    @apply left-0.5 top-0.5 h-3.5 w-3.5 text-[8px];
+  }
+
+  .wend-cell-arrow {
+    @apply h-3.5 w-3.5;
+  }
+
+  .wend-letter-bubble {
+    @apply h-9 w-9 text-sm;
+  }
+
+  .wend-word-card {
+    @apply p-3;
+  }
+}

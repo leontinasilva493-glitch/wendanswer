@@ -125,12 +125,18 @@ The sitemap should publish only canonical archive URLs. Legacy archive URLs shap
 
 ## Stale Today Protection
 
-After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not show yesterday's answer as today's answer. The pages render dynamically and only show answer reveals when the latest puzzle is both:
+After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not show yesterday's answer as today's answer. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. Answer reveals show only when the latest puzzle is both:
 
 - `isVerified: true`
 - dated as the expected current Wend date for the 8:00 UTC release window
 
 If either check fails, the page shows a verification-pending notice and keeps hints, word paths, and reveal controls hidden.
+
+The Today page metadata should follow the same readiness rule:
+
+- Ready: include `dateLabel` and `Wend #{puzzleNumber}` in the title, description, and social image subtitle.
+- Pending: use a generic title and description so an old puzzle date is not promoted as today's answer.
+- Pending notice: include a direct link to the latest verified archive detail page, plus archive and official game links.
 
 ## Sitemap Priorities
 
@@ -165,4 +171,5 @@ Local spot checks:
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
 - `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
+- A legacy archive URL such as `/linkedin-wend-answer-18-june-26-2026` returns a permanent `308` redirect to the canonical archive URL.
 - Patches, Zip, and paused practice pages include `noindex, follow`.

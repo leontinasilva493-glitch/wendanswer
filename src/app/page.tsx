@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CircleHelp, Lightbulb, ListChecks, Route, Zap } from "lucide-react";
+import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
@@ -10,7 +11,7 @@ import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
 import { isWendReadyForToday, wendReadiness } from "@/lib/wend-status";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = pageMetadata({
   title: "Wend Answer Today | Daily Hints, Solver & Archive",
@@ -121,13 +122,7 @@ export default function HomePage() {
               </h2>
               <div className="mt-5 space-y-3">
                 {faq.map((item) => (
-                  <details className="inner-card group overflow-hidden" key={item.question}>
-                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left text-sm font-black text-ink">
-                      <span>{item.question}</span>
-                      <CircleHelp aria-hidden className="h-4 w-4 shrink-0 text-slate-500" />
-                    </summary>
-                    <p className="border-t border-line px-4 py-3 text-sm leading-6 text-slate-700">{item.answer}</p>
-                  </details>
+                  <FaqDetails answer={item.answer} key={item.question} question={item.question} />
                 ))}
               </div>
               <Link className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand" href="/faq">

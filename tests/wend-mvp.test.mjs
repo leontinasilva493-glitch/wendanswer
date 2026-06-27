@@ -26,6 +26,14 @@ const globalCss = read("src/app/globals.css");
 for (const expected of ["content-card", "section-heading", "section-icon", "inner-card"]) {
   assert.match(globalCss, new RegExp(expected), `global styles should define ${expected}`);
 }
+for (const expected of ["wend-word-card", "wend-letter-bubble", "wend-word-action", "max-width: 420px"]) {
+  assert.match(globalCss, new RegExp(expected), `global styles should define ${expected}`);
+}
+
+const solverSource = read("src/components/WendSolver.tsx");
+for (const expected of ["wend-word-card", "wend-letter-bubble", "wend-word-action", "Words found"]) {
+  assert.match(solverSource, new RegExp(expected), `WendSolver should reuse the upgraded reveal UI: ${expected}`);
+}
 
 const packageJson = JSON.parse(read("package.json"));
 for (const [groupName, group] of Object.entries({

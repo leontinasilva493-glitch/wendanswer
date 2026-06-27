@@ -181,7 +181,7 @@ npm run build
 Then start the local server:
 
 ```bash
-npm run dev
+npm run start -- -H 127.0.0.1 -p 3000
 ```
 
 In another terminal, run:
@@ -198,6 +198,16 @@ Open these pages locally:
 - The matching legacy archive URL redirects, for example `http://127.0.0.1:3000/linkedin-wend-answer-18-june-26-2026`
 
 Confirm the visible page shows the newest date and puzzle number.
+
+Extra checks after UI or routing changes:
+
+- `/` and `/linkedin-wend-answer-today` still export `revalidate = 60`, not `force-dynamic`.
+- The Today page title/description include the date and puzzle number only when the latest puzzle is verified for the current Wend release window.
+- The Solver page uses the same colored word cards, letter bubbles, and reveal controls as the Today answer module.
+- The FAQ disclosure control rotates consistently on the homepage and Today page.
+- The verification-pending card links directly to the latest verified archive detail page.
+- A 375-390px wide mobile viewport keeps Wend board tubes, arrows, and letter bubbles legible without horizontal overflow.
+- A legacy archive URL returns a real `308` redirect in the running app, not just in source-level tests.
 
 ## Troubleshooting
 

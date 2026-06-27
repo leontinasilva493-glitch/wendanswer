@@ -47,7 +47,13 @@ const answerRevealSource = read("src/components/WendAnswerReveal.tsx");
 assert.match(answerRevealSource, /Today's LinkedIn Wend Answer/, "answer reveal should use the homepage module heading");
 assert.match(answerRevealSource, /Reveal all/, "answer reveal should include the full reveal action");
 assert.match(answerRevealSource, /Clear all/, "answer reveal should include the reset action");
-assert.match(answerRevealSource, /Get Word/, "answer reveal should reveal one word at a time");
+assert.match(answerRevealSource, /Reveal Word/, "answer reveal should reveal one word at a time");
+
+const todayWendSource = read("src/app/linkedin-wend-answer-today/page.tsx");
+assert.match(todayWendSource, /generateMetadata/, "today page should generate metadata from current Wend readiness");
+assert.match(todayWendSource, /LinkedIn Wend Answer Today - \$\{todayWend\.dateLabel\}/, "today page title should include date when the puzzle is verified");
+assert.match(todayWendSource, /Wend #\$\{todayWend\.puzzleNumber\}/, "today page metadata should include the puzzle number when verified");
+assert.match(todayWendSource, /revalidate\s*=\s*60/, "today page should use ISR instead of force-dynamic rendering");
 
 const relatedGamesSource = read("src/components/RelatedGames.tsx");
 assert.doesNotMatch(relatedGamesSource, /wend-unlimited/, "related links should not promote paused practice mode");

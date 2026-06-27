@@ -2,6 +2,18 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-27
+
+### Wend readiness, SEO, and solver polish
+
+- Restored readiness-aware Today page metadata: verified puzzles use a date-and-puzzle-number title/description/social subtitle, while pending puzzles keep generic metadata so stale dates are not promoted.
+- Switched `/` and `/linkedin-wend-answer-today` from full `force-dynamic` rendering to 60-second ISR, preserving freshness checks without forcing every request to hit server rendering.
+- Updated the Wend Solver page to reuse the upgraded word-card, letter-bubble, progress-bar, and reveal-action styling from the Today answer module.
+- Added a shared `FaqDetails` component so homepage and Today page FAQ disclosures use the same rotating chevron feedback.
+- Strengthened `WendVerificationNotice` with a direct link to the latest verified archive detail page.
+- Added narrow-screen CSS tuning for Wend board letters, start rings, check badges, arrows, word cards, and letter bubbles.
+- Updated runbooks and tests to guard verified metadata, 60-second ISR, solver UI parity, mobile checks, and real legacy archive redirect verification.
+
 ## 2026-06-26
 
 ### Wend interactive path styling
