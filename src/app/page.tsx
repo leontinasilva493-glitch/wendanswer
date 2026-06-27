@@ -8,26 +8,31 @@ import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { wendArchiveSlug } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
-import { isWendReadyForToday } from "@/lib/wend-status";
+import { expectedWendDisplay, isWendReadyForToday } from "@/lib/wend-status";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = pageMetadata({
-  title: "Wend Answer Today | Daily Hints, Solver & Archive",
-  description:
-    "Get today's LinkedIn Wend answer, spoiler-safe hints, word paths, solver help, and recent Wend archive pages.",
-  path: "/",
-  keywords: [
-    "wend answer today",
-    "wend answers",
-    "wend full answer",
-    "wend answer for date",
-    "wend answer for LinkedIn Games",
-  ],
-  absoluteTitle: true,
-  imageTitle: "Wend Answer Today",
-  imageSubtitle: "Daily hints, solver help, and recent archive pages.",
-});
+export function generateMetadata(): Metadata {
+  const heroWend = expectedWendDisplay(todayWend);
+
+  return pageMetadata({
+    title: `Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
+    description: `Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and recent Wend archive pages.`,
+    path: "/",
+    keywords: [
+      "wend answer today",
+      `wend answer ${heroWend.dateLabel}`,
+      `wend #${heroWend.puzzleNumber} answer`,
+      "wend answers",
+      "wend full answer",
+      "wend answer for date",
+      "wend answer for LinkedIn Games",
+    ],
+    absoluteTitle: true,
+    imageTitle: `Wend #${heroWend.puzzleNumber} Answer`,
+    imageSubtitle: `Wend answer today for ${heroWend.dateLabel}.`,
+  });
+}
 
 const faq = [
   {
@@ -52,6 +57,7 @@ const faq = [
 
 export default function HomePage() {
   const recentPuzzles = wendPuzzles.slice(0, 3);
+  const heroWend = expectedWendDisplay(todayWend);
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
@@ -61,8 +67,19 @@ export default function HomePage() {
       <JsonLd data={faqJson(faq)} />
 
       <section className="mx-auto max-w-4xl py-12 text-center md:py-16">
+        <p className="mx-auto mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-brand/20 bg-white px-4 py-2 text-sm font-black text-brand shadow-sm">
+          <span>Wend #{heroWend.puzzleNumber} answer</span>
+          <span aria-hidden className="text-slate-300">
+            |
+          </span>
+          <span>{heroWend.dateLabel}</span>
+          <span aria-hidden className="text-slate-300">
+            |
+          </span>
+          <span>updated daily at 8:00 UTC</span>
+        </p>
         <h1 className="break-words text-4xl font-black leading-tight tracking-normal text-ink sm:text-5xl md:text-6xl">
-          Wend Answer Today
+          Wend answer today for {heroWend.dateLabel} puzzle no {heroWend.puzzleNumber}
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-700 md:text-xl">
           Save your streak without spoiling the whole puzzle.

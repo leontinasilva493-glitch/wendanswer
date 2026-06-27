@@ -1,6 +1,7 @@
 import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { sendOpsAlert } from "./ops-alert.mjs";
 import { validateWendPuzzle } from "./validate-wend-puzzle.mjs";
 
 const root = process.cwd();
@@ -10,7 +11,6 @@ const inputFile = process.env.WEND_DAILY_INPUT_FILE;
 const defaultSourceUrl = process.env.WEND_DAILY_FALLBACK_SOURCE_URL || "https://wendanswertoday.me/";
 const sourceUrl = process.env.WEND_DAILY_SOURCE_URL || (inputFile ? "" : defaultSourceUrl);
 const deployCommand = process.env.WEND_DEPLOY_COMMAND;
-const alertWebhookUrl = process.env.WEND_ALERT_WEBHOOK_URL;
 const allowUnverified = process.env.ALLOW_UNVERIFIED_WEND_PUBLISH === "true";
 const persistGeneratedData = process.env.WEND_PERSIST_TO_GIT === "true";
 const expectedDate = process.env.WEND_EXPECTED_DATE || utcDateStamp();
@@ -252,18 +252,13 @@ function verifyLatestDate(expectedDate) {
 }
 
 async function notifyFailure(error) {
-  if (!alertWebhookUrl) return;
-  const message = [
-    "Wend publish failed",
-    `Expected date: ${expectedDate}`,
-    `Elapsed: ${Math.round((Date.now() - startedAt) / 1000)}s`,
-    `Error: ${error instanceof Error ? error.message : String(error)}`,
-  ].join("\n");
-
-  await fetch(alertWebhookUrl, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ content: message }),
+  await sendOpsAlert({
+    title: "Wend publish failed",
+    message: `Expected date: ${expectedDate}`,
+    details: [
+      `Elapsed: ${Math.round((Date.now() - startedAt) / 1000)}s`,
+      `Error: ${error instanceof Error ? error.message : String(error)}`,
+    ],
   });
 }
 

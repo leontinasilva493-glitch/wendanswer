@@ -12,6 +12,8 @@ assert.equal(exists("src/components/WendVerificationNotice.tsx"), false, "verifi
 const statusSource = read("src/lib/wend-status.ts");
 assert.match(statusSource, /WEND_RELEASE_HOUR_UTC\s*=\s*8/, "status helper should use the 8:00 UTC Wend reset");
 assert.match(statusSource, /expectedWendDate/, "status helper should expose expectedWendDate");
+assert.match(statusSource, /expectedWendDisplay/, "status helper should expose dynamic homepage date and puzzle-number display data");
+assert.match(statusSource, /wendDateLabel/, "status helper should format the dynamic Wend date label in UTC");
 assert.match(statusSource, /isWendReadyForToday/, "status helper should expose isWendReadyForToday");
 assert.match(statusSource, /puzzle\.isVerified/, "freshness should require verified puzzle data");
 

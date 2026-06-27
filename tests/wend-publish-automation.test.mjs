@@ -20,7 +20,7 @@ for (const expected of [
   "WEND_DAILY_FALLBACK_SOURCE_URL",
   "WEND_DEPLOY_COMMAND",
   "WEND_PERSIST_TO_GIT",
-  "WEND_ALERT_WEBHOOK_URL",
+  "sendOpsAlert",
   "MAX_PUBLISH_WINDOW_MS",
   "validateWendPuzzle",
   "generate-wend-puzzles.mjs",
@@ -58,7 +58,7 @@ assert.match(
 assert.match(
   scriptSource,
   /notifyFailure/,
-  "publish script should send a single-channel failure alert",
+  "publish script should send a failure alert",
 );
 
 const packageJson = JSON.parse(read("package.json"));
@@ -77,6 +77,8 @@ assert.match(workflowSource, /npm run publish:wend/, "workflow should run the We
 assert.match(workflowSource, /WEND_PERSIST_TO_GIT:\s*"true"/, "workflow should persist generated daily JSON back to git");
 assert.match(workflowSource, /WEND_DAILY_FALLBACK_SOURCE_URL/, "workflow should allow overriding the public fallback source URL");
 assert.match(workflowSource, /WEND_ALERT_WEBHOOK_URL/, "workflow should pass the alert webhook secret to the publish script");
+assert.match(workflowSource, /OPS_ALERT_WEBHOOK_URL/, "workflow should pass the shared ops webhook secret to the publish script");
+assert.match(workflowSource, /OPS_ALERT_TELEGRAM_BOT_TOKEN/, "workflow should pass Telegram alert secrets to the publish script");
 assert.match(workflowSource, /actions\/github-script/, "workflow should create a visible GitHub issue on publish failure");
 assert.match(workflowSource, /wend-publish/, "workflow failure issues should use a stable Wend publish label");
 assert.match(workflowSource, /createLabel/, "workflow should create missing failure labels before opening an issue");

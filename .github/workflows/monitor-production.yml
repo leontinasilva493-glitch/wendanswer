@@ -1,52 +1,48 @@
-name: Publish Wend Daily
+name: Monitor Production
 
 on:
   schedule:
-    - cron: "0,1,3,5 8 * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   issues: write
 
 concurrency:
-  group: publish-wend-daily
-  cancel-in-progress: false
+  group: monitor-production
+  cancel-in-progress: true
 
 jobs:
-  publish-wend:
+  monitor:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run publish:wend
+      - run: npm run monitor:production
         env:
-          WEND_DAILY_SOURCE_URL: ${{ secrets.WEND_DAILY_SOURCE_URL }}
-          WEND_DAILY_FALLBACK_SOURCE_URL: ${{ vars.WEND_DAILY_FALLBACK_SOURCE_URL }}
-          WEND_DEPLOY_COMMAND: ${{ secrets.WEND_DEPLOY_COMMAND }}
-          WEND_ALERT_WEBHOOK_URL: ${{ secrets.WEND_ALERT_WEBHOOK_URL }}
+          MONITOR_BASE_URL: ${{ vars.MONITOR_BASE_URL || 'https://wendanswertoday.org' }}
           OPS_ALERT_WEBHOOK_URL: ${{ secrets.OPS_ALERT_WEBHOOK_URL }}
+          WEND_ALERT_WEBHOOK_URL: ${{ secrets.WEND_ALERT_WEBHOOK_URL }}
           OPS_ALERT_TELEGRAM_BOT_TOKEN: ${{ secrets.OPS_ALERT_TELEGRAM_BOT_TOKEN }}
           OPS_ALERT_TELEGRAM_CHAT_ID: ${{ secrets.OPS_ALERT_TELEGRAM_CHAT_ID }}
-          WEND_PERSIST_TO_GIT: "true"
-      - name: Open failure issue
+      - name: Open monitoring failure issue
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
             const date = new Date().toISOString().slice(0, 10);
-            const title = `Wend daily publish failed - ${date}`;
+            const title = `Production monitor failed - ${date}`;
             const { owner, repo } = context.repo;
             for (const label of [
               { name: "automation", color: "0A66C2", description: "Automated workflow follow-up" },
-              { name: "wend-publish", color: "D97706", description: "Wend daily publish automation" },
+              { name: "monitoring", color: "B91C1C", description: "Production monitoring alert" },
+              { name: "p0", color: "DC2626", description: "Launch-blocking priority" },
             ]) {
               try {
                 await github.rest.issues.getLabel({ owner, repo, name: label.name });
@@ -62,29 +58,20 @@ jobs:
               owner,
               repo,
               state: "open",
-              labels: "automation,wend-publish",
+              labels: "automation,monitoring",
             });
             if (!existing.data.some((issue) => issue.title === title)) {
               await github.rest.issues.create({
                 owner,
                 repo,
                 title,
-                labels: ["automation", "wend-publish"],
+                labels: ["automation", "monitoring", "p0"],
                 body: [
-                  "The scheduled Wend publish workflow failed.",
+                  "The production monitor failed.",
                   "",
                   `Run: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
                   "",
-                  "Check whether the source URL still exposes JSON or data-row/data-col HTML cells, then rerun the workflow manually.",
+                  "Check uptime, noindex headers/meta, sitemap/robots, Today page freshness, and the legacy archive 308 redirect.",
                 ].join("\n"),
               });
             }
-      - name: Smoke production
-        run: |
-          if [ -n "$WEND_PUBLIC_BASE_URL" ]; then
-            SMOKE_BASE_URL="$WEND_PUBLIC_BASE_URL" npm run smoke:local
-          else
-            echo "WEND_PUBLIC_BASE_URL is not configured; skipping production smoke."
-          fi
-        env:
-          WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL }}

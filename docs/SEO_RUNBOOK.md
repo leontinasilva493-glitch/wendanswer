@@ -57,7 +57,7 @@ Exception: the homepage uses `absoluteTitle: true` because its launch title alre
 
 Recommended intent split:
 
-- `/`: `Wend Answer Today | Daily Hints, Solver & Archive`
+- `/`: `Wend Answer Today - {date} | Wend #{number} Answer`
 - `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
@@ -72,13 +72,25 @@ Current homepage TDK:
 
 ```text
 Title:
-Wend Answer Today | Daily Hints, Solver & Archive
+Wend Answer Today - {date} | Wend #{number} Answer
 
 Description:
-Get today’s LinkedIn Wend answer, spoiler-safe hints, word paths, solver help, and recent Wend archive pages.
+Wend answer today for {date} puzzle no {number}. Get spoiler-safe hints, word paths, solver help, and recent Wend archive pages.
 
 Keywords:
-wend answer today, wend answers, wend full answer, wend answer for date, wend answer for LinkedIn Games
+wend answer today, wend answer {date}, wend #{number} answer, wend answers, wend full answer, wend answer for date, wend answer for LinkedIn Games
+```
+
+Homepage Hero copy should use the same source as metadata:
+
+```text
+Wend answer today for {date} puzzle no {number}
+```
+
+The status line above the Hero headline should include:
+
+```text
+Wend #{number} answer | {date} | updated daily at 8:00 UTC
 ```
 
 ## Index Strategy
@@ -173,3 +185,11 @@ Local spot checks:
 - `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
 - A legacy archive URL such as `/linkedin-wend-answer-18-june-26-2026` returns a permanent `308` redirect to the canonical archive URL.
 - Patches, Zip, and paused practice pages include `noindex, follow`.
+
+Production checks:
+
+```bash
+npm run monitor:production
+```
+
+The production monitor verifies that `/`, `/linkedin-wend-answer-today`, `/linkedin-wend-archive`, and the latest archive detail page are live, do not contain `noindex`, remain present in the sitemap, and that the latest legacy archive URL returns a real production `308` redirect.

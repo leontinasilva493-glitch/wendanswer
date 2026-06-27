@@ -2,7 +2,22 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-28
+
+### P0 production monitoring and crawlability checks
+
+- Added `scripts/monitor-production.mjs` and `npm run monitor:production` to check production uptime, core-page noindex regressions, robots/sitemap crawlability, Today page freshness, and the latest legacy archive `308` redirect.
+- Added `.github/workflows/monitor-production.yml` to run the production monitor every five minutes, send Discord-compatible or Telegram alerts through shared ops secrets, and open a `automation` / `monitoring` / `p0` GitHub issue on failure.
+- Added `scripts/ops-alert.mjs` and updated daily Wend publishing to reuse the same ops alert channel while preserving `WEND_ALERT_WEBHOOK_URL` compatibility.
+- Added monitoring test coverage and a dedicated monitoring runbook, including the rule that analytics or tracking packages must not be added without matching privacy and Cookie Notice updates.
+
 ## 2026-06-27
+
+### Homepage dynamic Wend hero copy
+
+- Replaced the static homepage Hero headline with the dynamic search phrase `Wend answer today for {date} puzzle no {number}`.
+- Added a one-line Hero status bar that shows `Wend #{number} answer`, the current Wend date, and the 8:00 UTC daily update signal.
+- Updated homepage metadata to use the same dynamic date and puzzle-number source as the visible Hero copy, covering searches such as `wend answer today`, `wend answer june 28`, and `wend #20 answer`.
 
 ### Publish Wend #19 and make daily source extraction real
 

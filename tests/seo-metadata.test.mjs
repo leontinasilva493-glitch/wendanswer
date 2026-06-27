@@ -15,15 +15,17 @@ assert.match(seoSource, /keywords\?/, "pageMetadata should support page keywords
 assert.match(seoSource, /absoluteTitle\?/, "pageMetadata should support exact homepage titles");
 
 const homeSource = read("src/app/page.tsx");
+assert.match(homeSource, /generateMetadata/, "homepage should generate metadata from the expected daily Wend state");
+assert.match(homeSource, /expectedWendDisplay/, "homepage should share one dynamic date and puzzle-number source");
 assert.match(
   homeSource,
-  /Wend Answer Today \| Daily Hints, Solver & Archive/,
-  "homepage should use the Wend-focused title",
+  /Wend Answer Today - \$\{heroWend\.dateLabel\} \| Wend #\$\{heroWend\.puzzleNumber\} Answer/,
+  "homepage title should include the dynamic date and puzzle number",
 );
 assert.match(
   homeSource,
-  /Get today.s LinkedIn Wend answer, spoiler-safe hints, word paths, solver help, and recent Wend archive pages\./,
-  "homepage should use the Wend-focused description",
+  /Wend answer today for \$\{heroWend\.dateLabel\} puzzle no \$\{heroWend\.puzzleNumber\}/,
+  "homepage description should include the dynamic hero search phrase",
 );
 assert.match(
   homeSource,
@@ -36,6 +38,16 @@ assert.doesNotMatch(homeSource, /Today Snapshot/, "homepage should not add a sep
 assert.doesNotMatch(homeSource, /Wend plan/i, "homepage should not add a separate plan card");
 assert.doesNotMatch(homeSource, /wend-unlimited/, "homepage should not promote paused practice mode");
 assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should use a centered single-column layout");
+assert.match(
+  homeSource,
+  /Wend answer today for \{heroWend\.dateLabel\} puzzle no \{heroWend\.puzzleNumber\}/,
+  "homepage H1 should use the dynamic one-sentence Wend answer phrase",
+);
+assert.match(
+  homeSource,
+  /Wend #\{heroWend\.puzzleNumber\} answer/,
+  "homepage status bar should include the dynamic Wend number query",
+);
 assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
 assert.match(homeSource, /Start with a Hint/, "homepage secondary CTA should jump to spoiler-safe hints");

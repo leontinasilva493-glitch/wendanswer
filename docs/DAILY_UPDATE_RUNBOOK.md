@@ -27,12 +27,16 @@ The script supports these environment variables:
 - `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing.
 - `WEND_DEPLOY_COMMAND`: optional deployment command to run after generation and fast tests.
 - `WEND_PERSIST_TO_GIT`: set to `true` in CI so generated JSON and `src/lib/generated/wend-puzzles.ts` are committed and pushed before deploy.
-- `WEND_ALERT_WEBHOOK_URL`: one Discord-compatible webhook for publish failures.
+- `OPS_ALERT_WEBHOOK_URL`: preferred Discord-compatible webhook for publish failures and production monitoring failures.
+- `OPS_ALERT_TELEGRAM_BOT_TOKEN` and `OPS_ALERT_TELEGRAM_CHAT_ID`: optional Telegram alert channel.
+- `WEND_ALERT_WEBHOOK_URL`: legacy Discord-compatible webhook for publish failures. Keep it only for backward compatibility; new setup should use `OPS_ALERT_WEBHOOK_URL`.
 - `WEND_EXPECTED_DATE`: optional override for manual backfills. Normal daily publishing uses the current UTC date.
 - `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
 - `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
 
 GitHub Actions runs `.github/workflows/publish-wend-daily.yml` at `0,1,3,5 8 * * *` UTC and can also be triggered manually. These retries are a fallback publish window, not a guarantee that GitHub Actions will start exactly on time.
+
+Production monitoring runs separately in `.github/workflows/monitor-production.yml` every five minutes. It checks uptime, noindex regressions, robots/sitemap crawlability, Today page freshness, and the latest legacy archive `308` redirect. See `docs/MONITORING_RUNBOOK.md`.
 
 ## Phase 0 Risk Check
 
@@ -41,7 +45,7 @@ Before treating official LinkedIn scraping as the primary path, run a spike:
 - Confirm whether the official Wend page exposes puzzle data without a logged-in session.
 - If a logged-in session is required, treat scraping as a risky auxiliary signal because session cookies, two-factor prompts, and account checks can fail without warning.
 - Until that is proven stable, use `WEND_DAILY_SOURCE_URL` as a normalized verified JSON feed or use `WEND_DAILY_INPUT_FILE` for human-verified emergency publishing.
-- Never publish old answers as today. The Today page now shows a verification-pending notice when the latest local puzzle is stale or unverified.
+- Never publish old answers as today. If the latest local puzzle is stale or unverified, public pages render the latest verified Wend module while monitoring raises a freshness failure after the 8:00 UTC reset.
 
 ## Publish Validation
 
@@ -66,7 +70,7 @@ Match LinkedIn's live board exactly:
 - Use a string for visible letter cells, for example `"Y"`.
 - Use `null` for gray blocked wall cells.
 - Do not fill `answers` with placeholder words. If the board is captured but the official solution is not verified, keep `answers: []` and `isVerified: false`.
-- When `isVerified` is `false`, Today pages show a verification-pending notice instead of answer reveals.
+- When `isVerified` is `false`, do not publish the puzzle as today's answer. Public pages should keep showing the latest verified module and production monitoring should alert on the freshness gap.
 
 ## Wend Daily Data Update
 
