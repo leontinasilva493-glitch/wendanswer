@@ -81,7 +81,14 @@ export default function HomePage() {
       </section>
 
       <section className="section" id="answer">
-        {wendReady ? <WendAnswerReveal puzzle={todayWend} /> : <WendVerificationNotice expectedDate={readiness.expectedDate} puzzle={lastVerifiedWend} />}
+        {wendReady ? (
+          <WendAnswerReveal puzzle={todayWend} />
+        ) : (
+          <div className="space-y-4">
+            <WendVerificationNotice expectedDate={readiness.expectedDate} fallbackShown puzzle={lastVerifiedWend} />
+            <WendAnswerReveal archived puzzle={lastVerifiedWend} />
+          </div>
+        )}
       </section>
 
       {wendReady ? (

@@ -5,9 +5,11 @@ import { wendArchiveSlug } from "@/lib/dates";
 export function WendVerificationNotice({
   puzzle,
   expectedDate,
+  fallbackShown = false,
 }: {
   puzzle: WendPuzzle;
   expectedDate: string;
+  fallbackShown?: boolean;
 }) {
   return (
     <section className="content-card border-amber-200 bg-amber-50">
@@ -20,6 +22,12 @@ export function WendVerificationNotice({
       <p className="mt-3 text-sm font-semibold text-slate-700">
         Last verified puzzle available here: Wend #{puzzle.puzzleNumber} from {puzzle.dateLabel}.
       </p>
+      {fallbackShown ? (
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
+          To keep the page usable, the game module below shows this latest verified puzzle instead of an unverified
+          current-day answer.
+        </p>
+      ) : null}
       <div className="mt-4 flex flex-wrap gap-2">
         <Link className="btn btn-primary" href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}>
           Open last verified answer

@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-27
 
+### Wend pending fallback game module
+
+- Kept the freshness gate intact when the current Wend date is missing or unverified, but replaced the empty game area with the latest verified archived Wend puzzle.
+- Updated the verification-pending notice to explicitly explain that the visible game module is a fallback and not today's unverified answer.
+- Added freshness test coverage so homepage and Today page continue to render the latest verified game module while the current-day answer is pending.
+
 ### Wend answer layout density pass
 
 - Compressed the right-side answer reveal panel with a desktop two-column word-card grid, smaller in-panel letter bubbles, and shorter reveal buttons so its height better matches the Wend board area.
