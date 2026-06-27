@@ -172,10 +172,10 @@ export default function HomePage() {
           </span>
           <span>Recent Wend Answers</span>
         </h2>
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
+        <div className="mt-5 archive-grid">
           {recentPuzzles.map((puzzle) => (
             <Link
-              className="inner-card block p-4 transition hover:border-brand"
+              className="archive-card block"
               href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}
               key={puzzle.date}
             >
@@ -184,7 +184,7 @@ export default function HomePage() {
                 <p className="text-sm font-semibold text-slate-600">{puzzle.dateLabel}</p>
               </div>
               <p className="mt-2 text-sm font-semibold text-slate-700">{puzzle.difficulty}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{puzzle.quickHint}</p>
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{puzzle.quickHint}</p>
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand">
                 Read Analysis
                 <ArrowRight aria-hidden className="h-4 w-4" />

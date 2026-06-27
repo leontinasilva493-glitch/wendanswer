@@ -229,6 +229,42 @@ body {
     filter: brightness(1.06);
     transform: translateY(-1px);
   }
+
+  .wend-answer-card {
+    @apply overflow-hidden;
+  }
+
+  .wend-answer-panel .btn {
+    @apply min-h-10 py-1.5;
+  }
+
+  .wend-answer-panel .wend-word-card {
+    @apply rounded-xl p-2.5 shadow-[0_1px_6px_rgba(15,23,42,0.05)];
+  }
+
+  .wend-answer-panel .wend-letter-bubble {
+    @apply h-7 w-7 text-xs;
+  }
+
+  .wend-answer-panel .wend-word-action {
+    @apply min-h-7 px-2 py-1 text-[10px];
+  }
+
+  .resource-grid {
+    @apply mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .resource-link {
+    @apply flex min-h-11 items-center justify-between rounded-lg border border-line bg-slate-50 px-3 py-2 text-sm font-bold text-slate-700 transition hover:border-brand hover:bg-white hover:text-brand;
+  }
+
+  .archive-grid {
+    @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .archive-card {
+    @apply rounded-lg border border-line bg-white p-4 transition hover:border-brand hover:shadow-[0_4px_14px_rgba(15,23,42,0.06)];
+  }
 }
 
 @keyframes wend-cell-pop {

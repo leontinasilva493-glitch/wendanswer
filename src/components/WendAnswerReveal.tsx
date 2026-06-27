@@ -73,7 +73,7 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
   }
 
   return (
-    <section className="content-card">
+    <section className="content-card wend-answer-card">
       <div className="flex flex-wrap items-start gap-4">
         <span className="section-icon">
           <Puzzle aria-hidden className="h-5 w-5" />
@@ -88,8 +88,8 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(320px,520px)_1fr] lg:items-start">
-        <div className="mx-auto flex w-full max-w-[520px] flex-col items-center gap-4">
+      <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,500px)_minmax(360px,1fr)] lg:items-start xl:grid-cols-[minmax(340px,520px)_minmax(440px,1fr)]">
+        <div className="mx-auto flex w-full max-w-[500px] flex-col items-center gap-3">
           <WendGrid
             answers={puzzle.answers}
             grid={puzzle.grid}
@@ -106,7 +106,7 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
           </button>
         </div>
 
-        <div className="lg:pl-2">
+        <div className="wend-answer-panel lg:pl-1">
           <div className="grid gap-3 sm:grid-cols-2">
             <button className="btn btn-primary gap-2 rounded-full" onClick={revealAll} type="button">
               <Eye aria-hidden className="h-5 w-5" />
@@ -118,7 +118,7 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
             </button>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-4">
             <div className="flex items-center justify-between gap-4">
               <p aria-live="polite" className="text-base font-black text-slate-700">
                 Words found: {completeWords.length} / {puzzle.answers.length}
@@ -132,7 +132,7 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
             </div>
           </div>
 
-          <div className="mt-5 space-y-4">
+          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-2">
             {puzzle.answers.map((answer, wordIndex) => {
               const isWordVisible = visibleWords.has(answer.word);
               const color = wordColors[wordIndex % wordColors.length];
@@ -143,7 +143,7 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
                   key={answer.word}
                   style={{ "--word-color": color } as WordStyle}
                 >
-                  <div className="flex flex-wrap items-center gap-2" aria-label={`${answer.word.length} letter answer`}>
+                  <div className="flex flex-wrap items-center gap-1.5" aria-label={`${answer.word.length} letter answer`}>
                     {answer.word.split("").map((letter, index) => {
                       const isLetterVisible = isWordVisible || visibleLetters.has(letterKey(answer, index));
                       return (
@@ -156,17 +156,19 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
                       );
                     })}
                   </div>
-                  <p className="text-lg font-black uppercase tracking-wide" style={{ color }}>
+                  <p className="text-base font-black uppercase tracking-wide" style={{ color }}>
                     {isComplete ? answer.word : "Hidden word"}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    <button className="wend-word-action wend-word-action-light" disabled={isComplete} onClick={() => revealNextLetter(answer)} type="button">
-                      Reveal Letter
-                    </button>
-                    <button className="wend-word-action wend-word-action-solid" disabled={isComplete} onClick={() => revealWord(answer)} type="button">
-                      Reveal Word
-                    </button>
-                  </div>
+                  {!isComplete ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      <button className="wend-word-action wend-word-action-light" onClick={() => revealNextLetter(answer)} type="button">
+                        Reveal Letter
+                      </button>
+                      <button className="wend-word-action wend-word-action-solid" onClick={() => revealWord(answer)} type="button">
+                        Reveal Word
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
               );
             })}

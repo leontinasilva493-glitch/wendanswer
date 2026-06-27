@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-27
 
+### Wend answer layout density pass
+
+- Compressed the right-side answer reveal panel with a desktop two-column word-card grid, smaller in-panel letter bubbles, and shorter reveal buttons so its height better matches the Wend board area.
+- Reused compact archive card styles for homepage recent answers and the archive page, including two-line hint truncation for steadier card heights.
+- Reworked the related Wend resources area into a responsive resource grid and aligned the dormant game card component with the same compact card/link system.
+
 ### Wend readiness, SEO, and solver polish
 
 - Restored readiness-aware Today page metadata: verified puzzles use a date-and-puzzle-number title/description/social subtitle, while pending puzzles keep generic metadata so stale dates are not promoted.

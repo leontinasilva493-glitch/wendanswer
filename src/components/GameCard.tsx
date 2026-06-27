@@ -11,7 +11,7 @@ type GameCardProps = {
 
 export function GameCard({ name, status, number, todayPath, archivePath, solverPath }: GameCardProps) {
   return (
-    <article className="rounded-lg border border-line bg-white p-4">
+    <article className="archive-card">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-lg font-bold text-ink">{name}</h3>
@@ -25,19 +25,19 @@ export function GameCard({ name, status, number, todayPath, archivePath, solverP
           {status}
         </span>
       </div>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 grid gap-2 sm:grid-cols-3">
         {todayPath ? (
-          <Link className="chip" href={todayPath}>
+          <Link className="resource-link min-h-10 justify-center" href={todayPath}>
             Answer
           </Link>
         ) : null}
         {solverPath ? (
-          <Link className="chip" href={solverPath}>
+          <Link className="resource-link min-h-10 justify-center" href={solverPath}>
             Solver
           </Link>
         ) : null}
         {archivePath ? (
-          <Link className="chip" href={archivePath}>
+          <Link className="resource-link min-h-10 justify-center" href={archivePath}>
             Archive
           </Link>
         ) : null}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Compass } from "lucide-react";
+import { ArrowRight, Compass } from "lucide-react";
 
 export function RelatedGames() {
   const links = [
@@ -19,10 +19,11 @@ export function RelatedGames() {
         </span>
         <span>More Wend Resources</span>
       </h2>
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="resource-grid">
         {links.map(([label, href]) => (
-          <Link className="chip" href={href} key={href}>
-            {label}
+          <Link className="resource-link" href={href} key={href}>
+            <span>{label}</span>
+            <ArrowRight aria-hidden className="h-4 w-4 shrink-0" />
           </Link>
         ))}
       </div>
