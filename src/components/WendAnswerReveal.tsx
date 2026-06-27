@@ -1,9 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Eye, Puzzle } from "lucide-react";
+import type { CSSProperties } from "react";
+import { Eye, EyeOff, Puzzle, RotateCcw } from "lucide-react";
 import type { Cell, WendAnswer, WendPuzzle } from "@/lib/puzzles";
 import { WendGrid } from "./WendGrid";
+
+const wordColors = ["#e8572a", "#d4449a", "#4dbdba", "#98c21f", "#5b8dd9", "#f05a28"];
+type WordStyle = CSSProperties & Record<"--word-color", string>;
 
 function cellKey(cell: Cell) {
   return `${cell[0]}-${cell[1]}`;
@@ -22,6 +26,13 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
   const [visibleLetters, setVisibleLetters] = useState<Set<string>>(new Set());
 
   const wordSet = useMemo(() => new Set(visibleWords), [visibleWords]);
+  const completeWords = useMemo(() => {
+    return puzzle.answers.filter((answer) => {
+      if (visibleWords.has(answer.word)) return true;
+      return answer.path.every((_, index) => visibleLetters.has(letterKey(answer, index)));
+    });
+  }, [puzzle.answers, visibleLetters, visibleWords]);
+
   const cellSet = useMemo(() => {
     const keys = new Set<string>();
     for (const answer of puzzle.answers) {
@@ -33,9 +44,17 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
     }
     return keys;
   }, [puzzle.answers, visibleLetters, visibleWords]);
+  const allRevealed = puzzle.answers.length > 0 && completeWords.length === puzzle.answers.length;
+  const progress = puzzle.answers.length === 0 ? 0 : Math.round((completeWords.length / puzzle.answers.length) * 100);
 
   function revealWord(answer: WendAnswer) {
     setVisibleWords((current) => new Set([...current, answer.word]));
+  }
+
+  function revealNextLetter(answer: WendAnswer) {
+    const nextIndex = answer.path.findIndex((_, index) => !visibleLetters.has(letterKey(answer, index)));
+    if (nextIndex < 0) return;
+    setVisibleLetters((current) => new Set([...current, letterKey(answer, nextIndex)]));
   }
 
   function revealCell(answer: WendAnswer, cell: Cell) {
@@ -69,8 +88,8 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(280px,440px)_1fr] lg:items-start">
-        <div className="mx-auto w-full max-w-[440px]">
+      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(320px,520px)_1fr] lg:items-start">
+        <div className="mx-auto flex w-full max-w-[520px] flex-col items-center gap-4">
           <WendGrid
             answers={puzzle.answers}
             grid={puzzle.grid}
@@ -78,39 +97,58 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
             visibleLetters={cellSet}
             visibleWords={wordSet}
           />
+          <p className={`text-sm font-black ${allRevealed ? "text-green-600" : "text-slate-600"}`} aria-live="polite">
+            {allRevealed ? "All words revealed!" : "Click any letter to reveal where it belongs."}
+          </p>
+          <button className="btn btn-ghost gap-2 rounded-full px-6" onClick={clearAll} type="button">
+            <EyeOff aria-hidden className="h-5 w-5" />
+            Clear all
+          </button>
         </div>
 
-        <div className="border-line lg:border-l lg:pl-6">
+        <div className="lg:pl-2">
           <div className="grid gap-3 sm:grid-cols-2">
-            <button className="btn btn-primary gap-2" onClick={revealAll} type="button">
+            <button className="btn btn-primary gap-2 rounded-full" onClick={revealAll} type="button">
               <Eye aria-hidden className="h-5 w-5" />
               Reveal all
             </button>
-            <button className="btn btn-ghost gap-2 border-brand text-brand" onClick={clearAll} type="button">
+            <button className="btn btn-ghost gap-2 rounded-full border-brand text-brand" onClick={clearAll} type="button">
+              <RotateCcw aria-hidden className="h-5 w-5" />
               Clear all
             </button>
           </div>
 
-          <p aria-live="polite" className="mt-4 text-sm font-semibold text-slate-600">
-            {visibleWords.size} of {puzzle.answers.length} words revealed
-          </p>
+          <div className="mt-5">
+            <div className="flex items-center justify-between gap-4">
+              <p aria-live="polite" className="text-base font-black text-slate-700">
+                Words found: {completeWords.length} / {puzzle.answers.length}
+              </p>
+            </div>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-blue-700 to-cyan-400 transition-all duration-700"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
 
-          <div className="mt-4 space-y-3">
-            {puzzle.answers.map((answer) => {
+          <div className="mt-5 space-y-4">
+            {puzzle.answers.map((answer, wordIndex) => {
               const isWordVisible = visibleWords.has(answer.word);
+              const color = wordColors[wordIndex % wordColors.length];
+              const isComplete = isWordVisible || answer.path.every((_, index) => visibleLetters.has(letterKey(answer, index)));
               return (
-                <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto]" key={answer.word}>
-                  <div className="flex flex-wrap gap-1.5" aria-label={`${answer.word.length} letter answer`}>
+                <div
+                  className={`wend-word-card ${isComplete ? "wend-word-card-complete" : ""}`}
+                  key={answer.word}
+                  style={{ "--word-color": color } as WordStyle}
+                >
+                  <div className="flex flex-wrap items-center gap-2" aria-label={`${answer.word.length} letter answer`}>
                     {answer.word.split("").map((letter, index) => {
                       const isLetterVisible = isWordVisible || visibleLetters.has(letterKey(answer, index));
                       return (
                         <span
-                          className={classNames(
-                            "flex h-9 w-9 items-center justify-center rounded-md border text-sm font-black",
-                            isLetterVisible
-                              ? "border-blue-200 bg-blue-100 text-blue-950"
-                              : "border-slate-200 bg-slate-100 text-slate-100",
-                          )}
+                          className={classNames("wend-letter-bubble", isLetterVisible ? "wend-letter-bubble-visible" : "wend-letter-bubble-hidden")}
                           key={`${answer.word}-${index}`}
                         >
                           {isLetterVisible ? letter : ""}
@@ -118,14 +156,17 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
                       );
                     })}
                   </div>
-                  <button className="btn btn-ghost min-h-9 px-4 py-1.5 text-brand" onClick={() => revealWord(answer)} type="button">
-                    Get Word
-                  </button>
-                  {isWordVisible ? (
-                    <p className="text-sm font-semibold text-slate-700 sm:col-span-2">
-                      {answer.word}: {answer.path.map((cell) => `r${cell[0] + 1}c${cell[1] + 1}`).join(" -> ")}
-                    </p>
-                  ) : null}
+                  <p className="text-lg font-black uppercase tracking-wide" style={{ color }}>
+                    {isComplete ? answer.word : "Hidden word"}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button className="wend-word-action wend-word-action-light" disabled={isComplete} onClick={() => revealNextLetter(answer)} type="button">
+                      Reveal Letter
+                    </button>
+                    <button className="wend-word-action wend-word-action-solid" disabled={isComplete} onClick={() => revealWord(answer)} type="button">
+                      Reveal Word
+                    </button>
+                  </div>
                 </div>
               );
             })}

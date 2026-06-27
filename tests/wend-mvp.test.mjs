@@ -11,11 +11,13 @@ assert.equal(exists("src/components/WendAnswerReveal.tsx"), true, "Wend answer r
 const revealSource = exists("src/components/WendAnswerReveal.tsx")
   ? read("src/components/WendAnswerReveal.tsx")
   : "";
-for (const expected of ["Get Word", "Reveal all", "Clear all", "Today's LinkedIn Wend Answer"]) {
+for (const expected of ["Reveal Word", "Reveal Letter", "Reveal all", "Clear all", "Today's LinkedIn Wend Answer"]) {
   assert.match(revealSource, new RegExp(expected, "i"), `WendAnswerReveal should include ${expected}`);
 }
 assert.match(revealSource, /visibleWords/, "WendAnswerReveal should track revealed words");
 assert.match(revealSource, /visibleLetters/, "WendAnswerReveal should track revealed letters");
+assert.match(revealSource, /Words found/, "WendAnswerReveal should show progress like the reference solver");
+assert.match(revealSource, /wend-letter-bubble/, "WendAnswerReveal should render circular answer bubbles");
 assert.match(revealSource, /WendGrid/, "WendAnswerReveal should reuse the existing Wend grid");
 assert.match(revealSource, /content-card/, "WendAnswerReveal should use the shared section card style");
 assert.match(revealSource, /section-icon/, "WendAnswerReveal should use an icon-led section header");

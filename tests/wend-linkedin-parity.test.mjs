@@ -28,7 +28,10 @@ assert.equal(latest.isVerified, true, "Latest Wend data should be verified befor
 const gridSource = read("src/components/WendGrid.tsx");
 assert.match(gridSource, /gridTemplateColumns/, "WendGrid should support variable LinkedIn board sizes");
 assert.match(gridSource, /isBlockedCell/, "WendGrid should render blocked gray cells");
-assert.match(gridSource, /border-\[#444/, "WendGrid should use dark wall borders like LinkedIn");
+assert.match(gridSource, /border-\[#2f2f2f\]|border-\[#444/, "WendGrid should use dark wall borders like LinkedIn");
+assert.match(gridSource, /wend-cell-tube/, "WendGrid should render colored path tubes for revealed words");
+assert.match(gridSource, /wend-cell-start/, "WendGrid should render a circular start marker");
+assert.match(gridSource, /wend-cell-check/, "WendGrid should render a solved-word check marker");
 assert.doesNotMatch(gridSource, /grid-cols-5/, "WendGrid must not hard-code a 5-column board");
 assert.doesNotMatch(gridSource, /wendanswertoday\.org/, "WendGrid should not add a site watermark inside the game board");
 

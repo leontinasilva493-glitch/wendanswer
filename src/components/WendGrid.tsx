@@ -1,27 +1,66 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import type { Cell, WendAnswer } from "@/lib/puzzles";
 
+type WordStyle = CSSProperties & Record<"--word-color", string>;
+
 const colors = [
-  "bg-blue-100 text-blue-900 ring-blue-500",
-  "bg-amber-100 text-amber-950 ring-amber-500",
-  "bg-green-100 text-green-950 ring-green-500",
-  "bg-indigo-100 text-indigo-950 ring-indigo-500",
-  "bg-rose-100 text-rose-950 ring-rose-500",
+  "#e8572a",
+  "#d4449a",
+  "#4dbdba",
+  "#98c21f",
+  "#5b8dd9",
+  "#f05a28",
 ];
 
 function sameCell(a: Cell, b: Cell) {
   return a[0] === b[0] && a[1] === b[1];
 }
 
-function pathIndex(cell: Cell, answers: WendAnswer[], visibleWords: Set<string>) {
+function cellKey(cell: Cell) {
+  return `${cell[0]}-${cell[1]}`;
+}
+
+function pathIndex(cell: Cell, answers: WendAnswer[], visibleWords: Set<string>, visibleLetters: Set<string>) {
   for (let wordIndex = 0; wordIndex < answers.length; wordIndex += 1) {
     const answer = answers[wordIndex];
-    if (!visibleWords.has(answer.word)) continue;
     const step = answer.path.findIndex((candidate) => sameCell(candidate, cell));
-    if (step >= 0) return { wordIndex, step };
+    if (step < 0) continue;
+    if (visibleWords.has(answer.word) || visibleLetters.has(cellKey(cell))) return { answer, wordIndex, step };
   }
   return null;
+}
+
+function direction(from: Cell, to: Cell) {
+  if (to[0] > from[0]) return "down";
+  if (to[0] < from[0]) return "up";
+  if (to[1] > from[1]) return "right";
+  return "left";
+}
+
+function horizontalEdgeStyle(isStart: boolean, isEnd: boolean) {
+  if (!isStart && !isEnd) return "0px";
+  if (isStart && isEnd) return "999px";
+  if (isStart) return "999px 0 0 999px";
+  return "0 999px 999px 0";
+}
+
+function verticalEdgeStyle(isStart: boolean, isEnd: boolean) {
+  if (!isStart && !isEnd) return "0px";
+  if (isStart && isEnd) return "999px";
+  if (isStart) return "999px 999px 0 0";
+  return "0 0 999px 999px";
+}
+
+function ArrowMark({ dir }: { dir: string }) {
+  return (
+    <span className={`wend-cell-arrow wend-cell-arrow-${dir}`} aria-hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </span>
+  );
 }
 
 export function WendGrid({
@@ -53,9 +92,9 @@ export function WendGrid({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[540px]">
+    <div className="mx-auto w-full max-w-[520px]">
       <div
-        className="grid overflow-hidden rounded-[14px] border-[7px] border-[#444] bg-[#f7f9fc] shadow-soft"
+        className="grid aspect-square overflow-hidden rounded-2xl border-[3px] border-[#2f2f2f] bg-white shadow-[0_14px_42px_rgba(15,23,42,0.16)]"
         style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
       >
         {grid.flatMap((row, rowIndex) =>
@@ -66,35 +105,68 @@ export function WendGrid({
               return (
                 <div
                   aria-label={`Blocked cell at row ${rowIndex + 1}, column ${colIndex + 1}`}
-                  className={`aspect-square bg-[#b5b5b5] ${blockedBorders(rowIndex, colIndex)}`}
+                  className={`wend-cell wend-cell-blocked ${blockedBorders(rowIndex, colIndex)}`}
                   key={key}
                 />
               );
             }
 
-            const path = pathIndex(cell, answers, visibleWords);
+            const path = pathIndex(cell, answers, visibleWords, visibleLetters);
             const answer = answers.find((candidate) =>
               candidate.path.some((candidateCell) => sameCell(candidateCell, cell)),
             );
-            const isLetterVisible = visibleLetters.has(key);
-            const color = path ? colors[path.wordIndex % colors.length] : "";
+            const color = answer ? colors[answers.indexOf(answer) % colors.length] : "#0a66c2";
+            const isHintVisible = visibleLetters.has(key);
+            const isRevealed = Boolean(path);
+            const previous = path && path.step > 0 ? path.answer.path[path.step - 1] : null;
+            const next = path && path.step < path.answer.path.length - 1 ? path.answer.path[path.step + 1] : null;
+            const connectLeft = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex && candidate[1] === colIndex - 1);
+            const connectRight = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex && candidate[1] === colIndex + 1);
+            const connectTop = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex - 1 && candidate[1] === colIndex);
+            const connectBottom = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex + 1 && candidate[1] === colIndex);
+            const nextDirection = next ? direction(cell, next) : null;
 
             return (
               <button
                 aria-label={`Letter ${letter} at row ${rowIndex + 1}, column ${colIndex + 1}`}
-                className={`relative aspect-square border border-[#dedede] text-[clamp(1.8rem,7vw,3rem)] font-black text-[#050b12] transition hover:border-brand ${
-                  path ? `${color} ring-2` : isLetterVisible ? "bg-blue-50 ring-2 ring-brand" : "bg-[#f7f9fc]"
-                }`}
+                className={`wend-cell wend-cell-letter ${isRevealed ? "wend-cell-revealed" : isHintVisible ? "wend-cell-hinted" : ""}`}
                 key={key}
                 onClick={() => answer && onCellClick?.(answer, cell)}
+                style={{ "--word-color": color } as WordStyle}
                 type="button"
               >
-                {letter}
-                {path ? (
-                  <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white/85 text-[11px] font-bold">
-                    {path.step + 1}
-                  </span>
+                {isRevealed ? (
+                  <>
+                    {connectLeft || connectRight ? (
+                      <span
+                        className="wend-cell-tube wend-cell-tube-h"
+                        style={{
+                          left: connectLeft ? 0 : "22.5%",
+                          right: connectRight ? 0 : "22.5%",
+                          borderRadius: horizontalEdgeStyle(!connectLeft, !connectRight),
+                        }}
+                      />
+                    ) : null}
+                    {connectTop || connectBottom ? (
+                      <span
+                        className="wend-cell-tube wend-cell-tube-v"
+                        style={{
+                          top: connectTop ? 0 : "22.5%",
+                          bottom: connectBottom ? 0 : "22.5%",
+                          borderRadius: verticalEdgeStyle(!connectTop, !connectBottom),
+                        }}
+                      />
+                    ) : null}
+                    {path?.step === 0 ? (
+                      <>
+                        <span className="wend-cell-start" />
+                        <span className="wend-cell-check">✓</span>
+                      </>
+                    ) : null}
+                    {nextDirection ? <ArrowMark dir={nextDirection} /> : null}
+                  </>
                 ) : null}
+                <span className="wend-cell-letter-text">{letter}</span>
               </button>
             );
           }),

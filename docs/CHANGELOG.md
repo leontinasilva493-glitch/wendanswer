@@ -4,6 +4,14 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-26
 
+### Wend interactive path styling
+
+- Studied `wendanswertoday.me` interaction behavior: board-cell click reveals the matching answer bubble, `Reveal Word` completes one word, and `Reveal all` draws colored route tubes with start markers, check badges, and direction arrows.
+- Reworked `WendGrid` to render colored path tubes, circular start markers, check markers, and directional arrows for revealed cells instead of simple color blocks.
+- Reworked `WendAnswerReveal` to show a `Words found` progress bar, circular answer bubbles, per-word `Reveal Letter` and `Reveal Word` controls, completed word-card styling, and full clear/reveal states.
+- Added responsive CSS for the Wend board and word cards so the 7x7 board fits mobile without horizontal overflow.
+- Updated tests to guard the path-tube, start-marker, check-marker, progress, and bubble UI primitives.
+
 ### LinkedIn Wend board parity investigation
 
 - Replaced the June 25 placeholder 5x5 Wend grid with the 6x6 letter layout and gray blocked-cell regions shown in the LinkedIn screenshot.
