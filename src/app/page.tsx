@@ -5,10 +5,11 @@ import { ArchiveList } from "@/components/ArchiveList";
 import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
+import { NextWendCountdown } from "@/components/NextWendCountdown";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
-import { expectedWendDisplay, isWendReadyForToday } from "@/lib/wend-status";
+import { expectedWendDisplay, isWendReadyForToday, nextWendDisplay } from "@/lib/wend-status";
 
 export const revalidate = 60;
 
@@ -60,6 +61,7 @@ export default function HomePage() {
   const oldestWend = archivePuzzles.at(-1) ?? todayWend;
   const latestWend = archivePuzzles[0] ?? todayWend;
   const heroWend = expectedWendDisplay(todayWend);
+  const nextWend = nextWendDisplay(todayWend);
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
@@ -171,6 +173,13 @@ export default function HomePage() {
           <p className="mt-2 text-sm leading-6 text-slate-700">{displayWend.difficultyNote}</p>
         </article>
       </section>
+
+      <NextWendCountdown
+        dateLabel={nextWend.dateLabel}
+        isCurrentPuzzleReady={wendReady}
+        puzzleNumber={nextWend.puzzleNumber}
+        releaseAtIso={nextWend.releaseAtIso}
+      />
 
       <section className="section content-card">
         <h2 className="section-heading">

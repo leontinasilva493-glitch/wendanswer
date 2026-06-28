@@ -93,6 +93,18 @@ The status line above the Hero headline should include:
 Wend #{number} answer | {date} | updated daily at 8:00 UTC
 ```
 
+## Next Puzzle Countdown
+
+The homepage includes a `Next LinkedIn Wend puzzle unlocks in` module after the support/tip content and before the full archive. It targets adjacent search intent such as `next wend puzzle`, `when does linkedin wend update`, `wend answer tomorrow`, and date-based next-puzzle searches without publishing unverified answers.
+
+The countdown must use `nextWendDisplay()` from `src/lib/wend-status.ts`, which is tied to the shared `WEND_RELEASE_HOUR_UTC = 8` rule. The server-rendered copy should include:
+
+```text
+{date} · Wend #{number} · expected at 8:00 UTC
+```
+
+Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers.
+
 ## Structured Data
 
 Structured data is part of the launch SEO baseline:

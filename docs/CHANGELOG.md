@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-28
 
+### Next Wend puzzle countdown
+
+- Added a homepage countdown module for the next scheduled LinkedIn Wend reset at 8:00 UTC, positioned after the support/tip content and before the full archive.
+- The module shows the next Wend date, expected puzzle number, and live hours/minutes/seconds countdown while keeping static SEO-visible copy for next-puzzle and tomorrow/date searches.
+- Added shared `nextWendDisplay()` release metadata and regression coverage to keep the countdown tied to the official 8:00 UTC Wend release window.
+
 ### Complete Wend archive coverage on homepage
 
 - Replaced the homepage `Recent Wend Answers` three-card slice with a complete `All Wend Answers` archive list sourced from every verified Wend puzzle JSON file.

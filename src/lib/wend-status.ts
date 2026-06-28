@@ -44,6 +44,27 @@ export function expectedWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) 
   };
 }
 
+export function nextWendRelease(now = new Date()) {
+  const release = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), WEND_RELEASE_HOUR_UTC));
+  if (now.getTime() >= release.getTime()) {
+    release.setUTCDate(release.getUTCDate() + 1);
+  }
+  return release;
+}
+
+export function nextWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) {
+  const releaseAt = nextWendRelease(now);
+  const date = isoDate(releaseAt);
+  const puzzleNumber = latestPuzzle.puzzleNumber + daysBetween(latestPuzzle.date, date);
+
+  return {
+    date,
+    dateLabel: wendDateLabel(date),
+    puzzleNumber,
+    releaseAtIso: releaseAt.toISOString(),
+  };
+}
+
 export function isWendReadyForToday(puzzle: WendPuzzle, now = new Date()) {
   return puzzle.isVerified && puzzle.date === expectedWendDate(now);
 }
