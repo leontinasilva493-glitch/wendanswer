@@ -1,0 +1,318 @@
+{
+  "game": "wend",
+  "puzzleNumber": 20,
+  "date": "2026-06-28",
+  "dateLabel": "June 28, 2026",
+  "updatedAt": "2026-06-28T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "I",
+      "P",
+      "E",
+      "D",
+      "E",
+      "G",
+      "E"
+    ],
+    [
+      "N",
+      "G",
+      "E",
+      "K",
+      "B",
+      "R",
+      "E"
+    ],
+    [
+      "O",
+      "Y",
+      "E",
+      "E",
+      "E",
+      "T",
+      "R"
+    ],
+    [
+      "L",
+      null,
+      "E",
+      null,
+      "E",
+      null,
+      "U"
+    ],
+    [
+      "P",
+      "M",
+      "E",
+      "E",
+      "E",
+      "T",
+      "S"
+    ],
+    [
+      "E",
+      "H",
+      "S",
+      "N",
+      "E",
+      "G",
+      "S"
+    ],
+    [
+      "E",
+      "T",
+      "D",
+      "A",
+      "E",
+      "R",
+      "P"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with GENE; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "SPREADSHEET is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "GENE",
+      "path": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "DEGREE",
+      "path": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    {
+      "word": "TRUSTEE",
+      "path": [
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "EMPLOYEE",
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "BEEKEEPING",
+      "path": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "SPREADSHEET",
+      "path": [
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    }
+  ],
+  "explanation": "The June 28, 2026 Wend solution uses every open cell exactly once across GENE, DEGREE, TRUSTEE, EMPLOYEE, BEEKEEPING, SPREADSHEET. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating GENE, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm GENE first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}
