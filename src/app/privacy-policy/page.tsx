@@ -17,8 +17,13 @@ export default function PrivacyPolicyPage() {
           passwords, or payment information.
         </p>
         <p>
-          If analytics are added, they should be used to understand aggregate page usage such as visits, button
-          clicks, and device type. Do not submit personal information through this site.
+          We use lightweight, privacy-friendly analytics to understand aggregate page usage, including page
+          visits and spoiler reveal button clicks. Analytics events are used to improve the daily answer,
+          archive, and solver experience; they are not used for advertising profiles.
+        </p>
+        <p>
+          The site does not require accounts and does not ask you to submit personal information. Do not submit
+          personal information through this site.
         </p>
         <p>
           Third-party links, including links to LinkedIn Games, are governed by the privacy policies of those

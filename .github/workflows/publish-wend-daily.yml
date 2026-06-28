@@ -88,3 +88,9 @@ jobs:
           fi
         env:
           WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL }}
+      - name: Submit IndexNow
+        run: npm run indexnow:submit
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_SITE_URL: ${{ vars.INDEXNOW_SITE_URL || 'https://wendanswertoday.org' }}
+          INDEXNOW_ENDPOINT: ${{ vars.INDEXNOW_ENDPOINT }}

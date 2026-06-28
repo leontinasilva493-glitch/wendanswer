@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@/components/Analytics";
 import { Header } from "@/components/Header";
 import { DisclaimerFooter } from "@/components/DisclaimerFooter";
 import { BottomNav } from "@/components/BottomNav";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <DisclaimerFooter />
         <BottomNav />
+        <Analytics />
       </body>
     </html>
   );

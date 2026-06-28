@@ -74,6 +74,8 @@ const redirectChecks = [
 
 const failures = [];
 const requiredHeaders = [
+  "content-security-policy",
+  "strict-transport-security",
   "x-content-type-options",
   "x-frame-options",
   "referrer-policy",

@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { howToJson, pageMetadata } from "@/lib/seo";
+
+const steps = [
+  { name: "Start with constrained cells", text: "Corners and edge cells have fewer possible exits, so they often reveal the first reliable path." },
+  { name: "Check crossings carefully", text: "If a path blocks too many strong letters, test a different direction before locking it in." },
+  { name: "Use reveals as checkpoints", text: "A single revealed letter can confirm whether your whole solving direction is right." },
+];
 
 export const metadata: Metadata = pageMetadata({
   title: "How to Solve LinkedIn Wend",
@@ -12,20 +19,24 @@ export const metadata: Metadata = pageMetadata({
 export default function HowToSolveWendPage() {
   return (
     <main className="page-shell">
+      <JsonLd
+        data={howToJson({
+          name: "How to Solve LinkedIn Wend",
+          description: "Practical Wend solving tips using constraints, short paths, and spoiler-safe reveal checkpoints.",
+          path: "/how-to-solve-linkedin-wend",
+          steps,
+        })}
+      />
       <h1 className="text-4xl font-black tracking-normal text-ink md:text-5xl">How to Solve LinkedIn Wend</h1>
       <p className="section-copy">
         The fastest Wend solves usually come from constraint checking, not guessing. Use the board shape to
         reduce options before revealing any answer.
       </p>
       <section className="section space-y-4">
-        {[
-          ["Start with constrained cells", "Corners and edge cells have fewer possible exits, so they often reveal the first reliable path."],
-          ["Check crossings carefully", "If a path blocks too many strong letters, test a different direction before locking it in."],
-          ["Use reveals as checkpoints", "A single revealed letter can confirm whether your whole solving direction is right."],
-        ].map(([title, copy]) => (
-          <article className="rounded-lg border border-line bg-white p-4" key={title}>
-            <h2 className="text-xl font-black text-ink">{title}</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-700">{copy}</p>
+        {steps.map((step) => (
+          <article className="rounded-lg border border-line bg-white p-4" key={step.name}>
+            <h2 className="text-xl font-black text-ink">{step.name}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-700">{step.text}</p>
           </article>
         ))}
       </section>

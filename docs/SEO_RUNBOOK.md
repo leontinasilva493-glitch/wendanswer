@@ -93,6 +93,35 @@ The status line above the Hero headline should include:
 Wend #{number} answer | {date} | updated daily at 8:00 UTC
 ```
 
+## Structured Data
+
+Structured data is part of the launch SEO baseline:
+
+- Home and Today pages use FAQPage where visible FAQ content exists.
+- Wend how-to pages use HowTo schema through `howToJson()`.
+- Wend archive detail pages use Article, BreadcrumbList, and FAQPage schema.
+- Solver uses BreadcrumbList and FAQPage schema.
+
+When adding a new instructional page, add visible steps and `howToJson()`. When adding a new recurring answer/detail page, add visible FAQ content and `faqJson()` so structured data matches on-page text.
+
+## IndexNow
+
+IndexNow is wired through:
+
+```bash
+npm run indexnow:submit
+```
+
+Configure these values in GitHub/Vercel:
+
+```text
+INDEXNOW_KEY
+INDEXNOW_SITE_URL=https://wendanswertoday.org
+INDEXNOW_ENDPOINT=https://api.indexnow.org/indexnow
+```
+
+The site serves the verification key at `/indexnow-key.txt` and submits that URL as `keyLocation`. The daily publish workflow runs IndexNow submission after production smoke checks. If `INDEXNOW_KEY` is missing, the command skips safely.
+
 ## Index Strategy
 
 Current launch focus is Wend.

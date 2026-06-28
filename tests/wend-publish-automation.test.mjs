@@ -83,5 +83,6 @@ assert.match(workflowSource, /actions\/github-script/, "workflow should create a
 assert.match(workflowSource, /wend-publish/, "workflow failure issues should use a stable Wend publish label");
 assert.match(workflowSource, /createLabel/, "workflow should create missing failure labels before opening an issue");
 assert.match(workflowSource, /workflow_dispatch/, "workflow should support manual publishing");
+assert.match(workflowSource, /npm run indexnow:submit/, "workflow should notify IndexNow after publishing and smoke checks");
 
 console.log("wend publish automation test passed");

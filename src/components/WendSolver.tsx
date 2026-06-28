@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { Eye, RotateCcw } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import type { Cell, WendAnswer, WendPuzzle } from "@/lib/puzzles";
 import { WendGrid } from "./WendGrid";
 
@@ -28,14 +29,26 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
   const wordSet = useMemo(() => new Set(visibleWords), [visibleWords]);
   const progress = puzzle.answers.length === 0 ? 0 : Math.round((completedWords.length / puzzle.answers.length) * 100);
 
+  function trackSolverReveal(action: string, answer?: WendAnswer) {
+    trackEvent("Wend Solver Reveal", {
+      action,
+      pageType: "solver",
+      puzzleNumber: puzzle.puzzleNumber,
+      word: answer?.word ?? "all",
+    });
+  }
+
   function revealCell(answer: WendAnswer, cell: Cell) {
     if (!answer.path.some((candidate) => candidate[0] === cell[0] && candidate[1] === cell[1])) return;
+    trackSolverReveal("cell", answer);
     setVisibleLetters((current) => new Set([...current, cellKey(cell)]));
   }
 
   function revealWord(word?: string) {
     const target = word ?? nextWord?.word;
     if (!target) return;
+    const answer = puzzle.answers.find((candidate) => candidate.word === target);
+    trackSolverReveal("word", answer);
     setVisibleWords((current) => new Set([...current, target]));
   }
 
@@ -43,10 +56,12 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
     if (!answer) return;
     const nextCell = answer.path.find((cell) => !visibleLetters.has(cellKey(cell)));
     if (!nextCell) return;
+    trackSolverReveal("letter", answer);
     setVisibleLetters((current) => new Set([...current, cellKey(nextCell)]));
   }
 
   function revealAll() {
+    trackSolverReveal("all");
     setVisibleWords(new Set(puzzle.answers.map((answer) => answer.word)));
   }
 
@@ -67,9 +82,9 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
         />
       </div>
 
-      <div className="order-2 space-y-5">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <button className="btn btn-secondary rounded-full" onClick={() => revealLetter()} type="button">
+      <div className="order-2 wend-answer-panel space-y-5">
+        <div className="grid gap-2 sm:grid-cols-2">
+          <button className="btn btn-ghost rounded-full border-brand text-brand" onClick={() => revealLetter()} type="button">
             Reveal One Letter
           </button>
           <button className="btn btn-primary rounded-full" onClick={() => revealWord()} type="button">
@@ -100,7 +115,7 @@ export function WendSolver({ puzzle }: { puzzle: WendPuzzle }) {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-2">
           {puzzle.answers.map((answer, wordIndex) => {
             const color = wordColors[wordIndex % wordColors.length];
             const isWordVisible = visibleWords.has(answer.word);

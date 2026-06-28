@@ -9,7 +9,7 @@ import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { formatUpdated } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
-import { isWendReadyForToday } from "@/lib/wend-status";
+import { expectedWendDisplay, isWendReadyForToday } from "@/lib/wend-status";
 
 const path = "/linkedin-wend-answer-today";
 const fallbackDescription =
@@ -18,19 +18,22 @@ const fallbackDescription =
 export const revalidate = 60;
 
 function pageTitle(wendReady: boolean) {
+  const expectedWend = expectedWendDisplay(todayWend);
   return wendReady
     ? `LinkedIn Wend Answer Today - ${todayWend.dateLabel} | Wend #${todayWend.puzzleNumber}`
-    : "LinkedIn Wend Answer Today";
+    : `LinkedIn Wend Answer Today - ${expectedWend.dateLabel} | Wend #${expectedWend.puzzleNumber}`;
 }
 
 function pageDescription(wendReady: boolean) {
+  const expectedWend = expectedWendDisplay(todayWend);
   return wendReady
     ? `Get the verified LinkedIn Wend answer for ${todayWend.dateLabel}, puzzle #${todayWend.puzzleNumber}, with spoiler-safe hints, word path, and reveal controls.`
-    : fallbackDescription;
+    : `Get today's LinkedIn Wend answer status for ${expectedWend.dateLabel}, puzzle #${expectedWend.puzzleNumber}, plus spoiler-safe hints, word path help, and reveal controls.`;
 }
 
 export function generateMetadata(): Metadata {
   const wendReady = isWendReadyForToday(todayWend);
+  const expectedWend = expectedWendDisplay(todayWend);
   const title = pageTitle(wendReady);
   const description = pageDescription(wendReady);
 
@@ -42,7 +45,7 @@ export function generateMetadata(): Metadata {
     imageTitle: title,
     imageSubtitle: wendReady
       ? `${todayWend.dateLabel} - Wend #${todayWend.puzzleNumber}`
-      : "Verified hints, word path, and solution status.",
+      : `${expectedWend.dateLabel} - Wend #${expectedWend.puzzleNumber}`,
     publishedTime: wendReady ? todayWend.date : undefined,
     modifiedTime: wendReady ? todayWend.updatedAt : undefined,
   });

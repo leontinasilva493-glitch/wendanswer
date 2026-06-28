@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
+import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { findWendByArchiveSlug, findWendBySlug, getWendNeighbors, wendPuzzles } from "@/lib/puzzles";
-import { articleJson, breadcrumbJson, pageMetadata } from "@/lib/seo";
+import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
 import { wendArchiveSlug } from "@/lib/dates";
 
 type PageProps = {
@@ -58,6 +59,20 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
 
   const neighbors = getWendNeighbors(puzzle.puzzleNumber);
   const path = `/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`;
+  const faq = [
+    {
+      question: `Is Wend #${puzzle.puzzleNumber} today's puzzle?`,
+      answer: `No. This is the archived Wend answer for ${puzzle.dateLabel}. Use the Today page for the current daily puzzle.`,
+    },
+    {
+      question: "Can I reveal only part of this archived answer?",
+      answer: "Yes. The archive uses the same spoiler-safe reveal controls, so you can reveal one letter, one word, or the full path.",
+    },
+    {
+      question: "Why keep archived Wend answers?",
+      answer: "Archived answers help you compare paths, review solving patterns, and find older puzzle dates from search results.",
+    },
+  ];
 
   return (
     <main className="page-shell">
@@ -71,6 +86,7 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
           dateModified: puzzle.updatedAt,
         })}
       />
+      <JsonLd data={faqJson(faq)} />
       <section>
         <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">
           LinkedIn Wend Answer #{puzzle.puzzleNumber}
@@ -113,6 +129,15 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
           <h2 className="text-xl font-black text-ink">Difficulty note</h2>
           <p className="mt-2 text-sm leading-6 text-slate-700">{puzzle.difficultyNote}</p>
         </article>
+      </section>
+
+      <section className="section content-card">
+        <h2 className="section-heading">Archived Wend FAQ</h2>
+        <div className="mt-5 space-y-3">
+          {faq.map((item) => (
+            <FaqDetails answer={item.answer} key={item.question} question={item.question} textSize="text-base" />
+          ))}
+        </div>
       </section>
 
       <section className="section flex flex-wrap gap-2">

@@ -127,3 +127,24 @@ export function faqJson(items: { question: string; answer: string }[]) {
     })),
   };
 }
+
+export function howToJson(input: {
+  name: string;
+  description: string;
+  path: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    mainEntityOfPage: absoluteUrl(input.path),
+    step: input.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}

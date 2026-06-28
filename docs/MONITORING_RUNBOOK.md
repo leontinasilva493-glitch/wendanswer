@@ -79,13 +79,26 @@ Manual verification is still required in Google Search Console after deployment:
 
 ## Analytics And Cookie Notice
 
-The project currently does not install first-party analytics or third-party error tracking packages.
+The project uses Plausible for lightweight aggregate analytics and reveal funnel events. It is loaded through `src/components/Analytics.tsx` and can be disabled with:
 
-If analytics, ad pixels, session replay, or tracking cookies are added later, update:
+```text
+NEXT_PUBLIC_PLAUSIBLE_DISABLED=true
+```
+
+Current funnel events:
+
+- `Wend Reveal`: Today and archive answer reveal actions.
+- `Wend Solver Reveal`: Solver reveal actions.
+
+Each event includes `action`, `pageType`, `puzzleNumber`, and `word` properties.
+
+The privacy policy has been updated to describe aggregate page usage and reveal button click analytics. The implementation does not add GA4, ad pixels, session replay, or a tracking-cookie based analytics package.
+
+If GA4, ad pixels, session replay, or tracking cookies are added later, update:
 
 - `privacy-policy`.
 - `terms`.
 - `disclaimer` if needed.
 - A visible Cookie Notice or consent flow.
 
-Do not merge analytics code until the legal pages and notice match the new collection behavior.
+Do not merge new tracking code until the legal pages and notice match the new collection behavior.

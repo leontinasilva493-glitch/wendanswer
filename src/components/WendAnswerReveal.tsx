@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { Eye, EyeOff, Puzzle, RotateCcw } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import type { Cell, WendAnswer, WendPuzzle } from "@/lib/puzzles";
 import { WendGrid } from "./WendGrid";
 
@@ -46,24 +47,38 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
   }, [puzzle.answers, visibleLetters, visibleWords]);
   const allRevealed = puzzle.answers.length > 0 && completeWords.length === puzzle.answers.length;
   const progress = puzzle.answers.length === 0 ? 0 : Math.round((completeWords.length / puzzle.answers.length) * 100);
+  const pageType = archived ? "archive" : "today";
+
+  function trackReveal(action: string, answer?: WendAnswer) {
+    trackEvent("Wend Reveal", {
+      action,
+      pageType,
+      puzzleNumber: puzzle.puzzleNumber,
+      word: answer?.word ?? "all",
+    });
+  }
 
   function revealWord(answer: WendAnswer) {
+    trackReveal("word", answer);
     setVisibleWords((current) => new Set([...current, answer.word]));
   }
 
   function revealNextLetter(answer: WendAnswer) {
     const nextIndex = answer.path.findIndex((_, index) => !visibleLetters.has(letterKey(answer, index)));
     if (nextIndex < 0) return;
+    trackReveal("letter", answer);
     setVisibleLetters((current) => new Set([...current, letterKey(answer, nextIndex)]));
   }
 
   function revealCell(answer: WendAnswer, cell: Cell) {
     const index = answer.path.findIndex((candidate) => candidate[0] === cell[0] && candidate[1] === cell[1]);
     if (index < 0) return;
+    trackReveal("cell", answer);
     setVisibleLetters((current) => new Set([...current, letterKey(answer, index)]));
   }
 
   function revealAll() {
+    trackReveal("all");
     setVisibleWords(new Set(puzzle.answers.map((answer) => answer.word)));
   }
 

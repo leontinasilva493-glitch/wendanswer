@@ -4,6 +4,15 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-28
 
+### P1 growth, SEO, analytics, and security guardrails
+
+- Added HowTo JSON-LD to the Wend how-to pages and FAQPage JSON-LD plus visible FAQ accordions to Wend archive detail pages and the Solver page.
+- Kept homepage and Today on 60-second ISR and updated Today fallback metadata so title and description retain the expected date and Wend puzzle number instead of reverting to generic copy.
+- Added IndexNow support with a configurable key route, `npm run indexnow:submit`, and daily publish workflow submission after production smoke checks.
+- Added Plausible-based lightweight analytics without a package dependency, plus custom reveal funnel events for Today, Archive, and Solver reveal actions.
+- Added CSP and HSTS headers while preserving existing frame, content-type, referrer, permissions, and powered-by protections.
+- Aligned Solver controls and answer cards with the compact Today reveal panel styling and added tests to guard these growth and security details.
+
 ### Wend board arrow placement fix
 
 - Moved Wend route direction arrows from cell interiors to the boundary between the current letter cell and the next letter cell, preventing arrows from overlapping the large letter text.

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "generate:wend": "node scripts/generate-wend-puzzles.mjs",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
     "prebuild": "npm run generate:wend",
     "build": "next build",
     "start": "next start",
@@ -20,6 +21,7 @@
     "test:wend-mvp": "node tests/wend-mvp.test.mjs",
     "test:wend-publish": "node tests/wend-publish-automation.test.mjs",
     "test:wend-validator": "node tests/wend-validator.test.mjs",
+    "test:growth-guardrails": "node tests/growth-guardrails.test.mjs",
     "test:ops-monitoring": "node tests/ops-monitoring.test.mjs",
     "test:seo-metadata": "node tests/seo-metadata.test.mjs",
     "test:seo-routes": "node tests/seo-routes.test.mjs",
