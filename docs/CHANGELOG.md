@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-28
 
+### Complete Wend archive coverage on homepage
+
+- Replaced the homepage `Recent Wend Answers` three-card slice with a complete `All Wend Answers` archive list sourced from every verified Wend puzzle JSON file.
+- Added first-to-latest coverage copy on the homepage and archive page so users can see the archive range at a glance.
+- Added archive coverage tests to ensure every Wend data file is included in the generated puzzle index, sitemap, archive static params, and homepage archive list.
+
 ### P1 growth, SEO, analytics, and security guardrails
 
 - Added HowTo JSON-LD to the Wend how-to pages and FAQPage JSON-LD plus visible FAQ accordions to Wend archive detail pages and the Solver page.

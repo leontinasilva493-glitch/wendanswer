@@ -164,6 +164,12 @@ Use one permanent high-authority daily URL plus canonical dated archives:
 
 The sitemap should publish only canonical archive URLs. Legacy archive URLs shaped like `/linkedin-wend-answer-{number}-{date}` should redirect to the matching canonical archive page to avoid duplicate indexed answer pages.
 
+Homepage archive coverage:
+
+- The homepage `All Wend Answers` block must render every verified Wend puzzle from `wendPuzzles`, not a sliced recent subset.
+- `/linkedin-wend-archive` must also render every verified Wend puzzle from `wendPuzzles`.
+- `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated index, sitemap, static archive params, and homepage archive block.
+
 ## Stale Today Protection
 
 After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not show yesterday's answer as today's answer. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. Answer reveals show only when the latest puzzle is both:

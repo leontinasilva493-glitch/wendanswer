@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CircleHelp, Lightbulb, ListChecks, Route, Zap } from "lucide-react";
+import { ArchiveList } from "@/components/ArchiveList";
 import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
-import { wendArchiveSlug } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
 import { expectedWendDisplay, isWendReadyForToday } from "@/lib/wend-status";
@@ -17,7 +17,7 @@ export function generateMetadata(): Metadata {
 
   return pageMetadata({
     title: `Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
-    description: `Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and recent Wend archive pages.`,
+    description: `Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.`,
     path: "/",
     keywords: [
       "wend answer today",
@@ -56,7 +56,9 @@ const faq = [
 ];
 
 export default function HomePage() {
-  const recentPuzzles = wendPuzzles.slice(0, 3);
+  const archivePuzzles = wendPuzzles;
+  const oldestWend = archivePuzzles.at(-1) ?? todayWend;
+  const latestWend = archivePuzzles[0] ?? todayWend;
   const heroWend = expectedWendDisplay(todayWend);
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
@@ -175,27 +177,14 @@ export default function HomePage() {
           <span className="section-icon">
             <ListChecks aria-hidden className="h-5 w-5" />
           </span>
-          <span>Recent Wend Answers</span>
+          <span>All Wend Answers</span>
         </h2>
-        <div className="mt-5 archive-grid">
-          {recentPuzzles.map((puzzle) => (
-            <Link
-              className="archive-card block"
-              href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}
-              key={puzzle.date}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-lg font-black text-brand">Wend #{puzzle.puzzleNumber}</h3>
-                <p className="text-sm font-semibold text-slate-600">{puzzle.dateLabel}</p>
-              </div>
-              <p className="mt-2 text-sm font-semibold text-slate-700">{puzzle.difficulty}</p>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{puzzle.quickHint}</p>
-              <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand">
-                Read Analysis
-                <ArrowRight aria-hidden className="h-4 w-4" />
-              </span>
-            </Link>
-          ))}
+        <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
+          Complete verified archive from Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
+          {latestWend.puzzleNumber} on {latestWend.dateLabel}.
+        </p>
+        <div className="mt-5">
+          <ArchiveList puzzles={archivePuzzles} />
         </div>
       </section>
     </main>
