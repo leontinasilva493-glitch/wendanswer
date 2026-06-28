@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-28
 
+### Wend board arrow placement fix
+
+- Moved Wend route direction arrows from cell interiors to the boundary between the current letter cell and the next letter cell, preventing arrows from overlapping the large letter text.
+- Corrected the directional edge mapping so right, left, down, and up arrows sit on the matching cell edge.
+- Added parity test coverage to keep route arrows below letter text and anchored to the correct inter-cell boundaries.
+
 ### P0 production monitoring and crawlability checks
 
 - Added `scripts/monitor-production.mjs` and `npm run monitor:production` to check production uptime, core-page noindex regressions, robots/sitemap crawlability, Today page freshness, and the latest legacy archive `308` redirect.

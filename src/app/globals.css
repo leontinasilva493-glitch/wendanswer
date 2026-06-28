@@ -147,7 +147,7 @@ body {
   }
 
   .wend-cell-arrow {
-    @apply absolute z-[6] flex h-4 w-4 items-center justify-center text-black/55 pointer-events-none;
+    @apply absolute z-[3] flex h-4 w-4 items-center justify-center text-black/55 pointer-events-none;
   }
 
   .wend-cell-arrow svg {
@@ -155,27 +155,27 @@ body {
   }
 
   .wend-cell-arrow-right {
-    left: 0;
+    right: 0;
     top: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(50%, -50%) rotate(-90deg);
   }
 
   .wend-cell-arrow-left {
-    right: 0;
+    left: 0;
     top: 50%;
-    transform: translate(50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
   }
 
   .wend-cell-arrow-down {
+    bottom: 0;
     left: 50%;
-    top: 0;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 50%);
   }
 
   .wend-cell-arrow-up {
-    bottom: 0;
     left: 50%;
-    transform: translate(-50%, 50%) rotate(180deg);
+    top: 0;
+    transform: translate(-50%, -50%) rotate(180deg);
   }
 
   .wend-word-card {

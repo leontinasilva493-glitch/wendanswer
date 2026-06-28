@@ -33,12 +33,18 @@ assert.deepEqual(latest.answers.map((answer) => answer.word), ["CARDINAL", "GOLD
 assert.equal(latest.isVerified, true, "Latest Wend data should be verified before today pages reveal answers");
 
 const gridSource = read("src/components/WendGrid.tsx");
+const cssSource = read("src/app/globals.css");
 assert.match(gridSource, /gridTemplateColumns/, "WendGrid should support variable LinkedIn board sizes");
 assert.match(gridSource, /isBlockedCell/, "WendGrid should render blocked gray cells");
 assert.match(gridSource, /border-\[#2f2f2f\]|border-\[#444/, "WendGrid should use dark wall borders like LinkedIn");
 assert.match(gridSource, /wend-cell-tube/, "WendGrid should render colored path tubes for revealed words");
 assert.match(gridSource, /wend-cell-start/, "WendGrid should render a circular start marker");
 assert.match(gridSource, /wend-cell-check/, "WendGrid should render a solved-word check marker");
+assert.match(cssSource, /\.wend-cell-arrow-right\s*\{[\s\S]*?right:\s*0;/, "right arrows should sit on the right cell boundary");
+assert.match(cssSource, /\.wend-cell-arrow-left\s*\{[\s\S]*?left:\s*0;/, "left arrows should sit on the left cell boundary");
+assert.match(cssSource, /\.wend-cell-arrow-down\s*\{[\s\S]*?bottom:\s*0;/, "down arrows should sit on the bottom cell boundary");
+assert.match(cssSource, /\.wend-cell-arrow-up\s*\{[\s\S]*?top:\s*0;/, "up arrows should sit on the top cell boundary");
+assert.match(cssSource, /\.wend-cell-arrow\s*\{[\s\S]*?z-\[3\]/, "arrows should render below letter text to avoid overlap");
 assert.doesNotMatch(gridSource, /grid-cols-5/, "WendGrid must not hard-code a 5-column board");
 assert.doesNotMatch(gridSource, /wendanswertoday\.org/, "WendGrid should not add a site watermark inside the game board");
 
