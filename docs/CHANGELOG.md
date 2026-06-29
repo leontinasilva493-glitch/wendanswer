@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-29
 
+### Wend #21 publish backfill and trigger hardening
+
+- Published the June 29, 2026 Wend #21 data from the public HTML fallback source after confirming the local importer can reconstruct the board, words, and paths in two seconds.
+- Compared competitor update paths: `wendanswertoday.me` embeds current board data in HTML `data-*` attributes, while `wendgames.org` uses a manually maintained `src/answers-data.js` list with words/screenshots.
+- Expanded the daily publish workflow with longer 8:00 UTC retries, 9:00 UTC catch-up runs, manual `expected_date` / `source_url` inputs, and `repository_dispatch` support for an external cron trigger.
+- Updated the daily runbook so GitHub schedule is treated as fallback rather than the only five-minute publish trigger.
+
 ### Homepage Wend display consistency
 
 - Changed the homepage Hero to use the same `displayWend` source as the answer game module, instead of advancing the visible date and puzzle number from the calendar alone.

@@ -1,0 +1,168 @@
+{
+  "game": "wend",
+  "puzzleNumber": 21,
+  "date": "2026-06-29",
+  "dateLabel": "June 29, 2026",
+  "updatedAt": "2026-06-29T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      null,
+      null,
+      "M",
+      "O",
+      "N"
+    ],
+    [
+      "W",
+      "H",
+      "T",
+      "U",
+      "U"
+    ],
+    [
+      "A",
+      null,
+      null,
+      null,
+      "R"
+    ],
+    [
+      "L",
+      "N",
+      "G",
+      "D",
+      "E"
+    ],
+    [
+      "T",
+      "U",
+      "E",
+      null,
+      null
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with RUN; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "WALNUT is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "RUN",
+      "path": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "EDGE",
+      "path": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "MOUTH",
+      "path": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "WALNUT",
+      "path": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    }
+  ],
+  "explanation": "The June 29, 2026 Wend solution uses every open cell exactly once across RUN, EDGE, MOUTH, WALNUT. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating RUN, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm RUN first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}

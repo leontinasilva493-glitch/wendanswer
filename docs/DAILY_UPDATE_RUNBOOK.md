@@ -34,7 +34,25 @@ The script supports these environment variables:
 - `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
 - `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
 
-GitHub Actions runs `.github/workflows/publish-wend-daily.yml` at `0,1,3,5 8 * * *` UTC and can also be triggered manually. These retries are a fallback publish window, not a guarantee that GitHub Actions will start exactly on time.
+GitHub Actions runs `.github/workflows/publish-wend-daily.yml` through the first publish window at `0,1,3,5,7,9,12,15,20,30,45 8 * * *` UTC, then runs catch-up checks at `5,20,35,50 9 * * *` UTC. It can also be triggered manually with optional `expected_date` and `source_url` inputs, or by an external cron through `repository_dispatch` type `publish-wend-daily`.
+
+The expanded schedule exists because the public Actions page showed the June 29 publish did not run even though the importer could generate Wend #21 locally in two seconds. Do not rely on GitHub's scheduled workflow as the only trigger for a five-minute answer site. Use an external cron or uptime monitor to call GitHub's `repository_dispatch` endpoint at 8:00:10, 8:01, 8:03, and 8:05 UTC with this payload shape:
+
+```json
+{
+  "event_type": "publish-wend-daily",
+  "client_payload": {
+    "expected_date": "2026-06-29",
+    "source_url": "https://wendanswertoday.me/"
+  }
+}
+```
+
+The current public fallback strategy is:
+
+- `wendanswertoday.me` embeds the current solved board directly in server-rendered HTML using cell attributes such as `data-row`, `data-col`, `data-word-index`, and `data-letter-index`. The importer can reconstruct the grid, paths, and words from those attributes.
+- `wendgames.org/answers` loads `src/answers-data.js`, which is explicitly marked as manually maintained and usually contains words plus solved-board screenshots. Treat it as a cross-check source, not as the primary source for our interactive board, because it may not expose full path coordinates.
+- LinkedIn's official Wend page remains the preferred source if a stable, compliant, verified capture is available. Public competitor pages are fallback signals and must pass the same geometry validator before publishing.
 
 Production monitoring runs separately in `.github/workflows/monitor-production.yml` every five minutes. It checks uptime, noindex regressions, robots/sitemap crawlability, Today page freshness, and the latest legacy archive `308` redirect. See `docs/MONITORING_RUNBOOK.md`.
 

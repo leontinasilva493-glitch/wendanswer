@@ -69,7 +69,8 @@ assert.equal(
 );
 
 const workflowSource = read(".github/workflows/publish-wend-daily.yml");
-assert.match(workflowSource, /0,1,3,5 8 \* \* \*/, "workflow should retry during the 8:00-8:05 UTC publish window");
+assert.match(workflowSource, /0,1,3,5,7,9,12,15,20,30,45 8 \* \* \*/, "workflow should retry during the 8:00 UTC publish window");
+assert.match(workflowSource, /5,20,35,50 9 \* \* \*/, "workflow should keep catching up after the first publish window");
 assert.match(workflowSource, /contents:\s*write/, "workflow should be able to push generated JSON back to the repository");
 assert.match(workflowSource, /issues:\s*write/, "workflow should be able to open a failure issue when daily publishing breaks");
 assert.match(workflowSource, /concurrency:/, "workflow should serialize overlapping retry runs");
@@ -83,6 +84,9 @@ assert.match(workflowSource, /actions\/github-script/, "workflow should create a
 assert.match(workflowSource, /wend-publish/, "workflow failure issues should use a stable Wend publish label");
 assert.match(workflowSource, /createLabel/, "workflow should create missing failure labels before opening an issue");
 assert.match(workflowSource, /workflow_dispatch/, "workflow should support manual publishing");
+assert.match(workflowSource, /repository_dispatch/, "workflow should support external cron dispatching");
+assert.match(workflowSource, /expected_date/, "manual and external dispatch should be able to set the expected Wend date");
+assert.match(workflowSource, /source_url/, "manual and external dispatch should be able to set a one-off source URL");
 assert.match(workflowSource, /npm run indexnow:submit/, "workflow should notify IndexNow after publishing and smoke checks");
 
 console.log("wend publish automation test passed");
