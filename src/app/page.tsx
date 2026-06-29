@@ -98,6 +98,11 @@ export default function HomePage() {
             Start with a Hint
           </a>
         </div>
+        <NextWendCountdown
+          dateLabel={nextWend.dateLabel}
+          puzzleNumber={nextWend.puzzleNumber}
+          releaseAtIso={nextWend.releaseAtIso}
+        />
       </section>
 
       <section className="section" id="answer">
@@ -173,13 +178,6 @@ export default function HomePage() {
           <p className="mt-2 text-sm leading-6 text-slate-700">{displayWend.difficultyNote}</p>
         </article>
       </section>
-
-      <NextWendCountdown
-        dateLabel={nextWend.dateLabel}
-        isCurrentPuzzleReady={wendReady}
-        puzzleNumber={nextWend.puzzleNumber}
-        releaseAtIso={nextWend.releaseAtIso}
-      />
 
       <section className="section content-card">
         <h2 className="section-heading">

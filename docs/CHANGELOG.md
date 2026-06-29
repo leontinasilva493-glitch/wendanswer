@@ -2,6 +2,15 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-29
+
+### Hero-integrated Wend countdown
+
+- Moved the next Wend countdown from a standalone homepage section into the lower half of the Hero, directly under the primary CTA buttons.
+- Restored the stronger image-style countdown card treatment with a centered white card, soft shadow, three compact time blocks, and short expected-release copy.
+- Split the countdown into a server-rendered Hero shell and client-side ticker so the next Wend date, puzzle number, and release-time copy remain visible in initial HTML.
+- Updated countdown regression coverage so the component stays inside the Hero and does not regress to a desktop left-right layout or long explanatory text.
+
 ## 2026-06-28
 
 ### Next Wend puzzle countdown
