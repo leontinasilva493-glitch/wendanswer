@@ -55,45 +55,38 @@ export function NextWendCountdown({
 
   return (
     <section className="section content-card">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div>
-          <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-            <Clock3 aria-hidden className="h-4 w-4" />
-            Next Wend update
-          </p>
-          <h2 className="mt-3 text-2xl font-black leading-tight text-ink md:text-3xl">
-            Next LinkedIn Wend puzzle unlocks in
-          </h2>
-          <p className="mt-3 text-base font-extrabold text-slate-700">
-            {dateLabel} · Wend #{puzzleNumber} · expected at 8:00 UTC
-          </p>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-            LinkedIn Wend usually resets at 8:00 UTC. We update the answer page after the new puzzle is verified,
-            so this timer is useful for tomorrow's Wend answer and next-puzzle searches without promising an
-            unverified solution.
-          </p>
-          {!isCurrentPuzzleReady ? (
-            <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold leading-6 text-amber-900">
-              The visible game module may use the latest verified puzzle while today's answer is catching up; this
-              countdown still tracks the next scheduled Wend reset.
-            </p>
-          ) : null}
-        </div>
+      <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+        <h2 className="max-w-3xl text-2xl font-black leading-tight text-ink md:text-4xl">
+          LinkedIn Wend #{puzzleNumber} unlocks in
+        </h2>
+        <p className="mt-3 text-base font-extrabold text-slate-700 md:text-lg">
+          Next Wend answer for {dateLabel} - expected at 8:00 UTC
+        </p>
 
         <div
           aria-label={`Countdown to Wend #${puzzleNumber} on ${dateLabel} at 8:00 UTC`}
-          className="grid grid-cols-3 gap-3"
+          className="mt-6 grid grid-cols-3 gap-3 sm:gap-4"
         >
           {boxes.map((box) => (
             <div
-              className="min-w-[5.25rem] rounded-lg border border-line bg-slate-50 px-4 py-4 text-center shadow-sm"
+              className="min-w-[5.25rem] rounded-lg border border-line bg-white px-4 py-5 text-center shadow-md shadow-slate-200/70"
               key={box.label}
             >
-              <div className="tabular-nums text-3xl font-black leading-none text-brand md:text-4xl">{box.value}</div>
-              <div className="mt-2 text-xs font-extrabold uppercase tracking-wide text-slate-600">{box.label}</div>
+              <div className="tabular-nums text-4xl font-black leading-none text-brand md:text-5xl">{box.value}</div>
+              <div className="mt-3 text-xs font-extrabold text-slate-700 md:text-sm">{box.label}</div>
             </div>
           ))}
         </div>
+
+        <p className="mt-6 inline-flex max-w-full items-start gap-2 rounded-full bg-amber-100 px-5 py-3 text-sm font-semibold leading-6 text-amber-950">
+          <Clock3 aria-hidden className="mt-1 h-4 w-4 shrink-0" />
+          <span>
+            Wend #{puzzleNumber} is expected on {dateLabel} at 8:00 UTC.
+            {!isCurrentPuzzleReady
+              ? " The current answer may show the latest verified puzzle until the new one is checked."
+              : ""}
+          </span>
+        </p>
       </div>
     </section>
   );
