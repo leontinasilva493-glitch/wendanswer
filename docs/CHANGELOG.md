@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-29
 
+### Compact horizontal Hero countdown
+
+- Changed the Hero countdown time blocks from stacked number-over-label layout to horizontal value/unit pairs such as `04 Hours`.
+- Reduced countdown card vertical padding and spacing so the Hero keeps the countdown signal while taking less first-screen height.
+- Added regression coverage to keep the ticker labels beside the numbers instead of below them.
+
 ### Hero-integrated Wend countdown
 
 - Moved the next Wend countdown from a standalone homepage section into the lower half of the Hero, directly under the primary CTA buttons.

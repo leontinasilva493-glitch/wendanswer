@@ -104,7 +104,7 @@ Next Wend #{number} unlocks in
 Expected {date} at 8:00 UTC
 ```
 
-Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers. Keep the module visually subordinate to the Hero headline and CTA, but use the centered white-card treatment so it reads as a useful first-screen status signal.
+Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers. Keep the module visually subordinate to the Hero headline and CTA, but use the centered white-card treatment so it reads as a useful first-screen status signal. The time blocks should stay compact, with each value and unit on one horizontal row to avoid inflating the Hero height.
 
 ## Structured Data
 

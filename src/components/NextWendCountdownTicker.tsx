@@ -45,11 +45,11 @@ export function NextWendCountdownTicker({ releaseAtIso }: NextWendCountdownTicke
   ];
 
   return (
-    <div className="mt-4 grid grid-cols-3 gap-3 sm:gap-4">
+    <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
       {boxes.map((box) => (
-        <div className="rounded-lg bg-slate-50 px-3 py-4 text-center" key={box.label}>
-          <div className="tabular-nums text-3xl font-black leading-none text-brand sm:text-4xl">{box.value}</div>
-          <div className="mt-2 text-xs font-extrabold text-slate-700 sm:text-sm">{box.label}</div>
+        <div className="flex items-baseline justify-center gap-2 rounded-lg bg-slate-50 px-3 py-3" key={box.label}>
+          <span className="tabular-nums text-3xl font-black leading-none text-brand sm:text-4xl">{box.value}</span>
+          <span className="text-xs font-extrabold text-slate-700 sm:text-sm">{box.label}</span>
         </div>
       ))}
     </div>

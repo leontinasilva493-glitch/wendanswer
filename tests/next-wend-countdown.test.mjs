@@ -19,9 +19,13 @@ assert.match(component, /Next Wend #\{puzzleNumber\} unlocks in/, "countdown sho
 assert.match(component, /Expected \{dateLabel\} at 8:00 UTC/, "countdown should expose the next answer date");
 assert.match(component, /max-w-\[760px\]/, "countdown should use the compact hero-card width");
 assert.match(component, /shadow-lg shadow-slate-200\/60/, "countdown should keep the previous image-style soft card treatment");
+assert.match(component, /px-5 py-4/, "countdown shell should keep reduced vertical padding inside the Hero");
 assert.match(ticker, /Hours/, "countdown should include an hours box");
 assert.match(ticker, /Minutes/, "countdown should include a minutes box");
 assert.match(ticker, /Seconds/, "countdown should include a seconds box");
+assert.match(ticker, /flex items-baseline justify-center gap-2/, "time value and unit should sit in one horizontal row");
+assert.match(ticker, /px-3 py-3/, "time boxes should use reduced vertical padding");
+assert.doesNotMatch(ticker, /mt-2 text-xs/, "time labels should not sit below the numbers");
 assert.match(ticker, /releaseAtIso/, "countdown should receive a server-computed release timestamp");
 assert.match(ticker, /useEffect/, "countdown should update after mount");
 assert.match(ticker, /setInterval/, "countdown should tick every second");
