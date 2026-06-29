@@ -32,13 +32,6 @@ function pathIndex(cell: Cell, answers: WendAnswer[], visibleWords: Set<string>,
   return null;
 }
 
-function direction(from: Cell, to: Cell) {
-  if (to[0] > from[0]) return "down";
-  if (to[0] < from[0]) return "up";
-  if (to[1] > from[1]) return "right";
-  return "left";
-}
-
 function horizontalEdgeStyle(isStart: boolean, isEnd: boolean) {
   if (!isStart && !isEnd) return "0px";
   if (isStart && isEnd) return "999px";
@@ -51,16 +44,6 @@ function verticalEdgeStyle(isStart: boolean, isEnd: boolean) {
   if (isStart && isEnd) return "999px";
   if (isStart) return "999px 999px 0 0";
   return "0 0 999px 999px";
-}
-
-function ArrowMark({ dir }: { dir: string }) {
-  return (
-    <span className={`wend-cell-arrow wend-cell-arrow-${dir}`} aria-hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
-    </span>
-  );
 }
 
 export function WendGrid({
@@ -124,7 +107,6 @@ export function WendGrid({
             const connectRight = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex && candidate[1] === colIndex + 1);
             const connectTop = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex - 1 && candidate[1] === colIndex);
             const connectBottom = [previous, next].some((candidate) => candidate && candidate[0] === rowIndex + 1 && candidate[1] === colIndex);
-            const nextDirection = next ? direction(cell, next) : null;
 
             return (
               <button
@@ -163,7 +145,6 @@ export function WendGrid({
                         <span className="wend-cell-check">✓</span>
                       </>
                     ) : null}
-                    {nextDirection ? <ArrowMark dir={nextDirection} /> : null}
                   </>
                 ) : null}
                 <span className="wend-cell-letter-text">{letter}</span>

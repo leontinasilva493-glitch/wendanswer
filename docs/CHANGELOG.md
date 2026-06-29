@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-29
 
+### Wend board arrow removal
+
+- Removed route direction arrows from the Wend game board because dense boards could still make boundary arrows visually overlap with large letter glyphs.
+- Kept colored path tubes, circular start markers, and solved-word check badges as the stable route visualization.
+- Updated regression coverage so `WendGrid` and board CSS do not reintroduce `wend-cell-arrow` styles.
+
 ### Wend #21 publish backfill and trigger hardening
 
 - Published the June 29, 2026 Wend #21 data from the public HTML fallback source after confirming the local importer can reconstruct the board, words, and paths in two seconds.

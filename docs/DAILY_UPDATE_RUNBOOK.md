@@ -229,7 +229,7 @@ Extra checks after UI or routing changes:
 - The Solver page uses the same colored word cards, letter bubbles, and reveal controls as the Today answer module.
 - The FAQ disclosure control rotates consistently on the homepage and Today page.
 - The verification-pending card links directly to the latest verified archive detail page.
-- A 375-390px wide mobile viewport keeps Wend board tubes, arrows, and letter bubbles legible without horizontal overflow.
+- A 375-390px wide mobile viewport keeps Wend board tubes, start markers, check badges, and letter bubbles legible without horizontal overflow.
 - A legacy archive URL returns a real `308` redirect in the running app, not just in source-level tests.
 
 ## Troubleshooting

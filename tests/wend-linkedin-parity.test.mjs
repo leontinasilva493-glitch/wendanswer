@@ -40,11 +40,8 @@ assert.match(gridSource, /border-\[#2f2f2f\]|border-\[#444/, "WendGrid should us
 assert.match(gridSource, /wend-cell-tube/, "WendGrid should render colored path tubes for revealed words");
 assert.match(gridSource, /wend-cell-start/, "WendGrid should render a circular start marker");
 assert.match(gridSource, /wend-cell-check/, "WendGrid should render a solved-word check marker");
-assert.match(cssSource, /\.wend-cell-arrow-right\s*\{[\s\S]*?right:\s*0;/, "right arrows should sit on the right cell boundary");
-assert.match(cssSource, /\.wend-cell-arrow-left\s*\{[\s\S]*?left:\s*0;/, "left arrows should sit on the left cell boundary");
-assert.match(cssSource, /\.wend-cell-arrow-down\s*\{[\s\S]*?bottom:\s*0;/, "down arrows should sit on the bottom cell boundary");
-assert.match(cssSource, /\.wend-cell-arrow-up\s*\{[\s\S]*?top:\s*0;/, "up arrows should sit on the top cell boundary");
-assert.match(cssSource, /\.wend-cell-arrow\s*\{[\s\S]*?z-\[3\]/, "arrows should render below letter text to avoid overlap");
+assert.doesNotMatch(gridSource, /ArrowMark|wend-cell-arrow/, "WendGrid should not render route arrows because they overlap letters on dense boards");
+assert.doesNotMatch(cssSource, /wend-cell-arrow/, "Wend board CSS should not keep unused route arrow styles");
 assert.doesNotMatch(gridSource, /grid-cols-5/, "WendGrid must not hard-code a 5-column board");
 assert.doesNotMatch(gridSource, /wendanswertoday\.org/, "WendGrid should not add a site watermark inside the game board");
 
