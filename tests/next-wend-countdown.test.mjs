@@ -39,6 +39,7 @@ assert.match(statusLib, /WEND_RELEASE_HOUR_UTC = 8/, "next Wend display must be 
 
 assert.match(homePage, /NextWendCountdown/, "homepage should render the next Wend countdown module");
 assert.match(homePage, /nextWendDisplay/, "homepage should compute next date and puzzle number from shared status logic");
+assert.match(homePage, /wendReady\s*\?\s*\(/, "homepage should only show the next-puzzle countdown when current data is ready");
 assert.ok(
   homePage.indexOf("<NextWendCountdown") < homePage.indexOf('<section className="section" id="answer">'),
   "countdown should sit inside the Hero before the answer module",

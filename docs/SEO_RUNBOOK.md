@@ -185,18 +185,23 @@ Homepage archive coverage:
 
 ## Stale Today Protection
 
-After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not show yesterday's answer as today's answer. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. Answer reveals show only when the latest puzzle is both:
+After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not label yesterday's answer as today's answer. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
 
 - `isVerified: true`
 - dated as the expected current Wend date for the 8:00 UTC release window
 
-If either check fails, the page shows a verification-pending notice and keeps hints, word paths, and reveal controls hidden.
+If either check fails, public pages should silently render the latest verified puzzle through the normal game module. Do not show a public verification-pending notice or promote a calendar-derived puzzle number before matching verified data exists.
+
+Homepage consistency rule:
+
+- The visible homepage Hero must use the same `displayWend` puzzle as the answer reveal module.
+- Do not use calendar-derived `expectedWendDisplay()` values for visible Hero copy before matching verified puzzle data exists.
+- The next-puzzle countdown should render only when `wendReady` is true. If the current expected puzzle is missing, hide the countdown rather than showing the following puzzle number beside an older game module.
 
 The Today page metadata should follow the same readiness rule:
 
 - Ready: include `dateLabel` and `Wend #{puzzleNumber}` in the title, description, and social image subtitle.
-- Pending: use a generic title and description so an old puzzle date is not promoted as today's answer.
-- Pending notice: include a direct link to the latest verified archive detail page, plus archive and official game links.
+- Pending: avoid promoting an unverified answer as current. Use the latest verified puzzle or generic status-oriented metadata until the real current puzzle is published.
 
 ## Sitemap Priorities
 

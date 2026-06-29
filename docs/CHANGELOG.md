@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-29
 
+### Homepage Wend display consistency
+
+- Changed the homepage Hero to use the same `displayWend` source as the answer game module, instead of advancing the visible date and puzzle number from the calendar alone.
+- Hid the next-puzzle countdown while the current expected Wend puzzle is not verified in local data, preventing Hero, countdown, and game module puzzle numbers from drifting apart.
+- Added regression coverage so the homepage cannot claim a newer Wend puzzle before the matching verified puzzle data is available.
+
 ### Compact horizontal Hero countdown
 
 - Changed the Hero countdown time blocks from stacked number-over-label layout to horizontal value/unit pairs such as `04 Hours`.

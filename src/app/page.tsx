@@ -9,12 +9,20 @@ import { NextWendCountdown } from "@/components/NextWendCountdown";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
-import { expectedWendDisplay, isWendReadyForToday, nextWendDisplay } from "@/lib/wend-status";
+import { isWendReadyForToday, nextWendDisplay } from "@/lib/wend-status";
 
 export const revalidate = 60;
 
+function latestVerifiedWend() {
+  return wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
+}
+
+function displayedWend() {
+  return isWendReadyForToday(todayWend) ? todayWend : latestVerifiedWend();
+}
+
 export function generateMetadata(): Metadata {
-  const heroWend = expectedWendDisplay(todayWend);
+  const heroWend = displayedWend();
 
   return pageMetadata({
     title: `Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
@@ -60,11 +68,11 @@ export default function HomePage() {
   const archivePuzzles = wendPuzzles;
   const oldestWend = archivePuzzles.at(-1) ?? todayWend;
   const latestWend = archivePuzzles[0] ?? todayWend;
-  const heroWend = expectedWendDisplay(todayWend);
-  const nextWend = nextWendDisplay(todayWend);
   const wendReady = isWendReadyForToday(todayWend);
-  const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
+  const lastVerifiedWend = latestVerifiedWend();
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
+  const heroWend = displayWend;
+  const nextWend = nextWendDisplay(displayWend);
 
   return (
     <main className="page-shell">
@@ -98,11 +106,13 @@ export default function HomePage() {
             Start with a Hint
           </a>
         </div>
-        <NextWendCountdown
-          dateLabel={nextWend.dateLabel}
-          puzzleNumber={nextWend.puzzleNumber}
-          releaseAtIso={nextWend.releaseAtIso}
-        />
+        {wendReady ? (
+          <NextWendCountdown
+            dateLabel={nextWend.dateLabel}
+            puzzleNumber={nextWend.puzzleNumber}
+            releaseAtIso={nextWend.releaseAtIso}
+          />
+        ) : null}
       </section>
 
       <section className="section" id="answer">

@@ -15,12 +15,13 @@ assert.match(seoSource, /keywords\?/, "pageMetadata should support page keywords
 assert.match(seoSource, /absoluteTitle\?/, "pageMetadata should support exact homepage titles");
 
 const homeSource = read("src/app/page.tsx");
-assert.match(homeSource, /generateMetadata/, "homepage should generate metadata from the expected daily Wend state");
-assert.match(homeSource, /expectedWendDisplay/, "homepage should share one dynamic date and puzzle-number source");
+assert.match(homeSource, /generateMetadata/, "homepage should generate metadata from the displayed Wend data state");
+assert.match(homeSource, /displayWend/, "homepage should share one displayed puzzle source across hero and answer module");
+assert.doesNotMatch(homeSource, /const heroWend = expectedWendDisplay/, "homepage hero should not advance by calendar before verified data exists");
 assert.match(
   homeSource,
   /Wend Answer Today - \$\{heroWend\.dateLabel\} \| Wend #\$\{heroWend\.puzzleNumber\} Answer/,
-  "homepage title should include the dynamic date and puzzle number",
+  "homepage title should include the displayed date and puzzle number",
 );
 assert.match(
   homeSource,
@@ -41,7 +42,7 @@ assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should us
 assert.match(
   homeSource,
   /Wend answer today for \{heroWend\.dateLabel\} puzzle no \{heroWend\.puzzleNumber\}/,
-  "homepage H1 should use the dynamic one-sentence Wend answer phrase",
+  "homepage H1 should use the displayed one-sentence Wend answer phrase",
 );
 assert.match(
   homeSource,
