@@ -129,12 +129,16 @@ npm run generate:wend
 ```
 
 This updates `src/lib/generated/wend-puzzles.ts` from every `YYYY-MM-DD.json` file under `data/puzzles/wend/`.
-Do not hand-edit dated Wend imports in `src/lib/puzzles.ts`; `todayWend` comes from the generated newest-first list:
+Do not hand-edit dated Wend imports in `src/lib/puzzles.ts`. The generated list is split into an internal raw dataset and a public verified dataset:
 
 ```ts
-export const wendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
-export const todayWend = wendPuzzles[0];
+export const allWendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
+export const verifiedWendPuzzles = allWendPuzzles.filter((puzzle) => puzzle.isVerified);
+export const wendPuzzles = verifiedWendPuzzles;
+export const todayWend = verifiedWendPuzzles[0] ?? allWendPuzzles[0];
 ```
+
+Public homepage, Today, Solver, Archive, sitemap, and archive detail routes must consume `wendPuzzles` / `todayWend`, not `allWendPuzzles`, so unverified captures never appear as public answers.
 
 4. If the new puzzle creates a new archive detail page slug, add that route to `scripts/smoke-local.mjs` so local smoke testing covers it.
 
@@ -239,14 +243,15 @@ If the Today page shows yesterday's puzzle:
 - Run `npm run generate:wend`.
 - Run `npm run latest:wend`.
 - Check `src/lib/generated/wend-puzzles.ts` lists the newest JSON first.
-- Confirm `todayWend = wendPuzzles[0]`.
+- Confirm the newest current-day JSON has `isVerified: true`; otherwise public pages intentionally keep showing the latest verified puzzle.
+- Confirm `todayWend` comes from `verifiedWendPuzzles[0]`, with `allWendPuzzles[0]` used only as an emergency empty-data fallback.
 - Restart `npm run dev` if the dev server was already running.
 
 If a new archive page returns 404:
 
 - Confirm `findWendByArchiveSlug()` can find the puzzle.
 - Confirm the generated slug matches `/wend-answer-puzzle-{number}-{date}`.
-- Confirm the puzzle is included in `wendPuzzles`.
+- Confirm the puzzle has `isVerified: true` and is included in public `wendPuzzles`; unverified raw files stay out of archive detail pages.
 
 If smoke testing fails:
 

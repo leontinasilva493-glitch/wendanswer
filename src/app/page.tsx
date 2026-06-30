@@ -197,7 +197,7 @@ export default function HomePage() {
           <span>All Wend Answers</span>
         </h2>
         <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
-          Complete verified archive from Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
+          Verified archive coverage from Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
           {latestWend.puzzleNumber} on {latestWend.dateLabel}.
         </p>
         <div className="mt-5">

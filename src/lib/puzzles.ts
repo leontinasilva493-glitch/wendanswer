@@ -44,8 +44,10 @@ export type SimplePuzzle = {
   path?: Cell[];
 };
 
-export const wendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
-export const todayWend = wendPuzzles[0];
+export const allWendPuzzles = generatedWendPuzzles as unknown as WendPuzzle[];
+export const verifiedWendPuzzles = allWendPuzzles.filter((puzzle) => puzzle.isVerified);
+export const wendPuzzles = verifiedWendPuzzles;
+export const todayWend = verifiedWendPuzzles[0] ?? allWendPuzzles[0];
 export const todayPatches = patchesToday as SimplePuzzle;
 export const todayZip = zipToday as SimplePuzzle;
 

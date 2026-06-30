@@ -2,6 +2,16 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-06-30
+
+### Verified Wend public data chain hardening
+
+- Split Wend data access into `allWendPuzzles` for raw generated JSON and `verifiedWendPuzzles` / `wendPuzzles` for public pages.
+- Changed `todayWend` to default to the latest verified Wend puzzle, with raw data used only as an empty-data fallback.
+- Updated homepage and archive copy from generic complete coverage to verified archive coverage so unverified internal captures are not described as public verified answers.
+- Updated the Solver page to render an explicit `solverWend` verified fallback and label it as the latest verified puzzle when the current release has not been verified.
+- Kept `publish-wend-daily.mjs` guarded by `validateWendPuzzle`, which still refuses unverified daily publishes unless the private dry-run override is explicitly enabled.
+
 ## 2026-06-29
 
 ### Logo and brand asset refresh

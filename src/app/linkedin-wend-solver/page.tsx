@@ -7,15 +7,20 @@ import { WendSolver } from "@/components/WendSolver";
 import { getWendNeighbors, todayWend } from "@/lib/puzzles";
 import { breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
 import { wendArchiveSlug } from "@/lib/dates";
+import { isWendReadyForToday } from "@/lib/wend-status";
 
-export const metadata: Metadata = pageMetadata({
-  title: "LinkedIn Wend Solver for Today's Puzzle",
-  description:
-    "Use a spoiler-safe LinkedIn Wend solver with the current LinkedIn board shape, reveal one letter, reveal one word, reveal all paths, and clear the board.",
-  path: "/linkedin-wend-solver",
-  imageTitle: "LinkedIn Wend Solver",
-  imageSubtitle: `${todayWend.dateLabel} - Puzzle #${todayWend.puzzleNumber}`,
-});
+export function generateMetadata(): Metadata {
+  const solverReady = isWendReadyForToday(todayWend);
+  return pageMetadata({
+    title: solverReady ? "LinkedIn Wend Solver for Today's Puzzle" : "LinkedIn Wend Solver for Latest Verified Puzzle",
+    description: solverReady
+      ? "Use a spoiler-safe LinkedIn Wend solver with the current verified board shape, reveal one letter, reveal one word, reveal all paths, and clear the board."
+      : "Use a spoiler-safe LinkedIn Wend solver with the latest verified board while today's new puzzle is still being checked.",
+    path: "/linkedin-wend-solver",
+    imageTitle: "LinkedIn Wend Solver",
+    imageSubtitle: `${todayWend.dateLabel} - Puzzle #${todayWend.puzzleNumber}`,
+  });
+}
 
 const faq = [
   {
@@ -33,7 +38,9 @@ const faq = [
 ];
 
 export default function WendSolverPage() {
-  const neighbors = getWendNeighbors(todayWend.puzzleNumber);
+  const solverWend = todayWend;
+  const solverReady = isWendReadyForToday(solverWend);
+  const neighbors = getWendNeighbors(solverWend.puzzleNumber);
 
   return (
     <main className="page-shell">
@@ -42,18 +49,23 @@ export default function WendSolverPage() {
       <section>
         <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">LinkedIn Wend Solver</h1>
         <p className="section-copy">
-          Reveal today’s Wend grid one letter, one word, or one full path at a time. The board is custom-rendered
-          and final answers stay hidden until you choose to reveal them.
+          {solverReady
+            ? "Reveal today's verified Wend grid one letter, one word, or one full path at a time."
+            : "Today's newest Wend puzzle is still being checked, so this solver shows the latest verified puzzle instead."}{" "}
+          The board is custom-rendered and final answers stay hidden until you choose to reveal them.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-sm font-semibold text-slate-700">
-          <span className="rounded-lg bg-white px-3 py-2">Puzzle #{todayWend.puzzleNumber}</span>
-          <span className="rounded-lg bg-white px-3 py-2">{todayWend.dateLabel}</span>
-          <span className="rounded-lg bg-white px-3 py-2">{todayWend.difficulty}</span>
+          <span className="rounded-lg bg-white px-3 py-2">
+            {solverReady ? "Today's verified puzzle" : "Latest verified puzzle"}
+          </span>
+          <span className="rounded-lg bg-white px-3 py-2">Puzzle #{solverWend.puzzleNumber}</span>
+          <span className="rounded-lg bg-white px-3 py-2">{solverWend.dateLabel}</span>
+          <span className="rounded-lg bg-white px-3 py-2">{solverWend.difficulty}</span>
         </div>
       </section>
 
       <section className="section">
-        <WendSolver puzzle={todayWend} />
+        <WendSolver puzzle={solverWend} />
       </section>
 
       <section className="section flex flex-wrap gap-2">

@@ -41,4 +41,11 @@ for (const page of ["src/app/page.tsx", "src/app/linkedin-wend-answer-today/page
   }
 }
 
+const solverPage = read("src/app/linkedin-wend-solver/page.tsx");
+assert.match(solverPage, /isWendReadyForToday/, "Solver page should check whether the displayed Wend puzzle is current");
+assert.match(solverPage, /solverWend/, "Solver page should use an explicit verified fallback puzzle variable");
+assert.match(solverPage, /Latest verified puzzle/, "Solver page should label fallback data as latest verified puzzle");
+assert.match(solverPage, /<WendSolver puzzle=\{solverWend\}/, "Solver page should render the verified fallback puzzle");
+assert.doesNotMatch(solverPage, /<WendSolver puzzle=\{todayWend\}/, "Solver page should not render raw todayWend directly");
+
 console.log("wend freshness test passed");

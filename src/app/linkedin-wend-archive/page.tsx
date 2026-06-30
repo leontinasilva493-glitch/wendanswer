@@ -29,7 +29,7 @@ export default function WendArchivePage() {
         </p>
         {oldestWend && latestWend ? (
           <p className="mt-3 text-sm font-semibold text-slate-600">
-            Archive coverage: Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
+            Verified archive coverage: Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
             {latestWend.puzzleNumber} on {latestWend.dateLabel}.
           </p>
         ) : null}

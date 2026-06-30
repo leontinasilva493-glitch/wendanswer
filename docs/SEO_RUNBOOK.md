@@ -194,7 +194,8 @@ Homepage archive coverage:
 
 - The homepage `All Wend Answers` block must render every verified Wend puzzle from `wendPuzzles`, not a sliced recent subset.
 - `/linkedin-wend-archive` must also render every verified Wend puzzle from `wendPuzzles`.
-- `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated index, sitemap, static archive params, and homepage archive block.
+- `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated raw index, while only verified puzzles reach the public `wendPuzzles` archive, sitemap, static archive params, and homepage archive block.
+- Keep unverified captures available only through `allWendPuzzles` for internal checks and future correction; do not link or index them as public answer pages.
 
 ## Stale Today Protection
 
