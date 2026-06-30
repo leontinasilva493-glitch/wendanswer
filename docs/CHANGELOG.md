@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-06-29
 
+### Logo and brand asset refresh
+
+- Added the new blue-and-gold WendAnswerToday puzzle `W` logo as the canonical site brand asset under `public/images/`.
+- Generated 512, 192, 180, 128, and 64px PNG variants for favicon, Apple touch icon, header, footer, and social preview usage.
+- Updated Header, Footer, metadata icons, `/icon.svg`, and the dynamic Open Graph image route to use the new logo and shared logo description.
+- Added SEO regression coverage so the logo assets and references stay wired through the site shell and OG route.
+
 ### Wend board arrow removal
 
 - Removed route direction arrows from the Wend game board because dense boards could still make boundary arrows visually overlap with large letter glyphs.

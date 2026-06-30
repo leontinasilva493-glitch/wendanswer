@@ -6,6 +6,26 @@ const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
 const seoSource = read("src/lib/seo.ts");
+const siteSource = read("src/lib/site.ts");
+const layoutSource = read("src/app/layout.tsx");
+const headerSource = read("src/components/Header.tsx");
+const footerSource = read("src/components/DisclaimerFooter.tsx");
+for (const asset of [
+  "public/images/wend-logo.png",
+  "public/images/wend-logo-512.png",
+  "public/images/wend-logo-192.png",
+  "public/images/wend-logo-180.png",
+  "public/images/wend-logo-128.png",
+  "public/images/wend-logo-64.png",
+]) {
+  assert.equal(fs.existsSync(path.join(root, asset)), true, `${asset} should exist`);
+}
+assert.match(siteSource, /WendAnswerToday blue and gold puzzle W logo/, "site config should describe the new logo");
+assert.match(siteSource, /wend-logo-180\.png/, "site config should expose the apple touch logo");
+assert.match(layoutSource, /wend-logo-64\.png/, "metadata should use the new PNG favicon");
+assert.match(layoutSource, /site\.logo\.appleSrc/, "metadata should use the shared apple touch icon");
+assert.match(headerSource, /site\.logo\.headerSrc/, "header should render the shared logo asset");
+assert.match(footerSource, /site\.logo\.description/, "footer should describe the shared logo asset");
 assert.match(seoSource, /images:\s*\[/, "pageMetadata should add Open Graph images");
 assert.match(seoSource, /summary_large_image/, "Twitter card should use summary_large_image");
 assert.match(seoSource, /publishedTime/, "pageMetadata should support article publishedTime");
@@ -85,6 +105,7 @@ assert.match(ogRoute, /ImageResponse/, "OG route should generate images with Ima
 assert.match(ogRoute, /width:\s*1200/, "OG image width should be 1200");
 assert.match(ogRoute, /height:\s*630/, "OG image height should be 630");
 assert.match(ogRoute, /wendanswertoday\.org/, "OG image should include the final domain");
+assert.match(ogRoute, /site\.logo\.src/, "OG image should render the shared logo asset");
 
 const sitemapSource = read("src/app/sitemap.ts");
 for (const excluded of [

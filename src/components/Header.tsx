@@ -1,11 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
+import { site } from "@/lib/site";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link className="flex items-center gap-2 font-black text-ink" href="/">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white">W</span>
+          <Image
+            alt={site.logo.alt}
+            className="h-9 w-9 rounded-lg object-cover shadow-sm"
+            height={36}
+            priority
+            src={site.logo.headerSrc}
+            width={36}
+          />
           <span>WendAnswerToday</span>
         </Link>
         <nav className="hidden items-center gap-5 text-sm font-semibold text-slate-700 md:flex">

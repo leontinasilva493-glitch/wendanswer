@@ -15,7 +15,11 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/images/wend-logo-64.png", sizes: "64x64", type: "image/png" },
+      { url: "/images/wend-logo-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: site.logo.appleSrc, sizes: "180x180", type: "image/png" }],
   },
 };
 

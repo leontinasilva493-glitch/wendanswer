@@ -42,12 +42,25 @@ Social previews use the dynamic image route:
 The route generates a `1200x630` image with:
 
 - WendAnswerToday.org branding.
-- A simple W monogram.
+- The blue-and-gold puzzle `W` logo.
 - Page-specific title and subtitle.
 - Hints, Solver, and Archive labels.
 - The display domain `wendanswertoday.org`.
 
 When adding a new important page, pass `imageTitle` and `imageSubtitle` to `pageMetadata()`.
+
+## Brand Logo Assets
+
+The canonical site logo is the blue-and-gold rounded puzzle-square `W` mark. Keep these generated assets in sync:
+
+- `public/images/wend-logo.png`: original source image.
+- `public/images/wend-logo-512.png`: Open Graph and large app icon source.
+- `public/images/wend-logo-192.png`: browser/app icon.
+- `public/images/wend-logo-180.png`: Apple touch icon.
+- `public/images/wend-logo-128.png`: header and footer logo source.
+- `public/images/wend-logo-64.png`: small favicon source.
+
+`src/lib/site.ts` owns the shared logo path, alt text, and description. Header, Footer, root metadata icons, `/icon.svg`, and `/api/og` should use that shared brand definition rather than hard-coded text-only logo blocks.
 
 ## TDK Rules
 

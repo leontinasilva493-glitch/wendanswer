@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { absoluteUrl, site } from "@/lib/site";
 
 export const runtime = "edge";
 
@@ -50,22 +51,13 @@ export function GET(request: Request) {
         >
           <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
             <div style={{ alignItems: "center", display: "flex", gap: 18 }}>
-              <div
-                style={{
-                  alignItems: "center",
-                  background: "#2563eb",
-                  borderRadius: 22,
-                  color: "#ffffff",
-                  display: "flex",
-                  fontSize: 36,
-                  fontWeight: 900,
-                  height: 84,
-                  justifyContent: "center",
-                  width: 84,
-                }}
-              >
-                W
-              </div>
+              <img
+                alt={site.logo.alt}
+                height="84"
+                src={absoluteUrl(site.logo.src)}
+                style={{ borderRadius: 22, boxShadow: "0 8px 24px rgba(15, 23, 42, 0.18)" }}
+                width="84"
+              />
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <div style={{ color: "#2563eb", fontSize: 28, fontWeight: 900 }}>
                   WendAnswerToday.org
