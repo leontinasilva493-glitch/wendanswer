@@ -6,9 +6,9 @@ export const site = {
     src: "/images/wend-logo-512.png",
     headerSrc: "/images/wend-logo-128.png",
     appleSrc: "/images/wend-logo-180.png",
-    alt: "WendAnswerToday blue and gold puzzle W logo",
+    alt: "WendAnswerToday blue path W over yellow and white puzzle tiles logo",
     description:
-      "A blue and gold rounded puzzle-square logo with a white winding W path, representing daily Wend word paths and puzzle help.",
+      "A rounded yellow-and-white puzzle tile logo with a blue winding W path, representing daily Wend word paths and puzzle help.",
   },
   description:
     "Spoiler-safe daily hints, answers, word paths, solver help, and archive pages for LinkedIn Wend.",

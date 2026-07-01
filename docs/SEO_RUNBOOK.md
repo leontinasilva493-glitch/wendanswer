@@ -42,7 +42,7 @@ Social previews use the dynamic image route:
 The route generates a `1200x630` image with:
 
 - WendAnswerToday.org branding.
-- The blue-and-gold puzzle `W` logo.
+- The blue path `W` logo over yellow-and-white puzzle tiles.
 - Page-specific title and subtitle.
 - Hints, Solver, and Archive labels.
 - The display domain `wendanswertoday.org`.
@@ -51,7 +51,7 @@ When adding a new important page, pass `imageTitle` and `imageSubtitle` to `page
 
 ## Brand Logo Assets
 
-The canonical site logo is the blue-and-gold rounded puzzle-square `W` mark. Keep these generated assets in sync:
+The canonical site logo is the rounded yellow-and-white puzzle tile mark with a blue winding `W` path. Keep these generated assets in sync:
 
 - `public/images/wend-logo.png`: original source image.
 - `public/images/wend-logo-512.png`: Open Graph and large app icon source.

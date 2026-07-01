@@ -20,7 +20,7 @@ for (const asset of [
 ]) {
   assert.equal(fs.existsSync(path.join(root, asset)), true, `${asset} should exist`);
 }
-assert.match(siteSource, /WendAnswerToday blue and gold puzzle W logo/, "site config should describe the new logo");
+assert.match(siteSource, /blue path W over yellow and white puzzle tiles logo/, "site config should describe the new logo");
 assert.match(siteSource, /wend-logo-180\.png/, "site config should expose the apple touch logo");
 assert.match(layoutSource, /wend-logo-64\.png/, "metadata should use the new PNG favicon");
 assert.match(layoutSource, /site\.logo\.appleSrc/, "metadata should use the shared apple touch icon");

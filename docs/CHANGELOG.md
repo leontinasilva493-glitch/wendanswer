@@ -2,6 +2,14 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-01
+
+### Logo refresh
+
+- Replaced the canonical WendAnswerToday logo with the rounded yellow-and-white puzzle tile mark and blue winding `W` path.
+- Regenerated the 512, 192, 180, 128, and 64px PNG logo assets from the new source image.
+- Updated shared logo alt text, footer description, `/icon.svg`, SEO runbook wording, and metadata regression coverage for the new logo description.
+
 ## 2026-06-30
 
 ### Verified Wend public data chain hardening
