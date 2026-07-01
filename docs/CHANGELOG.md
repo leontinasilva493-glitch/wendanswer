@@ -9,6 +9,7 @@ This file records changes that are useful for debugging, rollback decisions, and
 - Added Microsoft Clarity project `xff0m0uvmc` through the shared `Analytics` component, loaded before interactive hydration from the page head path.
 - Added `NEXT_PUBLIC_CLARITY_DISABLED` and `NEXT_PUBLIC_CLARITY_ID` deployment controls for pausing or swapping the Clarity project without code changes.
 - Updated CSP, privacy policy, monitoring runbook, and growth guardrails so Clarity scripts, collection endpoints, and data-disclosure copy stay aligned.
+- Post-change review confirmed Clarity, GTM, Plausible, CSP, and privacy disclosures are aligned; `test:growth-guardrails`, `test:ops-monitoring`, and `typecheck` passed.
 
 ### Google Tag Manager analytics
 
