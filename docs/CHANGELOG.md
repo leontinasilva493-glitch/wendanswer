@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-01
 
+### Wend Game desktop navigation
+
+- Added a desktop-only `Wend Game` dropdown to the primary header navigation.
+- Added an `Official`-labeled external entry for `https://www.linkedin.com/games/wend` with safe `nofollow noopener` new-tab behavior.
+- Added a secondary internal entry to `/wend-unlimited` while keeping Wend Unlimited `noindex,follow` and out of the mobile bottom navigation, sitemap, `RelatedGames`, and `llms.txt`.
+- Added `tests/wend-game-nav.test.mjs` to lock the Phase 1 boundaries for the desktop menu, official link, mobile nav, and Wend Unlimited SEO status.
+
 ### Microsoft Clarity analytics
 
 - Added Microsoft Clarity project `xff0m0uvmc` through the shared `Analytics` component, loaded before interactive hydration from the page head path.
