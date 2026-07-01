@@ -4,6 +4,8 @@ import { site } from "@/lib/site";
 export function Analytics() {
   const gtmDisabled = process.env.NEXT_PUBLIC_GTM_DISABLED === "true";
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-5C5M7XPH";
+  const clarityDisabled = process.env.NEXT_PUBLIC_CLARITY_DISABLED === "true";
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID || "xff0m0uvmc";
   const plausibleDisabled = process.env.NEXT_PUBLIC_PLAUSIBLE_DISABLED === "true";
   const domain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || new URL(site.url).hostname;
   const scriptSrc = process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC || "https://plausible.io/js/script.tagged-events.js";
@@ -29,6 +31,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             />
           </noscript>
         </>
+      ) : null}
+      {!clarityDisabled ? (
+        <Script id="microsoft-clarity" strategy="beforeInteractive">
+          {`(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "${clarityId}");`}
+        </Script>
       ) : null}
       {!plausibleDisabled ? (
         <>

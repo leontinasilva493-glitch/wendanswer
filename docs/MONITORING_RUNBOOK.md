@@ -79,9 +79,10 @@ Manual verification is still required in Google Search Console after deployment:
 
 ## Analytics And Cookie Notice
 
-The project uses two analytics layers loaded through `src/components/Analytics.tsx`:
+The project uses three analytics layers loaded through `src/components/Analytics.tsx`:
 
 - Google Tag Manager with the default container `GTM-5C5M7XPH`, intended for GA4 and future tag governance.
+- Microsoft Clarity with the default project `xff0m0uvmc`, intended for interaction-quality and layout-friction review.
 - Plausible for lightweight aggregate analytics and reveal funnel events.
 
 Google Tag Manager can be disabled with:
@@ -94,6 +95,18 @@ The GTM container can be changed without code by setting:
 
 ```text
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+```
+
+Microsoft Clarity can be disabled with:
+
+```text
+NEXT_PUBLIC_CLARITY_DISABLED=true
+```
+
+The Clarity project can be changed without code by setting:
+
+```text
+NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx
 ```
 
 Plausible can be disabled with:
@@ -109,7 +122,7 @@ Current funnel events:
 
 Each event includes `action`, `pageType`, `puzzleNumber`, and `word` properties.
 
-The privacy policy has been updated to describe aggregate page usage, reveal button click analytics, Google Tag Manager, Google Analytics, and analytics cookies.
+The privacy policy has been updated to describe aggregate page usage, reveal button click analytics, Google Tag Manager, Google Analytics, Microsoft Clarity, and analytics cookies.
 
 If ad pixels, session replay, remarketing, or consent-gated tracking is added later, update:
 

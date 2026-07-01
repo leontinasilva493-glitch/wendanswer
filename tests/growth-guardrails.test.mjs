@@ -38,6 +38,7 @@ assert.match(nextConfig, /Strict-Transport-Security/, "Next config should send H
 assert.match(nextConfig, /plausible\.io/, "CSP should allow Plausible script and event requests");
 assert.match(nextConfig, /googletagmanager\.com/, "CSP should allow Google Tag Manager scripts and noscript frame");
 assert.match(nextConfig, /google-analytics\.com/, "CSP should allow Google Analytics event requests");
+assert.match(nextConfig, /clarity\.ms/, "CSP should allow Microsoft Clarity scripts and requests");
 assert.match(nextConfig, /poweredByHeader:\s*false/, "Next powered-by header should stay disabled");
 
 assert.equal(exists("src/components/Analytics.tsx"), true, "analytics component should exist");
@@ -54,6 +55,9 @@ assert.match(analyticsComponent, /NEXT_PUBLIC_GTM_DISABLED/, "GTM should have an
 assert.match(analyticsComponent, /googletagmanager\.com\/gtm\.js/, "analytics should load the GTM head script");
 assert.match(analyticsComponent, /googletagmanager\.com\/ns\.html/, "analytics should include the GTM noscript iframe");
 assert.match(analyticsComponent, /dataLayer/, "analytics should initialize the GTM dataLayer");
+assert.match(analyticsComponent, /xff0m0uvmc/, "analytics should include the configured Clarity project id");
+assert.match(analyticsComponent, /NEXT_PUBLIC_CLARITY_DISABLED/, "Clarity should have an environment kill switch");
+assert.match(analyticsComponent, /clarity\.ms\/tag/, "analytics should load the Clarity head script");
 assert.match(analyticsHelper, /trackEvent/, "analytics helper should expose custom event tracking");
 
 const answerReveal = read("src/components/WendAnswerReveal.tsx");
@@ -84,6 +88,7 @@ const privacy = read("src/app/privacy-policy/page.tsx");
 assert.match(privacy, /privacy-friendly analytics/, "privacy policy should describe analytics collection");
 assert.match(privacy, /Google Tag Manager/, "privacy policy should disclose Google Tag Manager");
 assert.match(privacy, /Google Analytics/, "privacy policy should disclose Google Analytics");
+assert.match(privacy, /Microsoft Clarity/, "privacy policy should disclose Microsoft Clarity");
 assert.match(privacy, /analytics cookies/, "privacy policy should describe analytics cookie behavior");
 assert.match(privacy, /reveal button clicks/, "privacy policy should describe reveal click events");
 

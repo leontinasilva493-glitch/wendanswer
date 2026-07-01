@@ -28,6 +28,11 @@ export default function PrivacyPolicyPage() {
           archive pages, and reveal controls useful.
         </p>
         <p>
+          We use Microsoft Clarity to understand page interaction quality, such as clicks, scrolling, and
+          usability friction. Clarity may use cookies or similar identifiers and can provide aggregated session
+          insights that help us improve the answer page layout and puzzle controls.
+        </p>
+        <p>
           The site does not require accounts and does not ask you to submit personal information. Do not submit
           personal information through this site.
         </p>

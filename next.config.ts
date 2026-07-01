@@ -5,17 +5,19 @@ const googleTagManagerOrigin = "https://www.googletagmanager.com";
 const googleAnalyticsOrigin = "https://www.google-analytics.com";
 const googleAnalyticsWildcardOrigin = "https://*.google-analytics.com";
 const googleAnalyticsUiOrigin = "https://analytics.google.com";
+const clarityOrigin = "https://www.clarity.ms";
+const clarityCollectOrigin = "https://*.clarity.ms";
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  `script-src 'self' 'unsafe-inline' ${process.env.NODE_ENV === "development" ? "'unsafe-eval' " : ""}${plausibleOrigin} ${googleTagManagerOrigin}`,
+  `script-src 'self' 'unsafe-inline' ${process.env.NODE_ENV === "development" ? "'unsafe-eval' " : ""}${plausibleOrigin} ${googleTagManagerOrigin} ${clarityOrigin}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: ${googleTagManagerOrigin} ${googleAnalyticsOrigin} ${googleAnalyticsWildcardOrigin}`,
+  `img-src 'self' data: ${googleTagManagerOrigin} ${googleAnalyticsOrigin} ${googleAnalyticsWildcardOrigin} ${clarityOrigin} ${clarityCollectOrigin}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${plausibleOrigin} ${googleAnalyticsOrigin} ${googleAnalyticsWildcardOrigin} ${googleAnalyticsUiOrigin}`,
+  `connect-src 'self' ${plausibleOrigin} ${googleAnalyticsOrigin} ${googleAnalyticsWildcardOrigin} ${googleAnalyticsUiOrigin} ${clarityOrigin} ${clarityCollectOrigin}`,
   `frame-src ${googleTagManagerOrigin}`,
   "manifest-src 'self'",
   "upgrade-insecure-requests",
