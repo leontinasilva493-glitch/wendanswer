@@ -79,7 +79,24 @@ Manual verification is still required in Google Search Console after deployment:
 
 ## Analytics And Cookie Notice
 
-The project uses Plausible for lightweight aggregate analytics and reveal funnel events. It is loaded through `src/components/Analytics.tsx` and can be disabled with:
+The project uses two analytics layers loaded through `src/components/Analytics.tsx`:
+
+- Google Tag Manager with the default container `GTM-5C5M7XPH`, intended for GA4 and future tag governance.
+- Plausible for lightweight aggregate analytics and reveal funnel events.
+
+Google Tag Manager can be disabled with:
+
+```text
+NEXT_PUBLIC_GTM_DISABLED=true
+```
+
+The GTM container can be changed without code by setting:
+
+```text
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+```
+
+Plausible can be disabled with:
 
 ```text
 NEXT_PUBLIC_PLAUSIBLE_DISABLED=true
@@ -92,9 +109,9 @@ Current funnel events:
 
 Each event includes `action`, `pageType`, `puzzleNumber`, and `word` properties.
 
-The privacy policy has been updated to describe aggregate page usage and reveal button click analytics. The implementation does not add GA4, ad pixels, session replay, or a tracking-cookie based analytics package.
+The privacy policy has been updated to describe aggregate page usage, reveal button click analytics, Google Tag Manager, Google Analytics, and analytics cookies.
 
-If GA4, ad pixels, session replay, or tracking cookies are added later, update:
+If ad pixels, session replay, remarketing, or consent-gated tracking is added later, update:
 
 - `privacy-policy`.
 - `terms`.

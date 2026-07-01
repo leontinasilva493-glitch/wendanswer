@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-01
 
+### Google Tag Manager analytics
+
+- Added Google Tag Manager container `GTM-5C5M7XPH` through the shared `Analytics` component, with the script loaded before interactive hydration and the noscript iframe rendered immediately after the opening body tag.
+- Kept the existing Plausible reveal-funnel analytics layer and added `NEXT_PUBLIC_GTM_DISABLED` / `NEXT_PUBLIC_GTM_ID` controls for deployment-level GTM management.
+- Updated CSP headers to allow Google Tag Manager and Google Analytics endpoints, and updated the privacy policy plus monitoring runbook to match the new analytics collection behavior.
+
 ### Logo refresh
 
 - Replaced the canonical WendAnswerToday logo with the rounded yellow-and-white puzzle tile mark and blue winding `W` path.

@@ -19,7 +19,13 @@ export default function PrivacyPolicyPage() {
         <p>
           We use lightweight, privacy-friendly analytics to understand aggregate page usage, including page
           visits and spoiler reveal button clicks. Analytics events are used to improve the daily answer,
-          archive, and solver experience; they are not used for advertising profiles.
+          archive, and solver experience.
+        </p>
+        <p>
+          We also use Google Tag Manager to load Google Analytics. Google Analytics may use analytics cookies
+          or similar identifiers to measure visits, traffic sources, device/browser information, and basic site
+          interactions. These analytics tools help us understand whether users find the current Wend answer,
+          archive pages, and reveal controls useful.
         </p>
         <p>
           The site does not require accounts and does not ask you to submit personal information. Do not submit

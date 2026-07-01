@@ -36,6 +36,8 @@ const nextConfig = read("next.config.ts");
 assert.match(nextConfig, /Content-Security-Policy/, "Next config should send CSP headers");
 assert.match(nextConfig, /Strict-Transport-Security/, "Next config should send HSTS headers");
 assert.match(nextConfig, /plausible\.io/, "CSP should allow Plausible script and event requests");
+assert.match(nextConfig, /googletagmanager\.com/, "CSP should allow Google Tag Manager scripts and noscript frame");
+assert.match(nextConfig, /google-analytics\.com/, "CSP should allow Google Analytics event requests");
 assert.match(nextConfig, /poweredByHeader:\s*false/, "Next powered-by header should stay disabled");
 
 assert.equal(exists("src/components/Analytics.tsx"), true, "analytics component should exist");
@@ -44,8 +46,14 @@ const layout = read("src/app/layout.tsx");
 const analyticsComponent = read("src/components/Analytics.tsx");
 const analyticsHelper = read("src/lib/analytics.ts");
 assert.match(layout, /<Analytics \/>/, "root layout should load analytics once");
+assert.match(layout, /<body>\s*<Analytics \/>\s*<Header \/>/, "analytics should render immediately after the opening body tag");
 assert.match(analyticsComponent, /plausible\.io\/js\/script\.tagged-events\.js/, "analytics should use Plausible tagged events script");
 assert.match(analyticsComponent, /NEXT_PUBLIC_PLAUSIBLE_DISABLED/, "analytics should have an environment kill switch");
+assert.match(analyticsComponent, /GTM-5C5M7XPH/, "analytics should include the configured GTM container id");
+assert.match(analyticsComponent, /NEXT_PUBLIC_GTM_DISABLED/, "GTM should have an environment kill switch");
+assert.match(analyticsComponent, /googletagmanager\.com\/gtm\.js/, "analytics should load the GTM head script");
+assert.match(analyticsComponent, /googletagmanager\.com\/ns\.html/, "analytics should include the GTM noscript iframe");
+assert.match(analyticsComponent, /dataLayer/, "analytics should initialize the GTM dataLayer");
 assert.match(analyticsHelper, /trackEvent/, "analytics helper should expose custom event tracking");
 
 const answerReveal = read("src/components/WendAnswerReveal.tsx");
@@ -74,6 +82,9 @@ assert.match(publishWorkflow, /npm run indexnow:submit/, "daily publish workflow
 
 const privacy = read("src/app/privacy-policy/page.tsx");
 assert.match(privacy, /privacy-friendly analytics/, "privacy policy should describe analytics collection");
+assert.match(privacy, /Google Tag Manager/, "privacy policy should disclose Google Tag Manager");
+assert.match(privacy, /Google Analytics/, "privacy policy should disclose Google Analytics");
+assert.match(privacy, /analytics cookies/, "privacy policy should describe analytics cookie behavior");
 assert.match(privacy, /reveal button clicks/, "privacy policy should describe reveal click events");
 
 console.log("growth guardrails test passed");
