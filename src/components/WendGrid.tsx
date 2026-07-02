@@ -52,12 +52,14 @@ export function WendGrid({
   visibleWords,
   visibleLetters,
   onCellClick,
+  selectedCells,
 }: {
   grid: Array<Array<string | null>>;
   answers: WendAnswer[];
   visibleWords: Set<string>;
   visibleLetters: Set<string>;
   onCellClick?: (answer: WendAnswer, cell: Cell) => void;
+  selectedCells?: Set<string>;
 }) {
   const columnCount = grid[0]?.length ?? 0;
 
@@ -75,10 +77,11 @@ export function WendGrid({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[520px]">
+    <div className="notranslate mx-auto w-full max-w-[520px]" lang="en" translate="no">
       <div
-        className="grid aspect-square overflow-hidden rounded-2xl border-[3px] border-[#2f2f2f] bg-white shadow-[0_14px_42px_rgba(15,23,42,0.16)]"
+        className="notranslate grid aspect-square overflow-hidden rounded-2xl border-[3px] border-[#2f2f2f] bg-white shadow-[0_14px_42px_rgba(15,23,42,0.16)]"
         style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
+        translate="no"
       >
         {grid.flatMap((row, rowIndex) =>
           row.map((letter, colIndex) => {
@@ -87,9 +90,10 @@ export function WendGrid({
             if (letter === null) {
               return (
                 <div
-                  aria-label={`Blocked cell at row ${rowIndex + 1}, column ${colIndex + 1}`}
-                  className={`wend-cell wend-cell-blocked ${blockedBorders(rowIndex, colIndex)}`}
+                  aria-label={`blocked r${rowIndex + 1} c${colIndex + 1}`}
+                  className={`notranslate wend-cell wend-cell-blocked ${blockedBorders(rowIndex, colIndex)}`}
                   key={key}
+                  translate="no"
                 />
               );
             }
@@ -100,6 +104,7 @@ export function WendGrid({
             );
             const color = answer ? colors[answers.indexOf(answer) % colors.length] : "#0a66c2";
             const isHintVisible = visibleLetters.has(key);
+            const isSelected = selectedCells?.has(key) ?? false;
             const isRevealed = Boolean(path);
             const previous = path && path.step > 0 ? path.answer.path[path.step - 1] : null;
             const next = path && path.step < path.answer.path.length - 1 ? path.answer.path[path.step + 1] : null;
@@ -110,11 +115,13 @@ export function WendGrid({
 
             return (
               <button
-                aria-label={`Letter ${letter} at row ${rowIndex + 1}, column ${colIndex + 1}`}
-                className={`wend-cell wend-cell-letter ${isRevealed ? "wend-cell-revealed" : isHintVisible ? "wend-cell-hinted" : ""}`}
+                aria-label={`${letter} r${rowIndex + 1} c${colIndex + 1}`}
+                className={`notranslate wend-cell wend-cell-letter ${isRevealed ? "wend-cell-revealed" : isSelected ? "wend-cell-selected" : isHintVisible ? "wend-cell-hinted" : ""}`}
+                data-letter={letter}
                 key={key}
                 onClick={() => answer && onCellClick?.(answer, cell)}
                 style={{ "--word-color": color } as WordStyle}
+                translate="no"
                 type="button"
               >
                 {isRevealed ? (
@@ -142,12 +149,14 @@ export function WendGrid({
                     {path?.step === 0 ? (
                       <>
                         <span className="wend-cell-start" />
-                        <span className="wend-cell-check">✓</span>
+                        <span aria-hidden className="wend-cell-check">
+                          ✓
+                        </span>
                       </>
                     ) : null}
                   </>
                 ) : null}
-                <span className="wend-cell-letter-text">{letter}</span>
+                <span aria-hidden className="notranslate wend-cell-letter-text" data-letter={letter} translate="no" />
               </button>
             );
           }),

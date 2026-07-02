@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "generate:wend": "node scripts/generate-wend-puzzles.mjs",
+    "generate:wend-unlimited": "node scripts/generate-wend-unlimited-puzzles.mjs",
     "indexnow:submit": "node scripts/submit-indexnow.mjs",
-    "prebuild": "npm run generate:wend",
-    "build": "next build",
+    "prebuild": "npm run generate:wend && npm run generate:wend-unlimited",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "npm run typecheck",
     "latest:wend": "node scripts/latest-date.mjs data/puzzles/wend --json",
@@ -21,13 +22,14 @@
     "test:wend-linkedin": "node tests/wend-linkedin-parity.test.mjs",
     "test:wend-mvp": "node tests/wend-mvp.test.mjs",
     "test:wend-publish": "node tests/wend-publish-automation.test.mjs",
+    "test:wend-unlimited": "node tests/wend-unlimited.test.mjs",
     "test:wend-validator": "node tests/wend-validator.test.mjs",
     "test:growth-guardrails": "node tests/growth-guardrails.test.mjs",
     "test:next-wend-countdown": "node tests/next-wend-countdown.test.mjs",
     "test:ops-monitoring": "node tests/ops-monitoring.test.mjs",
     "test:seo-metadata": "node tests/seo-metadata.test.mjs",
     "test:seo-routes": "node tests/seo-routes.test.mjs",
-    "pretypecheck": "npm run generate:wend",
+    "pretypecheck": "npm run generate:wend && npm run generate:wend-unlimited",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

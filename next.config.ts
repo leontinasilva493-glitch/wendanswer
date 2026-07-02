@@ -7,6 +7,7 @@ const googleAnalyticsWildcardOrigin = "https://*.google-analytics.com";
 const googleAnalyticsUiOrigin = "https://analytics.google.com";
 const clarityOrigin = "https://www.clarity.ms";
 const clarityCollectOrigin = "https://*.clarity.ms";
+const projectRoot = process.cwd();
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -25,6 +26,10 @@ const contentSecurityPolicy = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingRoot: projectRoot,
+  turbopack: {
+    root: projectRoot,
+  },
   async headers() {
     return [
       {

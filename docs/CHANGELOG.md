@@ -4,6 +4,17 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-01
 
+### Wend Unlimited MVP bank
+
+- Replaced the paused single-puzzle `/wend-unlimited` page with a 75-board unofficial practice bank loaded from `data/puzzles/wend-unlimited/puzzles.json`.
+- Added deterministic `npm run generate:wend-unlimited` generation with `validateWendPuzzle()` checks for every board before writing the bank.
+- Added `WendUnlimitedGame` controls for previous, next, random, and direct puzzle selection.
+- Added `WendPlayableGame` so Unlimited uses click-path plus `Submit Word` gameplay instead of the solver reveal controls.
+- Added `tests/wend-unlimited.test.mjs` to enforce the 50-100 puzzle MVP target, uniqueness, dedicated data source, playable submit UI, no `todayWend` clone, and visible `Unofficial` disclosure.
+- Fixed local production verification in the Chinese-named worktree by pinning `npm run build` to webpack and setting the Next tracing/Turbopack root to the project directory.
+- Regenerated the Unlimited bank with self-avoiding turning paths and blocked obstacle cells instead of straight row slices, and opted Wend grid cells out of browser translation to prevent visible translated input overlays.
+- Hardened the grid translation fix by rendering board letters from `data-letter` via CSS generated content, leaving no letter text nodes for browser translation tools to rewrite.
+
 ### Wend Game desktop navigation
 
 - Added a desktop-only `Wend Game` dropdown to the primary header navigation.

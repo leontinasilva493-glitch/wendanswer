@@ -34,7 +34,7 @@ The launch MVP is Wend-first. Other LinkedIn games can be added after the site i
 The desktop header may include a `Wend Game` dropdown for high-intent users who want to play rather than read answers. In Phase 1, that menu should contain:
 
 - `Play Official Wend`: external link to `https://www.linkedin.com/games/wend`, labeled `Official`, opening in a new tab with `nofollow noopener`.
-- `Wend Unlimited`: internal link to `/wend-unlimited`.
+- `Wend Unlimited`: internal link to `/wend-unlimited` with playable submit-and-solve practice boards.
 
 Do not add a mobile bottom-nav game item or a `/wend-game` intermediary page during Phase 1. Keep the mobile bottom navigation focused on `Today`, `Solver`, and `Archive`.
 
@@ -81,7 +81,7 @@ Recommended intent split:
 - `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
-- `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real unlimited mode exists.
+- `/wend-unlimited`: `Wend Unlimited` with `noindex,follow` while the unofficial 75-puzzle practice bank is validated during MVP.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
 Avoid making every page compete for the same generic keyword.
@@ -177,7 +177,7 @@ Temporarily `noindex,follow`:
 - `/linkedin-zip-solver`
 - `/wend-unlimited`
 
-Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited is paused during the MVP because the current page is a single practice puzzle, not a true unlimited generator. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Wend Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
+Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited now ships as an unofficial pregenerated practice game with submit interaction and puzzle selection, but it should remain out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` during MVP validation so usage and puzzle quality can be checked before indexation. The desktop `Wend Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
 
 To make Patches or Zip indexable later:
 
@@ -246,6 +246,7 @@ Run:
 npm run test:seo-metadata
 npm run test:seo-routes
 npm run test:wend-mvp
+npm run test:wend-unlimited
 npm run typecheck
 npm run build
 npm run smoke:local

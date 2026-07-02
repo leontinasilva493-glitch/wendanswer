@@ -43,7 +43,7 @@ export function Header() {
                     </span>
                   </span>
                   <span className="mt-1 block text-xs font-semibold leading-5 text-slate-500">
-                    Open the daily LinkedIn Wend game in a new tab.
+                    Open the official daily Wend game on LinkedIn in a new tab.
                   </span>
                 </span>
               </a>
@@ -55,7 +55,7 @@ export function Header() {
                 <span className="min-w-0">
                   <span className="block font-black text-ink">Wend Unlimited</span>
                   <span className="mt-1 block text-xs font-semibold leading-5 text-slate-500">
-                    Try the unofficial practice page without changing its SEO status.
+                    Play unofficial practice boards with submit-and-solve gameplay.
                   </span>
                 </span>
               </Link>
