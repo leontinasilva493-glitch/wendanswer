@@ -90,7 +90,7 @@ Recommended intent split:
 - `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
-- `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real unlimited mode exists.
+- `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real generated unlimited mode exists.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
 Avoid making every page compete for the same generic keyword.
@@ -186,7 +186,14 @@ Temporarily `noindex,follow`:
 - `/linkedin-zip-solver`
 - `/wend-unlimited`
 
-Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited is paused during the MVP because the current page is a single practice puzzle, not a true unlimited generator. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Play Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
+Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited currently uses verified Wend puzzles as a practice set with query-based previous/next navigation, but it is not yet a true generated unlimited mode. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Play Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
+
+Wend Unlimited should keep its public page copy user-facing. Do not describe internal launch status, MVP pauses, or SEO suppression in visible page content. Place the practice switcher directly above the solver with:
+
+- `Previous`
+- `Practice Puzzle {number} of {total}`
+- Puzzle number, difficulty, and letter count
+- `Next`
 
 To make Patches or Zip indexable later:
 

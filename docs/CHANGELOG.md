@@ -4,6 +4,14 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-02
 
+### Wend Unlimited practice navigation
+
+- Removed public-facing MVP pause copy from `/wend-unlimited`.
+- Removed the top helper chips that linked away to Today's Answer and Wend Solver.
+- Added a practice puzzle switcher above the solver with `Previous`, `Next`, current puzzle position, difficulty, and letter-count metadata.
+- Kept `/wend-unlimited` `noindex,follow` while using verified Wend puzzles as the current practice set.
+- Added `tests/wend-unlimited-navigation.test.mjs` to guard the public copy, removed helper links, query-based navigation, and noindex status.
+
 ### Navigation simplification
 
 - Renamed the desktop `Wend Game` dropdown to `Play Game` and shortened the official game entry to `Official Wend`.

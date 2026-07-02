@@ -43,6 +43,7 @@ The MVP homepage is intentionally Wend-first and answer-first:
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
 - The footer stays limited to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
 - FAQ remains available through page FAQ blocks and contextual links instead of the primary navigation.
+- `/wend-unlimited` uses verified Wend puzzles as a practice set with `Previous` / `Next` navigation, current puzzle position, difficulty, and letter-count metadata.
 - Centered hero with `Get Today's Answer` and `Start with a Hint` anchor CTAs.
 - Full-width `Today's LinkedIn Wend Answer` card immediately after the hero.
 - Left side of the answer card renders the Wend grid; right side handles `Reveal all`, `Clear all`, and row-level `Get Word`.
