@@ -24,7 +24,7 @@ export function Header() {
           <Link href="/linkedin-wend-archive">Archive</Link>
           <details className="group relative">
             <summary className="flex cursor-pointer list-none items-center gap-1 outline-none transition hover:text-brand focus-visible:text-brand [&::-webkit-details-marker]:hidden">
-              <span>Wend Game</span>
+              <span>Play Game</span>
               <ChevronDown aria-hidden className="h-4 w-4 transition group-open:rotate-180" />
             </summary>
             <div className="absolute right-0 top-full z-50 mt-3 w-72 rounded-lg border border-line bg-white p-2 text-sm shadow-xl">
@@ -37,7 +37,7 @@ export function Header() {
                 <ExternalLink aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
                 <span className="min-w-0">
                   <span className="flex items-center gap-2 font-black text-ink">
-                    Play Official Wend
+                    Official Wend
                     <span className="rounded-full bg-success/10 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-normal text-success">
                       Official
                     </span>
@@ -61,8 +61,6 @@ export function Header() {
               </Link>
             </div>
           </details>
-          <Link href="/where-is-linkedin-wend">Find Wend</Link>
-          <Link href="/faq">FAQ</Link>
         </nav>
       </div>
     </header>

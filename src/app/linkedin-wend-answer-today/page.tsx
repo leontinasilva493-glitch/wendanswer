@@ -155,6 +155,14 @@ export default function WendTodayPage() {
           <span>Step-by-step explanation</span>
         </h2>
         <p className="section-copy">{displayWend.explanation}</p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Link className="chip" href="/how-to-play-linkedin-wend">
+            How to Play
+          </Link>
+          <Link className="chip" href="/how-to-solve-linkedin-wend">
+            Solving Tips
+          </Link>
+        </div>
       </section>
 
       <section className="section grid gap-3 md:grid-cols-3">
@@ -186,12 +194,19 @@ export default function WendTodayPage() {
           <span className="section-icon">
             <Sparkles aria-hidden className="h-5 w-5" />
           </span>
-          <span>Finished today’s Wend?</span>
+          <span>Finished today's Wend?</span>
         </h2>
-        <p className="mt-2 text-slate-700">Browse previous Wend answers after finishing today's puzzle.</p>
-        <Link className="btn btn-primary mt-4" href="/linkedin-wend-archive">
-          View Wend Archive
-        </Link>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-700">
+          Keep the session going with another Wend path, or check recent solved boards after you finish today's puzzle.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a className="btn btn-primary" href="https://www.linkedin.com/games/wend" rel="nofollow noopener" target="_blank">
+            Play Official Wend
+          </a>
+          <Link className="btn btn-ghost border-brand text-brand" href="/linkedin-wend-archive">
+            View Wend Archive
+          </Link>
+        </div>
       </section>
 
       <section className="section content-card">

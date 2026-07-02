@@ -31,12 +31,21 @@ The helper sets:
 
 The launch MVP is Wend-first. Other LinkedIn games can be added after the site is live and real data is available, but they should not be promoted from the homepage, related-link modules, sitemap, or `llms.txt` during the initial Wend validation window.
 
-The desktop header may include a `Wend Game` dropdown for high-intent users who want to play rather than read answers. In Phase 1, that menu should contain:
+The desktop header should keep the primary user path short:
 
-- `Play Official Wend`: external link to `https://www.linkedin.com/games/wend`, labeled `Official`, opening in a new tab with `nofollow noopener`.
+- `Today`
+- `Solver`
+- `Archive`
+- `Play Game`
+
+The `Play Game` dropdown should contain:
+
+- `Official Wend`: external link to `https://www.linkedin.com/games/wend`, labeled `Official`, opening in a new tab with `nofollow noopener`.
 - `Wend Unlimited`: internal link to `/wend-unlimited`.
 
-Do not add a mobile bottom-nav game item or a `/wend-game` intermediary page during Phase 1. Keep the mobile bottom navigation focused on `Today`, `Solver`, and `Archive`.
+Do not add `FAQ`, `Find Wend`, a mobile bottom-nav game item, or a `/wend-game` intermediary page during Phase 1. Keep the mobile bottom navigation focused on `Today`, `Solver`, and `Archive`. Keep `Find Wend` available from the FAQ page, and keep `How to Play` / `Solving Tips` in related-resource modules and contextual body links.
+
+Footer navigation should stay limited to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
 
 ## OG Image
 
@@ -167,7 +176,7 @@ Indexable:
 - Wend Archive.
 - Wend history detail pages.
 - Wend how-to pages.
-- FAQ, contact, status, and legal pages.
+- FAQ, contact, and legal pages.
 
 Temporarily `noindex,follow`:
 
@@ -177,7 +186,7 @@ Temporarily `noindex,follow`:
 - `/linkedin-zip-solver`
 - `/wend-unlimited`
 
-Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited is paused during the MVP because the current page is a single practice puzzle, not a true unlimited generator. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Wend Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
+Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited is paused during the MVP because the current page is a single practice puzzle, not a true unlimited generator. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Play Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
 
 To make Patches or Zip indexable later:
 
@@ -235,7 +244,7 @@ Current priorities:
 - `/where-is-linkedin-wend`: `0.65`
 - Wend how-to pages: `0.65`
 - Wend history detail pages: `0.65`
-- FAQ/contact/status: `0.4`
+- FAQ/contact: `0.4`
 - Legal pages: `0.25`
 
 ## SEO Verification

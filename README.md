@@ -38,9 +38,11 @@ npm run smoke:local
 
 The MVP homepage is intentionally Wend-first and answer-first:
 
-- The desktop header includes `Today`, `Solver`, `Archive`, a `Wend Game` dropdown, `Find Wend`, and `FAQ`.
-- The `Wend Game` dropdown links to the official LinkedIn Wend game and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
+- The desktop header includes `Today`, `Solver`, `Archive`, and a compact `Play Game` dropdown.
+- The `Play Game` dropdown links to `Official Wend` and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
+- The footer stays limited to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+- FAQ remains available through page FAQ blocks and contextual links instead of the primary navigation.
 - Centered hero with `Get Today's Answer` and `Start with a Hint` anchor CTAs.
 - Full-width `Today's LinkedIn Wend Answer` card immediately after the hero.
 - Left side of the answer card renders the Wend grid; right side handles `Reveal all`, `Clear all`, and row-level `Get Word`.
@@ -79,6 +81,6 @@ Any functional change should update Markdown documentation in the same pass when
 - Dependency version pins or package-lock changes.
 - SEO metadata, canonical URLs, redirects, robots, sitemap, or social sharing previews.
 - Analytics, event tracking, launch checks, smoke tests, or build scripts.
-- User-facing game pages, solver behavior, archive behavior, or error/status pages.
+- User-facing game pages, solver behavior, archive behavior, or error pages.
 
 For small code-only fixes, add one short entry to `docs/CHANGELOG.md`. For changes that alter the daily workflow, also update `docs/DAILY_UPDATE_RUNBOOK.md`.

@@ -21,13 +21,10 @@ export function DisclaimerFooter() {
         </div>
         <p className="text-sm leading-6 text-slate-600">{site.disclaimer}</p>
         <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold text-slate-700">
-          <Link href="/faq">FAQ</Link>
           <Link href="/contact">Contact</Link>
-          <Link href="/status">Status</Link>
           <Link href="/disclaimer">Disclaimer</Link>
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/terms">Terms</Link>
-          <Link href="/llms.txt">llms.txt</Link>
         </div>
       </div>
     </footer>

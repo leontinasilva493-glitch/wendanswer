@@ -2,6 +2,17 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-02
+
+### Navigation simplification
+
+- Renamed the desktop `Wend Game` dropdown to `Play Game` and shortened the official game entry to `Official Wend`.
+- Removed `Find Wend` and `FAQ` from the top-level desktop navigation while keeping Find Wend available from the FAQ page and how-to resources available from related links and Today page body links.
+- Kept mobile bottom navigation limited to `Today`, `Solver`, and `Archive`.
+- Simplified the footer to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+- Removed the low-value public `/status` page and dropped it from the sitemap.
+- Reworked the Today page bottom CTA around `Finished today's Wend?` with follow-up actions after the user completes the daily puzzle.
+
 ## 2026-07-01
 
 ### Wend Game desktop navigation
