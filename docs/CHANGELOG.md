@@ -20,6 +20,7 @@ This file records changes that are useful for debugging, rollback decisions, and
 - Added a desktop-only `Wend Game` dropdown to the primary header navigation.
 - Added an `Official`-labeled external entry for `https://www.linkedin.com/games/wend` with safe `nofollow noopener` new-tab behavior.
 - Added a secondary internal entry to `/wend-unlimited` while keeping Wend Unlimited `noindex,follow` and out of the mobile bottom navigation, sitemap, `RelatedGames`, and `llms.txt`.
+- Replaced the native details dropdown with a controlled menu that opens on hover/focus and auto-hides 2.5 seconds after mouse leave or focus exit.
 - Added `tests/wend-game-nav.test.mjs` to lock the Phase 1 boundaries for the desktop menu, official link, mobile nav, and Wend Unlimited SEO status.
 
 ### Microsoft Clarity analytics
