@@ -105,7 +105,8 @@ assert.match(ogRoute, /ImageResponse/, "OG route should generate images with Ima
 assert.match(ogRoute, /width:\s*1200/, "OG image width should be 1200");
 assert.match(ogRoute, /height:\s*630/, "OG image height should be 630");
 assert.match(ogRoute, /wendanswertoday\.org/, "OG image should include the final domain");
-assert.match(ogRoute, /site\.logo\.src/, "OG image should render the shared logo asset");
+assert.match(ogRoute, /\/images\/wend-logo-64\.png/, "OG image should use the small logo asset to stay under Edge size limits");
+assert.doesNotMatch(ogRoute, /site\.logo\.src/, "OG route should avoid importing the full site config into the Edge function");
 
 const sitemapSource = read("src/app/sitemap.ts");
 for (const excluded of [

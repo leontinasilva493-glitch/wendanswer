@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { absoluteUrl, site } from "@/lib/site";
 
 export const runtime = "edge";
 
@@ -8,6 +7,9 @@ const size = {
   height: 630,
 };
 const displayDomain = "wendanswertoday.org";
+const siteUrl = "https://wendanswertoday.org";
+const logoAlt = "WendAnswerToday blue path W over yellow and white puzzle tiles logo";
+const logoSrc = `${siteUrl}/images/wend-logo-64.png`;
 
 function cleanText(value: string | null, fallback: string) {
   return (value ?? fallback).slice(0, 120);
@@ -52,9 +54,9 @@ export function GET(request: Request) {
           <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
             <div style={{ alignItems: "center", display: "flex", gap: 18 }}>
               <img
-                alt={site.logo.alt}
+                alt={logoAlt}
                 height="84"
-                src={absoluteUrl(site.logo.src)}
+                src={logoSrc}
                 style={{ borderRadius: 22, boxShadow: "0 8px 24px rgba(15, 23, 42, 0.18)" }}
                 width="84"
               />
