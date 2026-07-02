@@ -1,0 +1,236 @@
+{
+  "game": "wend",
+  "puzzleNumber": 24,
+  "date": "2026-07-02",
+  "dateLabel": "July 2, 2026",
+  "updatedAt": "2026-07-02T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "R",
+      "U",
+      "O",
+      "F",
+      "Y",
+      "S"
+    ],
+    [
+      "U",
+      null,
+      "U",
+      "R",
+      null,
+      "A"
+    ],
+    [
+      "G",
+      null,
+      null,
+      null,
+      null,
+      "E"
+    ],
+    [
+      "I",
+      "T",
+      "Y",
+      "M",
+      null,
+      "N"
+    ],
+    [
+      "P",
+      "I",
+      "Z",
+      "Y",
+      null,
+      "E"
+    ],
+    [
+      "Q",
+      "U",
+      "H",
+      "T",
+      "O",
+      "V"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with EASY; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "All answer paths have the same length, so use the blocked-cell lanes instead of word length to choose your next route."
+    }
+  ],
+  "answers": [
+    {
+      "word": "EASY",
+      "path": [
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "FOUR",
+      "path": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "GURU",
+      "path": [
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "MYTH",
+      "path": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "OVEN",
+      "path": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "PITY",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "QUIZ",
+      "path": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 2, 2026 Wend solution uses every open cell exactly once across EASY, FOUR, GURU, MYTH, OVEN, PITY, QUIZ. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating EASY, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "When every word has the same length, solve by lane shape: lock the edge paths first, then fill the middle routes.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because all 7 answers have the same length, so the board shape matters more than word length.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}
