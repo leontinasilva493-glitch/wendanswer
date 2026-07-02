@@ -15,12 +15,14 @@ Open `http://127.0.0.1:3000`.
 
 ```bash
 npm run generate:wend
+npm run generate:wend-unlimited
 npm run latest:wend
 npm run publish:wend
 npm run test:latest-date
 npm run test:wend-archive-url
 npm run test:wend-mvp
 npm run test:wend-publish
+npm run test:wend-unlimited
 npm run test:seo-metadata
 npm run test:seo-routes
 npm run typecheck
@@ -39,7 +41,7 @@ npm run smoke:local
 The MVP homepage is intentionally Wend-first and answer-first:
 
 - The desktop header includes `Today`, `Solver`, `Archive`, a `Wend Game` dropdown, `Find Wend`, and `FAQ`.
-- The `Wend Game` dropdown links to the official LinkedIn Wend game and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
+- The `Wend Game` dropdown lets users choose the official LinkedIn Wend game or the internal `/wend-unlimited` practice game; `/wend-unlimited` stays `noindex,follow` while the 75-puzzle unofficial bank is validated during MVP.
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
 - Centered hero with `Get Today's Answer` and `Start with a Hint` anchor CTAs.
 - Full-width `Today's LinkedIn Wend Answer` card immediately after the hero.
@@ -70,6 +72,16 @@ Wend pages should mirror LinkedIn's real board, not placeholder examples:
 - Keep open letter cells as one-letter strings.
 - Do not publish answer words or paths unless they are verified against the official puzzle.
 - A verified solution must use every open cell exactly once, never pass through `null` cells, and connect letters orthogonally.
+
+## Wend Unlimited
+
+`/wend-unlimited` loads a pregenerated bank from `data/puzzles/wend-unlimited/puzzles.json`.
+
+- The MVP bank contains 75 unofficial Wend-style practice puzzles.
+- `npm run generate:wend-unlimited` deterministically regenerates the bank and runs `validateWendPuzzle()` against every puzzle before writing the JSON file.
+- The page provides playable submit interaction: click adjacent cells, submit a word, clear the current path, and switch puzzles from the page selector.
+- `npm run test:wend-unlimited` verifies the 50-100 puzzle count, uniqueness, playable submit UI, dedicated data loading, and visible `Unofficial` disclosure.
+- Keep the page `noindex,follow` until the practice mode has enough usage and quality data to become an indexable route.
 
 ## Documentation Rule
 
