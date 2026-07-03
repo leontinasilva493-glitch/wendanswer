@@ -4,6 +4,11 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-02
 
+### Press links
+
+- Added the creator Linktree profile to `/press`.
+- Updated Press page regression coverage and documentation so the external link list stays in sync.
+
 ### Press page
 
 - Added a Footer `Press` link after `Contact`.

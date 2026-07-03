@@ -22,6 +22,8 @@ assert.match(
   /https:\/\/github\.com\/leontinasilva493-glitch\/wendanswer/,
   "Press page should include the GitHub repository URL",
 );
+assert.match(pressSource, /Linktree/, "Press page should include the Linktree link title");
+assert.match(pressSource, /https:\/\/linktr\.ee\/duckweed1014/, "Press page should include the Linktree URL");
 assert.match(pressSource, /target="_blank"/, "external press links should open in a new tab");
 assert.match(pressSource, /rel="nofollow noopener"/, "external press links should use safe rel values");
 assert.match(pressSource, /About WendAnswerToday/, "Press page should include site context");

@@ -17,6 +17,12 @@ const pressLinks = [
     description: "Public source repository for WendAnswerToday.org development.",
     href: "https://github.com/leontinasilva493-glitch/wendanswer",
   },
+  {
+    title: "Linktree",
+    source: "Linktree",
+    description: "Creator link hub for WendAnswerToday-related profiles and updates.",
+    href: "https://linktr.ee/duckweed1014",
+  },
 ];
 
 export const metadata: Metadata = pageMetadata({
