@@ -45,7 +45,9 @@ The `Play Game` dropdown should contain:
 
 Do not add `FAQ`, `Find Wend`, a mobile bottom-nav game item, or a `/wend-game` intermediary page during Phase 1. Keep the mobile bottom navigation focused on `Today`, `Solver`, and `Archive`. Keep `Find Wend` available from the FAQ page, and keep `How to Play` / `Solving Tips` in related-resource modules and contextual body links.
 
-Footer navigation should stay limited to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+Footer navigation should stay limited to `Contact`, `Press`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+
+The `/press` page is indexable as a brand trust page. Keep it factual and limited to external references, creator updates, repository links, brief site context, and contact information. External links should open in a new tab with `rel="nofollow noopener"`.
 
 ## OG Image
 
@@ -176,7 +178,7 @@ Indexable:
 - Wend Archive.
 - Wend history detail pages.
 - Wend how-to pages.
-- FAQ, contact, and legal pages.
+- FAQ, contact, press, and legal pages.
 
 Temporarily `noindex,follow`:
 
@@ -251,7 +253,7 @@ Current priorities:
 - `/where-is-linkedin-wend`: `0.65`
 - Wend how-to pages: `0.65`
 - Wend history detail pages: `0.65`
-- FAQ/contact: `0.4`
+- FAQ/contact/press: `0.4`
 - Legal pages: `0.25`
 
 ## SEO Verification

@@ -22,6 +22,7 @@ export function DisclaimerFooter() {
         <p className="text-sm leading-6 text-slate-600">{site.disclaimer}</p>
         <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold text-slate-700">
           <Link href="/contact">Contact</Link>
+          <Link href="/press">Press</Link>
           <Link href="/disclaimer">Disclaimer</Link>
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/terms">Terms</Link>

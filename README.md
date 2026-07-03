@@ -41,7 +41,8 @@ The MVP homepage is intentionally Wend-first and answer-first:
 - The desktop header includes `Today`, `Solver`, `Archive`, and a compact `Play Game` dropdown.
 - The `Play Game` dropdown links to `Official Wend` and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
-- The footer stays limited to `Contact`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+- The footer stays limited to `Contact`, `Press`, `Disclaimer`, `Privacy Policy`, and `Terms`.
+- `/press` lists trusted external links, including Ko-fi updates and the public GitHub repository.
 - FAQ remains available through page FAQ blocks and contextual links instead of the primary navigation.
 - `/wend-unlimited` uses verified Wend puzzles as a practice set with `Previous` / `Next` navigation, current puzzle position, difficulty, and letter-count metadata.
 - Centered hero with `Get Today's Answer` and `Start with a Hint` anchor CTAs.

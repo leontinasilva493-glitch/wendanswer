@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-02
 
+### Press page
+
+- Added a Footer `Press` link after `Contact`.
+- Added `/press` with external links for Ko-fi updates and the WendAnswer GitHub repository.
+- Added `/press` to the sitemap with support-page priority.
+- Added `tests/press-page.test.mjs` to guard the Footer link, Press page content, external link safety attributes, and sitemap entry.
+
 ### Wend Unlimited practice navigation
 
 - Removed public-facing MVP pause copy from `/wend-unlimited`.

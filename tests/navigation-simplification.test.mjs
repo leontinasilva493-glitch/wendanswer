@@ -7,7 +7,7 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const exists = (file) => fs.existsSync(path.join(root, file));
 
 const footerSource = read("src/components/DisclaimerFooter.tsx");
-for (const expected of ["/contact", "/disclaimer", "/privacy-policy", "/terms"]) {
+for (const expected of ["/contact", "/press", "/disclaimer", "/privacy-policy", "/terms"]) {
   assert.match(footerSource, new RegExp(`href="${expected}"`), `footer should keep ${expected}`);
 }
 for (const removed of ["/faq", "/status", "/llms.txt"]) {
