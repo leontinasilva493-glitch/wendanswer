@@ -1,0 +1,293 @@
+{
+  "game": "wend",
+  "puzzleNumber": 26,
+  "date": "2026-07-04",
+  "dateLabel": "July 4, 2026",
+  "updatedAt": "2026-07-04T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "D",
+      "I",
+      "Z",
+      "Z",
+      "I",
+      "S",
+      "S"
+    ],
+    [
+      "S",
+      "P",
+      null,
+      null,
+      "N",
+      "E",
+      "P"
+    ],
+    [
+      "I",
+      "A",
+      "C",
+      null,
+      null,
+      "Z",
+      "U"
+    ],
+    [
+      "Z",
+      "E",
+      "A",
+      "Z",
+      "Z",
+      "Z",
+      "L"
+    ],
+    [
+      "C",
+      "D",
+      "Z",
+      "Z",
+      null,
+      null,
+      "E"
+    ],
+    [
+      "H",
+      "P",
+      "A",
+      "I",
+      "P",
+      null,
+      null
+    ],
+    [
+      "I",
+      "M",
+      "N",
+      "Z",
+      "E",
+      "E",
+      "S"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with PUZZLE; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CHIMPANZEES is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "PUZZLE",
+      "path": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "word": "PIZZAZZ",
+      "path": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "CAPSIZED",
+      "path": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "DIZZINESS",
+      "path": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    {
+      "word": "CHIMPANZEES",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 4, 2026 Wend solution uses every open cell exactly once across PUZZLE, PIZZAZZ, CAPSIZED, DIZZINESS, CHIMPANZEES. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating PUZZLE, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm PUZZLE first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}
