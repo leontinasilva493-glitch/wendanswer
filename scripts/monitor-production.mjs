@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sendOpsAlert } from "./ops-alert.mjs";
+import { allowsGlobalCrawl, disallowsGlobalCrawl } from "./robots-policy.mjs";
 
 const root = process.cwd();
 const baseUrl = (process.env.MONITOR_BASE_URL || "https://wendanswertoday.org").replace(/\/$/, "");
@@ -127,8 +128,8 @@ async function checkRobotsAndSitemap(latestPuzzle) {
   const robots = await fetchPath("/robots.txt");
   const robotsText = await robots.text();
   if (!robots.ok) failures.push(`/robots.txt returned ${robots.status}`);
-  if (!/Allow:\s*\//i.test(robotsText)) failures.push("robots.txt does not explicitly allow crawling");
-  if (/Disallow:\s*\//i.test(robotsText)) failures.push("robots.txt disallows the whole site");
+  if (!allowsGlobalCrawl(robotsText)) failures.push("robots.txt does not explicitly allow crawling");
+  if (disallowsGlobalCrawl(robotsText)) failures.push("robots.txt disallows the whole site");
   if (!robotsText.includes(`${canonicalSiteUrl}/sitemap.xml`)) failures.push("robots.txt does not point to the production sitemap");
 
   const sitemap = await fetchPath("/sitemap.xml");

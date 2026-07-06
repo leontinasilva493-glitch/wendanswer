@@ -2,6 +2,15 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-06
+
+### P0 monitor robots false-positive fix
+
+- Added `scripts/robots-policy.mjs` and updated `scripts/monitor-production.mjs` so `/robots.txt` monitoring now parses robots groups instead of treating any `Disallow: /` line as a whole-site block.
+- The production monitor still fails on real freshness and archive coverage gaps, but Cloudflare-managed bot-specific disallow groups no longer create a false P0 on their own.
+- Added `tests/robots-policy.test.mjs` to guard the new robots parsing behavior with a Cloudflare-style sample and a strict global block sample.
+- Updated `docs/MONITORING_RUNBOOK.md` to describe the grouped robots behavior.
+
 ## 2026-07-02
 
 ### Press links

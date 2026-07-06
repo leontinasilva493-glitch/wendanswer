@@ -17,7 +17,7 @@ It checks:
 - Production uptime for `/`, `/linkedin-wend-answer-today`, `/linkedin-wend-archive`, and the latest Wend archive detail page.
 - Core pages do not send `x-robots-tag: noindex`.
 - Core pages do not render a `robots` meta tag containing `noindex`.
-- `/robots.txt` allows crawling and points to the production sitemap.
+- `/robots.txt` allows crawling and points to the production sitemap. The monitor treats bot-specific `Disallow: /` groups as expected managed blocks and only flags a true global crawl block.
 - `/sitemap.xml` includes the homepage, Today page, Archive page, and latest archive detail page.
 - The homepage Hero uses the expected Wend date and puzzle number.
 - The Today page shows the expected Wend date and puzzle number after the 8:00 UTC reset.

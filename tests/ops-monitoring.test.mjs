@@ -8,6 +8,7 @@ const exists = (file) => fs.existsSync(path.join(root, file));
 
 assert.equal(exists("scripts/ops-alert.mjs"), true, "shared ops alert helper should exist");
 assert.equal(exists("scripts/monitor-production.mjs"), true, "production monitor script should exist");
+assert.equal(exists("scripts/robots-policy.mjs"), true, "production monitor should use a dedicated robots parser");
 assert.equal(exists(".github/workflows/monitor-production.yml"), true, "production monitor workflow should exist");
 
 const packageJson = JSON.parse(read("package.json"));
