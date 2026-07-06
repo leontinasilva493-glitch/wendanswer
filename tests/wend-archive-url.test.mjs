@@ -14,36 +14,30 @@ assert.match(
 );
 
 const archiveDetailSource = read("src/app/[slug]/page.tsx");
-const proxySource = read("src/proxy.ts");
 assert.match(
   archiveDetailSource,
   /wendArchiveSlug/,
   "archive detail pages should use canonical Wend archive slugs",
 );
 assert.match(
-  proxySource,
-  /legacyWendArchivePrefix = "\/linkedin-wend-answer-"/,
-  "proxy should detect legacy Wend archive URLs before page rendering",
-);
-assert.match(
-  proxySource,
-  /\^\\d\+-/,
-  "proxy should only redirect numbered legacy archive URLs, not /linkedin-wend-answer-today",
-);
-assert.match(
-  proxySource,
-  /canonicalWendArchivePrefix = "\/wend-answer-puzzle-"/,
-  "legacy Wend archive redirects should point to canonical archive URLs",
-);
-assert.match(
-  proxySource,
-  /NextResponse\.redirect\(url,\s*308\)/,
-  "legacy Wend archive redirects should be permanent 308 redirects",
-);
-assert.match(
   archiveDetailSource,
   /slug\.startsWith\("wend-answer-puzzle-"\)/,
   "dynamic archive route should accept canonical Wend puzzle URL prefixes",
+);
+assert.match(
+  archiveDetailSource,
+  /slug\.startsWith\("linkedin-wend-answer-"\)/,
+  "dynamic archive route should handle legacy Wend archive URLs directly",
+);
+assert.match(
+  archiveDetailSource,
+  /permanentRedirect\(/,
+  "legacy Wend archive redirects should be permanent 308 redirects",
+);
+assert.doesNotMatch(
+  archiveDetailSource,
+  /NextResponse\.redirect\(/,
+  "legacy Wend archive redirects should not rely on proxy middleware",
 );
 
 const sitemapSource = read("src/app/sitemap.ts");

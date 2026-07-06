@@ -4,6 +4,14 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-06
 
+### Cloudflare deployment compatibility
+
+- Removed the redundant `src/proxy.ts` redirect layer because the legacy Wend archive redirect already lives in `src/app/[slug]/page.tsx`.
+- This removes the Node.js middleware path that Cloudflare OpenNext could not build, while preserving the 308 redirect from legacy `/linkedin-wend-answer-*` URLs to canonical `/wend-answer-puzzle-*` URLs.
+- Updated `tests/wend-archive-url.test.mjs` to guard the in-route redirect behavior instead of the removed proxy file.
+
+## 2026-07-06
+
 ### P0 monitor robots false-positive fix
 
 - Added `scripts/robots-policy.mjs` and updated `scripts/monitor-production.mjs` so `/robots.txt` monitoring now parses robots groups instead of treating any `Disallow: /` line as a whole-site block.
