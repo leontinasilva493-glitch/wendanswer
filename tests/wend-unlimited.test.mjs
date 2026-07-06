@@ -30,6 +30,13 @@ function hasTurn(pathCells) {
   return false;
 }
 
+function openingDirection(pathCells) {
+  if (pathCells.length < 2) return "0,0";
+  const [startRow, startCol] = pathCells[0];
+  const [nextRow, nextCol] = pathCells[1];
+  return [nextRow - startRow, nextCol - startCol].join(",");
+}
+
 for (const puzzle of puzzles) {
   validateWendPuzzle(puzzle);
   assert.match(puzzle.date, /^unlimited-\d{3}$/, "Unlimited puzzles should not masquerade as daily LinkedIn dates");
@@ -40,8 +47,12 @@ for (const puzzle of puzzles) {
     `Puzzle ${puzzle.puzzleNumber} should include blocked obstacle cells`,
   );
   assert.ok(
-    puzzle.answers.filter((answer) => hasTurn(answer.path)).length >= Math.ceil(puzzle.answers.length * 0.6),
-    `Puzzle ${puzzle.puzzleNumber} should use mostly turning Wend paths, not straight word-search rows`,
+    puzzle.answers.every((answer) => hasTurn(answer.path)),
+    `Puzzle ${puzzle.puzzleNumber} should make every answer turn at least once`,
+  );
+  assert.ok(
+    new Set(puzzle.answers.map((answer) => openingDirection(answer.path))).size >= Math.min(3, puzzle.answers.length),
+    `Puzzle ${puzzle.puzzleNumber} should open words in multiple directions like a real Wend board`,
   );
 
   const fingerprint = JSON.stringify({ grid: puzzle.grid, answers: puzzle.answers });

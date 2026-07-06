@@ -196,6 +196,10 @@ function cellKey([row, col]) {
   return `${row}-${col}`;
 }
 
+function directionKey(from, to) {
+  return `${to[0] - from[0]},${to[1] - from[1]}`;
+}
+
 function neighbors([row, col], size) {
   return [
     [row - 1, col],
@@ -207,66 +211,153 @@ function neighbors([row, col], size) {
 
 function hasTurn(pathCells) {
   for (let index = 2; index < pathCells.length; index += 1) {
-    const [aRow, aCol] = pathCells[index - 2];
-    const [bRow, bCol] = pathCells[index - 1];
-    const [cRow, cCol] = pathCells[index];
-    const firstDirection = [bRow - aRow, bCol - aCol].join(",");
-    const secondDirection = [cRow - bRow, cCol - bCol].join(",");
+    const firstDirection = directionKey(pathCells[index - 2], pathCells[index - 1]);
+    const secondDirection = directionKey(pathCells[index - 1], pathCells[index]);
     if (firstDirection !== secondDirection) return true;
   }
   return false;
 }
 
-function countTurningSegments(pathCells, segmentLength) {
-  let turning = 0;
-  for (let index = 0; index < pathCells.length; index += segmentLength) {
-    if (hasTurn(pathCells.slice(index, index + segmentLength))) turning += 1;
+function countTurns(pathCells) {
+  let turns = 0;
+  for (let index = 2; index < pathCells.length; index += 1) {
+    const firstDirection = directionKey(pathCells[index - 2], pathCells[index - 1]);
+    const secondDirection = directionKey(pathCells[index - 1], pathCells[index]);
+    if (firstDirection !== secondDirection) turns += 1;
   }
-  return turning;
+  return turns;
 }
 
-function generatePath(size, totalCells, segmentLength, seed) {
-  for (let attempt = 0; attempt < 300; attempt += 1) {
-    const rng = createRng(seed + attempt * 104729);
-    const start = [Math.floor(rng() * size), Math.floor(rng() * size)];
-    const pathCells = [start];
-    const visited = new Set([cellKey(start)]);
-    let explored = 0;
-    const maxExplored = 150000;
+function pathOpeningDirection(pathCells) {
+  return pathCells.length < 2 ? "0,0" : directionKey(pathCells[0], pathCells[1]);
+}
 
-    function walk() {
-      explored += 1;
-      if (explored > maxExplored) return null;
-      if (pathCells.length === totalCells) return [...pathCells];
+function shuffle(items, rng) {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(rng() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+  return copy;
+}
 
-      const options = neighbors(pathCells[pathCells.length - 1], size)
-        .filter((cell) => !visited.has(cellKey(cell)))
-        .map((cell) => {
-          const onward = neighbors(cell, size).filter((next) => !visited.has(cellKey(next))).length;
-          return { cell, score: onward + rng() * 0.35 };
-        })
-        .sort((a, b) => a.score - b.score);
+function allCells(size) {
+  return Array.from({ length: size * size }, (_, index) => [Math.floor(index / size), index % size]);
+}
 
-      for (const option of options) {
-        const key = cellKey(option.cell);
-        visited.add(key);
-        pathCells.push(option.cell);
-        const result = walk();
-        if (result) return result;
-        pathCells.pop();
-        visited.delete(key);
-      }
+function generateWordCandidates(size, wordLength, usedCells, rng, limit = 96) {
+  const candidates = [];
+  const starts = shuffle(
+    allCells(size).filter((cell) => !usedCells.has(cellKey(cell))),
+    rng,
+  );
 
-      return null;
+  function walk(pathCells, localVisited, turns) {
+    if (candidates.length >= limit) return;
+    if (pathCells.length === wordLength) {
+      if (turns > 0) candidates.push(pathCells.map((cell) => [...cell]));
+      return;
     }
 
-    const result = walk();
-    if (!result) continue;
-    const requiredTurningSegments = Math.ceil(totalCells / segmentLength * 0.75);
-    if (countTurningSegments(result, segmentLength) >= requiredTurningSegments) return result;
+    const current = pathCells[pathCells.length - 1];
+    const previousDirection = pathCells.length >= 2 ? directionKey(pathCells[pathCells.length - 2], current) : null;
+    const options = shuffle(
+      neighbors(current, size)
+        .filter((cell) => {
+          const key = cellKey(cell);
+          return !usedCells.has(key) && !localVisited.has(key);
+        })
+        .map((cell) => {
+          const nextDirection = directionKey(current, cell);
+          const nextTurns = turns + (previousDirection && previousDirection !== nextDirection ? 1 : 0);
+          const onward = neighbors(cell, size).filter((next) => {
+            const key = cellKey(next);
+            return !usedCells.has(key) && !localVisited.has(key);
+          }).length;
+          return { cell, nextTurns, score: nextTurns * 5 + onward + rng() * 0.3 };
+        })
+        .sort((a, b) => b.score - a.score),
+      rng,
+    );
+
+    for (const option of options) {
+      const key = cellKey(option.cell);
+      localVisited.add(key);
+      pathCells.push(option.cell);
+      walk(pathCells, localVisited, option.nextTurns);
+      pathCells.pop();
+      localVisited.delete(key);
+      if (candidates.length >= limit) return;
+    }
   }
 
-  throw new Error(`Unable to generate a Wend-like path for ${size}x${size} board with ${totalCells} open cells`);
+  for (const start of starts) {
+    const startKey = cellKey(start);
+    const localVisited = new Set([startKey]);
+    walk([start], localVisited, 0);
+    if (candidates.length >= limit) break;
+  }
+
+  return candidates;
+}
+
+function generatePaths(size, wordLength, answerCount, seed) {
+  const totalOpenCells = wordLength * answerCount;
+
+  for (let attempt = 0; attempt < 300; attempt += 1) {
+    const rng = createRng(seed + attempt * 104729);
+    const usedCells = new Set();
+    const paths = [];
+
+    function placeWord(index) {
+      if (index === answerCount) {
+        const openingDirections = new Set(paths.map(pathOpeningDirection));
+        const multiTurnCount = paths.filter((path) => countTurns(path) >= 2).length;
+        return (
+          openingDirections.size >= Math.min(3, answerCount) &&
+          multiTurnCount >= Math.ceil(answerCount * 0.4) &&
+          usedCells.size === totalOpenCells
+        );
+      }
+
+      const seen = new Set();
+      const existingDirections = new Set(paths.map(pathOpeningDirection));
+      const candidates = generateWordCandidates(size, wordLength, usedCells, rng)
+        .filter((candidate) => {
+          const fingerprint = JSON.stringify(candidate);
+          if (seen.has(fingerprint)) return false;
+          seen.add(fingerprint);
+          return true;
+        })
+        .map((candidate) => {
+          const openingDirection = pathOpeningDirection(candidate);
+          const turnCount = countTurns(candidate);
+          const newDirectionBonus = existingDirections.has(openingDirection) ? 0 : 4;
+          const rowSpread = new Set(candidate.map(([row]) => row)).size;
+          const colSpread = new Set(candidate.map(([, col]) => col)).size;
+          return {
+            candidate,
+            score: turnCount * 8 + newDirectionBonus + rowSpread + colSpread + rng(),
+          };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 28);
+
+      for (const { candidate } of candidates) {
+        for (const cell of candidate) usedCells.add(cellKey(cell));
+        paths.push(candidate);
+        if (placeWord(index + 1)) return true;
+        paths.pop();
+        for (const cell of candidate) usedCells.delete(cellKey(cell));
+      }
+
+      return false;
+    }
+
+    if (placeWord(0)) return paths;
+  }
+
+  throw new Error(`Unable to generate Wend Unlimited paths for ${size}x${size} board with ${answerCount} words of length ${wordLength}`);
 }
 
 function pickWords(length, count, offset) {
@@ -280,13 +371,7 @@ function buildPuzzle(index) {
   const localIndex = index % 25;
   const offsetStep = plan.wordLength === 7 ? 2 : 3;
   const words = pickWords(plan.wordLength, plan.answerCount, localIndex * offsetStep + planIndex * 11);
-  const totalOpenCells = plan.wordLength * plan.answerCount;
-  const pathCells = generatePath(
-    plan.boardSize,
-    totalOpenCells,
-    plan.wordLength,
-    (index + 1) * 7919 + planIndex * 15485863,
-  );
+  const paths = generatePaths(plan.boardSize, plan.wordLength, plan.answerCount, (index + 1) * 7919 + planIndex * 15485863);
   for (const word of words) {
     if (word.length !== plan.wordLength) {
       throw new Error(`${word} must be ${plan.wordLength} letters for ${plan.boardSize}x${plan.boardSize} puzzle generation`);
@@ -294,17 +379,14 @@ function buildPuzzle(index) {
   }
   const grid = Array.from({ length: plan.boardSize }, () => Array.from({ length: plan.boardSize }, () => null));
   const answers = [];
-  let cursor = 0;
-
-  for (const word of words) {
-    const path = pathCells.slice(cursor, cursor + word.length);
+  words.forEach((word, wordIndex) => {
+    const path = paths[wordIndex];
     word.split("").forEach((letter, letterIndex) => {
       const [row, col] = path[letterIndex];
       grid[row][col] = letter;
     });
     answers.push({ word, path });
-    cursor += word.length;
-  }
+  });
 
   const displayNumber = index + 1;
   const label = `Unofficial Practice #${displayNumber}`;

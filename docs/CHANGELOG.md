@@ -2,6 +2,14 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-06
+
+### Wend Unlimited rule alignment
+
+- Tightened `scripts/generate-wend-unlimited-puzzles.mjs` so each answer path now turns at least once, each board keeps blocked cells, and each puzzle opens words in multiple directions instead of row-style straight lines.
+- Regenerated `data/puzzles/wend-unlimited/puzzles.json` after the stronger Wend-specific constraints passed `validateWendPuzzle()`.
+- Strengthened `tests/wend-unlimited.test.mjs` to reject any Unlimited board with a straight answer path or too little direction variety.
+
 ## 2026-07-01
 
 ### Wend Unlimited MVP bank
