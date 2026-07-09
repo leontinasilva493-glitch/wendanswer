@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, CircleHelp, Lightbulb, ListChecks, Route, Zap } from "lucide-react";
+import { ArrowRight, CircleHelp, ExternalLink, Lightbulb, ListChecks, Route, Zap } from "lucide-react";
 import { ArchiveList } from "@/components/ArchiveList";
 import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
@@ -101,9 +101,14 @@ export default function HomePage() {
             Get Today's Answer
             <ArrowRight aria-hidden className="h-5 w-5" />
           </a>
-          <a className="btn btn-ghost min-w-[12rem] gap-2 border-brand text-brand" href="#hints">
-            <Lightbulb aria-hidden className="h-5 w-5" />
-            Start with a Hint
+          <a
+            className="btn btn-ghost min-w-[12rem] gap-2 border-brand text-brand"
+            href="https://www.linkedin.com/games/wend"
+            rel="nofollow noopener"
+            target="_blank"
+          >
+            <ExternalLink aria-hidden className="h-5 w-5" />
+            Official Wend Game
           </a>
         </div>
         {wendReady ? (

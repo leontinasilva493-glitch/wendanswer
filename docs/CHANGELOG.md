@@ -2,6 +2,14 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-09
+
+### Wend reveal guidance and official game CTA
+
+- Changed the homepage secondary hero action from the internal hint anchor to an `Official Wend Game` external link pointing to `https://www.linkedin.com/games/wend` with safe new-tab attributes.
+- Moved the Wend solver and hint usage guidance into the answer reveal card header area, above the grid and reveal controls, so Today and archive answer pages explain the interaction before users start solving.
+- Removed the smaller grid-underlay instruction line to reduce duplicate guidance while keeping click-to-reveal letters, `Reveal all`, `Reveal Letter`, `Reveal Word`, and progress tracking behavior unchanged.
+
 ## 2026-07-06
 
 ### Cloudflare deployment compatibility

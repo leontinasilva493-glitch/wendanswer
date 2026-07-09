@@ -45,7 +45,6 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
     }
     return keys;
   }, [puzzle.answers, visibleLetters, visibleWords]);
-  const allRevealed = puzzle.answers.length > 0 && completeWords.length === puzzle.answers.length;
   const progress = puzzle.answers.length === 0 ? 0 : Math.round((completeWords.length / puzzle.answers.length) * 100);
   const pageType = archived ? "archive" : "today";
 
@@ -103,6 +102,12 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
         </div>
       </div>
 
+      <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-700 md:text-lg md:leading-8">
+        Our <strong className="font-black text-ink">Wend solver</strong> helps you reveal hidden words at your own
+        pace: click any letter cell to reveal just that letter, use the hint buttons to move through the answer one
+        letter at a time, or check the hint cards below when you want an extra nudge.
+      </p>
+
       <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(300px,500px)_minmax(360px,1fr)] lg:items-start xl:grid-cols-[minmax(340px,520px)_minmax(440px,1fr)]">
         <div className="mx-auto flex w-full max-w-[500px] flex-col items-center gap-3">
           <WendGrid
@@ -112,9 +117,6 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
             visibleLetters={cellSet}
             visibleWords={wordSet}
           />
-          <p className={`text-sm font-black ${allRevealed ? "text-green-600" : "text-slate-600"}`} aria-live="polite">
-            {allRevealed ? "All words revealed!" : "Click any letter to reveal where it belongs."}
-          </p>
           <button className="btn btn-ghost gap-2 rounded-full px-6" onClick={clearAll} type="button">
             <EyeOff aria-hidden className="h-5 w-5" />
             Clear all
