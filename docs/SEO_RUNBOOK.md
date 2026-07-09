@@ -88,14 +88,16 @@ Exception: the homepage uses `absoluteTitle: true` because its launch title alre
 
 Recommended intent split:
 
-- `/`: `Wend Answer Today - {date} | Wend #{number} Answer`
-- `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date}`
+- `/`: `LinkedIn Wend Answer Today - {date} | Wend #{number} Answer`
+- `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date} | Wend #{number}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
 - `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real generated unlimited mode exists.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
-Avoid making every page compete for the same generic keyword.
+The homepage and Today page both target `LinkedIn Wend Answer`, but split intent: homepage is the broad daily-answer hub, while `/linkedin-wend-answer-today` is the current daily walkthrough and reveal page. Avoid making supporting pages compete for the same generic keyword.
+
+Use `LinkedIn Wend` and `Wend on LinkedIn` for natural copy. Keep awkward reverse-order variants such as `wend linkedin answer` to one FAQ-style placement instead of forcing them into the main title or H1.
 
 ## Homepage TDK
 
@@ -103,19 +105,19 @@ Current homepage TDK:
 
 ```text
 Title:
-Wend Answer Today - {date} | Wend #{number} Answer
+LinkedIn Wend Answer Today - {date} | Wend #{number} Answer
 
 Description:
-Wend answer today for {date} puzzle no {number}. Get spoiler-safe hints, word paths, solver help, and recent Wend archive pages.
+LinkedIn Wend answer today for {date} puzzle no {number}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.
 
 Keywords:
-wend answer today, wend answer {date}, wend #{number} answer, wend answers, wend full answer, wend answer for date, wend answer for LinkedIn Games
+linkedin wend, linkedin wend answer, wend linkedin, wend linkedin answer, wend answer today, wend answer {date}, wend #{number} answer, wend answers, wend full answer, wend answer for date, wend answer for LinkedIn Games
 ```
 
 Homepage Hero copy should use the same source as metadata:
 
 ```text
-Wend answer today for {date} puzzle no {number}
+LinkedIn Wend answer today for {date} puzzle no {number}
 ```
 
 The status line above the Hero headline should include:
@@ -217,7 +219,7 @@ The sitemap should publish only canonical archive URLs. Legacy archive URLs shap
 
 Homepage archive coverage:
 
-- The homepage `Recent Wend Answers` block should render a compact preview from the latest verified `wendPuzzles` entries and link to `/linkedin-wend-archive` for the complete list.
+- The homepage `Recent LinkedIn Wend Answers` block should render a compact preview from the latest verified `wendPuzzles` entries and link to `/linkedin-wend-archive` for the complete list.
 - `/linkedin-wend-archive` must render every verified Wend puzzle from `wendPuzzles`.
 - `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated raw index, while only verified puzzles reach the public `wendPuzzles` archive, sitemap, static archive params, homepage archive preview, and complete archive page.
 - Keep unverified captures available only through `allWendPuzzles` for internal checks and future correction; do not link or index them as public answer pages.

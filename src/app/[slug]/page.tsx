@@ -105,14 +105,14 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
       </section>
 
       <section className="section">
-        <h2 className="section-title">Spoiler-safe hints</h2>
+        <h2 className="section-title">LinkedIn Wend spoiler-safe hints</h2>
         <div className="mt-5">
           <HintAccordion hints={puzzle.hints} />
         </div>
       </section>
 
       <section className="section">
-        <h2 className="section-title">Explanation</h2>
+        <h2 className="section-title">LinkedIn Wend answer explanation</h2>
         <p className="section-copy">{puzzle.explanation}</p>
       </section>
 
@@ -132,7 +132,7 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
       </section>
 
       <section className="section content-card">
-        <h2 className="section-heading">Archived Wend FAQ</h2>
+        <h2 className="section-heading">Archived LinkedIn Wend FAQ</h2>
         <div className="mt-5 space-y-3">
           {faq.map((item) => (
             <FaqDetails answer={item.answer} key={item.question} question={item.question} textSize="text-base" />

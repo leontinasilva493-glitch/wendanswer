@@ -53,12 +53,12 @@ assert.match(puzzleSource, /todayWend\s*=\s*verifiedWendPuzzles\[0\]/, "todayWen
 
 assert.match(homeSource, /const archivePuzzles = wendPuzzles/, "homepage should source recent answers from verified Wend puzzles");
 assert.match(homeSource, /const recentArchivePuzzles = archivePuzzles\.slice\(0,\s*4\)/, "homepage should limit the archive preview to recent puzzles");
-assert.match(homeSource, /Recent Wend Answers/, "homepage archive block should be labeled as a recent preview");
+assert.match(homeSource, /Recent LinkedIn Wend Answers/, "homepage archive block should be labeled as a recent LinkedIn Wend preview");
 assert.match(homeSource, /<ArchiveList puzzles=\{recentArchivePuzzles\} variant="preview" \/>/, "homepage should use the compact archive preview");
 assert.match(homeSource, /href="\/linkedin-wend-archive"/, "homepage should link to the full archive");
 assert.match(homeSource, /View Full Archive/, "homepage should label the full archive CTA clearly");
 
-assert.match(archiveSource, /All Wend Answers/, "archive page should label the list as complete");
+assert.match(archiveSource, /All LinkedIn Wend Answers/, "archive page should label the list as complete");
 assert.match(archiveSource, /Verified archive coverage:/, "archive page should show first-to-latest verified coverage copy");
 assert.match(archiveSource, /<ArchiveList puzzles=\{wendPuzzles\}/, "archive page should render all Wend puzzles");
 

@@ -18,7 +18,7 @@ for (const file of ["src/app/how-to-play-linkedin-wend/page.tsx", "src/app/how-t
 
 const archiveDetail = read("src/app/[slug]/page.tsx");
 assert.match(archiveDetail, /faqJson/, "archive detail pages should emit FAQPage schema");
-assert.match(archiveDetail, /Archived Wend FAQ/, "archive detail pages should show visible FAQ content");
+assert.match(archiveDetail, /Archived LinkedIn Wend FAQ/, "archive detail pages should show visible FAQ content");
 assert.match(archiveDetail, /FaqDetails/, "archive detail pages should use the shared FAQ disclosure component");
 
 const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");

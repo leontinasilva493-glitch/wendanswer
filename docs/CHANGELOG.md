@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-09
 
+### LinkedIn Wend SEO keyword layout
+
+- Updated homepage metadata and hero copy to target `LinkedIn Wend Answer Today` while keeping the displayed date and puzzle number dynamic.
+- Expanded Today, archive, archive detail, solver, and FAQ headings around natural `LinkedIn Wend` answer intent.
+- Added one FAQ-style `Wend LinkedIn answer` phrase for reverse-order search coverage without forcing awkward copy into the main title or H1.
+- Updated SEO regression tests and the SEO runbook to preserve the dual homepage/Today-page keyword strategy.
+
 ### Homepage recent archive preview
 
 - Replaced the homepage `All Wend Answers` grid with a compact `Recent Wend Answers` preview that shows the latest four verified puzzles.
