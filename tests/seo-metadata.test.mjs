@@ -71,7 +71,10 @@ assert.match(
 );
 assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
-assert.match(homeSource, /Start with a Hint/, "homepage secondary CTA should jump to spoiler-safe hints");
+assert.match(homeSource, /Official Wend Game/, "homepage secondary CTA should open the official Wend game");
+assert.match(homeSource, /href="https:\/\/www\.linkedin\.com\/games\/wend"/, "homepage secondary CTA should use the official Wend game URL");
+assert.match(homeSource, /rel="nofollow noopener"/, "homepage official game CTA should use safe external-link attributes");
+assert.match(homeSource, /target="_blank"/, "homepage official game CTA should open in a new tab");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {
   assert.equal(homeSource.includes(secondaryGame), false, `homepage should not promote ${secondaryGame}`);
 }

@@ -233,6 +233,14 @@ body {
   .archive-card {
     @apply rounded-lg border border-line bg-white p-4 transition hover:border-brand hover:shadow-[0_4px_14px_rgba(15,23,42,0.06)];
   }
+
+  .recent-puzzle-grid {
+    @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .recent-puzzle-card {
+    @apply flex min-h-48 flex-col gap-8 rounded-sm border border-line bg-white p-6 text-left transition hover:border-brand hover:shadow-[0_4px_14px_rgba(15,23,42,0.06)] focus-visible:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30;
+  }
 }
 
 @keyframes wend-cell-pop {

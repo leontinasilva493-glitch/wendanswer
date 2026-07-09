@@ -51,11 +51,12 @@ assert.match(puzzleSource, /verifiedWendPuzzles/, "puzzles module should expose 
 assert.match(puzzleSource, /wendPuzzles\s*=\s*verifiedWendPuzzles/, "public wendPuzzles should only contain verified data");
 assert.match(puzzleSource, /todayWend\s*=\s*verifiedWendPuzzles\[0\]/, "todayWend should default to the latest verified puzzle");
 
-assert.doesNotMatch(homeSource, /wendPuzzles\.slice\(0,\s*3\)/, "homepage must not limit Wend archive coverage to three items");
-assert.match(homeSource, /const archivePuzzles = wendPuzzles/, "homepage should render every verified Wend puzzle");
-assert.match(homeSource, /All Wend Answers/, "homepage archive block should be labeled as a complete archive");
-assert.match(homeSource, /Verified archive coverage/, "homepage should show first-to-latest verified coverage copy");
-assert.match(homeSource, /<ArchiveList puzzles=\{archivePuzzles\}/, "homepage should use the full archive list component");
+assert.match(homeSource, /const archivePuzzles = wendPuzzles/, "homepage should source recent answers from verified Wend puzzles");
+assert.match(homeSource, /const recentArchivePuzzles = archivePuzzles\.slice\(0,\s*4\)/, "homepage should limit the archive preview to recent puzzles");
+assert.match(homeSource, /Recent Wend Answers/, "homepage archive block should be labeled as a recent preview");
+assert.match(homeSource, /<ArchiveList puzzles=\{recentArchivePuzzles\} variant="preview" \/>/, "homepage should use the compact archive preview");
+assert.match(homeSource, /href="\/linkedin-wend-archive"/, "homepage should link to the full archive");
+assert.match(homeSource, /View Full Archive/, "homepage should label the full archive CTA clearly");
 
 assert.match(archiveSource, /All Wend Answers/, "archive page should label the list as complete");
 assert.match(archiveSource, /Verified archive coverage:/, "archive page should show first-to-latest verified coverage copy");

@@ -4,6 +4,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-09
 
+### Homepage recent archive preview
+
+- Replaced the homepage `All Wend Answers` grid with a compact `Recent Wend Answers` preview that shows the latest four verified puzzles.
+- Added a `View Full Archive` CTA from the homepage preview to `/linkedin-wend-archive`, while keeping the archive page as the complete verified Wend answer list.
+- Updated archive coverage tests and the SEO runbook so homepage preview behavior and full archive coverage are guarded separately.
+
 ### Wend reveal guidance and official game CTA
 
 - Changed the homepage secondary hero action from the internal hint anchor to an `Official Wend Game` external link pointing to `https://www.linkedin.com/games/wend` with safe new-tab attributes.

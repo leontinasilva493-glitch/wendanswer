@@ -66,8 +66,7 @@ const faq = [
 
 export default function HomePage() {
   const archivePuzzles = wendPuzzles;
-  const oldestWend = archivePuzzles.at(-1) ?? todayWend;
-  const latestWend = archivePuzzles[0] ?? todayWend;
+  const recentArchivePuzzles = archivePuzzles.slice(0, 4);
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = latestVerifiedWend();
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
@@ -194,19 +193,24 @@ export default function HomePage() {
         </article>
       </section>
 
-      <section className="section content-card">
-        <h2 className="section-heading">
-          <span className="section-icon">
-            <ListChecks aria-hidden className="h-5 w-5" />
-          </span>
-          <span>All Wend Answers</span>
+      <section className="section">
+        <p className="inline-flex rounded-sm bg-slate-200 px-3 py-2 text-sm font-black uppercase tracking-normal text-slate-700">
+          Recent puzzles
+        </p>
+        <h2 className="mt-5 break-words text-3xl font-black leading-tight tracking-normal text-ink md:text-4xl">
+          Recent Wend Answers
         </h2>
-        <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
-          Verified archive coverage from Wend #{oldestWend.puzzleNumber} on {oldestWend.dateLabel} through Wend #
-          {latestWend.puzzleNumber} on {latestWend.dateLabel}.
+        <p className="mt-3 max-w-3xl text-lg leading-8 text-slate-700">
+          Browse recent LinkedIn Wend answers with puzzle numbers, dates, and interactive answer pages.
         </p>
         <div className="mt-5">
-          <ArchiveList puzzles={archivePuzzles} />
+          <ArchiveList puzzles={recentArchivePuzzles} variant="preview" />
+        </div>
+        <div className="mt-8 flex justify-center">
+          <Link className="btn btn-primary gap-2 rounded-full px-8" href="/linkedin-wend-archive">
+            View Full Archive
+            <ArrowRight aria-hidden className="h-5 w-5" />
+          </Link>
         </div>
       </section>
     </main>
