@@ -25,10 +25,14 @@ export function generateMetadata(): Metadata {
   const heroWend = displayedWend();
 
   return pageMetadata({
-    title: `Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
-    description: `Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.`,
+    title: `LinkedIn Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
+    description: `LinkedIn Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.`,
     path: "/",
     keywords: [
+      "linkedin wend",
+      "linkedin wend answer",
+      "wend linkedin",
+      "wend linkedin answer",
       "wend answer today",
       `wend answer ${heroWend.dateLabel}`,
       `wend #${heroWend.puzzleNumber} answer`,
@@ -38,8 +42,8 @@ export function generateMetadata(): Metadata {
       "wend answer for LinkedIn Games",
     ],
     absoluteTitle: true,
-    imageTitle: `Wend #${heroWend.puzzleNumber} Answer`,
-    imageSubtitle: `Wend answer today for ${heroWend.dateLabel}.`,
+    imageTitle: `LinkedIn Wend #${heroWend.puzzleNumber} Answer`,
+    imageSubtitle: `LinkedIn Wend answer today for ${heroWend.dateLabel}.`,
   });
 }
 
@@ -90,7 +94,7 @@ export default function HomePage() {
           <span>updated daily at 8:00 UTC</span>
         </p>
         <h1 className="break-words text-4xl font-black leading-tight tracking-normal text-ink sm:text-5xl md:text-6xl">
-          Wend answer today for {heroWend.dateLabel} puzzle no {heroWend.puzzleNumber}
+          LinkedIn Wend answer today for {heroWend.dateLabel} puzzle no {heroWend.puzzleNumber}
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-700 md:text-xl">
           Save your streak without spoiling the whole puzzle.
@@ -129,7 +133,7 @@ export default function HomePage() {
             <span className="section-icon">
               <Lightbulb aria-hidden className="h-5 w-5" />
             </span>
-            <span>Spoiler-safe hints</span>
+            <span>LinkedIn Wend spoiler-safe hints</span>
           </h2>
           <div className="mt-5">
             <HintAccordion hints={displayWend.hints} />
@@ -141,7 +145,7 @@ export default function HomePage() {
             <span className="section-icon">
               <Route aria-hidden className="h-5 w-5" />
             </span>
-            <span>Step-by-step explanation</span>
+            <span>LinkedIn Wend step-by-step explanation</span>
           </h2>
           <p className="mt-4 text-base leading-7 text-slate-700">{displayWend.explanation}</p>
           <Link className="btn btn-ghost mt-5 gap-2 border-brand text-brand" href="/linkedin-wend-answer-today">
@@ -155,7 +159,7 @@ export default function HomePage() {
             <span className="section-icon">
               <CircleHelp aria-hidden className="h-5 w-5" />
             </span>
-            <span>Wend FAQ</span>
+            <span>LinkedIn Wend FAQ</span>
           </h2>
           <div className="mt-5 space-y-3">
             {faq.map((item) => (
@@ -198,7 +202,7 @@ export default function HomePage() {
           Recent puzzles
         </p>
         <h2 className="mt-5 break-words text-3xl font-black leading-tight tracking-normal text-ink md:text-4xl">
-          Recent Wend Answers
+          Recent LinkedIn Wend Answers
         </h2>
         <p className="mt-3 max-w-3xl text-lg leading-8 text-slate-700">
           Browse recent LinkedIn Wend answers with puzzle numbers, dates, and interactive answer pages.

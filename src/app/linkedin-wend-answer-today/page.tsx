@@ -27,8 +27,8 @@ function pageTitle(wendReady: boolean) {
 function pageDescription(wendReady: boolean) {
   const expectedWend = expectedWendDisplay(todayWend);
   return wendReady
-    ? `Get the verified LinkedIn Wend answer for ${todayWend.dateLabel}, puzzle #${todayWend.puzzleNumber}, with spoiler-safe hints, word path, and reveal controls.`
-    : `Get today's LinkedIn Wend answer status for ${expectedWend.dateLabel}, puzzle #${expectedWend.puzzleNumber}, plus spoiler-safe hints, word path help, and reveal controls.`;
+    ? `LinkedIn Wend answer today for ${todayWend.dateLabel}, puzzle #${todayWend.puzzleNumber}, with spoiler-safe hints, word path, and reveal controls.`
+    : `LinkedIn Wend answer today status for ${expectedWend.dateLabel}, puzzle #${expectedWend.puzzleNumber}, plus spoiler-safe hints, word path help, and reveal controls.`;
 }
 
 export function generateMetadata(): Metadata {
@@ -95,8 +95,8 @@ export default function WendTodayPage() {
             <span className="rounded-lg bg-white px-3 py-2">Updated {formatUpdated(todayWend.updatedAt)}</span>
           </div>
           <h2 className="mt-5 break-words text-xl font-black leading-tight text-ink sm:text-2xl">
-            Wend #{todayWend.puzzleNumber} Hints, Word Path
-            <span className="block">& Solution for {todayWend.dateLabel}</span>
+            LinkedIn Wend Hints, Word Path & Answer
+            <span className="block">for {todayWend.dateLabel}</span>
           </h2>
           <p className="mt-3 max-w-xl text-base leading-7 text-slate-700">
             Need a nudge, not a spoiler? Start with a gentle hint, reveal one word, or view the full path
@@ -214,7 +214,7 @@ export default function WendTodayPage() {
           <span className="section-icon">
             <CircleHelp aria-hidden className="h-5 w-5" />
           </span>
-          <span>Today’s LinkedIn Wend FAQ</span>
+          <span>Today's LinkedIn Wend Answer FAQ</span>
         </h2>
         <div className="mt-5 space-y-3">
           {faq.map((item) => (

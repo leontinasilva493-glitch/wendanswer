@@ -20,6 +20,11 @@ const faqs = [
       "No. This is an unofficial fan-made site and is not affiliated with, endorsed by, or sponsored by LinkedIn.",
   },
   {
+    question: "Is this a Wend LinkedIn answer site?",
+    answer:
+      "Yes. It focuses on Wend answers, hints, word paths, solver help, and archive pages for people playing Wend on LinkedIn.",
+  },
+  {
     question: "How often is Wend updated?",
     answer:
       "The launch goal is to update Wend daily for 14 days after the puzzle reset, then review real Search Console and usage data.",
@@ -47,7 +52,7 @@ const faqs = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "FAQ",
+  title: "LinkedIn Wend FAQ",
   description:
     "Frequently asked questions about WendAnswerToday.org, spoiler-safe Wend hints, answer reveals, solvers, and unofficial status.",
   path: "/faq",
@@ -58,7 +63,7 @@ export default function FaqPage() {
     <main className="page-shell">
       <JsonLd data={faqJson(faqs)} />
       <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">
-        FAQ
+        LinkedIn Wend FAQ
       </h1>
       <p className="section-copy">
         Quick answers for people who want help with Wend without losing control of spoilers.

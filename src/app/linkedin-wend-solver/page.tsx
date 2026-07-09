@@ -83,7 +83,7 @@ export default function WendSolverPage() {
       </section>
 
       <section className="section content-card">
-        <h2 className="section-heading">Wend Solver FAQ</h2>
+        <h2 className="section-heading">LinkedIn Wend Solver FAQ</h2>
         <div className="mt-5 space-y-3">
           {faq.map((item) => (
             <FaqDetails answer={item.answer} key={item.question} question={item.question} textSize="text-base" />

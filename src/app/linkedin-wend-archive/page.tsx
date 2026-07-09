@@ -36,14 +36,14 @@ export default function WendArchivePage() {
       </section>
 
       <section className="section">
-        <h2 className="section-title">All Wend Answers</h2>
+        <h2 className="section-title">All LinkedIn Wend Answers</h2>
         <div className="mt-5">
           <ArchiveList puzzles={wendPuzzles} />
         </div>
       </section>
 
       <section className="section">
-        <h2 className="section-title">Browse by month</h2>
+        <h2 className="section-title">Browse LinkedIn Wend by month</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           <span className="chip">June 2026</span>
         </div>
