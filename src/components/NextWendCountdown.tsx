@@ -5,22 +5,35 @@ type NextWendCountdownProps = {
   dateLabel: string;
   puzzleNumber: number;
   releaseAtIso: string;
+  placeholder?: boolean;
 };
 
-export function NextWendCountdown({ dateLabel, puzzleNumber, releaseAtIso }: NextWendCountdownProps) {
+export function NextWendCountdown({
+  dateLabel,
+  puzzleNumber,
+  releaseAtIso,
+  placeholder = false,
+}: NextWendCountdownProps) {
+  const title = placeholder ? "Next Wend update placeholder" : `Next Wend #${puzzleNumber} unlocks in`;
+  const footer = placeholder ? `Waiting for today's verified puzzle • expected ${dateLabel} at 8:00 UTC` : `Expected ${dateLabel} at 8:00 UTC`;
+
   return (
     <aside
-      aria-label={`Countdown to Wend #${puzzleNumber} on ${dateLabel} at 8:00 UTC`}
+      aria-label={
+        placeholder
+          ? "Wend countdown placeholder while today's puzzle finishes publishing"
+          : `Countdown to Wend #${puzzleNumber} on ${dateLabel} at 8:00 UTC`
+      }
       className="mx-auto mt-7 max-w-[760px] rounded-lg border border-line bg-white px-5 py-4 text-center shadow-lg shadow-slate-200/60 sm:px-6"
     >
       <p className="flex items-center justify-center gap-2 text-base font-black text-ink sm:text-lg">
         <Clock3 aria-hidden className="h-5 w-5 text-brand" />
-        <span>Next Wend #{puzzleNumber} unlocks in</span>
+        <span>{title}</span>
       </p>
 
-      <NextWendCountdownTicker releaseAtIso={releaseAtIso} />
+      <NextWendCountdownTicker placeholder={placeholder} releaseAtIso={releaseAtIso} />
 
-      <p className="mt-3 text-sm font-semibold text-slate-600">Expected {dateLabel} at 8:00 UTC</p>
+      <p className="mt-3 text-sm font-semibold text-slate-600">{footer}</p>
     </aside>
   );
 }

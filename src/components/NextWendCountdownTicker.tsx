@@ -10,6 +10,7 @@ type CountdownValue = {
 
 type NextWendCountdownTickerProps = {
   releaseAtIso: string;
+  placeholder?: boolean;
 };
 
 function pad(value: number) {
@@ -26,23 +27,33 @@ function getRemaining(releaseAtIso: string): CountdownValue {
   };
 }
 
-export function NextWendCountdownTicker({ releaseAtIso }: NextWendCountdownTickerProps) {
+export function NextWendCountdownTicker({ releaseAtIso, placeholder = false }: NextWendCountdownTickerProps) {
   const [remaining, setRemaining] = useState<CountdownValue | null>(null);
 
   useEffect(() => {
+    if (placeholder) {
+      return;
+    }
+
     const updateRemaining = () => setRemaining(getRemaining(releaseAtIso));
 
     updateRemaining();
     const timer = window.setInterval(updateRemaining, 1000);
 
     return () => window.clearInterval(timer);
-  }, [releaseAtIso]);
+  }, [releaseAtIso, placeholder]);
 
-  const boxes = [
-    { label: "Hours", value: remaining ? pad(remaining.hours) : "--" },
-    { label: "Minutes", value: remaining ? pad(remaining.minutes) : "--" },
-    { label: "Seconds", value: remaining ? pad(remaining.seconds) : "--" },
-  ];
+  const boxes = placeholder
+    ? [
+        { label: "Hours", value: "--" },
+        { label: "Minutes", value: "--" },
+        { label: "Seconds", value: "--" },
+      ]
+    : [
+        { label: "Hours", value: remaining ? pad(remaining.hours) : "--" },
+        { label: "Minutes", value: remaining ? pad(remaining.minutes) : "--" },
+        { label: "Seconds", value: remaining ? pad(remaining.seconds) : "--" },
+      ];
 
   return (
     <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">

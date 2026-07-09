@@ -128,7 +128,7 @@ Wend #{number} answer | {date} | updated daily at 8:00 UTC
 
 ## Next Puzzle Countdown
 
-The homepage includes a compact next-puzzle countdown inside the lower half of the Hero, directly after the primary CTA buttons. It targets adjacent search intent such as `next wend puzzle`, `when does linkedin wend update`, `wend answer tomorrow`, and date-based next-puzzle searches without publishing unverified answers or adding a separate mid-page section.
+The homepage includes a compact next-puzzle countdown inside the lower half of the Hero, directly after the primary CTA buttons. It targets adjacent search intent such as `next wend puzzle`, `when does linkedin wend update`, `wend answer tomorrow`, and date-based next-puzzle searches without publishing unverified answers or adding a separate mid-page section. When the current puzzle is not yet verified, the same card remains visible in placeholder mode so the Hero never opens with a blank gap.
 
 The countdown must use `nextWendDisplay()` from `src/lib/wend-status.ts`, which is tied to the shared `WEND_RELEASE_HOUR_UTC = 8` rule. The server-rendered copy should include:
 
@@ -137,7 +137,7 @@ Next Wend #{number} unlocks in
 Expected {date} at 8:00 UTC
 ```
 
-Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers. Keep the module visually subordinate to the Hero headline and CTA, but use the centered white-card treatment so it reads as a useful first-screen status signal. The time blocks should stay compact, with each value and unit on one horizontal row to avoid inflating the Hero height.
+Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers. Keep the module visually subordinate to the Hero headline and CTA, but use the centered white-card treatment so it reads as a useful first-screen status signal. The time blocks should stay compact, with each value and unit on one horizontal row to avoid inflating the Hero height. If the current puzzle is not verified, render the same card in placeholder mode with `--` time values instead of hiding it.
 
 ## Structured Data
 
@@ -237,7 +237,7 @@ Homepage consistency rule:
 
 - The visible homepage Hero must use the same `displayWend` puzzle as the answer reveal module.
 - Do not use calendar-derived `expectedWendDisplay()` values for visible Hero copy before matching verified puzzle data exists.
-- The next-puzzle countdown should render only when `wendReady` is true. If the current expected puzzle is missing, hide the countdown rather than showing the following puzzle number beside an older game module.
+- The next-puzzle countdown should always render. If the current expected puzzle is missing, switch the card into placeholder mode instead of hiding it or promoting an unverified puzzle number beside an older game module.
 
 The Today page metadata should follow the same readiness rule:
 

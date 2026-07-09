@@ -11,6 +11,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 - Added one FAQ-style `Wend LinkedIn answer` phrase for reverse-order search coverage without forcing awkward copy into the main title or H1.
 - Updated SEO regression tests and the SEO runbook to preserve the dual homepage/Today-page keyword strategy.
 
+### Homepage countdown placeholder
+
+- Kept the next-puzzle countdown card visible on the homepage even when today's puzzle is not yet verified.
+- Added a placeholder mode with `--` time values so the Hero never opens with an empty gap while the countdown is waiting for fresh data.
+- Updated countdown regression coverage and the SEO runbook to reflect the always-visible placeholder behavior.
+
 ### Homepage recent archive preview
 
 - Replaced the homepage `All Wend Answers` grid with a compact `Recent Wend Answers` preview that shows the latest four verified puzzles.

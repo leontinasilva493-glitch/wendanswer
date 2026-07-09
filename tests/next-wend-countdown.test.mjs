@@ -15,8 +15,9 @@ const statusLib = read("src/lib/wend-status.ts");
 
 assert.doesNotMatch(component, /"use client"/, "countdown shell should stay server-rendered for SEO-visible copy");
 assert.match(ticker, /"use client"/, "countdown ticker must run client-side so seconds update after hydration");
-assert.match(component, /Next Wend #\{puzzleNumber\} unlocks in/, "countdown should expose a concise next-puzzle heading");
-assert.match(component, /Expected \{dateLabel\} at 8:00 UTC/, "countdown should expose the next answer date");
+assert.match(component, /Next Wend #\$\{puzzleNumber\} unlocks in/, "countdown should expose a concise next-puzzle heading");
+assert.match(component, /Expected \$\{dateLabel\} at 8:00 UTC/, "countdown should expose the next answer date");
+assert.match(component, /placeholder\?: boolean/, "countdown should support a placeholder state");
 assert.match(component, /max-w-\[760px\]/, "countdown should use the compact hero-card width");
 assert.match(component, /shadow-lg shadow-slate-200\/60/, "countdown should keep the previous image-style soft card treatment");
 assert.match(component, /px-5 py-4/, "countdown shell should keep reduced vertical padding inside the Hero");
@@ -32,6 +33,7 @@ assert.match(ticker, /setInterval/, "countdown should tick every second");
 assert.match(component, /<aside/, "countdown should render as a compact Hero aside");
 assert.doesNotMatch(component, /lg:grid-cols/, "countdown should not revert to desktop left-right columns");
 assert.doesNotMatch(component, /tomorrow's Wend answer and next-puzzle searches/, "countdown copy should stay concise");
+assert.match(component, /Next Wend update placeholder/, "countdown should render a visible placeholder state when data is not ready");
 
 assert.match(statusLib, /export function nextWendRelease/, "status lib should expose the next Wend release time");
 assert.match(statusLib, /export function nextWendDisplay/, "status lib should expose the next Wend display metadata");
@@ -39,7 +41,7 @@ assert.match(statusLib, /WEND_RELEASE_HOUR_UTC = 8/, "next Wend display must be 
 
 assert.match(homePage, /NextWendCountdown/, "homepage should render the next Wend countdown module");
 assert.match(homePage, /nextWendDisplay/, "homepage should compute next date and puzzle number from shared status logic");
-assert.match(homePage, /wendReady\s*\?\s*\(/, "homepage should only show the next-puzzle countdown when current data is ready");
+assert.match(homePage, /placeholder=\{!wendReady\}/, "homepage should keep the countdown visible and switch to placeholder mode when data is missing");
 assert.ok(
   homePage.indexOf("<NextWendCountdown") < homePage.indexOf('<section className="section" id="answer">'),
   "countdown should sit inside the Hero before the answer module",

@@ -114,13 +114,12 @@ export default function HomePage() {
             Official Wend Game
           </a>
         </div>
-        {wendReady ? (
-          <NextWendCountdown
-            dateLabel={nextWend.dateLabel}
-            puzzleNumber={nextWend.puzzleNumber}
-            releaseAtIso={nextWend.releaseAtIso}
-          />
-        ) : null}
+        <NextWendCountdown
+          dateLabel={nextWend.dateLabel}
+          placeholder={!wendReady}
+          puzzleNumber={nextWend.puzzleNumber}
+          releaseAtIso={nextWend.releaseAtIso}
+        />
       </section>
 
       <section className="section" id="answer">
