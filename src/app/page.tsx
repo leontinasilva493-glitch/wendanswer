@@ -7,9 +7,10 @@ import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { NextWendCountdown } from "@/components/NextWendCountdown";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
+import { WendFreshnessNotice } from "@/components/WendFreshnessNotice";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { faqJson, pageMetadata } from "@/lib/seo";
-import { isWendReadyForToday, nextWendDisplay } from "@/lib/wend-status";
+import { expectedWendDisplay, isWendReadyForToday, nextWendDisplay } from "@/lib/wend-status";
 
 export const revalidate = 60;
 
@@ -22,11 +23,17 @@ function displayedWend() {
 }
 
 export function generateMetadata(): Metadata {
-  const heroWend = displayedWend();
+  const wendReady = isWendReadyForToday(todayWend);
+  const expectedWend = expectedWendDisplay(todayWend);
+  const heroWend = wendReady ? displayedWend() : expectedWend;
 
   return pageMetadata({
-    title: `LinkedIn Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`,
-    description: `LinkedIn Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.`,
+    title: wendReady
+      ? `LinkedIn Wend Answer Today - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber} Answer`
+      : `LinkedIn Wend Answer Today Status - ${heroWend.dateLabel} | Wend #${heroWend.puzzleNumber}`,
+    description: wendReady
+      ? `LinkedIn Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.`
+      : `The LinkedIn Wend answer for ${heroWend.dateLabel}, puzzle no ${heroWend.puzzleNumber}, is being verified. The latest verified answer remains available without being mislabeled as today.`,
     path: "/",
     keywords: [
       "linkedin wend",
@@ -42,8 +49,12 @@ export function generateMetadata(): Metadata {
       "wend answer for LinkedIn Games",
     ],
     absoluteTitle: true,
-    imageTitle: `LinkedIn Wend #${heroWend.puzzleNumber} Answer`,
-    imageSubtitle: `LinkedIn Wend answer today for ${heroWend.dateLabel}.`,
+    imageTitle: wendReady
+      ? `LinkedIn Wend #${heroWend.puzzleNumber} Answer`
+      : `LinkedIn Wend #${heroWend.puzzleNumber} Status`,
+    imageSubtitle: wendReady
+      ? `LinkedIn Wend answer today for ${heroWend.dateLabel}.`
+      : `Verification pending for ${heroWend.dateLabel}.`,
   });
 }
 
@@ -74,7 +85,8 @@ export default function HomePage() {
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = latestVerifiedWend();
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
-  const heroWend = displayWend;
+  const expectedWend = expectedWendDisplay(todayWend);
+  const heroWend = wendReady ? displayWend : expectedWend;
   const nextWend = nextWendDisplay(displayWend);
 
   return (
@@ -83,7 +95,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-4xl py-12 text-center md:py-16">
         <p className="mx-auto mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-brand/20 bg-white px-4 py-2 text-sm font-black text-brand shadow-sm">
-          <span>Wend #{heroWend.puzzleNumber} answer</span>
+          <span>Wend #{heroWend.puzzleNumber} {wendReady ? "answer" : "status"}</span>
           <span aria-hidden className="text-slate-300">
             |
           </span>
@@ -91,17 +103,19 @@ export default function HomePage() {
           <span aria-hidden className="text-slate-300">
             |
           </span>
-          <span>updated daily at 8:00 UTC</span>
+          <span>updated daily at midnight Pacific Time</span>
         </p>
         <h1 className="break-words text-4xl font-black leading-tight tracking-normal text-ink sm:text-5xl md:text-6xl">
-          LinkedIn Wend answer today for {heroWend.dateLabel} puzzle no {heroWend.puzzleNumber}
+          {wendReady
+            ? `LinkedIn Wend answer today for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}`
+            : `LinkedIn Wend answer status for ${heroWend.dateLabel} puzzle no ${heroWend.puzzleNumber}`}
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-700 md:text-xl">
           Save your streak without spoiling the whole puzzle.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a className="btn btn-primary min-w-[12rem] gap-2" href="#answer">
-            Get Today's Answer
+            {wendReady ? "Get Today's Answer" : "View Latest Verified Answer"}
             <ArrowRight aria-hidden className="h-5 w-5" />
           </a>
           <a
@@ -114,6 +128,14 @@ export default function HomePage() {
             Official Wend Game
           </a>
         </div>
+        {!wendReady ? (
+          <WendFreshnessNotice
+            expectedDateLabel={expectedWend.dateLabel}
+            expectedPuzzleNumber={expectedWend.puzzleNumber}
+            fallbackDateLabel={displayWend.dateLabel}
+            fallbackPuzzleNumber={displayWend.puzzleNumber}
+          />
+        ) : null}
         <NextWendCountdown
           dateLabel={nextWend.dateLabel}
           placeholder={!wendReady}

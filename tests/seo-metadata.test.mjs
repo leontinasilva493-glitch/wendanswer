@@ -61,9 +61,10 @@ assert.doesNotMatch(homeSource, /wend-unlimited/, "homepage should not promote p
 assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should use a centered single-column layout");
 assert.match(
   homeSource,
-  /LinkedIn Wend answer today for \{heroWend\.dateLabel\} puzzle no \{heroWend\.puzzleNumber\}/,
-  "homepage H1 should use the displayed one-sentence LinkedIn Wend answer phrase",
+  /LinkedIn Wend answer today for \$\{heroWend\.dateLabel\} puzzle no \$\{heroWend\.puzzleNumber\}/,
+  "homepage ready H1 should use the one-sentence LinkedIn Wend answer phrase",
 );
+assert.match(homeSource, /LinkedIn Wend answer status for \$\{heroWend\.dateLabel\}/, "homepage pending H1 should use status wording");
 for (const expected of [
   "LinkedIn Wend spoiler-safe hints",
   "LinkedIn Wend step-by-step explanation",
@@ -74,8 +75,8 @@ for (const expected of [
 }
 assert.match(
   homeSource,
-  /Wend #\{heroWend\.puzzleNumber\} answer/,
-  "homepage status bar should include the dynamic Wend number query",
+  /Wend #\{heroWend\.puzzleNumber\} \{wendReady \? "answer" : "status"\}/,
+  "homepage status bar should distinguish current answer and pending status",
 );
 assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
@@ -153,6 +154,8 @@ for (const excluded of [
   );
 }
 assert.match(sitemapSource, /priorityForPath/, "sitemap should use route-specific priorities");
+assert.match(sitemapSource, /new Date\(todayWend\.updatedAt\)/, "daily sitemap pages should use the latest verified content timestamp");
+assert.doesNotMatch(sitemapSource, /lastModified:\s*new Date\(\)/, "sitemap must not pretend every static page changed on every request");
 
 for (const file of [
   "src/app/linkedin-patches-answer-today/page.tsx",

@@ -15,14 +15,16 @@ export function NextWendCountdown({
   placeholder = false,
 }: NextWendCountdownProps) {
   const title = placeholder ? "Next Wend update placeholder" : `Next Wend #${puzzleNumber} unlocks in`;
-  const footer = placeholder ? `Waiting for today's verified puzzle • expected ${dateLabel} at 8:00 UTC` : `Expected ${dateLabel} at 8:00 UTC`;
+  const footer = placeholder
+    ? `Waiting for today's verified puzzle — expected ${dateLabel} at midnight Pacific Time`
+    : `Expected ${dateLabel} at midnight Pacific Time`;
 
   return (
     <aside
       aria-label={
         placeholder
           ? "Wend countdown placeholder while today's puzzle finishes publishing"
-          : `Countdown to Wend #${puzzleNumber} on ${dateLabel} at 8:00 UTC`
+          : `Countdown to Wend #${puzzleNumber} on ${dateLabel} at midnight Pacific Time`
       }
       className="mx-auto mt-7 max-w-[760px] rounded-lg border border-line bg-white px-5 py-4 text-center shadow-lg shadow-slate-200/60 sm:px-6"
     >

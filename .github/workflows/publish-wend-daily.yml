@@ -2,16 +2,20 @@ name: Publish Wend Daily
 
 on:
   schedule:
-    - cron: "0,1,3,5,7,9,12,15,20,30,45 8 * * *"
-    - cron: "5,20,35,50 9 * * *"
+    - cron: "7,22,37,52 7 * * *"
+    - cron: "7,22,37,52 8 * * *"
   workflow_dispatch:
     inputs:
       expected_date:
-        description: "Expected Wend date, YYYY-MM-DD. Leave blank for current UTC date."
+        description: "Expected Wend date, YYYY-MM-DD. Leave blank for the current America/Los_Angeles date."
         required: false
         type: string
       source_url:
         description: "Optional one-off source URL. Leave blank to use configured sources."
+        required: false
+        type: string
+      puzzle_json:
+        description: "Optional trusted normalized puzzle JSON. Geometry validation still runs."
         required: false
         type: string
   repository_dispatch:
@@ -28,7 +32,7 @@ concurrency:
 jobs:
   publish-wend:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,8 +44,11 @@ jobs:
       - run: npm ci
       - run: npm run publish:wend
         env:
+          WEND_DAILY_INPUT_JSON: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.puzzle_json || '' }}
+          WEND_VERIFIED_BY: ${{ github.actor }}
           WEND_DAILY_SOURCE_URL: ${{ github.event.inputs.source_url || github.event.client_payload.source_url || secrets.WEND_DAILY_SOURCE_URL }}
           WEND_DAILY_FALLBACK_SOURCE_URL: ${{ vars.WEND_DAILY_FALLBACK_SOURCE_URL }}
+          WEND_DAILY_SECONDARY_SOURCE_URL: ${{ vars.WEND_DAILY_SECONDARY_SOURCE_URL || 'https://wendgames.org/src/answers-data.js' }}
           WEND_DEPLOY_COMMAND: ${{ secrets.WEND_DEPLOY_COMMAND }}
           WEND_ALERT_WEBHOOK_URL: ${{ secrets.WEND_ALERT_WEBHOOK_URL }}
           OPS_ALERT_WEBHOOK_URL: ${{ secrets.OPS_ALERT_WEBHOOK_URL }}
@@ -49,6 +56,21 @@ jobs:
           OPS_ALERT_TELEGRAM_CHAT_ID: ${{ secrets.OPS_ALERT_TELEGRAM_CHAT_ID }}
           WEND_PERSIST_TO_GIT: "true"
           WEND_EXPECTED_DATE: ${{ github.event.inputs.expected_date || github.event.client_payload.expected_date }}
+      - name: Wait for production visibility
+        run: npm run wait:wend-production
+        env:
+          WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL || vars.WEND_PUBLIC_BASE_URL || 'https://wendanswertoday.org' }}
+          WEND_PRODUCTION_WAIT_MS: ${{ vars.WEND_PRODUCTION_WAIT_MS || '300000' }}
+      - name: Smoke production
+        run: SMOKE_BASE_URL="$WEND_PUBLIC_BASE_URL" npm run smoke:local
+        env:
+          WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL || vars.WEND_PUBLIC_BASE_URL || 'https://wendanswertoday.org' }}
+      - name: Submit IndexNow
+        run: npm run indexnow:submit
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_SITE_URL: ${{ vars.INDEXNOW_SITE_URL || 'https://wendanswertoday.org' }}
+          INDEXNOW_ENDPOINT: ${{ vars.INDEXNOW_ENDPOINT }}
       - name: Open failure issue
         if: failure()
         uses: actions/github-script@v7
@@ -84,26 +106,32 @@ jobs:
                 title,
                 labels: ["automation", "wend-publish"],
                 body: [
-                  "The scheduled Wend publish workflow failed.",
+                  "The Wend publish, production visibility, smoke, or indexing pipeline failed.",
                   "",
                   `Run: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
                   "",
-                  "Check whether the source URL still exposes JSON or data-row/data-col HTML cells, then rerun the workflow manually.",
+                  "Check source quorum, geometry validation, /api/wend-status, the Vercel deployment, and production smoke output before rerunning.",
                 ].join("\n"),
               });
             }
-      - name: Smoke production
-        run: |
-          if [ -n "$WEND_PUBLIC_BASE_URL" ]; then
-            SMOKE_BASE_URL="$WEND_PUBLIC_BASE_URL" npm run smoke:local
-          else
-            echo "WEND_PUBLIC_BASE_URL is not configured; skipping production smoke."
-          fi
-        env:
-          WEND_PUBLIC_BASE_URL: ${{ secrets.WEND_PUBLIC_BASE_URL }}
-      - name: Submit IndexNow
-        run: npm run indexnow:submit
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-          INDEXNOW_SITE_URL: ${{ vars.INDEXNOW_SITE_URL || 'https://wendanswertoday.org' }}
-          INDEXNOW_ENDPOINT: ${{ vars.INDEXNOW_ENDPOINT }}
+      - name: Close recovered publish issues
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const openIssues = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+              labels: "automation,wend-publish",
+            });
+            for (const issue of openIssues.data) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: `Recovered in ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}. Production visibility and smoke checks passed.`,
+              });
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: "closed" });
+            }

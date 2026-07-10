@@ -18,6 +18,10 @@ const scriptSource = read("scripts/publish-wend-daily.mjs");
 for (const expected of [
   "WEND_DAILY_SOURCE_URL",
   "WEND_DAILY_FALLBACK_SOURCE_URL",
+  "WEND_DAILY_INPUT_JSON",
+  "WEND_DAILY_INPUT_FILE",
+  "WEND_DAILY_SECONDARY_SOURCE_URL",
+  "WEND_VERIFIED_BY",
   "WEND_DEPLOY_COMMAND",
   "WEND_PERSIST_TO_GIT",
   "sendOpsAlert",
@@ -25,15 +29,27 @@ for (const expected of [
   "validateWendPuzzle",
   "generate-wend-puzzles.mjs",
   "extractPuzzleFromHtml",
+  "prepareTrustedPuzzle",
+  "preparePublicPuzzle",
+  "parseSecondaryAnswerData",
   "data-row",
   "data-word-index",
 ]) {
   assert.match(scriptSource, new RegExp(expected), `publish script should include ${expected}`);
 }
+assert.ok(
+  scriptSource.indexOf("if (inlineInput)") < scriptSource.indexOf("if (inputFile)"),
+  "trusted inline JSON should take priority over the emergency input file",
+);
+assert.ok(
+  scriptSource.indexOf("if (inputFile)") < scriptSource.indexOf("fetch(sourceUrl"),
+  "the emergency input file should take priority over automatic public sources",
+);
+assert.doesNotMatch(scriptSource, /T08:01:00Z/, "publish script must not fabricate an 08:01 UTC update timestamp");
 assert.match(
   scriptSource,
-  /8:00 UTC/,
-  "publish script should document the daily Wend release time",
+  /midnight in America\/Los_Angeles/,
+  "publish script should document the daylight-saving-aware Wend release time",
 );
 assert.doesNotMatch(
   scriptSource,
@@ -67,10 +83,15 @@ assert.equal(
   "node scripts/publish-wend-daily.mjs",
   "package.json should expose npm run publish:wend",
 );
+assert.equal(
+  packageJson.scripts["wait:wend-production"],
+  "node scripts/wait-for-wend-production.mjs",
+  "package.json should expose the production visibility gate",
+);
 
 const workflowSource = read(".github/workflows/publish-wend-daily.yml");
-assert.match(workflowSource, /0,1,3,5,7,9,12,15,20,30,45 8 \* \* \*/, "workflow should retry during the 8:00 UTC publish window");
-assert.match(workflowSource, /5,20,35,50 9 \* \* \*/, "workflow should keep catching up after the first publish window");
+assert.match(workflowSource, /7,22,37,52 7 \* \* \*/, "workflow should retry during the daylight-saving publish window");
+assert.match(workflowSource, /7,22,37,52 8 \* \* \*/, "workflow should retry during the standard-time publish window");
 assert.match(workflowSource, /contents:\s*write/, "workflow should be able to push generated JSON back to the repository");
 assert.match(workflowSource, /issues:\s*write/, "workflow should be able to open a failure issue when daily publishing breaks");
 assert.match(workflowSource, /concurrency:/, "workflow should serialize overlapping retry runs");
@@ -87,6 +108,18 @@ assert.match(workflowSource, /workflow_dispatch/, "workflow should support manua
 assert.match(workflowSource, /repository_dispatch/, "workflow should support external cron dispatching");
 assert.match(workflowSource, /expected_date/, "manual and external dispatch should be able to set the expected Wend date");
 assert.match(workflowSource, /source_url/, "manual and external dispatch should be able to set a one-off source URL");
+assert.match(workflowSource, /puzzle_json/, "manual workflow runs should accept trusted normalized JSON");
+assert.match(workflowSource, /WEND_VERIFIED_BY:\s*\$\{\{ github\.actor \}\}/, "trusted JSON should record the authenticated workflow actor");
+assert.match(workflowSource, /WEND_DAILY_SECONDARY_SOURCE_URL/, "automatic publishing should use an independently configured secondary source");
+assert.match(workflowSource, /npm run wait:wend-production/, "workflow should wait until the verified puzzle is visible in production");
+assert.doesNotMatch(workflowSource, /skipping production smoke/i, "production smoke must never silently skip");
+assert.ok(
+  workflowSource.indexOf("npm run wait:wend-production") < workflowSource.indexOf("npm run smoke:local") &&
+    workflowSource.indexOf("npm run smoke:local") < workflowSource.indexOf("npm run indexnow:submit"),
+  "production visibility must gate smoke and IndexNow in that order",
+);
+assert.match(workflowSource, /Close recovered publish issues/, "successful publishing should close stale failure issues");
+assert.match(workflowSource, /state:\s*"closed"/, "publish recovery should close issues after commenting");
 assert.match(workflowSource, /npm run indexnow:submit/, "workflow should notify IndexNow after publishing and smoke checks");
 
 console.log("wend publish automation test passed");

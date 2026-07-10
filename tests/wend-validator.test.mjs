@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { validateWendPuzzle } from "../scripts/validate-wend-puzzle.mjs";
+import { prepareTrustedPuzzle } from "../scripts/wend-source-verification.mjs";
 
 const validPuzzle = {
   game: "wend",
@@ -29,6 +30,17 @@ const validPuzzle = {
 };
 
 assert.doesNotThrow(() => validateWendPuzzle(validPuzzle, { expectedDate: "2026-06-26" }));
+
+const provenancePuzzle = prepareTrustedPuzzle(validPuzzle, {
+  capturedAt: "2026-06-26T10:42:08.123Z",
+  sourceUrl: "workflow-input",
+  verifiedBy: "octocat",
+});
+assert.doesNotThrow(() => validateWendPuzzle(provenancePuzzle, { expectedDate: "2026-06-26" }));
+assert.throws(
+  () => validateWendPuzzle({ ...provenancePuzzle, publication: { ...provenancePuzzle.publication, sourceHash: "bad" } }),
+  /SHA-256/,
+);
 
 assert.throws(
   () =>

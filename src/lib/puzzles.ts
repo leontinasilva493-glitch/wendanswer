@@ -10,6 +10,17 @@ export type WendAnswer = {
   path: Cell[];
 };
 
+export type WendPublication = {
+  capturedAt: string;
+  sourceHash: string;
+  sourceType: "trusted-json" | "public-html-quorum";
+  sourceUrls: string[];
+  state: "verified";
+  verificationMethod: "trusted-workflow-input" | "two-source-agreement";
+  verifiedAt: string;
+  verifiedBy: string;
+};
+
 export type WendPuzzle = {
   game: "wend";
   puzzleNumber: number;
@@ -27,6 +38,7 @@ export type WendPuzzle = {
   difficultyNote: string;
   relatedGames: string[];
   isVerified: boolean;
+  publication?: WendPublication;
 };
 
 export type SimplePuzzle = {

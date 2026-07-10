@@ -3,7 +3,7 @@
   "puzzleNumber": 32,
   "date": "2026-07-10",
   "dateLabel": "July 10, 2026",
-  "updatedAt": "2026-07-10T08:01:00Z",
+  "updatedAt": "2026-07-10T13:36:17.829Z",
   "difficulty": "Medium",
   "grid": [
     [
@@ -217,5 +217,18 @@
     "tango",
     "queens"
   ],
-  "isVerified": true
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-10T13:36:17.829Z",
+    "sourceHash": "2e37c2e39fa47397e44c51333c6aac1ef7a7453d1d43ca0559c118c14d6b71bd",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-10T13:36:17.829Z",
+    "verifiedBy": "public-source-quorum"
+  }
 }

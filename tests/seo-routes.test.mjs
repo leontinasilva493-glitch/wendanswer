@@ -7,6 +7,8 @@ const legacyRouteDir = path.join(root, "src/app/linkedin-games-answers-today");
 const legacyPagePath = path.join(legacyRouteDir, "page.tsx");
 const legacyRoutePath = path.join(legacyRouteDir, "route.ts");
 const sitemapPath = path.join(root, "src/app/sitemap.ts");
+const statusRoutePath = path.join(root, "src/app/api/wend-status/route.ts");
+const dispatchRoutePath = path.join(root, "src/app/api/ops/wend-dispatch/route.ts");
 
 assert.equal(
   fs.existsSync(legacyPagePath),
@@ -38,5 +40,9 @@ assert.equal(
   false,
   "sitemap must not include the duplicate legacy route",
 );
+
+assert.equal(fs.existsSync(statusRoutePath), true, "public Wend freshness status route should exist");
+assert.equal(fs.existsSync(dispatchRoutePath), true, "secured external Wend dispatch route should exist");
+assert.equal(sitemapSource.includes('"/api/wend-status"'), false, "machine status endpoints must stay out of the sitemap");
 
 console.log("seo routes test passed");

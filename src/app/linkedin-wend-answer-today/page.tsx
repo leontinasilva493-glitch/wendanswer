@@ -6,15 +6,13 @@ import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
+import { WendFreshnessNotice } from "@/components/WendFreshnessNotice";
 import { formatUpdated } from "@/lib/dates";
 import { todayWend, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
 import { expectedWendDisplay, isWendReadyForToday } from "@/lib/wend-status";
 
 const path = "/linkedin-wend-answer-today";
-const fallbackDescription =
-  "Get today’s LinkedIn Wend hints, answer, word path, and spoiler-safe solver. Reveal one letter, one word, or the full path only when you need it.";
-
 export const revalidate = 60;
 
 function pageTitle(wendReady: boolean) {
@@ -28,7 +26,7 @@ function pageDescription(wendReady: boolean) {
   const expectedWend = expectedWendDisplay(todayWend);
   return wendReady
     ? `LinkedIn Wend answer today for ${todayWend.dateLabel}, puzzle #${todayWend.puzzleNumber}, with spoiler-safe hints, word path, and reveal controls.`
-    : `LinkedIn Wend answer today status for ${expectedWend.dateLabel}, puzzle #${expectedWend.puzzleNumber}, plus spoiler-safe hints, word path help, and reveal controls.`;
+    : `The LinkedIn Wend answer for ${expectedWend.dateLabel}, puzzle #${expectedWend.puzzleNumber}, is being verified. The latest verified hints and paths remain available with a clear archive label.`;
 }
 
 export function generateMetadata(): Metadata {
@@ -66,6 +64,7 @@ export default function WendTodayPage() {
   const wendReady = isWendReadyForToday(todayWend);
   const lastVerifiedWend = wendPuzzles.find((puzzle) => puzzle.isVerified) ?? todayWend;
   const displayWend = wendReady ? todayWend : lastVerifiedWend;
+  const expectedWend = expectedWendDisplay(todayWend);
   const description = pageDescription(wendReady);
 
   return (
@@ -90,13 +89,13 @@ export default function WendTodayPage() {
             LinkedIn Wend Answer Today
           </h1>
           <div className="mt-3 flex flex-wrap gap-2 text-sm font-semibold text-slate-700 sm:text-base">
-            <span className="rounded-lg bg-white px-3 py-2">{todayWend.dateLabel}</span>
-            <span className="rounded-lg bg-white px-3 py-2">Puzzle #{todayWend.puzzleNumber}</span>
-            <span className="rounded-lg bg-white px-3 py-2">Updated {formatUpdated(todayWend.updatedAt)}</span>
+            <span className="rounded-lg bg-white px-3 py-2">{displayWend.dateLabel}</span>
+            <span className="rounded-lg bg-white px-3 py-2">Puzzle #{displayWend.puzzleNumber}</span>
+            <span className="rounded-lg bg-white px-3 py-2">Updated {formatUpdated(displayWend.updatedAt)}</span>
           </div>
           <h2 className="mt-5 break-words text-xl font-black leading-tight text-ink sm:text-2xl">
             LinkedIn Wend Hints, Word Path & Answer
-            <span className="block">for {todayWend.dateLabel}</span>
+            <span className="block">for {displayWend.dateLabel}</span>
           </h2>
           <p className="mt-3 max-w-xl text-base leading-7 text-slate-700">
             Need a nudge, not a spoiler? Start with a gentle hint, reveal one word, or view the full path
@@ -126,10 +125,21 @@ export default function WendTodayPage() {
           <p className="text-sm font-bold uppercase tracking-[0.08em] text-brand">Streak-safe help</p>
           <h2 className="mt-2 text-2xl font-black text-ink">Save your streak without spoiling the whole puzzle</h2>
           <p className="mt-3 text-sm leading-6 text-slate-700">
-            Start with today’s hint, then reveal one letter or one word only if the path is still stuck.
+            {wendReady
+              ? "Start with today's hint, then reveal one letter or one word only if the path is still stuck."
+              : "Use the latest verified hint while today's new board is being verified."}
           </p>
         </div>
       </section>
+
+      {!wendReady ? (
+        <WendFreshnessNotice
+          expectedDateLabel={expectedWend.dateLabel}
+          expectedPuzzleNumber={expectedWend.puzzleNumber}
+          fallbackDateLabel={displayWend.dateLabel}
+          fallbackPuzzleNumber={displayWend.puzzleNumber}
+        />
+      ) : null}
 
       <section className="section" id="answer">
         <WendAnswerReveal archived={!wendReady} puzzle={displayWend} />

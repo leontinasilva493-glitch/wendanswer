@@ -16,7 +16,7 @@ const statusLib = read("src/lib/wend-status.ts");
 assert.doesNotMatch(component, /"use client"/, "countdown shell should stay server-rendered for SEO-visible copy");
 assert.match(ticker, /"use client"/, "countdown ticker must run client-side so seconds update after hydration");
 assert.match(component, /Next Wend #\$\{puzzleNumber\} unlocks in/, "countdown should expose a concise next-puzzle heading");
-assert.match(component, /Expected \$\{dateLabel\} at 8:00 UTC/, "countdown should expose the next answer date");
+assert.match(component, /Expected \$\{dateLabel\} at midnight Pacific Time/, "countdown should expose the next answer date");
 assert.match(component, /placeholder\?: boolean/, "countdown should support a placeholder state");
 assert.match(component, /max-w-\[760px\]/, "countdown should use the compact hero-card width");
 assert.match(component, /shadow-lg shadow-slate-200\/60/, "countdown should keep the previous image-style soft card treatment");
@@ -35,9 +35,9 @@ assert.doesNotMatch(component, /lg:grid-cols/, "countdown should not revert to d
 assert.doesNotMatch(component, /tomorrow's Wend answer and next-puzzle searches/, "countdown copy should stay concise");
 assert.match(component, /Next Wend update placeholder/, "countdown should render a visible placeholder state when data is not ready");
 
-assert.match(statusLib, /export function nextWendRelease/, "status lib should expose the next Wend release time");
+assert.match(statusLib, /nextWendRelease/, "status lib should use the shared next Wend release time");
 assert.match(statusLib, /export function nextWendDisplay/, "status lib should expose the next Wend display metadata");
-assert.match(statusLib, /WEND_RELEASE_HOUR_UTC = 8/, "next Wend display must be tied to the 8:00 UTC release rule");
+assert.match(statusLib, /\.\/wend-schedule/, "next Wend display must use the America\/Los_Angeles schedule module");
 
 assert.match(homePage, /NextWendCountdown/, "homepage should render the next Wend countdown module");
 assert.match(homePage, /nextWendDisplay/, "homepage should compute next date and puzzle number from shared status logic");
