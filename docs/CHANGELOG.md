@@ -4,6 +4,11 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-10
 
+### Press external references
+
+- Added the Leontina Silva F6S founder profile to `/press` as an external reference card.
+- Updated Press page regression coverage so the F6S title and URL stay present with the existing safe external-link attributes.
+
 ### P0/P1 Wend daily reliability
 
 - Replaced the fixed 08:00 UTC release assumption with shared `America/Los_Angeles` scheduling, including PDT, PST, and DST-boundary regression fixtures.

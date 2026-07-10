@@ -23,6 +23,12 @@ const pressLinks = [
     description: "Creator link hub for WendAnswerToday-related profiles and updates.",
     href: "https://linktr.ee/duckweed1014",
   },
+  {
+    title: "F6S Founder Profile",
+    source: "F6S",
+    description: "Founder profile for Leontina Silva and related startup activity.",
+    href: "https://www.f6s.com/leontina-silva",
+  },
 ];
 
 export const metadata: Metadata = pageMetadata({
