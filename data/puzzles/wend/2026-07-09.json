@@ -1,0 +1,234 @@
+{
+  "game": "wend",
+  "puzzleNumber": 31,
+  "date": "2026-07-09",
+  "dateLabel": "July 9, 2026",
+  "updatedAt": "2026-07-09T08:01:00Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "R",
+      "I",
+      "O",
+      "R",
+      null,
+      "R"
+    ],
+    [
+      "P",
+      "C",
+      "O",
+      null,
+      null,
+      "O"
+    ],
+    [
+      "U",
+      "L",
+      "R",
+      "R",
+      "I",
+      "D"
+    ],
+    [
+      "G",
+      "A",
+      "R",
+      "R",
+      "E",
+      "F"
+    ],
+    [
+      "E",
+      null,
+      null,
+      "N",
+      "N",
+      "O"
+    ],
+    [
+      "R",
+      null,
+      "R",
+      "U",
+      "K",
+      "R"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with FORK; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CORRIDOR is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "FORK",
+      "path": [
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "PRIOR",
+      "path": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "RUNNER",
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "REGULAR",
+      "path": [
+        [
+          5,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "CORRIDOR",
+      "path": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 9, 2026 Wend solution uses every open cell exactly once across FORK, PRIOR, RUNNER, REGULAR, CORRIDOR. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating FORK, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm FORK first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true
+}
