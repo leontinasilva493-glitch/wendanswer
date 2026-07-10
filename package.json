@@ -25,6 +25,7 @@
     "test:growth-guardrails": "node tests/growth-guardrails.test.mjs",
     "test:next-wend-countdown": "node tests/next-wend-countdown.test.mjs",
     "test:ops-monitoring": "node tests/ops-monitoring.test.mjs",
+    "test:sitemap-lastmod": "node tests/sitemap-lastmod.test.mjs",
     "test:seo-metadata": "node tests/seo-metadata.test.mjs",
     "test:seo-routes": "node tests/seo-routes.test.mjs",
     "pretypecheck": "npm run generate:wend",

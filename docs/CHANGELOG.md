@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-09
 
+### Sitemap lastmod stabilization
+
+- Changed static sitemap page `lastModified` values from deploy-time `new Date()` to content-based timestamps.
+- Kept homepage, Today, Solver, and Archive sitemap entries tied to the latest verified Wend puzzle `updatedAt`.
+- Kept archive detail sitemap entries tied to each puzzle's own `updatedAt`.
+- Added `test:sitemap-lastmod` to guard against reintroducing deploy-time sitemap timestamps.
+
 ### LinkedIn Wend SEO keyword layout
 
 - Updated homepage metadata and hero copy to target `LinkedIn Wend Answer Today` while keeping the displayed date and puzzle number dynamic.

@@ -19,6 +19,20 @@ const staticPaths = [
   "/terms",
 ];
 
+const wendDrivenPaths = new Set(["/", "/linkedin-wend-answer-today", "/linkedin-wend-solver", "/linkedin-wend-archive"]);
+
+const fixedContentLastModified: Record<string, string> = {
+  "/where-is-linkedin-wend": "2026-06-24T00:00:00.000Z",
+  "/how-to-play-linkedin-wend": "2026-06-28T00:00:00.000Z",
+  "/how-to-solve-linkedin-wend": "2026-06-28T00:00:00.000Z",
+  "/faq": "2026-07-09T00:00:00.000Z",
+  "/contact": "2026-06-24T00:00:00.000Z",
+  "/press": "2026-07-02T00:00:00.000Z",
+  "/disclaimer": "2026-06-24T00:00:00.000Z",
+  "/privacy-policy": "2026-07-01T00:00:00.000Z",
+  "/terms": "2026-06-24T00:00:00.000Z",
+};
+
 function priorityForPath(path: string) {
   if (path === "/") return 1;
   if (path === "/linkedin-wend-answer-today") return 0.95;
@@ -37,10 +51,17 @@ function changeFrequencyForPath(path: string) {
   return "monthly" as const;
 }
 
+function lastModifiedForPath(path: string) {
+  const latestWendUpdatedAt = wendPuzzles[0]?.updatedAt ?? "2026-06-24T00:00:00.000Z";
+  if (wendDrivenPaths.has(path)) return new Date(latestWendUpdatedAt);
+
+  return new Date(fixedContentLastModified[path] ?? "2026-06-24T00:00:00.000Z");
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = staticPaths.map((path) => ({
     url: `${site.url}${path}`,
-    lastModified: new Date(),
+    lastModified: lastModifiedForPath(path),
     changeFrequency: changeFrequencyForPath(path),
     priority: priorityForPath(path),
   }));

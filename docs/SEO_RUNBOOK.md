@@ -258,6 +258,13 @@ Current priorities:
 - FAQ/contact/press: `0.4`
 - Legal pages: `0.25`
 
+Sitemap `lastmod` values should describe content freshness, not deployment time:
+
+- `/`, `/linkedin-wend-answer-today`, `/linkedin-wend-solver`, and `/linkedin-wend-archive` use the latest verified Wend puzzle `updatedAt` timestamp because their visible content depends on current puzzle data.
+- Evergreen content pages such as how-to, FAQ, press, contact, and legal pages use fixed content-update timestamps in `src/app/sitemap.ts`.
+- Wend archive detail pages use each puzzle's own `updatedAt` timestamp.
+- Do not use bare `new Date()` for all static sitemap pages; that makes every deploy look like a full-site content update.
+
 ## SEO Verification
 
 Run:
