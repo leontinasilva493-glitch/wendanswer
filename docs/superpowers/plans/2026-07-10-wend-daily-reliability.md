@@ -8,7 +8,7 @@
 
 **Tech Stack:** Next.js 16 App Router, TypeScript 6, Node.js 24 ESM scripts, GitHub Actions, Vercel.
 
-**Status:** P0/P1 implementation and full local verification completed on 2026-07-10; final Git staging/push is tracked at the end of Task 6.
+**Status:** Completed, fully verified, committed, and pushed to `codex/wend-freshness-fix` on 2026-07-10.
 
 ## Global Constraints
 
@@ -148,4 +148,4 @@
 - [x] Start the production build locally, run `npm run smoke:local`, and inspect pending/current behavior with browser automation.
 - [x] Inspect `git diff --check`, staged diff, and secrets before committing.
 - [x] Stage only P0/P1 code, tests, and documentation; leave `prd-export.txt` and tool artifacts untracked.
-- [ ] Commit with a Conventional Commit message and push `codex/wend-freshness-fix` to `origin`.
+- [x] Commit with a Conventional Commit message and push `codex/wend-freshness-fix` to `origin`.
