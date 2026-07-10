@@ -41,18 +41,23 @@ for (const expected of [
   "response.status !== 308",
   "/linkedin-wend-answer-today",
   "/linkedin-wend-archive",
+  "/api/wend-status",
+  "body?.status !== \"current\"",
 ]) {
   assert.match(monitorSource, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `monitor should check ${expected}`);
 }
 
 const monitorWorkflow = read(".github/workflows/monitor-production.yml");
-assert.match(monitorWorkflow, /\*\/5 \* \* \* \*/, "production monitor should run every five minutes");
+assert.match(monitorWorkflow, /2,17,32,47 \* \* \* \*/, "GitHub's fallback production monitor should use off-peak quarter-hour retries");
 assert.match(monitorWorkflow, /npm run monitor:production/, "workflow should run the production monitor");
 assert.match(monitorWorkflow, /OPS_ALERT_WEBHOOK_URL/, "workflow should pass the webhook alert secret");
 assert.match(monitorWorkflow, /OPS_ALERT_TELEGRAM_BOT_TOKEN/, "workflow should pass Telegram bot secret");
 assert.match(monitorWorkflow, /issues:\s*write/, "workflow should be able to open monitoring failure issues");
 assert.match(monitorWorkflow, /automation[\s\S]*monitoring[\s\S]*p0/, "workflow should label monitoring failures as P0 automation issues");
 assert.match(monitorWorkflow, /github-script/, "workflow should create a visible failure issue");
+assert.match(monitorWorkflow, /Close recovered monitoring issues/, "successful monitoring should close stale failure issues");
+assert.match(monitorWorkflow, /createComment/, "monitor recovery should record evidence before closing issues");
+assert.match(monitorWorkflow, /state:\s*"closed"/, "monitor recovery should close issues");
 
 const publishWorkflow = read(".github/workflows/publish-wend-daily.yml");
 assert.match(publishWorkflow, /OPS_ALERT_WEBHOOK_URL/, "daily publish workflow should use the shared ops webhook alert secret");

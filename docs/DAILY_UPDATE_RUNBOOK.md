@@ -4,14 +4,14 @@ Use this runbook during the first 14 launch days to keep the daily pages fresh, 
 
 ## Goal
 
-Publish the newest verified daily puzzle data within five minutes of the 8:00 UTC Wend reset, confirm the correct pages are served locally, and keep a small record of what changed.
+Publish the newest verified daily puzzle data within five minutes of Wend's midnight reset in `America/Los_Angeles`, confirm the exact record is visible in production, and keep a traceable provenance record.
 
 ## Fast Publish Target
 
 The daily operating target is:
 
-- 8:00 UTC: Wend is expected to release a new puzzle.
-- 8:00-8:05 UTC: publish verified data to the site.
+- Midnight Pacific Time: Wend is expected to release a new puzzle. This is 07:00 UTC during PDT and 08:00 UTC during PST.
+- Reset to +5 minutes: verify, publish, and confirm the exact date and puzzle number in production.
 - If the official page is slow, blocked, or ambiguous, do not publish placeholder data as verified.
 
 The automated entry point is:
@@ -24,37 +24,64 @@ The script supports these environment variables:
 
 - `WEND_DAILY_SOURCE_URL`: normalized official-page capture that returns the daily Wend JSON, an HTML page containing a `wend-puzzle-data` JSON script tag, or an HTML page with `data-row`, `data-col`, `data-word-index`, and `data-letter-index` cell attributes.
 - `WEND_DAILY_FALLBACK_SOURCE_URL`: optional public fallback source used when `WEND_DAILY_SOURCE_URL` is not configured. The script defaults this to the public HTML fallback source currently used by the automation.
-- `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing.
+- `WEND_DAILY_SECONDARY_SOURCE_URL`: independent public word-list source required to agree with automatic public ingestion. Defaults to `https://wendgames.org/src/answers-data.js`.
+- `WEND_DAILY_INPUT_JSON`: trusted normalized JSON supplied only through an authenticated manual GitHub workflow run.
+- `WEND_DAILY_INPUT_FILE`: local JSON file fallback for manual emergency publishing. Trusted JSON still requires `WEND_VERIFIED_BY` and geometry validation.
+- `WEND_VERIFIED_BY`: authenticated operator identity. GitHub Actions sets this to `github.actor` for trusted manual input.
 - `WEND_DEPLOY_COMMAND`: optional deployment command to run after generation and fast tests.
 - `WEND_PERSIST_TO_GIT`: set to `true` in CI so generated JSON and `src/lib/generated/wend-puzzles.ts` are committed and pushed before deploy.
 - `OPS_ALERT_WEBHOOK_URL`: preferred Discord-compatible webhook for publish failures and production monitoring failures.
 - `OPS_ALERT_TELEGRAM_BOT_TOKEN` and `OPS_ALERT_TELEGRAM_CHAT_ID`: optional Telegram alert channel.
 - `WEND_ALERT_WEBHOOK_URL`: legacy Discord-compatible webhook for publish failures. Keep it only for backward compatibility; new setup should use `OPS_ALERT_WEBHOOK_URL`.
-- `WEND_EXPECTED_DATE`: optional override for manual backfills. Normal daily publishing uses the current UTC date.
+- `WEND_EXPECTED_DATE`: optional override for manual backfills. Normal publishing uses the current date in `America/Los_Angeles`.
 - `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
 - `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
 
-GitHub Actions runs `.github/workflows/publish-wend-daily.yml` through the first publish window at `0,1,3,5,7,9,12,15,20,30,45 8 * * *` UTC, then runs catch-up checks at `5,20,35,50 9 * * *` UTC. It can also be triggered manually with optional `expected_date` and `source_url` inputs, or by an external cron through `repository_dispatch` type `publish-wend-daily`.
+GitHub Actions keeps fallback retries at `7,22,37,52 7 * * *` and `7,22,37,52 8 * * *` UTC so both PDT and PST reset windows are covered at off-peak minutes. Scheduled Actions can be delayed or dropped, so they are not the primary five-minute trigger.
 
-The expanded schedule exists because the public Actions page showed the June 29 publish did not run even though the importer could generate Wend #21 locally in two seconds. Do not rely on GitHub's scheduled workflow as the only trigger for a five-minute answer site. Use an external cron or uptime monitor to call GitHub's `repository_dispatch` endpoint at 8:00:10, 8:01, 8:03, and 8:05 UTC with this payload shape:
+Configure an external scheduler to call the secured application route throughout both reset windows, for example at minutes 00, 02, 05, and 08 of 07:00 and 08:00 UTC. Calls are idempotent and the application calculates the expected date in Los Angeles; no caller-supplied source URL is accepted.
+
+```bash
+curl -X POST https://wendanswertoday.org/api/ops/wend-dispatch \
+  -H "Authorization: Bearer $CRON_SECRET"
+```
+
+The Vercel application requires `CRON_SECRET`, `GITHUB_DISPATCH_TOKEN`, and `WEND_GITHUB_REPOSITORY=owner/repository`. The GitHub token must be restricted to the target repository and only the permission needed to create repository dispatches. The route returns `202` after GitHub accepts the trigger, `401` for invalid credentials, `503` for missing server configuration, and a sanitized `502` for upstream failure.
+
+The current public fallback strategy is:
+
+- `wendanswertoday.me` embeds the current solved board directly in server-rendered HTML using cell attributes such as `data-row`, `data-col`, `data-word-index`, and `data-letter-index`. The importer reconstructs the grid, paths, and words from those attributes but does not trust that page alone.
+- `wendgames.org/src/answers-data.js` is an independent, manually maintained word-list source. Automatic publishing fails closed unless its date, puzzle number, and complete normalized answer-word set agree with the primary source.
+- LinkedIn's official Wend page remains the preferred source if a stable, compliant, verified capture is available. Public competitor pages are fallback signals and must pass the same geometry validator before publishing.
+
+Trusted manual JSON has higher priority than the emergency file, which has higher priority than automatic public sources. A manual workflow run can provide `expected_date` and `puzzle_json`; GitHub records the authenticated actor as the verifier. Never copy trusted JSON into `repository_dispatch` client payloads or public endpoints.
+
+For an official human-verified correction, create a temporary request body in your operator environment (do not commit it):
 
 ```json
 {
-  "event_type": "publish-wend-daily",
-  "client_payload": {
-    "expected_date": "2026-06-29",
-    "source_url": "https://wendanswertoday.me/"
+  "ref": "main",
+  "inputs": {
+    "expected_date": "2026-07-10",
+    "puzzle_json": "<single-line normalized Wend JSON>"
   }
 }
 ```
 
-The current public fallback strategy is:
+Then dispatch the authenticated workflow through GitHub:
 
-- `wendanswertoday.me` embeds the current solved board directly in server-rendered HTML using cell attributes such as `data-row`, `data-col`, `data-word-index`, and `data-letter-index`. The importer can reconstruct the grid, paths, and words from those attributes.
-- `wendgames.org/answers` loads `src/answers-data.js`, which is explicitly marked as manually maintained and usually contains words plus solved-board screenshots. Treat it as a cross-check source, not as the primary source for our interactive board, because it may not expose full path coordinates.
-- LinkedIn's official Wend page remains the preferred source if a stable, compliant, verified capture is available. Public competitor pages are fallback signals and must pass the same geometry validator before publishing.
+```bash
+curl -L -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/OWNER/REPOSITORY/actions/workflows/publish-wend-daily.yml/dispatches \
+  --data-binary @workflow-dispatch.json
+```
 
-Production monitoring runs separately in `.github/workflows/monitor-production.yml` every five minutes. It checks uptime, noindex regressions, robots/sitemap crawlability, Today page freshness, and the latest legacy archive `308` redirect. See `docs/MONITORING_RUNBOOK.md`.
+Delete `workflow-dispatch.json` after the request. The token needs access to run this workflow; it is separate from the application dispatch token and must never be written into repository files or logs.
+
+After a Git push, `npm run wait:wend-production` polls `/api/wend-status` until production reports the exact local date and puzzle number. Only then may production smoke and IndexNow run. Production monitoring runs separately as a 15-minute GitHub fallback; an external uptime service should poll the status endpoint every minute around reset. See `docs/MONITORING_RUNBOOK.md`.
 
 ## Phase 0 Risk Check
 
@@ -62,8 +89,8 @@ Before treating official LinkedIn scraping as the primary path, run a spike:
 
 - Confirm whether the official Wend page exposes puzzle data without a logged-in session.
 - If a logged-in session is required, treat scraping as a risky auxiliary signal because session cookies, two-factor prompts, and account checks can fail without warning.
-- Until that is proven stable, use `WEND_DAILY_SOURCE_URL` as a normalized verified JSON feed or use `WEND_DAILY_INPUT_FILE` for human-verified emergency publishing.
-- Never publish old answers as today. If the latest local puzzle is stale or unverified, public pages render the latest verified Wend module while monitoring raises a freshness failure after the 8:00 UTC reset.
+- Until that is proven stable, use the authenticated `WEND_DAILY_INPUT_JSON` path for human-verified official data or the automatic two-public-source quorum as a fallback.
+- Never publish old answers as today. If the latest local puzzle is stale or unverified, public pages show a visible verification-pending notice and label the fallback as the latest verified puzzle.
 
 ## Publish Validation
 
@@ -73,6 +100,8 @@ The publish script refuses data unless:
 - `game` is `wend`.
 - `date` equals the expected publish date.
 - `isVerified` is `true`.
+- Trusted JSON has a non-empty verifier identity, or automatic public data has date/number/word agreement from two sources.
+- New records include a stable SHA-256 source hash and real capture/verification timestamps.
 - Answer paths stay inside the grid.
 - Consecutive path cells are adjacent.
 - Each path spells the declared answer word.
@@ -121,6 +150,7 @@ data/puzzles/wend/2026-06-27.json
 - `difficultyNote`
 - `relatedGames`
 - `isVerified`
+- optional `publication` provenance for older records; all newly published records receive it automatically
 
 3. Regenerate the Wend puzzle index:
 
@@ -196,7 +226,11 @@ Run these before considering the daily update done:
 npm run generate:wend
 npm run test:latest-date
 npm run test:wend-freshness
+npm run test:wend-schedule
 npm run test:wend-validator
+npm run test:wend-source-verification
+npm run test:wend-ops-routes
+npm run test:wend-production-gate
 npm run test:wend-mvp
 npm run test:wend-publish
 npm run test:seo-metadata
@@ -232,7 +266,7 @@ Extra checks after UI or routing changes:
 - The Today page title/description include the date and puzzle number only when the latest puzzle is verified for the current Wend release window.
 - The Solver page uses the same colored word cards, letter bubbles, and reveal controls as the Today answer module.
 - The FAQ disclosure control rotates consistently on the homepage and Today page.
-- The verification-pending card links directly to the latest verified archive detail page.
+- The verification-pending card states the expected puzzle and identifies the latest verified fallback.
 - A 375-390px wide mobile viewport keeps Wend board tubes, start markers, check badges, and letter bubbles legible without horizontal overflow.
 - A legacy archive URL returns a real `308` redirect in the running app, not just in source-level tests.
 
@@ -246,6 +280,7 @@ If the Today page shows yesterday's puzzle:
 - Confirm the newest current-day JSON has `isVerified: true`; otherwise public pages intentionally keep showing the latest verified puzzle.
 - Confirm `todayWend` comes from `verifiedWendPuzzles[0]`, with `allWendPuzzles[0]` used only as an emergency empty-data fallback.
 - Restart `npm run dev` if the dev server was already running.
+- Inspect `https://wendanswertoday.org/api/wend-status`; HTTP `503` means the fallback is intentional and the current puzzle is still pending.
 
 If a new archive page returns 404:
 

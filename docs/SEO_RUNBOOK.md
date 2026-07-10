@@ -123,18 +123,18 @@ LinkedIn Wend answer today for {date} puzzle no {number}
 The status line above the Hero headline should include:
 
 ```text
-Wend #{number} answer | {date} | updated daily at 8:00 UTC
+Wend #{number} answer | {date} | updated daily at midnight Pacific Time
 ```
 
 ## Next Puzzle Countdown
 
 The homepage includes a compact next-puzzle countdown inside the lower half of the Hero, directly after the primary CTA buttons. It targets adjacent search intent such as `next wend puzzle`, `when does linkedin wend update`, `wend answer tomorrow`, and date-based next-puzzle searches without publishing unverified answers or adding a separate mid-page section. When the current puzzle is not yet verified, the same card remains visible in placeholder mode so the Hero never opens with a blank gap.
 
-The countdown must use `nextWendDisplay()` from `src/lib/wend-status.ts`, which is tied to the shared `WEND_RELEASE_HOUR_UTC = 8` rule. The server-rendered copy should include:
+The countdown must use `nextWendDisplay()` from `src/lib/wend-status.ts`, which delegates to the `America/Los_Angeles` schedule module and follows daylight-saving changes. The server-rendered copy should include:
 
 ```text
 Next Wend #{number} unlocks in
-Expected {date} at 8:00 UTC
+Expected {date} at midnight Pacific Time
 ```
 
 Only the live hours/minutes/seconds values are client-side. The date, puzzle number, and release-time promise should remain visible in the page HTML for users and crawlers. Keep the module visually subordinate to the Hero headline and CTA, but use the centered white-card treatment so it reads as a useful first-screen status signal. The time blocks should stay compact, with each value and unit on one horizontal row to avoid inflating the Hero height. If the current puzzle is not verified, render the same card in placeholder mode with `--` time values instead of hiding it.
@@ -166,7 +166,7 @@ INDEXNOW_SITE_URL=https://wendanswertoday.org
 INDEXNOW_ENDPOINT=https://api.indexnow.org/indexnow
 ```
 
-The site serves the verification key at `/indexnow-key.txt` and submits that URL as `keyLocation`. The daily publish workflow runs IndexNow submission after production smoke checks. If `INDEXNOW_KEY` is missing, the command skips safely.
+The site serves the verification key at `/indexnow-key.txt` and submits that URL as `keyLocation`. The daily workflow first waits for `/api/wend-status` to report the exact expected date and puzzle number, then runs production smoke, and only then submits IndexNow. If `INDEXNOW_KEY` is missing, the command skips safely.
 
 ## Index Strategy
 
@@ -226,17 +226,17 @@ Homepage archive coverage:
 
 ## Stale Today Protection
 
-After the 8:00 UTC reset, `/` and `/linkedin-wend-answer-today` must not label yesterday's answer as today's answer. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
+After midnight in `America/Los_Angeles`, `/` and `/linkedin-wend-answer-today` must not label yesterday's answer as today's answer. The reset is 07:00 UTC during PDT and 08:00 UTC during PST. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
 
 - `isVerified: true`
-- dated as the expected current Wend date for the 8:00 UTC release window
+- dated as the expected current Wend date in `America/Los_Angeles`
 
-If either check fails, public pages should silently render the latest verified puzzle through the normal game module. Do not show a public verification-pending notice or promote a calendar-derived puzzle number before matching verified data exists.
+If either check fails, public pages show a verification-pending notice with the expected date/number and label the rendered fallback as `Latest verified`. They must not describe that fallback as today's answer. Article JSON-LD and current-answer modified/published timestamps remain absent until matching verified data exists.
 
 Homepage consistency rule:
 
-- The visible homepage Hero must use the same `displayWend` puzzle as the answer reveal module.
-- Do not use calendar-derived `expectedWendDisplay()` values for visible Hero copy before matching verified puzzle data exists.
+- In the ready state, the homepage Hero and answer reveal use the same `displayWend` puzzle.
+- In the pending state, calendar-derived `expectedWendDisplay()` values may appear only as status/expected metadata; the answer module continues to use and label the latest verified puzzle.
 - The next-puzzle countdown should always render. If the current expected puzzle is missing, switch the card into placeholder mode instead of hiding it or promoting an unverified puzzle number beside an older game module.
 
 The Today page metadata should follow the same readiness rule:

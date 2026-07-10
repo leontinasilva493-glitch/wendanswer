@@ -2,21 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { sendOpsAlert } from "./ops-alert.mjs";
 import { allowsGlobalCrawl, disallowsGlobalCrawl } from "./robots-policy.mjs";
+import { expectedWendDate, wendDateLabel } from "./wend-schedule.mjs";
 
 const root = process.cwd();
 const baseUrl = (process.env.MONITOR_BASE_URL || "https://wendanswertoday.org").replace(/\/$/, "");
 const canonicalSiteUrl = (process.env.MONITOR_CANONICAL_SITE_URL || "https://wendanswertoday.org").replace(/\/$/, "");
 const requestTimeoutMs = Number(process.env.MONITOR_REQUEST_TIMEOUT_MS || 15_000);
 const failures = [];
-
-function dateLabel(date) {
-  return new Intl.DateTimeFormat("en", {
-    day: "numeric",
-    month: "long",
-    timeZone: "UTC",
-    year: "numeric",
-  }).format(new Date(`${date}T00:00:00.000Z`));
-}
 
 function monthSlug(label) {
   return label.toLowerCase().replace(",", "").replace(/\s+/g, "-");
@@ -34,16 +26,6 @@ function readLatestWendPuzzle() {
   return JSON.parse(fs.readFileSync(path.join(inputDir, latestFile), "utf8"));
 }
 
-function utcDateStamp(date = new Date()) {
-  return date.toISOString().slice(0, 10);
-}
-
-function expectedWendDate(now = new Date()) {
-  const releaseDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
-  if (now.getUTCHours() < 8) releaseDate.setUTCDate(releaseDate.getUTCDate() - 1);
-  return utcDateStamp(releaseDate);
-}
-
 function daysBetween(startDate, endDate) {
   const startTime = Date.parse(`${startDate}T00:00:00.000Z`);
   const endTime = Date.parse(`${endDate}T00:00:00.000Z`);
@@ -54,7 +36,7 @@ function expectedWendDisplay(latestPuzzle) {
   const date = expectedWendDate();
   return {
     date,
-    dateLabel: dateLabel(date),
+    dateLabel: wendDateLabel(date),
     puzzleNumber: latestPuzzle.puzzleNumber + daysBetween(latestPuzzle.date, date),
   };
 }
@@ -124,6 +106,28 @@ async function checkCorePages(latestPuzzle, expected) {
   }
 }
 
+async function checkWendStatus(expected) {
+  const response = await fetchPath("/api/wend-status");
+  let body;
+  try {
+    body = await response.json();
+  } catch {
+    failures.push(`/api/wend-status returned non-JSON with HTTP ${response.status}`);
+    return;
+  }
+
+  if (!response.ok || body?.status !== "current" || body?.current !== true) {
+    failures.push(`/api/wend-status is pending or unhealthy (HTTP ${response.status})`);
+    return;
+  }
+  if (body.expected?.date !== expected.date || Number(body.expected?.puzzleNumber) !== expected.puzzleNumber) {
+    failures.push(`/api/wend-status expected metadata does not match ${expected.date} / Wend #${expected.puzzleNumber}`);
+  }
+  if (body.latestVerified?.date !== expected.date || Number(body.latestVerified?.puzzleNumber) !== expected.puzzleNumber) {
+    failures.push(`/api/wend-status latest verified puzzle does not match ${expected.date} / Wend #${expected.puzzleNumber}`);
+  }
+}
+
 async function checkRobotsAndSitemap(latestPuzzle) {
   const robots = await fetchPath("/robots.txt");
   const robotsText = await robots.text();
@@ -157,6 +161,7 @@ async function main() {
   const latestPuzzle = readLatestWendPuzzle();
   const expected = expectedWendDisplay(latestPuzzle);
 
+  await checkWendStatus(expected);
   await checkCorePages(latestPuzzle, expected);
   await checkRobotsAndSitemap(latestPuzzle);
   await checkLegacyRedirect(latestPuzzle);

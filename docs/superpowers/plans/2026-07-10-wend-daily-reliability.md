@@ -8,6 +8,8 @@
 
 **Tech Stack:** Next.js 16 App Router, TypeScript 6, Node.js 24 ESM scripts, GitHub Actions, Vercel.
 
+**Status:** P0/P1 implementation and full local verification completed on 2026-07-10; final Git staging/push is tracked at the end of Task 6.
+
 ## Global Constraints
 
 - Keep Git/Vercel as the P0/P1 publishing path; database/KV migration is P2.
@@ -34,12 +36,12 @@
 - Produces: `expectedWendDate(now)`, `nextWendRelease(now)`, `wendDateLabel(date)` in TypeScript and Node ESM.
 - Consumers: pages, production monitor, dispatch route, publish script.
 
-- [ ] Write DST boundary tests for July PDT at 07:00 UTC and January PST at 08:00 UTC.
-- [ ] Run `node tests/wend-schedule.test.mjs` and confirm the missing modules/functions fail.
-- [ ] Implement the minimal Los Angeles date and next-midnight functions.
-- [ ] Delegate `src/lib/wend-status.ts` and monitor date calculation to the new helpers.
-- [ ] Change GitHub fallback schedules to off-peak retry minutes in both 07:00 and 08:00 UTC windows.
-- [ ] Run schedule, freshness, publish, and monitoring tests until green.
+- [x] Write DST boundary tests for July PDT at 07:00 UTC and January PST at 08:00 UTC.
+- [x] Run `node tests/wend-schedule.test.mjs` and confirm the missing modules/functions fail.
+- [x] Implement the minimal Los Angeles date and next-midnight functions.
+- [x] Delegate `src/lib/wend-status.ts` and monitor date calculation to the new helpers.
+- [x] Change GitHub fallback schedules to off-peak retry minutes in both 07:00 and 08:00 UTC windows.
+- [x] Run schedule, freshness, publish, and monitoring tests until green.
 
 ### Task 2: Status and dispatch APIs
 
@@ -54,11 +56,11 @@
 - Produces: `authorizeBearer(header, secret)` and `buildRepositoryDispatch(...)` pure helpers.
 - Produces: `GET /api/wend-status` and authenticated `GET|POST /api/ops/wend-dispatch`.
 
-- [ ] Write route/helper tests for 401, missing configuration, dispatch payload, current status, and pending status.
-- [ ] Run `node tests/wend-ops-routes.test.mjs` and confirm failure because routes/helpers do not exist.
-- [ ] Implement pure dispatch helpers and thin Next.js route handlers.
-- [ ] Set both endpoints to `force-dynamic`; set the status response to `Cache-Control: no-store`.
-- [ ] Run route, SEO-route, and typecheck tests until green.
+- [x] Write route/helper tests for 401, missing configuration, dispatch payload, current status, and pending status.
+- [x] Run `node tests/wend-ops-routes.test.mjs` and confirm failure because routes/helpers do not exist.
+- [x] Implement pure dispatch helpers and thin Next.js route handlers.
+- [x] Set both endpoints to `force-dynamic`; set the status response to `Cache-Control: no-store`.
+- [x] Run route, SEO-route, and typecheck tests until green.
 
 ### Task 3: Source quorum, manual input, and provenance
 
@@ -74,14 +76,14 @@
 - Produces: secondary source parsing, normalized word comparison, SHA-256 source hashing, and publication metadata.
 - Consumes: `WEND_DAILY_INPUT_JSON`, `WEND_VERIFIED_BY`, `WEND_DAILY_SECONDARY_SOURCE_URL`.
 
-- [ ] Write tests for trusted manual JSON, matching public-source quorum, mismatch rejection, stale secondary date, and stable source hashes.
-- [ ] Run the new source test and confirm the missing module fails.
-- [ ] Implement source normalization and quorum helpers.
-- [ ] Make inline/manual JSON the highest-priority source, followed by file, configured URL, and public fallback.
-- [ ] Require secondary agreement for automatic HTML sources before setting `isVerified: true`.
-- [ ] Store `publication` provenance with real `capturedAt`, `verifiedAt`, verifier, method, source URLs, and hash.
-- [ ] Extend the `WendPuzzle` type with optional publication metadata so old records remain valid.
-- [ ] Run validator, publish, source, and typecheck tests until green.
+- [x] Write tests for trusted manual JSON, matching public-source quorum, mismatch rejection, stale secondary date, and stable source hashes.
+- [x] Run the new source test and confirm the missing module fails.
+- [x] Implement source normalization and quorum helpers.
+- [x] Make inline/manual JSON the highest-priority source, followed by file, configured URL, and public fallback.
+- [x] Require secondary agreement for automatic HTML sources before setting `isVerified: true`.
+- [x] Store `publication` provenance with real `capturedAt`, `verifiedAt`, verifier, method, source URLs, and hash.
+- [x] Extend the `WendPuzzle` type with optional publication metadata so old records remain valid.
+- [x] Run validator, publish, source, and typecheck tests until green.
 
 ### Task 4: Production visibility gate and recovery
 
@@ -98,13 +100,13 @@
 - Produces: `npm run wait:wend-production`.
 - Consumes: `WEND_PUBLIC_BASE_URL`, `WEND_PRODUCTION_WAIT_MS`, latest local puzzle.
 
-- [ ] Write tests asserting the gate polls status, rejects mismatched date/number, and times out with a useful error.
-- [ ] Run the gate test and confirm it fails because the script is missing.
-- [ ] Implement the poller with dependency-injected fetch/sleep functions for real behavior tests.
-- [ ] Place the gate before production smoke and IndexNow; remove the optional skip behavior.
-- [ ] Add monitoring of `/api/wend-status`.
-- [ ] Add success steps that close open monitoring/publish failure issues with a recovery comment.
-- [ ] Run gate, monitoring, and publish tests until green.
+- [x] Write tests asserting the gate polls status, rejects mismatched date/number, and times out with a useful error.
+- [x] Run the gate test and confirm it fails because the script is missing.
+- [x] Implement the poller with dependency-injected fetch/sleep functions for real behavior tests.
+- [x] Place the gate before production smoke and IndexNow; remove the optional skip behavior.
+- [x] Add monitoring of `/api/wend-status`.
+- [x] Add success steps that close open monitoring/publish failure issues with a recovery comment.
+- [x] Run gate, monitoring, and publish tests until green.
 
 ### Task 5: Transparent pending UI and accurate sitemap
 
@@ -120,12 +122,12 @@
 - Consumes: `expectedWendDisplay`, current readiness, and latest verified puzzle.
 - Produces: explicit pending/fallback copy and content-derived sitemap timestamps.
 
-- [ ] Rewrite freshness tests to require pending copy, expected date/number, “latest verified” labeling, and midnight PT copy.
-- [ ] Run freshness/metadata tests and confirm they fail against the current hidden fallback behavior.
-- [ ] Implement the notice and use `displayWend` consistently in badges and answer modules.
-- [ ] Use expected current metadata only with status wording while pending; omit Article JSON-LD until current verified data exists.
-- [ ] Tie dynamic sitemap timestamps to `todayWend.updatedAt` and omit artificial `new Date()` values from unchanged static pages.
-- [ ] Run freshness, metadata, route, and typecheck tests until green.
+- [x] Rewrite freshness tests to require pending copy, expected date/number, “latest verified” labeling, and midnight PT copy.
+- [x] Run freshness/metadata tests and confirm they fail against the current hidden fallback behavior.
+- [x] Implement the notice and use `displayWend` consistently in badges and answer modules.
+- [x] Use expected current metadata only with status wording while pending; omit Article JSON-LD until current verified data exists.
+- [x] Tie dynamic sitemap timestamps to `todayWend.updatedAt` and omit artificial `new Date()` values from unchanged static pages.
+- [x] Run freshness, metadata, route, and typecheck tests until green.
 
 ### Task 6: Documentation and full verification
 
@@ -139,12 +141,11 @@
 **Interfaces:**
 - Documents required Vercel/GitHub environment variables, external scheduler calls, manual official JSON flow, source quorum, status codes, recovery, and SLO checks.
 
-- [ ] Update runbooks with exact secrets and 07:00/08:00 trigger windows.
-- [ ] Add curl examples for status, dispatch, and manual GitHub workflow input.
-- [ ] Record P0/P1 implementation and remaining P2 non-goals in the competitor report and changelog.
-- [ ] Run every `test:*` script, `npm run typecheck`, and `npm run build`.
-- [ ] Start the production build locally, run `npm run smoke:local`, and inspect pending/current behavior with browser automation.
-- [ ] Inspect `git diff --check`, staged diff, and secrets before committing.
-- [ ] Stage only P0/P1 code, tests, and documentation; leave `prd-export.txt` and tool artifacts untracked.
+- [x] Update runbooks with exact secrets and 07:00/08:00 trigger windows.
+- [x] Add curl examples for status, dispatch, and manual GitHub workflow input.
+- [x] Record P0/P1 implementation and remaining P2 non-goals in the competitor report and changelog.
+- [x] Run every `test:*` script, `npm run typecheck`, and `npm run build`.
+- [x] Start the production build locally, run `npm run smoke:local`, and inspect pending/current behavior with browser automation.
+- [x] Inspect `git diff --check`, staged diff, and secrets before committing.
+- [x] Stage only P0/P1 code, tests, and documentation; leave `prd-export.txt` and tool artifacts untracked.
 - [ ] Commit with a Conventional Commit message and push `codex/wend-freshness-fix` to `origin`.
-

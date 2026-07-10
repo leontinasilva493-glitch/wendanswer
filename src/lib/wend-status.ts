@@ -1,36 +1,13 @@
 import type { WendPuzzle } from "./puzzles";
+import { expectedWendDate, nextWendRelease, wendDateLabel } from "./wend-schedule";
 
-export const WEND_RELEASE_HOUR_UTC = 8;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-const dateLabelFormatter = new Intl.DateTimeFormat("en", {
-  day: "numeric",
-  month: "long",
-  timeZone: "UTC",
-  year: "numeric",
-});
-
-function isoDate(date: Date) {
-  return date.toISOString().slice(0, 10);
-}
 
 function daysBetween(startDate: string, endDate: string) {
   const startTime = Date.parse(`${startDate}T00:00:00.000Z`);
   const endTime = Date.parse(`${endDate}T00:00:00.000Z`);
 
   return Math.round((endTime - startTime) / MS_PER_DAY);
-}
-
-export function wendDateLabel(date: string) {
-  return dateLabelFormatter.format(new Date(`${date}T00:00:00.000Z`));
-}
-
-export function expectedWendDate(now = new Date()) {
-  const releaseDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
-  if (now.getUTCHours() < WEND_RELEASE_HOUR_UTC) {
-    releaseDate.setUTCDate(releaseDate.getUTCDate() - 1);
-  }
-  return isoDate(releaseDate);
 }
 
 export function expectedWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) {
@@ -44,17 +21,9 @@ export function expectedWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) 
   };
 }
 
-export function nextWendRelease(now = new Date()) {
-  const release = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), WEND_RELEASE_HOUR_UTC));
-  if (now.getTime() >= release.getTime()) {
-    release.setUTCDate(release.getUTCDate() + 1);
-  }
-  return release;
-}
-
 export function nextWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) {
   const releaseAt = nextWendRelease(now);
-  const date = isoDate(releaseAt);
+  const date = expectedWendDate(releaseAt);
   const puzzleNumber = latestPuzzle.puzzleNumber + daysBetween(latestPuzzle.date, date);
 
   return {
@@ -64,6 +33,8 @@ export function nextWendDisplay(latestPuzzle: WendPuzzle, now = new Date()) {
     releaseAtIso: releaseAt.toISOString(),
   };
 }
+
+export { expectedWendDate, nextWendRelease, wendDateLabel } from "./wend-schedule";
 
 export function isWendReadyForToday(puzzle: WendPuzzle, now = new Date()) {
   return puzzle.isVerified && puzzle.date === expectedWendDate(now);

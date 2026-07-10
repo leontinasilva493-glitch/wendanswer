@@ -2,7 +2,7 @@ name: Monitor Production
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2,17,32,47 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -74,4 +74,25 @@ jobs:
                   "Check uptime, noindex headers/meta, sitemap/robots, Today page freshness, and the legacy archive 308 redirect.",
                 ].join("\n"),
               });
+            }
+      - name: Close recovered monitoring issues
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const openIssues = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+              labels: "automation,monitoring",
+            });
+            for (const issue of openIssues.data) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: `Recovered in ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}. Freshness and production checks passed.`,
+              });
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: "closed" });
             }

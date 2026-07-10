@@ -42,7 +42,6 @@ const paths = [
   "/how-to-solve-linkedin-wend",
   "/faq",
   "/contact",
-  "/status",
   "/disclaimer",
   "/privacy-policy",
   "/terms",

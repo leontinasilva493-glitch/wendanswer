@@ -3,24 +3,30 @@ import fs from "node:fs";
 import path from "node:path";
 import { sendOpsAlert } from "./ops-alert.mjs";
 import { validateWendPuzzle } from "./validate-wend-puzzle.mjs";
+import { expectedWendDate } from "./wend-schedule.mjs";
+import {
+  parseSecondaryAnswerData,
+  preparePublicPuzzle,
+  prepareTrustedPuzzle,
+  sourceHash,
+} from "./wend-source-verification.mjs";
 
 const root = process.cwd();
 const startedAt = Date.now();
 const MAX_PUBLISH_WINDOW_MS = Number(process.env.MAX_PUBLISH_WINDOW_MS || 5 * 60 * 1000);
+const inlineInput = process.env.WEND_DAILY_INPUT_JSON;
 const inputFile = process.env.WEND_DAILY_INPUT_FILE;
 const defaultSourceUrl = process.env.WEND_DAILY_FALLBACK_SOURCE_URL || "https://wendanswertoday.me/";
-const sourceUrl = process.env.WEND_DAILY_SOURCE_URL || (inputFile ? "" : defaultSourceUrl);
+const sourceUrl = process.env.WEND_DAILY_SOURCE_URL || defaultSourceUrl;
+const secondarySourceUrl = process.env.WEND_DAILY_SECONDARY_SOURCE_URL || "https://wendgames.org/src/answers-data.js";
+const verifiedBy = process.env.WEND_VERIFIED_BY;
 const deployCommand = process.env.WEND_DEPLOY_COMMAND;
 const allowUnverified = process.env.ALLOW_UNVERIFIED_WEND_PUBLISH === "true";
 const persistGeneratedData = process.env.WEND_PERSIST_TO_GIT === "true";
-const expectedDate = process.env.WEND_EXPECTED_DATE || utcDateStamp();
+const expectedDate = process.env.WEND_EXPECTED_DATE || expectedWendDate();
 
-// Wend's daily target is 8:00 UTC. This script is designed to run immediately
-// after that release and finish inside MAX_PUBLISH_WINDOW_MS.
-function utcDateStamp(date = new Date()) {
-  return date.toISOString().slice(0, 10);
-}
-
+// Wend resets at midnight in America/Los_Angeles. This script is designed to
+// run immediately after that release and finish inside MAX_PUBLISH_WINDOW_MS.
 function run(command, args) {
   execFileSync(command, args, { cwd: root, stdio: "inherit" });
 }
@@ -30,23 +36,36 @@ function capture(command, args) {
 }
 
 async function readSource() {
-  if (sourceUrl) {
-    const response = await fetch(sourceUrl, {
-      headers: { accept: "application/json,text/html;q=0.9,*/*;q=0.8" },
-    });
-    if (!response.ok) {
-      throw new Error(`WEND_DAILY_SOURCE_URL returned ${response.status}`);
-    }
-    return response.text();
+  if (inlineInput) {
+    return { capturedAt: new Date().toISOString(), content: inlineInput, sourceType: "trusted", sourceUrl: "workflow-input" };
   }
 
-  const fallbackFile = inputFile || path.join(root, "data", "puzzles", "wend", `${utcDateStamp()}.json`);
-  if (!fs.existsSync(fallbackFile)) {
-    throw new Error(
-      `No source found. Set WEND_DAILY_SOURCE_URL, WEND_DAILY_INPUT_FILE, or create ${path.relative(root, fallbackFile)}.`,
-    );
+  if (inputFile) {
+    const resolvedInputFile = path.resolve(root, inputFile);
+    if (!fs.existsSync(resolvedInputFile)) {
+      throw new Error(`WEND_DAILY_INPUT_FILE does not exist: ${path.relative(root, resolvedInputFile)}.`);
+    }
+    return {
+      capturedAt: new Date().toISOString(),
+      content: fs.readFileSync(resolvedInputFile, "utf8"),
+      sourceType: "trusted",
+      sourceUrl: path.relative(root, resolvedInputFile).replaceAll("\\", "/"),
+    };
   }
-  return fs.readFileSync(fallbackFile, "utf8");
+
+  const response = await fetch(sourceUrl, {
+    headers: { accept: "application/json,text/html;q=0.9,*/*;q=0.8" },
+  });
+  if (!response.ok) throw new Error(`WEND_DAILY_SOURCE_URL returned ${response.status}`);
+  return { capturedAt: new Date().toISOString(), content: await response.text(), sourceType: "public", sourceUrl };
+}
+
+async function readSecondarySource() {
+  const response = await fetch(secondarySourceUrl, {
+    headers: { accept: "application/javascript,text/javascript;q=0.9,text/plain;q=0.8,*/*;q=0.7" },
+  });
+  if (!response.ok) throw new Error(`WEND_DAILY_SECONDARY_SOURCE_URL returned ${response.status}`);
+  return response.text();
 }
 
 function extractJson(source) {
@@ -100,7 +119,7 @@ function extractPuzzleMeta(html) {
 
   const schemaMatch = html.match(/LinkedIn Wend #(\d+)\s+.\s+([A-Za-z]{3,9})\s+(\d{1,2})/i);
   if (schemaMatch) {
-    const dateLabel = `${schemaMatch[2]} ${schemaMatch[3]}, ${new Date().getUTCFullYear()}`;
+    const dateLabel = `${schemaMatch[2]} ${schemaMatch[3]}, ${expectedDate.slice(0, 4)}`;
     return { dateLabel, date: dateFromLabel(dateLabel), puzzleNumber: Number(schemaMatch[1]) };
   }
 
@@ -163,7 +182,7 @@ function extractPuzzleFromHtml(html) {
     puzzleNumber,
     date,
     dateLabel,
-    updatedAt: `${date}T08:01:00Z`,
+    updatedAt: new Date().toISOString(),
     difficulty: "Medium",
     grid,
     hints: [
@@ -196,7 +215,7 @@ function extractPuzzleFromHtml(html) {
       ? `Medium because all ${answers.length} answers have the same length, so the board shape matters more than word length.`
       : `Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.`,
     relatedGames: ["patches", "zip", "tango", "queens"],
-    isVerified: true,
+    isVerified: false,
   };
 }
 
@@ -206,6 +225,15 @@ function writePuzzle(puzzle) {
   const outputFile = path.join(outputDir, `${puzzle.date}.json`);
   if (fs.existsSync(outputFile)) {
     const existing = JSON.parse(fs.readFileSync(outputFile, "utf8"));
+    if (
+      existing.publication &&
+      existing.isVerified &&
+      existing.publication.sourceHash === sourceHash(existing) &&
+      sourceHash(existing) === sourceHash(puzzle)
+    ) {
+      console.log(`No source changes for ${path.relative(root, outputFile)}`);
+      return;
+    }
     if (JSON.stringify(existing) === JSON.stringify(puzzle)) {
       console.log(`No data changes for ${path.relative(root, outputFile)}`);
       return;
@@ -264,7 +292,22 @@ async function notifyFailure(error) {
 
 async function main() {
   const source = await readSource();
-  const puzzle = extractJson(source);
+  const extractedPuzzle = extractJson(source.content);
+  let puzzle;
+  if (source.sourceType === "trusted") {
+    puzzle = prepareTrustedPuzzle(extractedPuzzle, {
+      capturedAt: source.capturedAt,
+      sourceUrl: source.sourceUrl,
+      verifiedBy,
+    });
+  } else {
+    const secondary = parseSecondaryAnswerData(await readSecondarySource(), expectedDate);
+    puzzle = preparePublicPuzzle(extractedPuzzle, secondary, {
+      capturedAt: source.capturedAt,
+      primarySourceUrl: source.sourceUrl,
+      secondarySourceUrl,
+    });
+  }
   validateWendPuzzle(puzzle, { allowUnverified, expectedDate });
   writePuzzle(puzzle);
   run(process.execPath, ["scripts/generate-wend-puzzles.mjs"]);

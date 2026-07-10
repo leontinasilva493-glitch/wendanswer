@@ -2,6 +2,21 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-10
+
+### P0/P1 Wend daily reliability
+
+- Replaced the fixed 08:00 UTC release assumption with shared `America/Los_Angeles` scheduling, including PDT, PST, and DST-boundary regression fixtures.
+- Added authenticated `/api/ops/wend-dispatch` and public no-store `/api/wend-status` routes so an external scheduler can trigger publishing independently and a one-minute monitor can observe freshness independently of GitHub Actions.
+- Changed GitHub schedules to off-peak fallback retries across both 07:00 and 08:00 UTC windows.
+- Added trusted workflow JSON input with authenticated verifier identity, preserved the emergency input-file path, and required automatic public ingestion to match an independent source on date, puzzle number, and normalized answer words before geometry validation can mark it verified.
+- Added real capture/verification timestamps, SHA-256 source hashes, source URLs, verification method, and verifier provenance to new records. Re-verified Wend #32 through the two-source path and backfilled its provenance.
+- Added a production visibility gate before smoke and IndexNow, plus automatic recovery comments and issue closure for publishing and monitoring incidents.
+- Made production smoke mandatory, removed its stale dependency on the deleted `/status` page, and added regression coverage so valid deployments are not blocked by that obsolete route.
+- Added a visible verification-pending state that identifies the expected puzzle and labels any fallback as `Latest verified`; current Article metadata stays suppressed until the expected verified data exists.
+- Corrected sitemap `lastModified` behavior so daily pages use the latest verified content timestamp and unchanged static pages no longer claim a new timestamp on every request.
+- Added focused regression suites for scheduling, ops routes, source quorum, production polling, provenance validation, pending UI, workflow ordering, and recovery behavior.
+
 ## 2026-07-09
 
 ### LinkedIn Wend SEO keyword layout

@@ -15,8 +15,10 @@ for (const removed of ["/faq", "/status", "/llms.txt"]) {
 }
 
 const sitemapSource = read("src/app/sitemap.ts");
+const smokeSource = read("scripts/smoke-local.mjs");
 assert.doesNotMatch(sitemapSource, /"\/status"/, "sitemap should not include the removed status page");
 assert.equal(exists("src/app/status/page.tsx"), false, "status page should be removed");
+assert.doesNotMatch(smokeSource, /["']\/status["']/, "local and production smoke must not require the removed status page");
 
 const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");
 assert.match(todaySource, /Finished today's Wend\?/, "answer page should include the finished-today CTA heading");

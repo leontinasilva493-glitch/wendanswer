@@ -48,6 +48,17 @@ export function validateWendPuzzle(puzzle, { allowUnverified = false, expectedDa
   assertCondition(puzzle.game === "wend", "Expected puzzle.game to be wend");
   assertCondition(!expectedDate || puzzle.date === expectedDate, `Expected Wend date ${expectedDate}, got ${puzzle.date}`);
   assertCondition(puzzle.isVerified || allowUnverified, "Refusing to publish unverified Wend data");
+  if (puzzle.publication !== undefined) {
+    const publication = puzzle.publication;
+    assertCondition(publication?.state === "verified", "publication.state must be verified");
+    assertCondition(typeof publication.sourceType === "string" && publication.sourceType.length > 0, "publication.sourceType is required");
+    assertCondition(Array.isArray(publication.sourceUrls), "publication.sourceUrls must be an array");
+    assertCondition(/^[a-f0-9]{64}$/.test(publication.sourceHash), "publication.sourceHash must be a SHA-256 hash");
+    assertCondition(!Number.isNaN(Date.parse(publication.capturedAt)), "publication.capturedAt must be an ISO timestamp");
+    assertCondition(!Number.isNaN(Date.parse(publication.verifiedAt)), "publication.verifiedAt must be an ISO timestamp");
+    assertCondition(typeof publication.verificationMethod === "string" && publication.verificationMethod.length > 0, "publication.verificationMethod is required");
+    assertCondition(typeof publication.verifiedBy === "string" && publication.verifiedBy.length > 0, "publication.verifiedBy is required");
+  }
   assertCondition(Array.isArray(puzzle.grid) && puzzle.grid.length > 0, "Expected a non-empty grid");
   assertCondition(Array.isArray(puzzle.answers) && puzzle.answers.length > 0, "Expected at least one answer");
   const openCellCount = puzzle.grid.reduce((count, row) => count + row.filter((letter) => letter !== null).length, 0);
