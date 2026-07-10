@@ -29,6 +29,12 @@ const pressLinks = [
     description: "Founder profile for Leontina Silva and related startup activity.",
     href: "https://www.f6s.com/leontina-silva",
   },
+  {
+    title: "AlternativeTo Profile",
+    source: "AlternativeTo",
+    description: "AlternativeTo user profile for Leontina Silva and related product activity.",
+    href: "https://alternativeto.net/user/leontinasilva493-glitch",
+  },
 ];
 
 export const metadata: Metadata = pageMetadata({
