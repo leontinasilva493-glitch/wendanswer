@@ -35,6 +35,12 @@ const pressLinks = [
     description: "AlternativeTo user profile for Leontina Silva and related product activity.",
     href: "https://alternativeto.net/user/leontinasilva493-glitch",
   },
+  {
+    title: "StackShare Post",
+    source: "StackShare",
+    description: "StackShare post connected to Leontina Silva and related product activity.",
+    href: "https://stackshare.io/posts/f989ee1abq",
+  },
 ];
 
 export const metadata: Metadata = pageMetadata({

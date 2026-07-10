@@ -8,7 +8,8 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 - Added the Leontina Silva F6S founder profile to `/press` as an external reference card.
 - Added the Leontina Silva AlternativeTo profile to `/press` as an external reference card.
-- Updated Press page regression coverage so the F6S and AlternativeTo titles and URLs stay present with the existing safe external-link attributes.
+- Added the StackShare post to `/press` as an external reference card.
+- Updated Press page regression coverage so the F6S, AlternativeTo, and StackShare titles and URLs stay present with the existing safe external-link attributes.
 
 ### P0/P1 Wend daily reliability
 

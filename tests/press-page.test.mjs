@@ -32,6 +32,12 @@ assert.match(
   /https:\/\/alternativeto\.net\/user\/leontinasilva493-glitch/,
   "Press page should include the AlternativeTo profile URL",
 );
+assert.match(pressSource, /StackShare Post/, "Press page should include the StackShare post link title");
+assert.match(
+  pressSource,
+  /https:\/\/stackshare\.io\/posts\/f989ee1abq/,
+  "Press page should include the StackShare post URL",
+);
 assert.match(pressSource, /target="_blank"/, "external press links should open in a new tab");
 assert.match(pressSource, /rel="nofollow noopener"/, "external press links should use safe rel values");
 assert.match(pressSource, /About WendAnswerToday/, "Press page should include site context");
