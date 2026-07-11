@@ -32,6 +32,9 @@ for (const expected of [
   "prepareTrustedPuzzle",
   "preparePublicPuzzle",
   "parseSecondaryAnswerData",
+  "logPublishContext",
+  "Primary Wend puzzle extracted",
+  "Secondary Wend source matched",
   "data-row",
   "data-word-index",
 ]) {

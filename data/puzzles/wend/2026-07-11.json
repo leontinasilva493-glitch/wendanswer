@@ -1,0 +1,253 @@
+{
+  "game": "wend",
+  "puzzleNumber": 33,
+  "date": "2026-07-11",
+  "dateLabel": "July 11, 2026",
+  "updatedAt": "2026-07-11T15:39:37.233Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      null,
+      null,
+      null,
+      "K",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "T",
+      "S",
+      "A",
+      "O",
+      "L",
+      null
+    ],
+    [
+      null,
+      "O",
+      "I",
+      "E",
+      "K",
+      "C",
+      null
+    ],
+    [
+      "K",
+      "O",
+      "M",
+      "O",
+      "O",
+      "E",
+      "K"
+    ],
+    [
+      null,
+      "A",
+      "R",
+      "O",
+      "R",
+      "Y",
+      null
+    ],
+    [
+      null,
+      "G",
+      "N",
+      "A",
+      "T",
+      "S",
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      "K",
+      null,
+      null,
+      null
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with CLOAK; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "KEYSTROKE is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "CLOAK",
+      "path": [
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "MISTOOK",
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "KANGAROO",
+      "path": [
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "KEYSTROKE",
+      "path": [
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 11, 2026 Wend solution uses every open cell exactly once across CLOAK, MISTOOK, KANGAROO, KEYSTROKE. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating CLOAK, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm CLOAK first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-11T15:39:37.233Z",
+    "sourceHash": "d3027a14089902bbdd7e78997e805185be17a3a448a5839ce23c29b83ff28e0a",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-11T15:39:37.233Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}

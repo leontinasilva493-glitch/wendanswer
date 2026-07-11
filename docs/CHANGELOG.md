@@ -4,6 +4,11 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-10
 
+### Wend daily publishing
+
+- Published verified Wend #33 for July 11, 2026 after the scheduled workflow failed before writing the new daily JSON.
+- Added publish-script context logging for the expected date, configured public sources, trusted-input mode, primary extraction, and secondary-source match so future GitHub Actions failures identify the failing boundary without requiring private log downloads.
+
 ### Press external references
 
 - Added the Leontina Silva F6S founder profile to `/press` as an external reference card.

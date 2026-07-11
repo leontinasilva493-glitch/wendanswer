@@ -27,6 +27,18 @@ const expectedDate = process.env.WEND_EXPECTED_DATE || expectedWendDate();
 
 // Wend resets at midnight in America/Los_Angeles. This script is designed to
 // run immediately after that release and finish inside MAX_PUBLISH_WINDOW_MS.
+function logPublishContext() {
+  console.log(
+    [
+      `Wend publish context: expectedDate=${expectedDate}`,
+      `sourceUrl=${sourceUrl}`,
+      `secondarySourceUrl=${secondarySourceUrl}`,
+      `trustedInput=${inlineInput ? "inline" : inputFile ? "file" : "none"}`,
+      `persistToGit=${persistGeneratedData}`,
+    ].join(" | "),
+  );
+}
+
 function run(command, args) {
   execFileSync(command, args, { cwd: root, stdio: "inherit" });
 }
@@ -291,8 +303,11 @@ async function notifyFailure(error) {
 }
 
 async function main() {
+  logPublishContext();
   const source = await readSource();
+  console.log(`Primary Wend source captured from ${source.sourceType}:${source.sourceUrl}.`);
   const extractedPuzzle = extractJson(source.content);
+  console.log(`Primary Wend puzzle extracted: ${extractedPuzzle.date} / Wend #${extractedPuzzle.puzzleNumber}.`);
   let puzzle;
   if (source.sourceType === "trusted") {
     puzzle = prepareTrustedPuzzle(extractedPuzzle, {
@@ -302,6 +317,7 @@ async function main() {
     });
   } else {
     const secondary = parseSecondaryAnswerData(await readSecondarySource(), expectedDate);
+    console.log(`Secondary Wend source matched: ${secondary.date} / Wend #${secondary.puzzleNumber}.`);
     puzzle = preparePublicPuzzle(extractedPuzzle, secondary, {
       capturedAt: source.capturedAt,
       primarySourceUrl: source.sourceUrl,
