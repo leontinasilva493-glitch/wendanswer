@@ -1,0 +1,332 @@
+{
+  "game": "wend",
+  "puzzleNumber": 34,
+  "date": "2026-07-12",
+  "dateLabel": "July 12, 2026",
+  "updatedAt": "2026-07-12T09:09:44.120Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "S",
+      "S",
+      "A",
+      "M",
+      "A",
+      "L",
+      "L"
+    ],
+    [
+      "S",
+      null,
+      "E",
+      "Y",
+      "E",
+      null,
+      "L"
+    ],
+    [
+      "E",
+      "I",
+      "W",
+      "L",
+      "M",
+      "D",
+      "A"
+    ],
+    [
+      "N",
+      "T",
+      "K",
+      "L",
+      "I",
+      "A",
+      "X"
+    ],
+    [
+      "A",
+      "J",
+      "I",
+      "L",
+      "O",
+      "E",
+      "R"
+    ],
+    [
+      "Z",
+      null,
+      "T",
+      "O",
+      "W",
+      null,
+      "T"
+    ],
+    [
+      "Z",
+      "Z",
+      "A",
+      "P",
+      "A",
+      "T",
+      "T"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with LAX; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "EYEWITNESS is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "LAX",
+      "path": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ]
+    },
+    {
+      "word": "JAZZ",
+      "path": [
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "TOPAZ",
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "LLAMAS",
+      "path": [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "KILOWATT",
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "word": "TREADMILL",
+      "path": [
+        [
+          5,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "EYEWITNESS",
+      "path": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 12, 2026 Wend solution uses every open cell exactly once across LAX, JAZZ, TOPAZ, LLAMAS, KILOWATT, TREADMILL, EYEWITNESS. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating LAX, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm LAX first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-12T09:09:44.120Z",
+    "sourceHash": "c6d8e647323c11d4e221ffa2950dff049314673714174c811d90f7350a1ba217",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-12T09:09:44.120Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
