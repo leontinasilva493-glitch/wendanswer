@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { WendSolver } from "@/components/WendSolver";
+import { WendUnlimitedTool } from "@/components/WendUnlimitedTool";
 import { wendPuzzles } from "@/lib/puzzles";
-import { breadcrumbJson, noindexFollow, pageMetadata } from "@/lib/seo";
+import { breadcrumbJson, faqJson, howToJson, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Wend Practice Puzzle",
+  title: "Wend Unlimited - Play Wend Game Online",
   description:
-    "Play unofficial Wend-style practice puzzles with spoiler-safe reveal controls, word paths, and puzzle navigation.",
+    "Play Wend Unlimited online with no login. Practice LinkedIn Wend-style puzzles with hints, undo, local progress, sharing, and previous or next puzzle controls.",
   path: "/wend-unlimited",
-  imageTitle: "Wend Practice Puzzle",
-  imageSubtitle: "Unofficial Wend-style practice puzzles.",
-  robots: noindexFollow,
+  keywords: ["wend unlimited", "play wend unlimited", "wend game online", "linkedin wend game no login", "wend practice puzzle"],
+  imageTitle: "Wend Unlimited",
+  imageSubtitle: "Play Wend practice puzzles online with no login.",
 });
 
 type WendUnlimitedPageProps = {
@@ -31,6 +31,39 @@ function practiceHref(puzzleNumber: number) {
 
 const practicePuzzles = [...wendPuzzles].reverse();
 
+const howToSteps = [
+  {
+    name: "Start a practice board",
+    text: "Open Wend Unlimited and use the current board or New puzzle to switch to another verified Wend-style practice puzzle.",
+  },
+  {
+    name: "Reveal only the help you need",
+    text: "Use Hint for one path letter, tap a cell, or reveal a word when you are stuck.",
+  },
+  {
+    name: "Track and share progress",
+    text: "Your local progress stays on this device, Undo reverses the last reveal, and Share result copies your current score.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Can I play Wend Unlimited without a LinkedIn login?",
+    answer:
+      "Yes. This unofficial practice tool runs in the browser and uses verified Wend-style boards, so you can practice without logging in to LinkedIn.",
+  },
+  {
+    question: "Is Wend Unlimited the official LinkedIn Wend game?",
+    answer:
+      "No. Official Wend is played on LinkedIn Games. Wend Unlimited is an independent practice page for hints, undo, saved local progress, and replaying older boards.",
+  },
+  {
+    question: "Where can I find today's real Wend answer?",
+    answer:
+      "Use the Today Answer page for the current LinkedIn Wend answer, hints, and word path after the daily puzzle is verified.",
+  },
+];
+
 export default async function WendUnlimitedPage({ searchParams }: WendUnlimitedPageProps) {
   const params = await searchParams;
   const requestedPuzzle = Number.parseInt(firstParam(params?.puzzle) ?? "1", 10);
@@ -45,43 +78,69 @@ export default async function WendUnlimitedPage({ searchParams }: WendUnlimitedP
   return (
     <main className="page-shell">
       <JsonLd data={breadcrumbJson([{ name: "Home", path: "/" }, { name: "Wend Practice", path: "/wend-unlimited" }])} />
+      <JsonLd data={howToJson({ name: "How to play Wend Unlimited", description: metadata.description ?? "", path: "/wend-unlimited", steps: howToSteps })} />
+      <JsonLd data={faqJson(faqItems)} />
       <section className="content-card">
-        <h1 className="text-4xl font-black tracking-normal text-ink md:text-5xl">Wend Practice Puzzle</h1>
+        <p className="text-sm font-black uppercase tracking-normal text-brand">Wend game online / no login practice</p>
+        <h1 className="mt-2 text-4xl font-black tracking-normal text-ink md:text-5xl">Wend Unlimited</h1>
         <p className="section-copy">
-          Practice Wend-style word paths with spoiler-safe reveal controls. Move through the practice set one board
-          at a time and reveal only the help you need.
+          Play Wend Unlimited as an unofficial LinkedIn Wend game no login practice tool. Start with the board below,
+          switch to a new puzzle, use hints or undo, and save local progress while you practice.
         </p>
-      </section>
-      <section className="section content-card">
-        <div className="mb-6 grid gap-3 rounded-lg border border-line bg-white p-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-          {previousHref ? (
-            <Link className="btn btn-ghost justify-center border-brand text-brand" href={previousHref}>
-              Previous
-            </Link>
-          ) : (
-            <span aria-disabled="true" className="btn btn-ghost justify-center border-slate-200 text-slate-400">
-              Previous
-            </span>
-          )}
-          <div className="text-center">
-            <p className="text-lg font-black text-ink">
-              Practice Puzzle {currentPuzzleNumber} of {practicePuzzles.length}
-            </p>
-            <p className="mt-1 text-xs font-bold uppercase tracking-[0.08em] text-slate-500">
-              Puzzle #{currentPuzzle.puzzleNumber} / Difficulty {currentPuzzle.difficulty} / Letters {letterCount}
-            </p>
-          </div>
-          {nextHref ? (
-            <Link className="btn btn-primary justify-center" href={nextHref}>
-              Next
-            </Link>
-          ) : (
-            <span aria-disabled="true" className="btn btn-ghost justify-center border-slate-200 text-slate-400">
-              Next
-            </span>
-          )}
+        <div className="mt-5 flex flex-wrap gap-2">
+          <a className="btn btn-primary" href="#play">
+            Play Wend Unlimited
+          </a>
+          <Link className="btn btn-ghost border-brand text-brand" href="/linkedin-wend-answer-today">
+            Today Answer
+          </Link>
+          <a className="btn btn-ghost" href="https://www.linkedin.com/games/wend" rel="nofollow noopener" target="_blank">
+            Official Wend
+          </a>
         </div>
-        <WendSolver puzzle={{ ...currentPuzzle, dateLabel: `Practice Puzzle ${currentPuzzleNumber}` }} />
+      </section>
+
+      <WendUnlimitedTool
+        currentPracticeNumber={currentPuzzleNumber}
+        letterCount={letterCount}
+        nextHref={nextHref}
+        previousHref={previousHref}
+        puzzle={{ ...currentPuzzle, dateLabel: `Practice Puzzle ${currentPuzzleNumber}` }}
+        totalPuzzles={practicePuzzles.length}
+      />
+
+      <section className="section grid gap-4 lg:grid-cols-3">
+        <div className="content-card">
+          <h2 className="section-title">How to play Wend Unlimited</h2>
+          <ol className="mt-4 space-y-3 text-sm font-semibold leading-6 text-slate-700">
+            {howToSteps.map((step) => (
+              <li key={step.name}>
+                <span className="font-black text-ink">{step.name}:</span> {step.text}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="content-card">
+          <h2 className="section-title">Official Wend vs Wend Unlimited</h2>
+          <p className="section-copy">
+            Official Wend is the daily LinkedIn Games puzzle. Wend Unlimited is an unofficial practice puzzle tool for
+            replaying verified boards, testing paths, using Hint and Undo, and sharing practice progress.
+          </p>
+          <a className="btn btn-ghost mt-4 border-brand text-brand" href="https://www.linkedin.com/games/wend" rel="nofollow noopener" target="_blank">
+            Open Official Wend
+          </a>
+        </div>
+        <div className="content-card">
+          <h2 className="section-title">Wend Unlimited FAQ</h2>
+          <div className="mt-4 space-y-3">
+            {faqItems.map((item) => (
+              <details className="inner-card p-3" key={item.question}>
+                <summary className="cursor-pointer text-sm font-black text-ink">{item.question}</summary>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );

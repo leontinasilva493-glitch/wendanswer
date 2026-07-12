@@ -28,6 +28,7 @@ assert.doesNotMatch(headerSource, /href="\/faq"/, "FAQ should not remain a top-l
 
 assert.doesNotMatch(bottomNavSource, /Play Game|Wend Game/, "mobile bottom nav should not add a game item");
 assert.doesNotMatch(bottomNavSource, /wend-unlimited/, "mobile bottom nav should keep the existing three-item structure");
-assert.match(unlimitedSource, /robots:\s*noindexFollow/, "Wend Unlimited should remain noindex in phase 1");
+assert.doesNotMatch(unlimitedSource, /robots:\s*noindexFollow/, "Wend Unlimited should be indexable after the tool upgrade");
+assert.match(unlimitedSource, /WendUnlimitedTool/, "Wend Unlimited should render the upgraded interactive tool");
 
 console.log("wend game nav test passed");

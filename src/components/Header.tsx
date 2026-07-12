@@ -55,7 +55,7 @@ export function Header() {
                 <span className="min-w-0">
                   <span className="block font-black text-ink">Wend Unlimited</span>
                   <span className="mt-1 block text-xs font-semibold leading-5 text-slate-500">
-                    Try the unofficial practice page without changing its SEO status.
+                    Play unofficial Wend practice puzzles with no login.
                   </span>
                 </span>
               </Link>

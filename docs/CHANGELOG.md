@@ -2,6 +2,15 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-13
+
+### Indexable Wend Unlimited tool
+
+- Upgraded `/wend-unlimited` from a noindex practice list into an indexable Wend Unlimited tool targeting `wend unlimited`, `play wend unlimited`, `wend game online`, `linkedin wend game no login`, and `wend practice puzzle`.
+- Added New puzzle, Previous / Next, Hint, Undo, solved state, Share result, and local progress behavior backed by browser storage.
+- Added visible How to play, FAQ, Official Wend comparison, and Today Answer links below the playable first-screen tool.
+- Added `/wend-unlimited` to the sitemap and `llms.txt`, and updated regression coverage for the new indexable status.
+
 ## 2026-07-10
 
 ### Wend daily publishing

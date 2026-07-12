@@ -92,7 +92,7 @@ Recommended intent split:
 - `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date} | Wend #{number}`
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
-- `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real generated unlimited mode exists.
+- `/wend-unlimited`: `Wend Unlimited - Play Wend Game Online`.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
 The homepage and Today page both target `LinkedIn Wend Answer`, but split intent: homepage is the broad daily-answer hub, while `/linkedin-wend-answer-today` is the current daily walkthrough and reveal page. Avoid making supporting pages compete for the same generic keyword.
@@ -178,6 +178,7 @@ Indexable:
 - Wend Today.
 - Wend Solver.
 - Wend Archive.
+- Wend Unlimited.
 - Wend history detail pages.
 - Wend how-to pages.
 - FAQ, contact, press, and legal pages.
@@ -188,15 +189,20 @@ Temporarily `noindex,follow`:
 - `/linkedin-patches-archive`
 - `/linkedin-zip-answer-today`
 - `/linkedin-zip-solver`
-- `/wend-unlimited`
 
-Reason: Patches and Zip are not yet part of the verified daily update workflow. Wend Unlimited currently uses verified Wend puzzles as a practice set with query-based previous/next navigation, but it is not yet a true generated unlimited mode. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality. The desktop `Play Game` dropdown may still link to `/wend-unlimited` as a controlled high-intent practice entry while the page remains `noindex,follow`.
+Reason: Patches and Zip are not yet part of the verified daily update workflow. Keeping these routes out of search, sitemap, related-link modules, mobile navigation, and `llms.txt` prevents thin or stale pages from diluting launch quality.
 
-Wend Unlimited should keep its public page copy user-facing. Do not describe internal launch status, MVP pauses, or SEO suppression in visible page content. Place the practice switcher directly above the solver with:
+Wend Unlimited is indexable because it now behaves as a browser tool, not a thin old-puzzle list. Keep the playable tool above explanatory content and include:
 
+- `New puzzle`
 - `Previous`
-- `Practice Puzzle {number} of {total}`
+- `Wend Unlimited Puzzle {number} of {total}`
 - Puzzle number, difficulty, and letter count
+- `Hint`
+- `Undo`
+- Solved state
+- `Share result`
+- Browser local progress
 - `Next`
 
 To make Patches or Zip indexable later:
@@ -252,6 +258,7 @@ Current priorities:
 - `/linkedin-wend-answer-today`: `0.95`
 - `/linkedin-wend-solver`: `0.85`
 - `/linkedin-wend-archive`: `0.75`
+- `/wend-unlimited`: `0.7`
 - `/where-is-linkedin-wend`: `0.65`
 - Wend how-to pages: `0.65`
 - Wend history detail pages: `0.65`
@@ -276,9 +283,10 @@ Local spot checks:
 - Home HTML includes `og:image` and `twitter:image`.
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
+- `/sitemap.xml` includes `/wend-unlimited`.
 - `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
 - A legacy archive URL such as `/linkedin-wend-answer-18-june-26-2026` returns a permanent `308` redirect to the canonical archive URL.
-- Patches, Zip, and paused practice pages include `noindex, follow`.
+- Patches and Zip pages include `noindex, follow`.
 
 Production checks:
 

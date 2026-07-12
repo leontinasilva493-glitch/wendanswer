@@ -39,12 +39,12 @@ npm run smoke:local
 The MVP homepage is intentionally Wend-first and answer-first:
 
 - The desktop header includes `Today`, `Solver`, `Archive`, and a compact `Play Game` dropdown.
-- The `Play Game` dropdown links to `Official Wend` and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
+- The `Play Game` dropdown links to `Official Wend` and the indexable `/wend-unlimited` practice tool.
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
 - The footer stays limited to `Contact`, `Press`, `Disclaimer`, `Privacy Policy`, and `Terms`.
 - `/press` lists trusted external links, including Ko-fi updates, Linktree, and the public GitHub repository.
 - FAQ remains available through page FAQ blocks and contextual links instead of the primary navigation.
-- `/wend-unlimited` uses verified Wend puzzles as a practice set with `Previous` / `Next` navigation, current puzzle position, difficulty, and letter-count metadata.
+- `/wend-unlimited` uses verified Wend puzzles as a playable practice tool with `New puzzle`, `Previous` / `Next`, `Hint`, `Undo`, solved state, share result, and local progress.
 - Centered hero with `Get Today's Answer` and `Start with a Hint` anchor CTAs.
 - Full-width `Today's LinkedIn Wend Answer` card immediately after the hero.
 - Left side of the answer card renders the Wend grid; right side handles `Reveal all`, `Clear all`, and row-level `Get Word`.
