@@ -2,6 +2,14 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-13
+
+### Wend daily publishing
+
+- Published verified Wend #35 for July 13, 2026 through the trusted recovery path after production monitoring reported the live site was still serving July 12.
+- Extended the GitHub Actions fallback publish window through 12:52 UTC so automatic public ingestion can recover when the independent secondary source updates later than the primary source.
+- Verified that the current grouped robots parser does not treat Cloudflare-managed AI-bot `Disallow: /` groups as a global search-crawl block; the remaining production failure was freshness.
+
 ## 2026-07-10
 
 ### Wend daily publishing

@@ -37,7 +37,7 @@ The script supports these environment variables:
 - `MAX_PUBLISH_WINDOW_MS`: defaults to 300000, or five minutes.
 - `ALLOW_UNVERIFIED_WEND_PUBLISH`: only set to `true` for private dry runs. Public publishing should keep this unset.
 
-GitHub Actions keeps fallback retries at `7,22,37,52 7 * * *` and `7,22,37,52 8 * * *` UTC so both PDT and PST reset windows are covered at off-peak minutes. Scheduled Actions can be delayed or dropped, so they are not the primary five-minute trigger.
+GitHub Actions keeps fallback retries at `7,22,37,52 7 * * *`, `7,22,37,52 8 * * *`, and `7,22,37,52 9,10,11,12 * * *` UTC so both PDT/PST reset windows are covered and the two-source quorum has later retry opportunities if the independent secondary source lags the primary source. Scheduled Actions can be delayed or dropped, so they are not the primary five-minute trigger.
 
 Configure an external scheduler to call the secured application route throughout both reset windows, for example at minutes 00, 02, 05, and 08 of 07:00 and 08:00 UTC. Calls are idempotent and the application calculates the expected date in Los Angeles; no caller-supplied source URL is accepted.
 

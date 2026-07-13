@@ -1,0 +1,184 @@
+{
+  "game": "wend",
+  "puzzleNumber": 35,
+  "date": "2026-07-13",
+  "dateLabel": "July 13, 2026",
+  "updatedAt": "2026-07-13T09:20:53.271Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "N",
+      "T",
+      null,
+      "O",
+      "V"
+    ],
+    [
+      "A",
+      "E",
+      "R",
+      "N",
+      "A"
+    ],
+    [
+      "L",
+      null,
+      null,
+      null,
+      "L"
+    ],
+    [
+      "C",
+      "I",
+      "U",
+      "I",
+      "C"
+    ],
+    [
+      "Y",
+      null,
+      "Q",
+      null,
+      "K"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with ICY; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "LANTERN is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "ICY",
+      "path": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "OVAL",
+      "path": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "QUICK",
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "LANTERN",
+      "path": [
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 13, 2026 Wend solution uses every open cell exactly once across ICY, OVAL, QUICK, LANTERN. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating ICY, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm ICY first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-13T09:20:53.271Z",
+    "sourceHash": "15ea6f206c19475bf36f44f12793bc59fb345ebfe2ce314fa5242db917cb8aff",
+    "sourceType": "trusted-json",
+    "sourceUrls": [
+      "workflow-input"
+    ],
+    "state": "verified",
+    "verificationMethod": "trusted-workflow-input",
+    "verifiedAt": "2026-07-13T09:20:53.271Z",
+    "verifiedBy": "codex-manual-recovery"
+  }
+}
