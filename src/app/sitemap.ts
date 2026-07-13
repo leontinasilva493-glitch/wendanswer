@@ -8,6 +8,7 @@ const staticPaths = [
   "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
+  "/play-wend",
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",
   "/how-to-solve-linkedin-wend",
@@ -24,6 +25,7 @@ function priorityForPath(path: string) {
   if (path === "/linkedin-wend-answer-today") return 0.95;
   if (path === "/linkedin-wend-solver") return 0.85;
   if (path === "/linkedin-wend-archive") return 0.75;
+  if (path === "/play-wend") return 0.74;
   if (path === "/where-is-linkedin-wend") return 0.65;
   if (path.startsWith("/how-to-")) return 0.65;
   if (["/faq", "/contact", "/status"].includes(path)) return 0.4;
@@ -34,6 +36,7 @@ function changeFrequencyForPath(path: string) {
   if (path === "/" || path === "/linkedin-wend-answer-today") return "daily" as const;
   if (path === "/linkedin-wend-solver") return "daily" as const;
   if (path === "/linkedin-wend-archive") return "weekly" as const;
+  if (path === "/play-wend") return "weekly" as const;
   return "monthly" as const;
 }
 

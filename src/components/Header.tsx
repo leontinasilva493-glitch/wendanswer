@@ -106,15 +106,15 @@ export function Header() {
                 </a>
                 <Link
                   className="flex items-start gap-3 rounded-md px-3 py-3 text-slate-700 transition hover:bg-brand/5 hover:text-brand focus-visible:bg-brand/5 focus-visible:text-brand focus-visible:outline-none"
-                  href="/wend-unlimited"
+                  href="/play-wend"
                   onClick={closeMenu}
                   role="menuitem"
                 >
                   <Infinity aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
                   <span className="min-w-0">
-                    <span className="block font-black text-ink">Wend Unlimited</span>
+                    <span className="block font-black text-ink">Play Wend Unlimited</span>
                     <span className="mt-1 block text-xs font-semibold leading-5 text-slate-500">
-                      Play unofficial practice boards with submit-and-solve gameplay.
+                      Play the unofficial tool page with local progress, hints, and no login.
                     </span>
                   </span>
                 </Link>

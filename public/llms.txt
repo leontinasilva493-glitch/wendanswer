@@ -6,6 +6,7 @@ Important pages:
 - /linkedin-wend-answer-today
 - /linkedin-wend-solver
 - /linkedin-wend-archive
+- /play-wend
 - /where-is-linkedin-wend
 - /how-to-play-linkedin-wend
 - /how-to-solve-linkedin-wend

@@ -2,6 +2,14 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-13
+
+### Play Wend Unlimited indexable tool page
+
+- Added `/play-wend` as the canonical indexable Wend practice tool page with New Puzzle, Previous, Next, Hint, Undo, solved state, Share result, and local progress.
+- Kept `/wend-unlimited` as a redirect to `/play-wend` so the site has one canonical tool URL.
+- Updated the header navigation, sitemap, llms.txt, SEO runbook, and tests to treat Play Wend Unlimited as a real tool page rather than a paused practice set.
+
 ## 2026-07-06
 
 ### Wend Unlimited rule alignment

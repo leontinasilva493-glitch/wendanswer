@@ -68,18 +68,22 @@ assert.match(unlimitedLibSource, /unlimitedWendPuzzles/, "Unlimited library shou
 assert.doesNotMatch(unlimitedLibSource, /todayWend/, "Unlimited library should not derive games from today's Wend");
 
 const gameSource = read("src/components/WendUnlimitedGame.tsx");
-for (const expected of ["useState", "Next Puzzle", "Previous Puzzle", "Random Puzzle", "Choose Puzzle", "puzzles.length"]) {
+for (const expected of ["useState", "Next Puzzle", "Previous Puzzle", "New Puzzle", "Choose Puzzle", "Difficulty", "Saved locally"]) {
   assert.match(gameSource, new RegExp(expected), `Unlimited game should include ${expected}`);
 }
 assert.match(gameSource, /WendPlayableGame/, "Unlimited game should render the playable submit interaction");
 assert.doesNotMatch(gameSource, /WendSolver/, "Unlimited game should not use the answer reveal solver as the primary game");
-assert.match(gameSource, /Unofficial/, "Unlimited game UI should visibly say Unofficial");
+assert.match(gameSource, /Unofficial practice tool/, "Unlimited game UI should visibly say Unofficial");
 
 assert.equal(exists("src/components/WendPlayableGame.tsx"), true, "Unlimited should have a dedicated playable Wend component");
 const playableSource = read("src/components/WendPlayableGame.tsx");
 for (const expected of [
   "Submit Word",
   "Clear Path",
+  "Undo",
+  "Hint",
+  "Share result",
+  "Solved",
   "selectedCells",
   "foundWords",
   "Words found",
@@ -105,11 +109,19 @@ assert.doesNotMatch(
 const cssSource = read("src/app/globals.css");
 assert.match(cssSource, /content:\s*attr\(data-letter\)/, "WendGrid letters should be painted from CSS generated content");
 
-const pageSource = read("src/app/wend-unlimited/page.tsx");
-assert.match(pageSource, /Wend Unlimited/, "Unlimited page should be presented as Wend Unlimited");
-assert.match(pageSource, /Unofficial/, "Unlimited page should visibly disclose unofficial status");
-assert.match(pageSource, /unlimitedWendPuzzles/, "Unlimited page should load the pregenerated bank");
-assert.doesNotMatch(pageSource, /todayWend/, "Unlimited page should not clone today's Wend puzzle");
-assert.match(pageSource, /robots:\s*noindexFollow/, "Wend Unlimited should remain noindex during MVP validation");
+const pageSource = read("src/app/wend-unlimited/route.ts");
+assert.match(pageSource, /NextResponse\.redirect/, "Legacy unlimited route should redirect to the canonical tool page");
+assert.match(pageSource, /308/, "Legacy unlimited route should use a permanent redirect");
+
+const canonicalSource = read("src/app/play-wend/page.tsx");
+assert.match(canonicalSource, /Play Wend Unlimited/, "Canonical page should be presented as Play Wend Unlimited");
+assert.match(canonicalSource, /wend game online/i, "Canonical page should target the wend game online intent");
+assert.match(canonicalSource, /no login/i, "Canonical page should disclose no-login play");
+assert.match(canonicalSource, /local progress/i, "Canonical page should mention local progress");
+assert.match(canonicalSource, /How to play/i, "Canonical page should include a how-to section");
+assert.match(canonicalSource, /Official Wend vs Play Wend Unlimited/i, "Canonical page should include the official compare section");
+assert.match(canonicalSource, /Today Answer/i, "Canonical page should link to today's answer");
+assert.match(canonicalSource, /unlimitedWendPuzzles/, "Canonical page should load the pregenerated bank");
+assert.doesNotMatch(canonicalSource, /noindexFollow/, "Canonical page should be indexable");
 
 console.log("wend unlimited test passed");

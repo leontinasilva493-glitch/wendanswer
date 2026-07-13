@@ -96,6 +96,7 @@ for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku",
 
 const llmsSource = read("public/llms.txt");
 assert.doesNotMatch(llmsSource, /wend-unlimited/, "llms.txt should not promote paused practice mode");
+assert.match(llmsSource, /play-wend/, "llms.txt should include the canonical tool page");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {
   assert.equal(llmsSource.includes(secondaryGame), false, `llms.txt should not promote ${secondaryGame}`);
 }
@@ -122,6 +123,7 @@ for (const excluded of [
     `sitemap should not include noindex sample route ${excluded}`,
   );
 }
+assert.match(sitemapSource, /\/play-wend/, "sitemap should include the canonical Wend Unlimited tool page");
 assert.match(sitemapSource, /priorityForPath/, "sitemap should use route-specific priorities");
 
 for (const file of [
@@ -129,11 +131,21 @@ for (const file of [
   "src/app/linkedin-patches-archive/page.tsx",
   "src/app/linkedin-zip-answer-today/page.tsx",
   "src/app/linkedin-zip-solver/page.tsx",
-  "src/app/wend-unlimited/page.tsx",
+  "src/app/play-wend/page.tsx",
 ]) {
   const source = read(file);
-  assert.match(source, /robots:\s*noindexFollow/, `${file} should be noindex,follow until daily data is verified`);
+  assert.match(source, /pageMetadata/, `${file} should build metadata through the shared helper`);
 }
+
+const playSource = read("src/app/play-wend/page.tsx");
+for (const expected of ["Play Wend Unlimited", "wend game online", "local progress", "How to play", "Official Wend vs Play Wend Unlimited", "Today Answer"]) {
+  assert.match(playSource, new RegExp(expected, "i"), `Play Wend page should include ${expected}`);
+}
+assert.doesNotMatch(playSource, /noindexFollow/, "Play Wend should be indexable");
+
+const legacyUnlimitedSource = read("src/app/wend-unlimited/route.ts");
+assert.match(legacyUnlimitedSource, /NextResponse\.redirect/, "legacy Wend Unlimited should redirect to the canonical play page");
+assert.match(legacyUnlimitedSource, /308/, "legacy Wend Unlimited should use a permanent redirect");
 
 for (const [file, maxLength] of [
   ["src/app/linkedin-wend-answer-today/page.tsx", 68],
