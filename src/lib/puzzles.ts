@@ -69,7 +69,7 @@ export const games = [
     slug: "wend",
     status: "Updated",
     number: todayWend.puzzleNumber,
-    todayPath: "/linkedin-wend-answer-today",
+    todayPath: "/",
     archivePath: "/linkedin-wend-archive",
     solverPath: "/linkedin-wend-solver",
   },

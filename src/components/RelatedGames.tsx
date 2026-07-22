@@ -3,7 +3,7 @@ import { ArrowRight, Compass } from "lucide-react";
 
 export function RelatedGames() {
   const links = [
-    ["Wend Today", "/linkedin-wend-answer-today"],
+    ["Wend Today", "/"],
     ["Wend Solver", "/linkedin-wend-solver"],
     ["Wend Archive", "/linkedin-wend-archive"],
     ["Find Wend", "/where-is-linkedin-wend"],

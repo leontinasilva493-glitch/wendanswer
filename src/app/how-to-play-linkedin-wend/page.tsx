@@ -41,7 +41,7 @@ export default function HowToPlayWendPage() {
         ))}
       </section>
       <section className="section flex flex-wrap gap-2">
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/#answer">
           Today’s hints
         </Link>
         <Link className="chip" href="/how-to-solve-linkedin-wend">

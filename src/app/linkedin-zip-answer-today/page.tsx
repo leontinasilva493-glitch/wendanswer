@@ -58,7 +58,7 @@ export default function ZipTodayPage() {
         <Link className="chip" href="/linkedin-zip-solver">
           Zip Solver
         </Link>
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/">
           Wend
         </Link>
         <Link className="chip" href="/linkedin-patches-answer-today">

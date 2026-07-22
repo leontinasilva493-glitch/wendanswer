@@ -3,7 +3,7 @@
 This site provides spoiler-safe daily hints, answers, word paths, solver help, and archives for LinkedIn Wend.
 
 Important pages:
-- /linkedin-wend-answer-today
+- /
 - /linkedin-wend-solver
 - /linkedin-wend-archive
 - /where-is-linkedin-wend

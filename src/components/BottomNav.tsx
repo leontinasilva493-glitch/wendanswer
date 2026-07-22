@@ -3,7 +3,7 @@ import { Archive, CalendarDays, Grid3X3 } from "lucide-react";
 
 export function BottomNav() {
   const items = [
-    ["Today", "/linkedin-wend-answer-today", CalendarDays],
+    ["Today", "/", CalendarDays],
     ["Solver", "/linkedin-wend-solver", Grid3X3],
     ["Archive", "/linkedin-wend-archive", Archive],
   ] as const;

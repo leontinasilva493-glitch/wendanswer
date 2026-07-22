@@ -19,7 +19,7 @@ export function Header() {
           <span>WendAnswerToday</span>
         </Link>
         <nav className="hidden items-center gap-5 text-sm font-semibold text-slate-700 md:flex">
-          <Link href="/linkedin-wend-answer-today">Today</Link>
+          <Link href="/">Today</Link>
           <Link href="/linkedin-wend-solver">Solver</Link>
           <Link href="/linkedin-wend-archive">Archive</Link>
           <details className="group relative">
@@ -31,7 +31,7 @@ export function Header() {
               <a
                 className="flex items-start gap-3 rounded-md px-3 py-3 text-slate-700 transition hover:bg-brand/5 hover:text-brand focus-visible:bg-brand/5 focus-visible:text-brand focus-visible:outline-none"
                 href="https://www.linkedin.com/games/wend"
-                rel="nofollow noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <ExternalLink aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />

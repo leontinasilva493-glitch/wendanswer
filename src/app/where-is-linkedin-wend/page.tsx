@@ -31,10 +31,10 @@ export default function WhereIsLinkedInWendPage() {
           use the direct game link or switch between mobile and desktop.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a className="btn btn-primary" href="https://www.linkedin.com/games/wend" rel="nofollow noopener" target="_blank">
+          <a className="btn btn-primary" href="https://www.linkedin.com/games/wend" rel="noopener noreferrer" target="_blank">
             Open LinkedIn Wend
           </a>
-          <Link className="btn btn-ghost" href="/linkedin-wend-answer-today">
+          <Link className="btn btn-ghost" href="/">
             Today’s Wend help
           </Link>
         </div>
@@ -66,7 +66,7 @@ export default function WhereIsLinkedInWendPage() {
           If LinkedIn Games are not loading or the timer feels wrong, use the smallest spoiler-safe hint first.
           You can still reveal one letter or one word without dumping the full answer.
         </p>
-        <Link className="btn btn-primary mt-4" href="/linkedin-wend-answer-today#answer">
+        <Link className="btn btn-primary mt-4" href="/#answer">
           Get today’s Wend hint
         </Link>
       </section>

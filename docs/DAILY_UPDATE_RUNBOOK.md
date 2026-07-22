@@ -168,7 +168,7 @@ export const wendPuzzles = verifiedWendPuzzles;
 export const todayWend = verifiedWendPuzzles[0] ?? allWendPuzzles[0];
 ```
 
-Public homepage, Today, Solver, Archive, sitemap, and archive detail routes must consume `wendPuzzles` / `todayWend`, not `allWendPuzzles`, so unverified captures never appear as public answers.
+Public homepage, Solver, Archive, sitemap, and archive detail routes must consume `wendPuzzles` / `todayWend`, not `allWendPuzzles`, so unverified captures never appear as public answers. `/linkedin-wend-answer-today` is a redirect-only compatibility route.
 
 4. If the new puzzle creates a new archive detail page slug, add that route to `scripts/smoke-local.mjs` so local smoke testing covers it.
 
@@ -254,7 +254,7 @@ npm run smoke:local
 Open these pages locally:
 
 - `http://127.0.0.1:3000/`
-- `http://127.0.0.1:3000/linkedin-wend-answer-today`
+- `http://127.0.0.1:3000/linkedin-wend-answer-today` returns `301` to `/`.
 - The newest Wend archive detail page, for example `http://127.0.0.1:3000/wend-answer-puzzle-18-june-26-2026`
 - The matching legacy archive URL redirects, for example `http://127.0.0.1:3000/linkedin-wend-answer-18-june-26-2026`
 
@@ -262,17 +262,17 @@ Confirm the visible page shows the newest date and puzzle number.
 
 Extra checks after UI or routing changes:
 
-- `/` and `/linkedin-wend-answer-today` still export `revalidate = 60`, not `force-dynamic`.
-- The Today page title/description include the date and puzzle number only when the latest puzzle is verified for the current Wend release window.
-- The Solver page uses the same colored word cards, letter bubbles, and reveal controls as the Today answer module.
-- The FAQ disclosure control rotates consistently on the homepage and Today page.
+- `/` still exports `revalidate = 60`, not `force-dynamic`.
+- The homepage uses the Ready metadata template only when the latest puzzle is verified for the current Wend release window; Pending metadata includes `(Verifying)` and the expected puzzle identity.
+- The Solver page uses the same colored word cards, letter bubbles, and reveal controls as the homepage answer module.
+- The FAQ disclosure control rotates consistently on the homepage.
 - The verification-pending card states the expected puzzle and identifies the latest verified fallback.
 - A 375-390px wide mobile viewport keeps Wend board tubes, start markers, check badges, and letter bubbles legible without horizontal overflow.
 - A legacy archive URL returns a real `308` redirect in the running app, not just in source-level tests.
 
 ## Troubleshooting
 
-If the Today page shows yesterday's puzzle:
+If the homepage shows yesterday's puzzle:
 
 - Run `npm run generate:wend`.
 - Run `npm run latest:wend`.

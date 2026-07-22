@@ -55,7 +55,7 @@ export default function PatchesTodayPage() {
         <Link className="chip" href="/linkedin-patches-archive">
           Patches Archive
         </Link>
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/">
           Wend
         </Link>
         <Link className="chip" href="/linkedin-zip-answer-today">

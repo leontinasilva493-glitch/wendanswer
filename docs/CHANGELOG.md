@@ -2,6 +2,19 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-22
+
+### LinkedIn Wend on-page SEO consolidation
+
+- Made `/` the single indexable daily LinkedIn Wend answer URL and changed `/linkedin-wend-answer-today` to a permanent `301` compatibility redirect.
+- Removed the duplicate Today URL from the sitemap, navigation, contextual internal links, public `llms.txt`, IndexNow submissions, and indexability monitoring while preserving an explicit production redirect check.
+- Rewrote Ready and Pending Title, Meta Description, and H1 templates around `LinkedIn Wend Answer Today`, with `(Verifying)` and accurate fallback language when the current solution is not ready.
+- Added server-rendered explanations covering the Wend game, progressive spoiler controls, answer verification, official play access, internal resources, and recent verified answers.
+- Replaced misleading pending FAQ language, labeled the fallback answer module as `Latest verified`, and added `data-nosnippet` to the fallback module while verification is pending.
+- Reduced repeated reveal-interface phrases with `Not revealed`, `Next letter`, and `Show word` while retaining descriptive accessible labels.
+- Changed trusted official LinkedIn Wend links to `noopener noreferrer` without `nofollow`; unrelated press-link policy remains unchanged.
+- Updated SEO, daily publishing, monitoring, and regression guidance for the consolidated canonical route and expanded homepage content.
+
 ## 2026-07-10
 
 ### Wend daily publishing

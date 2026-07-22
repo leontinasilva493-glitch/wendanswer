@@ -10,7 +10,7 @@ export default function NotFound() {
         This puzzle page is not available yet. Try today&apos;s Wend answer, the solver, or the archive.
       </p>
       <section className="section flex flex-wrap gap-2">
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/">
           Wend Today
         </Link>
         <Link className="chip" href="/linkedin-wend-solver">

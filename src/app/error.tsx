@@ -15,7 +15,7 @@ export default function ErrorPage({ reset }: { error: Error & { digest?: string 
         <button className="btn btn-primary" onClick={() => reset()} type="button">
           Try again
         </button>
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/">
           Wend Today
         </Link>
         <Link className="chip" href="/contact">

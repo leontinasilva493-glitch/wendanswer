@@ -93,7 +93,7 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
         </h1>
         <p className="section-copy">
           This is the archived LinkedIn Wend answer for {puzzle.dateLabel}. For today’s puzzle, visit{" "}
-          <Link className="font-bold text-brand" href="/linkedin-wend-answer-today">
+          <Link className="font-bold text-brand" href="/">
             LinkedIn Wend Answer Today
           </Link>
           .
