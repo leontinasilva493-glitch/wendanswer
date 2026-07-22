@@ -20,11 +20,6 @@ assert.doesNotMatch(sitemapSource, /"\/status"/, "sitemap should not include the
 assert.equal(exists("src/app/status/page.tsx"), false, "status page should be removed");
 assert.doesNotMatch(smokeSource, /["']\/status["']/, "local and production smoke must not require the removed status page");
 
-const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");
-assert.match(todaySource, /Finished today's Wend\?/, "answer page should include the finished-today CTA heading");
-assert.match(todaySource, /href="\/how-to-play-linkedin-wend"/, "answer page body should link to How to Play");
-assert.match(todaySource, /href="\/how-to-solve-linkedin-wend"/, "answer page body should link to Solving Tips");
-
 const faqSource = read("src/app/faq/page.tsx");
 assert.match(faqSource, /href="\/where-is-linkedin-wend"/, "FAQ page should keep the Find Wend internal link");
 

@@ -31,21 +31,32 @@ for (const expected of [
   "MONITOR_CANONICAL_SITE_URL",
   "sendOpsAlert",
   "expectedWendDisplay",
-  "Wend answer today for",
-  "Puzzle #",
+  "LinkedIn Wend Answer Today #",
   "robots.txt",
   "sitemap.xml",
   "noindex",
   "x-robots-tag",
   "redirect: \"manual\"",
   "response.status !== 308",
-  "/linkedin-wend-answer-today",
+  "duplicateTodayPath",
   "/linkedin-wend-archive",
   "/api/wend-status",
   "body?.status !== \"current\"",
 ]) {
   assert.match(monitorSource, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `monitor should check ${expected}`);
 }
+assert.doesNotMatch(
+  monitorSource,
+  /\["\/linkedin-wend-answer-today",\s*"LinkedIn Wend Answer Today"\]/,
+  "monitor should not treat the duplicate Today URL as an indexable core page",
+);
+assert.doesNotMatch(
+  monitorSource,
+  /for \(const route of \["\/",\s*"\/linkedin-wend-answer-today"/,
+  "monitor should not require the duplicate Today URL in the sitemap",
+);
+assert.match(monitorSource, /response\.status !== 301/, "monitor should verify the duplicate Today URL keeps its 301");
+assert.match(monitorSource, /LinkedIn Wend Answer Today #/, "monitor should verify the new homepage H1 pattern");
 
 const monitorWorkflow = read(".github/workflows/monitor-production.yml");
 assert.match(monitorWorkflow, /2,17,32,47 \* \* \* \*/, "GitHub's fallback production monitor should use off-peak quarter-hour retries");

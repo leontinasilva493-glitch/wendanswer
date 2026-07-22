@@ -77,7 +77,7 @@ export default function WendSolverPage() {
         <Link className="chip" href="/linkedin-wend-archive">
           Archive
         </Link>
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/#answer">
           Today’s answer
         </Link>
       </section>

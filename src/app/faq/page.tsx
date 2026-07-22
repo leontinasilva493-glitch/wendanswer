@@ -77,7 +77,7 @@ export default function FaqPage() {
         ))}
       </section>
       <section className="section flex flex-wrap gap-2">
-        <Link className="chip" href="/linkedin-wend-answer-today">
+        <Link className="chip" href="/">
           Wend Today
         </Link>
         <Link className="chip" href="/contact">
