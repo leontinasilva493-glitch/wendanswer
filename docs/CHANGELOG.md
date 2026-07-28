@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-28
 
+### LinkedIn Wend statistics page
+
+- Added `/linkedin-wend-statistics` as an indexable, self-canonical page generated from the verified public Wend dataset.
+- Added archive-wide puzzle counts, answer totals, board/path averages, grid-size/month/difficulty distributions, longest-answer and most-winding-puzzle links, and a visible calculation methodology.
+- Kept editorial difficulty labels separate from computed facts and explicitly stated that the label is not an official LinkedIn rating.
+- Added Header, Archive, and related-resource links plus sitemap coverage and regression tests for aggregates, metadata, structured data, and internal linking.
+
 ### Filterable archive discovery
 
 - Added local archive search across puzzle number, date, and verified answer words, plus month, difficulty, and grid-size filters.

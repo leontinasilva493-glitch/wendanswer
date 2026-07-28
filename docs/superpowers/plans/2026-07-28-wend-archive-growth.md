@@ -44,10 +44,10 @@
 
 ## Task 6: Add LinkedIn Wend Statistics
 
-- [ ] Add failing route, metadata, sitemap, and aggregate tests.
-- [ ] Implement the verified-data statistics page with transparent methodology.
-- [ ] Add Archive/Header/related internal links and sitemap entry.
-- [ ] Verify self-canonical metadata and breadcrumb JSON-LD.
+- [x] Add failing route, metadata, sitemap, and aggregate tests.
+- [x] Implement the verified-data statistics page with transparent methodology.
+- [x] Add Archive/Header/related internal links and sitemap entry.
+- [x] Verify self-canonical metadata and breadcrumb JSON-LD.
 
 ## Task 7: Handoff and release
 

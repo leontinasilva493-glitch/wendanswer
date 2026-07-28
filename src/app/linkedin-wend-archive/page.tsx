@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArchiveList } from "@/components/ArchiveList";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
@@ -61,6 +62,9 @@ export default function WendArchivePage() {
             </span>
           ))}
         </div>
+        <Link className="mt-5 inline-flex font-black text-brand hover:underline" href="/linkedin-wend-statistics">
+          Explore LinkedIn Wend statistics across the verified archive
+        </Link>
       </section>
 
       <RelatedGames />

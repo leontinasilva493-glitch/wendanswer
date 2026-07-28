@@ -22,6 +22,7 @@ export function Header() {
           <Link href="/">Today</Link>
           <Link href="/linkedin-wend-solver">Solver</Link>
           <Link href="/linkedin-wend-archive">Archive</Link>
+          <Link href="/linkedin-wend-statistics">Statistics</Link>
           <details className="group relative">
             <summary className="flex cursor-pointer list-none items-center gap-1 outline-none transition hover:text-brand focus-visible:text-brand [&::-webkit-details-marker]:hidden">
               <span>Play Game</span>
