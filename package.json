@@ -19,6 +19,7 @@
     "test:latest-date": "node tests/latest-date.test.mjs",
     "test:navigation-simplification": "node tests/navigation-simplification.test.mjs",
     "test:wend-archive-coverage": "node tests/wend-archive-coverage.test.mjs",
+    "test:wend-archive-filter": "node tests/wend-archive-filter.test.mjs",
     "test:wend-archive-url": "node tests/wend-archive-url.test.mjs",
     "test:wend-freshness": "node tests/wend-freshness.test.mjs",
     "test:wend-linkedin": "node tests/wend-linkedin-parity.test.mjs",

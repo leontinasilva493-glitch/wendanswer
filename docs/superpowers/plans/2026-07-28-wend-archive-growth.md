@@ -37,10 +37,10 @@
 
 ## Task 5: Upgrade Archive discovery
 
-- [ ] Add failing filter behavior and SEO guardrail tests.
-- [ ] Add local text/month/difficulty/grid-size filters and reset/empty states to `ArchiveList`.
-- [ ] Generate coverage and month summaries from verified data.
-- [ ] Keep result links server-visible and avoid query-string index pages.
+- [x] Add failing filter behavior and SEO guardrail tests.
+- [x] Add local text/month/difficulty/grid-size filters and reset/empty states to `ArchiveList`.
+- [x] Generate coverage and month summaries from verified data.
+- [x] Keep result links server-visible and avoid query-string index pages.
 
 ## Task 6: Add LinkedIn Wend Statistics
 

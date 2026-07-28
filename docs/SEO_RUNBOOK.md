@@ -240,7 +240,10 @@ Homepage archive coverage:
 
 - The homepage `Recent LinkedIn Wend Answers` block should render a compact preview from the latest verified `wendPuzzles` entries and link to `/linkedin-wend-archive` for the complete list.
 - `/linkedin-wend-archive` must render every verified Wend puzzle from `wendPuzzles`.
+- Keep every canonical detail-page link in the initial server-rendered archive HTML. Client-side filters may narrow the visible cards, but must not move the archive into query-string URLs or create indexable filter combinations.
+- Archive search should cover puzzle number, date labels, and verified answer words. Month, difficulty, and grid-size options plus the coverage and month summaries must be derived from `wendPuzzles`, not hard-coded.
 - `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated raw index, while only verified puzzles reach the public `wendPuzzles` archive, sitemap, static archive params, homepage archive preview, and complete archive page.
+- `tests/wend-archive-filter.test.mjs` guards local filter behavior, reset/empty-state copy, generated summaries, and the absence of query-string navigation code.
 - Keep unverified captures available only through `allWendPuzzles` for internal checks and future correction; do not link or index them as public answer pages.
 - Each canonical detail page derives factual copy from its stored grid and paths: grid size, open/blocked cells, answer count, word-length range, path turns, and longest/most winding answers. Use `deriveWendMetrics()` rather than manually writing unverifiable difficulty claims.
 - Detail-page Meta Descriptions include the puzzle number, date, answer count, and grid size. `tests/wend-statistics.test.mjs` guards the calculations and confirms that verified pages retain distinct metric signatures.

@@ -86,8 +86,11 @@ The verified archive currently covers Wend #1 through #49 without missing puzzle
 - `npm run test:wend-dataset` validates every stored record, checks unique dates/numbers and filename/date agreement, and verifies provenance hashes.
 - The command requires an explicit `--numbers=` allowlist. Always run `--dry-run` before writing files, then regenerate the puzzle index.
 
+The public `/linkedin-wend-archive` page keeps every verified answer link in the initial server-rendered HTML, then adds local browser filters for puzzle number/date/answer word, month, difficulty, and grid size. Filters do not create query-string index pages. The page also derives its verified-count, first/latest puzzle coverage, missing-number notice, and monthly totals directly from `wendPuzzles`.
+
 ## Recent Changes
 
+- 2026-07-28: upgraded the complete LinkedIn Wend archive with local search and month/difficulty/grid-size filters, generated coverage summaries, reset/empty states, and server-visible answer links.
 - 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
 - 2026-07-28: added puzzle-derived facts and distinct Meta Descriptions to all 49 permanent answer pages.
 - 2026-07-28: deployed the canonical daily-page consolidation; `/linkedin-wend-answer-today` now redirects permanently to `/` and is absent from the sitemap.
