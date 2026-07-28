@@ -12,6 +12,12 @@ This file records changes that are useful for debugging, rollback decisions, and
 - Added full-dataset and history-parser tests covering unique identities, date/filename agreement, continuous verified coverage, source hashes, blocked cells, ordered paths, and source disagreement.
 - Regenerated the Wend puzzle index from 49 verified JSON records.
 
+### Puzzle-specific archive detail content
+
+- Added deterministic per-puzzle metrics for grid size, open/blocked cells, answer count, word-length range, path turns, edge/corner starts, and longest/most winding answers.
+- Added a server-rendered `Wend #{number} puzzle facts` section and a unique metrics-based Meta Description to every permanent answer page.
+- Confirmed all 49 verified pages produce distinct metrics signatures without padding copy or changing the spoiler-safe answer flow.
+
 ### Canonical Today URL deployment
 
 - Merged and deployed the homepage-canonical change through PR #43.

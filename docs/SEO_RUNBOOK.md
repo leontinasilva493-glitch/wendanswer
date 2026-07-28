@@ -242,6 +242,8 @@ Homepage archive coverage:
 - `/linkedin-wend-archive` must render every verified Wend puzzle from `wendPuzzles`.
 - `tests/wend-archive-coverage.test.mjs` guards that every JSON file in `data/puzzles/wend` reaches the generated raw index, while only verified puzzles reach the public `wendPuzzles` archive, sitemap, static archive params, homepage archive preview, and complete archive page.
 - Keep unverified captures available only through `allWendPuzzles` for internal checks and future correction; do not link or index them as public answer pages.
+- Each canonical detail page derives factual copy from its stored grid and paths: grid size, open/blocked cells, answer count, word-length range, path turns, and longest/most winding answers. Use `deriveWendMetrics()` rather than manually writing unverifiable difficulty claims.
+- Detail-page Meta Descriptions include the puzzle number, date, answer count, and grid size. `tests/wend-statistics.test.mjs` guards the calculations and confirms that verified pages retain distinct metric signatures.
 
 ## Stale Today Protection
 

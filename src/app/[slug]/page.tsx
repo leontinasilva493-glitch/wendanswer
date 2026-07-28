@@ -9,6 +9,7 @@ import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { findWendByArchiveSlug, findWendBySlug, getWendNeighbors, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
 import { wendArchiveSlug } from "@/lib/dates";
+import { deriveWendMetrics, wendPuzzleSummary } from "@/lib/wend-statistics";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -31,9 +32,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!puzzle) return {};
 
   const canonicalSlug = wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel);
+  const metrics = deriveWendMetrics(puzzle);
   return pageMetadata({
     title: `LinkedIn Wend Answer #${puzzle.puzzleNumber} - ${puzzle.dateLabel}`,
-    description: `Archived LinkedIn Wend answer for ${puzzle.dateLabel}, including spoiler-safe hints, word path, solver, and explanation.`,
+    description: `Archived LinkedIn Wend answer #${puzzle.puzzleNumber} for ${puzzle.dateLabel}: ${metrics.answerCount} answers on a ${metrics.rows}×${metrics.columns} grid, with verified paths and spoiler-safe hints.`,
     path: `/${canonicalSlug}`,
     type: "article",
     imageTitle: `LinkedIn Wend Answer #${puzzle.puzzleNumber}`,
@@ -59,10 +61,12 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
 
   const neighbors = getWendNeighbors(puzzle.puzzleNumber);
   const path = `/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`;
+  const metrics = deriveWendMetrics(puzzle);
+  const puzzleSummary = wendPuzzleSummary(puzzle, metrics);
   const faq = [
     {
       question: `Is Wend #${puzzle.puzzleNumber} today's puzzle?`,
-      answer: `No. This is the archived Wend answer for ${puzzle.dateLabel}. Use the Today page for the current daily puzzle.`,
+      answer: `No. This is the archived Wend answer for ${puzzle.dateLabel}. Use the homepage for the current daily puzzle.`,
     },
     {
       question: "Can I reveal only part of this archived answer?",
@@ -80,7 +84,7 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
       <JsonLd
         data={articleJson({
           headline: `LinkedIn Wend Answer #${puzzle.puzzleNumber}`,
-          description: `Archived LinkedIn Wend answer for ${puzzle.dateLabel}.`,
+          description: `Archived LinkedIn Wend answer #${puzzle.puzzleNumber} for ${puzzle.dateLabel}, with ${metrics.answerCount} verified paths on a ${metrics.rows}×${metrics.columns} grid.`,
           path,
           datePublished: puzzle.date,
           dateModified: puzzle.updatedAt,
@@ -114,6 +118,30 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
       <section className="section">
         <h2 className="section-title">LinkedIn Wend answer explanation</h2>
         <p className="section-copy">{puzzle.explanation}</p>
+      </section>
+
+      <section className="section content-card">
+        <h2 className="section-heading">Wend #{puzzle.puzzleNumber} puzzle facts</h2>
+        <p className="section-copy">{puzzleSummary}</p>
+        <dl className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ["Grid", `${metrics.rows}×${metrics.columns}`],
+            ["Open cells", metrics.openCells],
+            ["Blocked cells", metrics.blockedCells],
+            ["Answers", metrics.answerCount],
+            ["Average word length", Number.isInteger(metrics.averageWordLength) ? metrics.averageWordLength : metrics.averageWordLength.toFixed(1)],
+            ["Path turns", metrics.totalTurns],
+          ].map(([label, value]) => (
+            <div className="rounded-lg border border-line bg-slate-50 p-4" key={label}>
+              <dt className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</dt>
+              <dd className="mt-1 text-2xl font-black text-ink">{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-4 text-sm leading-6 text-slate-700">
+          Most winding answer: <strong>{metrics.mostWindingAnswer.word}</strong> with {metrics.mostWindingAnswer.turns}{" "}
+          {metrics.mostWindingAnswer.turns === 1 ? "turn" : "turns"}.
+        </p>
       </section>
 
       <section className="section grid gap-3 md:grid-cols-3">

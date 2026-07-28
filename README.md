@@ -89,6 +89,7 @@ The verified archive currently covers Wend #1 through #49 without missing puzzle
 ## Recent Changes
 
 - 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
+- 2026-07-28: added puzzle-derived facts and distinct Meta Descriptions to all 49 permanent answer pages.
 - 2026-07-28: deployed the canonical daily-page consolidation; `/linkedin-wend-answer-today` now redirects permanently to `/` and is absent from the sitemap.
 - Detailed operational history remains in `docs/CHANGELOG.md`.
 
