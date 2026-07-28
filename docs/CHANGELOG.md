@@ -4,12 +4,20 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-28
 
+### P0-P1 release verification
+
+- Merged and deployed the canonical Today URL, continuous verified archive, puzzle-specific facts, filterable Archive, and Statistics page through PRs #43, #45, #46, #47, and #48.
+- Confirmed Vercel production success, the legacy Today `301`, canonical/indexable production pages, 50 sitemap detail URLs, and automatic Wend #50 inclusion in Archive and Statistics.
+- Ran all repository `test:*` scripts, TypeScript checks, a 77-page production build, 17-route production-mode smoke, and desktop/390px layout checks for Home, the latest detail page, Archive, and Statistics.
+- The Cloudflare `Workers Builds: wendanswer` GitHub check remains an existing failing integration seen on prior main commits; the production Next.js application continues to be served by successful Vercel deployments behind the Cloudflare-fronted domain.
+
 ### LinkedIn Wend statistics page
 
 - Added `/linkedin-wend-statistics` as an indexable, self-canonical page generated from the verified public Wend dataset.
 - Added archive-wide puzzle counts, answer totals, board/path averages, grid-size/month/difficulty distributions, longest-answer and most-winding-puzzle links, and a visible calculation methodology.
 - Kept editorial difficulty labels separate from computed facts and explicitly stated that the label is not an official LinkedIn rating.
 - Added Header, Archive, and related-resource links plus sitemap coverage and regression tests for aggregates, metadata, structured data, and internal linking.
+- Production verification after the automated Wend #50 publish confirmed that totals and sitemap coverage update from verified data without hard-coded counts.
 
 ### Filterable archive discovery
 
