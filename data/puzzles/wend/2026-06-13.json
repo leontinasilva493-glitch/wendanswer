@@ -1,0 +1,253 @@
+{
+  "game": "wend",
+  "puzzleNumber": 5,
+  "date": "2026-06-13",
+  "dateLabel": "June 13, 2026",
+  "updatedAt": "2026-07-28T08:23:06.740Z",
+  "difficulty": "Medium",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with POINT; it is one of the shortest paths on this board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "EXCURSION is the longest path; place the shorter answers before committing to it."
+    }
+  ],
+  "explanation": "The June 13, 2026 Wend solution uses every open cell exactly once across POINT, COMPASS, WESTWARD, EXCURSION. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate POINT first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm POINT first; removing that short route makes EXCURSION easier to place.",
+  "commonMistake": "Do not force EXCURSION through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 5 to 9 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      null,
+      null,
+      null,
+      "N",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "O",
+      "P",
+      "O",
+      "R",
+      "U",
+      null
+    ],
+    [
+      null,
+      "I",
+      "N",
+      "I",
+      "S",
+      "C",
+      null
+    ],
+    [
+      "W",
+      "E",
+      "T",
+      "D",
+      "C",
+      "X",
+      "E"
+    ],
+    [
+      null,
+      "S",
+      "A",
+      "R",
+      "O",
+      "M",
+      null
+    ],
+    [
+      null,
+      "T",
+      "W",
+      "S",
+      "A",
+      "P",
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      "S",
+      null,
+      null,
+      null
+    ]
+  ],
+  "answers": [
+    {
+      "word": "POINT",
+      "path": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "COMPASS",
+      "path": [
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "WESTWARD",
+      "path": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "EXCURSION",
+      "path": [
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    }
+  ],
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "fbb86c09030bb4cc8a1b95bdebd3d6777c7a9fef526a6387ec9dfe87dc1936b0",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}

@@ -3,55 +3,195 @@
   "puzzleNumber": 16,
   "date": "2026-06-24",
   "dateLabel": "June 24, 2026",
-  "updatedAt": "2026-06-24T07:20:00Z",
+  "updatedAt": "2026-07-28T08:23:06.740Z",
   "difficulty": "Medium",
-  "grid": [
-    ["H", "I", "N", "T", "S"],
-    ["P", "A", "T", "H", "E"],
-    ["W", "O", "R", "D", "L"],
-    ["C", "L", "U", "E", "R"],
-    ["A", "B", "C", "D", "E"]
-  ],
   "hints": [
     {
       "level": 1,
       "title": "Gentle nudge",
-      "text": "Start with the clearest edge paths before testing the center letters."
+      "text": "Start with HALF; it is one of the shortest paths on this board."
     },
     {
       "level": 2,
       "title": "Direction clue",
-      "text": "Several short paths read cleanly from left to right."
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
     },
     {
       "level": 3,
       "title": "Almost there",
-      "text": "Use the upper rows to confirm the first two words, then solve downward."
+      "text": "HEXAGON is the longest path; place the shorter answers before committing to it."
     }
+  ],
+  "explanation": "The June 24, 2026 Wend solution uses every open cell exactly once across HALF, UNION, MEDIUM, HEXAGON. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate HALF first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm HALF first; removing that short route makes HEXAGON easier to place.",
+  "commonMistake": "Do not force HEXAGON through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 4 to 7 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      "F",
+      null,
+      "U",
+      null,
+      "N"
+    ],
+    [
+      "L",
+      "A",
+      "N",
+      "I",
+      "O"
+    ],
+    [
+      "N",
+      "H",
+      "M",
+      "U",
+      "I"
+    ],
+    [
+      "O",
+      "X",
+      "E",
+      "H",
+      "D"
+    ],
+    [
+      "G",
+      "A",
+      null,
+      "M",
+      "E"
+    ]
   ],
   "answers": [
     {
-      "word": "HINT",
-      "path": [[0, 0], [0, 1], [0, 2], [0, 3]]
+      "word": "HALF",
+      "path": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
     },
     {
-      "word": "PATH",
-      "path": [[1, 0], [1, 1], [1, 2], [1, 3]]
+      "word": "UNION",
+      "path": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ]
     },
     {
-      "word": "WORD",
-      "path": [[2, 0], [2, 1], [2, 2], [2, 3]]
+      "word": "MEDIUM",
+      "path": [
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ]
     },
     {
-      "word": "CLUE",
-      "path": [[3, 0], [3, 1], [3, 2], [3, 3]]
+      "word": "HEXAGON",
+      "path": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
     }
   ],
-  "explanation": "This June 24 Wend entry is structured for the MVP update flow: reveal the obvious edge paths first, then use the remaining rows to confirm the answer set.",
-  "quickHint": "Look for clean left-to-right paths.",
-  "fastTip": "Check the short horizontal paths first before testing the lower rows.",
-  "commonMistake": "Do not reveal the full board too early if one short word is enough to keep your streak moving.",
-  "difficultyNote": "Medium because the MVP placeholder grid is straightforward but still path-based.",
-  "relatedGames": ["patches", "zip", "tango", "queens"],
-  "isVerified": false
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "66c12ed542806d9c7a5095adcaec31c2ad261fb4e986257410eba7bf7580ad45",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
 }

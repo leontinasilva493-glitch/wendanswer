@@ -11,12 +11,22 @@ npm run dev
 
 Open `http://127.0.0.1:3000`.
 
+## Deployment
+
+- Production: `https://wendanswertoday.org`
+- Source repository: `https://github.com/leontinasilva493-glitch/wendanswer`
+- Release branch: `main`
+- Hosting: Vercel Git deployments. The custom domain is fronted by Cloudflare, while the Next.js application is served by Vercel.
+- A push or local build is not deployment proof. Confirm the Vercel commit status and then test the production domain, sitemap, and status endpoint.
+
 ## Useful Commands
 
 ```bash
 npm run generate:wend
 npm run latest:wend
 npm run publish:wend
+npm run backfill:wend-history -- --numbers=1,2,3 --dry-run
+npm run test:wend-dataset
 npm run test:latest-date
 npm run test:wend-archive-url
 npm run test:wend-mvp
@@ -53,17 +63,34 @@ The MVP homepage is intentionally Wend-first and answer-first:
 
 ## Daily Publishing
 
-Wend's target release time is treated as 8:00 UTC. The production goal is to publish verified daily data inside five minutes:
+Wend resets at midnight in `America/Los_Angeles`; the UTC hour changes with daylight saving time. The production goal is to publish verified daily data inside five minutes:
 
 - `npm run publish:wend` reads `WEND_DAILY_INPUT_FILE`, `WEND_DAILY_SOURCE_URL`, or the public `WEND_DAILY_FALLBACK_SOURCE_URL`, validates the normalized Wend JSON or HTML cell-coordinate extraction, writes `data/puzzles/wend/YYYY-MM-DD.json`, regenerates the puzzle index, and optionally runs `WEND_DEPLOY_COMMAND`.
-- `.github/workflows/publish-wend-daily.yml` retries during the launch window at `0,1,3,5 8 * * *` UTC and also supports manual `workflow_dispatch`.
+- `.github/workflows/publish-wend-daily.yml` runs four off-peak retries in both the 07:00 and 08:00 UTC windows (`7,22,37,52`) to cover PDT and PST, and also supports manual `workflow_dispatch`.
 - The script refuses to publish `isVerified: false` data unless `ALLOW_UNVERIFIED_WEND_PUBLISH=true` is explicitly set for private dry runs.
 - The script validates Wend geometry before publishing: coordinates must be in-grid, adjacent, and spell each answer word.
 - In CI, `WEND_PERSIST_TO_GIT=true` commits generated daily JSON and the generated puzzle index back to the repository before deployment.
-- `WEND_ALERT_WEBHOOK_URL` can point at one Discord-compatible webhook for publish failure alerts.
-- `/linkedin-wend-answer-today` remains the permanent daily entry. Archive pages use `/wend-answer-puzzle-{number}-{month-day-year}`, for example `/wend-answer-puzzle-17-june-25-2026`.
+- `OPS_ALERT_WEBHOOK_URL` is the preferred Discord-compatible alert channel; `WEND_ALERT_WEBHOOK_URL` remains a legacy fallback.
+- `/` is the only indexable daily entry. `/linkedin-wend-answer-today` is a permanent `301` compatibility redirect to `/`.
+- Archive pages use `/wend-answer-puzzle-{number}-{month-day-year}`, for example `/wend-answer-puzzle-17-june-25-2026`.
 
 The source URL can be a normalized, verified Wend JSON source, a page with a `wend-puzzle-data` JSON script tag, or an HTML page whose puzzle cells expose `data-row`, `data-col`, `data-word-index`, and `data-letter-index` attributes. Do not assume LinkedIn's official game page is crawlable without a logged-in session; test that separately before treating official scraping as the primary path.
+
+## Historical Archive Backfill
+
+The verified archive currently covers Wend #1 through #49 without missing puzzle numbers. Historical records are reproducible rather than manually transcribed:
+
+- `scripts/backfill-wend-history.mjs` extracts complete grids and ordered paths from the archived primary source.
+- A secondary source must match the date, puzzle number, and normalized answer words before `preparePublicPuzzle()` marks the record verified.
+- `validateWendPuzzle()` then proves that paths are orthogonal, spell the answers, never reuse cells, and cover every open cell exactly once.
+- `npm run test:wend-dataset` validates every stored record, checks unique dates/numbers and filename/date agreement, and verifies provenance hashes.
+- The command requires an explicit `--numbers=` allowlist. Always run `--dry-run` before writing files, then regenerate the puzzle index.
+
+## Recent Changes
+
+- 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
+- 2026-07-28: deployed the canonical daily-page consolidation; `/linkedin-wend-answer-today` now redirects permanently to `/` and is absent from the sitemap.
+- Detailed operational history remains in `docs/CHANGELOG.md`.
 
 ## Wend Board Model
 

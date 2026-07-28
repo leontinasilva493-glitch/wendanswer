@@ -1,0 +1,295 @@
+{
+  "game": "wend",
+  "puzzleNumber": 46,
+  "date": "2026-07-24",
+  "dateLabel": "July 24, 2026",
+  "updatedAt": "2026-07-28T08:23:06.740Z",
+  "difficulty": "Medium",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with BOX; it is one of the shortest paths on this board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CARTRIDGE is the longest path; place the shorter answers before committing to it."
+    }
+  ],
+  "explanation": "The July 24, 2026 Wend solution uses every open cell exactly once across BOX, EXAM, JUGGLE, LOGICAL, INTERIOR, CARTRIDGE. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate BOX first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm BOX first; removing that short route makes CARTRIDGE easier to place.",
+  "commonMistake": "Do not force CARTRIDGE through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 3 to 9 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      "I",
+      "C",
+      "M",
+      "A",
+      "X",
+      "E",
+      "C"
+    ],
+    [
+      "G",
+      "A",
+      "L",
+      null,
+      null,
+      null,
+      "A"
+    ],
+    [
+      "O",
+      null,
+      "O",
+      "R",
+      "I",
+      null,
+      "R"
+    ],
+    [
+      "L",
+      null,
+      "I",
+      "T",
+      "N",
+      null,
+      "T"
+    ],
+    [
+      "B",
+      null,
+      "R",
+      "E",
+      "J",
+      null,
+      "R"
+    ],
+    [
+      "O",
+      null,
+      null,
+      null,
+      "U",
+      "D",
+      "I"
+    ],
+    [
+      "X",
+      "E",
+      "L",
+      "G",
+      "G",
+      "G",
+      "E"
+    ]
+  ],
+  "answers": [
+    {
+      "word": "BOX",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "EXAM",
+      "path": [
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "JUGGLE",
+      "path": [
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "LOGICAL",
+      "path": [
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "INTERIOR",
+      "path": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "CARTRIDGE",
+      "path": [
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    }
+  ],
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "6996373c97232e7528d805e854042fc48a0d87be6ef957d27cf9204604204fab",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}

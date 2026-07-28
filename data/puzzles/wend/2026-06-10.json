@@ -1,15 +1,15 @@
 {
   "game": "wend",
-  "puzzleNumber": 15,
-  "date": "2026-06-23",
-  "dateLabel": "June 23, 2026",
+  "puzzleNumber": 2,
+  "date": "2026-06-10",
+  "dateLabel": "June 10, 2026",
   "updatedAt": "2026-07-28T08:23:06.740Z",
   "difficulty": "Medium",
   "hints": [
     {
       "level": 1,
       "title": "Gentle nudge",
-      "text": "Start with NOUN; it is one of the shortest paths on this board."
+      "text": "Start with IVY; it is one of the shortest paths on this board."
     },
     {
       "level": 2,
@@ -19,84 +19,55 @@
     {
       "level": 3,
       "title": "Almost there",
-      "text": "NETWORK is the longest path; place the shorter answers before committing to it."
+      "text": "BARCODE is the longest path; place the shorter answers before committing to it."
     }
   ],
-  "explanation": "The June 23, 2026 Wend solution uses every open cell exactly once across NOUN, FUNNY, EXPORT, NETWORK. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
-  "quickHint": "Locate NOUN first, then use the remaining open lanes to constrain the other paths.",
-  "fastTip": "Confirm NOUN first; removing that short route makes NETWORK easier to place.",
-  "commonMistake": "Do not force NETWORK through a diagonal move; every Wend step must be horizontal or vertical.",
-  "difficultyNote": "Medium because the answer lengths range from 4 to 7 letters and every open cell must be assigned once.",
+  "explanation": "The June 10, 2026 Wend solution uses every open cell exactly once across IVY, HIGH, CHIEF, BARCODE. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate IVY first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm IVY first; removing that short route makes BARCODE easier to place.",
+  "commonMistake": "Do not force BARCODE through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 3 to 7 letters and every open cell must be assigned once.",
   "grid": [
     [
-      "E",
-      "N",
       "R",
+      "C",
       "O",
-      "E"
+      "H",
+      "I"
     ],
     [
-      "T",
+      "A",
       null,
-      "T",
-      "P",
-      "X"
+      "D",
+      null,
+      "G"
     ],
     [
-      "W",
-      "O",
+      "B",
+      null,
+      "E",
+      null,
+      "H"
+    ],
+    [
+      "C",
       null,
       "F",
-      "U"
-    ],
-    [
-      "K",
-      "R",
-      "N",
       null,
-      "N"
+      "I"
     ],
     [
-      "N",
-      "U",
-      "O",
+      "H",
+      "I",
+      "E",
       "Y",
-      "N"
+      "V"
     ]
   ],
   "answers": [
     {
-      "word": "NOUN",
+      "word": "IVY",
       "path": [
-        [
-          3,
-          2
-        ],
-        [
-          4,
-          2
-        ],
-        [
-          4,
-          1
-        ],
-        [
-          4,
-          0
-        ]
-      ]
-    },
-    {
-      "word": "FUNNY",
-      "path": [
-        [
-          2,
-          3
-        ],
-        [
-          2,
-          4
-        ],
         [
           3,
           4
@@ -112,10 +83,14 @@
       ]
     },
     {
-      "word": "EXPORT",
+      "word": "HIGH",
       "path": [
         [
           0,
+          3
+        ],
+        [
+          0,
           4
         ],
         [
@@ -123,32 +98,41 @@
           4
         ],
         [
-          1,
-          3
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "CHIEF",
+      "path": [
+        [
+          3,
+          0
         ],
         [
-          0,
-          3
+          4,
+          0
         ],
         [
-          0,
+          4,
+          1
+        ],
+        [
+          4,
           2
         ],
         [
-          1,
+          3,
           2
         ]
       ]
     },
     {
-      "word": "NETWORK",
+      "word": "BARCODE",
       "path": [
         [
-          0,
-          1
-        ],
-        [
-          0,
+          2,
           0
         ],
         [
@@ -156,20 +140,24 @@
           0
         ],
         [
-          2,
+          0,
           0
         ],
         [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
           2,
-          1
-        ],
-        [
-          3,
-          1
-        ],
-        [
-          3,
-          0
+          2
         ]
       ]
     }
@@ -183,7 +171,7 @@
   "isVerified": true,
   "publication": {
     "capturedAt": "2026-07-28T08:23:06.740Z",
-    "sourceHash": "3adb336c25b54a76c89afaa6183635e96779e1ec92c2ad260335107ba0d9ecdb",
+    "sourceHash": "6cb23483fa7c77b553a46365b6d9733fb05d3980bc4c1fcdd37fbc1479fcdc4f",
     "sourceType": "public-html-quorum",
     "sourceUrls": [
       "https://wendanswertoday.me/archive",

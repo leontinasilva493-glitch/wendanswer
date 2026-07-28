@@ -3,55 +3,195 @@
   "puzzleNumber": 14,
   "date": "2026-06-22",
   "dateLabel": "June 22, 2026",
-  "updatedAt": "2026-06-22T07:18:00Z",
-  "difficulty": "Easy",
-  "grid": [
-    ["S", "A", "F", "E", "R"],
-    ["T", "R", "A", "I", "L"],
-    ["O", "N", "E", "P", "A"],
-    ["C", "L", "U", "E", "S"],
-    ["H", "I", "N", "T", "S"]
-  ],
+  "updatedAt": "2026-07-28T08:23:06.740Z",
+  "difficulty": "Medium",
   "hints": [
     {
       "level": 1,
       "title": "Gentle nudge",
-      "text": "Several words start on the left side of the board."
+      "text": "Start with FAIL; it is one of the shortest paths on this board."
     },
     {
       "level": 2,
       "title": "Direction clue",
-      "text": "Look for short words that travel horizontally before dropping down."
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
     },
     {
       "level": 3,
       "title": "Almost there",
-      "text": "The bottom row can finish more than one answer path."
+      "text": "SUCCEED is the longest path; place the shorter answers before committing to it."
     }
+  ],
+  "explanation": "The June 22, 2026 Wend solution uses every open cell exactly once across FAIL, START, FINISH, SUCCEED. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate FAIL first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm FAIL first; removing that short route makes SUCCEED easier to place.",
+  "commonMistake": "Do not force SUCCEED through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 4 to 7 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      "S",
+      null,
+      null,
+      null,
+      "F"
+    ],
+    [
+      "T",
+      "A",
+      "R",
+      "N",
+      "I"
+    ],
+    [
+      "C",
+      "U",
+      "T",
+      "I",
+      "F"
+    ],
+    [
+      "C",
+      "S",
+      "H",
+      "S",
+      "A"
+    ],
+    [
+      "E",
+      "E",
+      "D",
+      "L",
+      "I"
+    ]
   ],
   "answers": [
     {
-      "word": "SAFE",
-      "path": [[0, 0], [0, 1], [0, 2], [0, 3]]
+      "word": "FAIL",
+      "path": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ]
+      ]
     },
     {
-      "word": "TRAIL",
-      "path": [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4]]
+      "word": "START",
+      "path": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ]
     },
     {
-      "word": "CLUE",
-      "path": [[3, 0], [3, 1], [3, 2], [3, 3]]
+      "word": "FINISH",
+      "path": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ]
     },
     {
-      "word": "HINTS",
-      "path": [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4]]
+      "word": "SUCCEED",
+      "path": [
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ]
     }
   ],
-  "explanation": "The clean rows are the quickest way into this archived Wend puzzle. Solve the obvious rows first, then use the remaining letters to confirm the answer set.",
-  "quickHint": "Try the left-edge starts first.",
-  "fastTip": "Start with the straight rows and use them as anchors before checking any bends.",
-  "commonMistake": "Do not overthink the row-based paths; the obvious left-edge starts are useful here.",
-  "difficultyNote": "Easy because the strongest answer paths are mostly clean rows.",
-  "relatedGames": ["patches", "zip", "tango", "queens"],
-  "isVerified": true
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "cb784f047d01dab1463acc869b22a531da55d8fea23c5d6ed6fdef1cee9ee638",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
 }
