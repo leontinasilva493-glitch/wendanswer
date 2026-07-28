@@ -17,7 +17,7 @@ The smallest acceptable outcome is:
 Historical pages are public only when all of these checks pass:
 
 - Primary source: `https://wendanswertoday.me/archive` supplies the complete grid, answer words, and ordered cell paths.
-- Secondary source: `https://wendgames.org/src/answers-data.js` supplies the same date, puzzle number, and answer words. Wend #9 is the documented exception because that dataset omits June 17; it is corroborated by `https://wendanswer.com/archive/9`.
+- Secondary source: `https://wendgames.org/src/answers-data.js` supplies the same date, puzzle number, and answer words. Wend #7 uses an audited snapshot from `https://www.followchain.org/linkedin-wend-answer-today-june-15-2026/` because the WendGames dataset incorrectly says `CONSISTS` instead of the path-validated `CONSIST`; Wend #9 uses an audited snapshot from `https://wendanswer.com/archive/9` because the WendGames dataset omits June 17. These two explicit overrides contain only date, number, words, and source URL; all geometry still comes from the primary archive and must pass validation.
 - `preparePublicPuzzle()` confirms date, number, and normalized word-list agreement.
 - `validateWendPuzzle()` confirms a rectangular grid, valid coordinates, orthogonal movement, correct spelling, no cell reuse, and exact coverage of all open cells.
 - The stored `publication.sourceHash` must equal the normalized puzzle source hash.
@@ -70,4 +70,3 @@ The page gets self-canonical metadata, breadcrumb structured data, sitemap inclu
 - SEO tests cover statistics metadata, sitemap inclusion, and internal links.
 - Full repository tests, typecheck, production build, local smoke, and responsive browser checks pass.
 - After deployment: every newly added detail URL returns 200 with one H1 and self-canonical metadata; the sitemap contains all verified daily URLs and no deprecated Today URL.
-

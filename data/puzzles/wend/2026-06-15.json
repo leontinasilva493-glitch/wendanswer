@@ -1,0 +1,193 @@
+{
+  "game": "wend",
+  "puzzleNumber": 7,
+  "date": "2026-06-15",
+  "dateLabel": "June 15, 2026",
+  "updatedAt": "2026-07-28T08:23:06.740Z",
+  "difficulty": "Medium",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with SIX; it is one of the shortest paths on this board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CONSIST is the longest path; place the shorter answers before committing to it."
+    }
+  ],
+  "explanation": "The June 15, 2026 Wend solution uses every open cell exactly once across SIX, SCALE, SPLASH, CONSIST. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate SIX first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm SIX first; removing that short route makes CONSIST easier to place.",
+  "commonMistake": "Do not force CONSIST through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 3 to 7 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      "S",
+      "A",
+      "L",
+      "P",
+      "S"
+    ],
+    [
+      "H",
+      "X",
+      "C",
+      null,
+      null
+    ],
+    [
+      "S",
+      "I",
+      "O",
+      "N",
+      "S"
+    ],
+    [
+      null,
+      null,
+      "L",
+      "E",
+      "I"
+    ],
+    [
+      "S",
+      "C",
+      "A",
+      "T",
+      "S"
+    ]
+  ],
+  "answers": [
+    {
+      "word": "SIX",
+      "path": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "SCALE",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "SPLASH",
+      "path": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "CONSIST",
+      "path": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    }
+  ],
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "c06b744b5081deb9f0497cd8ca7425534ed2d27c3494bcaf0d9bcf404eb4bdf4",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://www.followchain.org/linkedin-wend-answer-today-june-15-2026/"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}

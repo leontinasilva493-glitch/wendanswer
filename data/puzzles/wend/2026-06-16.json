@@ -1,15 +1,15 @@
 {
   "game": "wend",
-  "puzzleNumber": 15,
-  "date": "2026-06-23",
-  "dateLabel": "June 23, 2026",
+  "puzzleNumber": 8,
+  "date": "2026-06-16",
+  "dateLabel": "June 16, 2026",
   "updatedAt": "2026-07-28T08:23:06.740Z",
   "difficulty": "Medium",
   "hints": [
     {
       "level": 1,
       "title": "Gentle nudge",
-      "text": "Start with NOUN; it is one of the shortest paths on this board."
+      "text": "Start with ARCH; it is one of the shortest paths on this board."
     },
     {
       "level": 2,
@@ -19,136 +19,140 @@
     {
       "level": 3,
       "title": "Almost there",
-      "text": "NETWORK is the longest path; place the shorter answers before committing to it."
+      "text": "AWKWARD is the longest path; place the shorter answers before committing to it."
     }
   ],
-  "explanation": "The June 23, 2026 Wend solution uses every open cell exactly once across NOUN, FUNNY, EXPORT, NETWORK. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
-  "quickHint": "Locate NOUN first, then use the remaining open lanes to constrain the other paths.",
-  "fastTip": "Confirm NOUN first; removing that short route makes NETWORK easier to place.",
-  "commonMistake": "Do not force NETWORK through a diagonal move; every Wend step must be horizontal or vertical.",
+  "explanation": "The June 16, 2026 Wend solution uses every open cell exactly once across ARCH, CANAL, BANANA, AWKWARD. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate ARCH first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm ARCH first; removing that short route makes AWKWARD easier to place.",
+  "commonMistake": "Do not force AWKWARD through a diagonal move; every Wend step must be horizontal or vertical.",
   "difficultyNote": "Medium because the answer lengths range from 4 to 7 letters and every open cell must be assigned once.",
   "grid": [
     [
-      "E",
-      "N",
+      "A",
       "R",
-      "O",
-      "E"
-    ],
-    [
-      "T",
+      "D",
       null,
-      "T",
-      "P",
-      "X"
+      "A"
     ],
     [
       "W",
-      "O",
-      null,
-      "F",
-      "U"
+      "A",
+      "N",
+      "A",
+      "R"
     ],
     [
       "K",
-      "R",
       "N",
       null,
-      "N"
+      "H",
+      "C"
     ],
     [
+      "W",
+      "A",
+      "B",
       "N",
-      "U",
-      "O",
-      "Y",
-      "N"
+      "A"
+    ],
+    [
+      "A",
+      null,
+      "L",
+      "A",
+      "C"
     ]
   ],
   "answers": [
     {
-      "word": "NOUN",
+      "word": "ARCH",
       "path": [
         [
-          3,
-          2
+          0,
+          4
         ],
         [
-          4,
-          2
-        ],
-        [
-          4,
-          1
-        ],
-        [
-          4,
-          0
-        ]
-      ]
-    },
-    {
-      "word": "FUNNY",
-      "path": [
-        [
-          2,
-          3
+          1,
+          4
         ],
         [
           2,
           4
         ],
         [
-          3,
-          4
-        ],
-        [
-          4,
-          4
-        ],
-        [
-          4,
+          2,
           3
         ]
       ]
     },
     {
-      "word": "EXPORT",
+      "word": "CANAL",
       "path": [
         [
-          0,
+          4,
           4
         ],
         [
-          1,
+          3,
           4
         ],
         [
-          1,
+          3,
           3
         ],
         [
-          0,
+          4,
           3
         ],
         [
-          0,
-          2
-        ],
-        [
-          1,
+          4,
           2
         ]
       ]
     },
     {
-      "word": "NETWORK",
+      "word": "BANANA",
       "path": [
         [
-          0,
+          3,
+          2
+        ],
+        [
+          3,
           1
         ],
         [
-          0,
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "AWKWARD",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
           0
         ],
         [
@@ -156,20 +160,16 @@
           0
         ],
         [
-          2,
+          0,
           0
         ],
         [
-          2,
+          0,
           1
         ],
         [
-          3,
-          1
-        ],
-        [
-          3,
-          0
+          0,
+          2
         ]
       ]
     }
@@ -183,7 +183,7 @@
   "isVerified": true,
   "publication": {
     "capturedAt": "2026-07-28T08:23:06.740Z",
-    "sourceHash": "3adb336c25b54a76c89afaa6183635e96779e1ec92c2ad260335107ba0d9ecdb",
+    "sourceHash": "7e459b78660ffd635e173d1f7427939c23a2da5dc51789536c697ddc791cc91f",
     "sourceType": "public-html-quorum",
     "sourceUrls": [
       "https://wendanswertoday.me/archive",

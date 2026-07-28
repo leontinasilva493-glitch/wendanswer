@@ -1,0 +1,226 @@
+{
+  "game": "wend",
+  "puzzleNumber": 3,
+  "date": "2026-06-11",
+  "dateLabel": "June 11, 2026",
+  "updatedAt": "2026-07-28T08:23:06.740Z",
+  "difficulty": "Medium",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with TRUTH; it is one of the shortest paths on this board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into lanes, then trace only orthogonally adjacent letters."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "COMPUTER is the longest path; place the shorter answers before committing to it."
+    }
+  ],
+  "explanation": "The June 11, 2026 Wend solution uses every open cell exactly once across TRUTH, OUTLET, PLASTIC, COMPUTER. The stored paths follow only horizontal or vertical neighbors and never enter a blocked cell.",
+  "quickHint": "Locate TRUTH first, then use the remaining open lanes to constrain the other paths.",
+  "fastTip": "Confirm TRUTH first; removing that short route makes COMPUTER easier to place.",
+  "commonMistake": "Do not force COMPUTER through a diagonal move; every Wend step must be horizontal or vertical.",
+  "difficultyNote": "Medium because the answer lengths range from 5 to 8 letters and every open cell must be assigned once.",
+  "grid": [
+    [
+      null,
+      null,
+      null,
+      "A",
+      "L",
+      "P"
+    ],
+    [
+      "T",
+      null,
+      "T",
+      "S",
+      "U",
+      "O"
+    ],
+    [
+      "R",
+      null,
+      "I",
+      "R",
+      "T",
+      "L"
+    ],
+    [
+      "U",
+      "T",
+      "C",
+      "E",
+      null,
+      "E"
+    ],
+    [
+      "C",
+      "H",
+      "U",
+      "T",
+      null,
+      "T"
+    ],
+    [
+      "O",
+      "M",
+      "P",
+      null,
+      null,
+      null
+    ]
+  ],
+  "answers": [
+    {
+      "word": "TRUTH",
+      "path": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "OUTLET",
+      "path": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "PLASTIC",
+      "path": [
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "word": "COMPUTER",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    }
+  ],
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-28T08:23:06.740Z",
+    "sourceHash": "7c1bfc163845118446756a32c522f68127032cac1901185391b0ba6d955a1bfa",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/archive",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-28T08:23:06.740Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}

@@ -2,6 +2,21 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-07-28
+
+### Verified historical archive completion
+
+- Added source-quorum and geometry-validated records for Wend #1-#13, #37, #39-#41, #43, and #46, completing continuous verified coverage from #1 through #49.
+- Rebuilt #14 and #15 after the new dataset gate found invalid stored paths, and replaced the unverified placeholder #16 with the real grid, words, and paths.
+- Added `scripts/backfill-wend-history.mjs` with an explicit puzzle allowlist, dry-run mode, audited secondary-source exceptions, provenance hashes, and fail-closed geometry validation.
+- Added full-dataset and history-parser tests covering unique identities, date/filename agreement, continuous verified coverage, source hashes, blocked cells, ordered paths, and source disagreement.
+- Regenerated the Wend puzzle index from 49 verified JSON records.
+
+### Canonical Today URL deployment
+
+- Merged and deployed the homepage-canonical change through PR #43.
+- Verified `https://wendanswertoday.org/linkedin-wend-answer-today` returns `301` to `/`, the homepage returns `200`, and the deprecated URL is absent from the production sitemap.
+
 ## 2026-07-22
 
 ### LinkedIn Wend on-page SEO consolidation

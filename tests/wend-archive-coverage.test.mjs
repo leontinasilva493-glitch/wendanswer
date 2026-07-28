@@ -17,9 +17,13 @@ const files = fs
 const puzzles = files.map((file) => JSON.parse(read(path.join("data", "puzzles", "wend", file))));
 const verifiedPuzzles = puzzles.filter((puzzle) => puzzle.isVerified);
 
-assert.ok(puzzles.length >= 6, "Wend data should include the first launch week");
-assert.ok(verifiedPuzzles.length >= 6, "Public Wend archive should include the first verified launch week");
-assert.ok(puzzles.length > verifiedPuzzles.length, "Test fixture should include at least one unverified puzzle so public filters are guarded");
+assert.ok(puzzles.length >= verifiedPuzzles.length, "Raw Wend data may include a pending unverified puzzle outside the public archive");
+const latestPuzzleNumber = Math.max(...verifiedPuzzles.map((puzzle) => puzzle.puzzleNumber));
+assert.deepEqual(
+  verifiedPuzzles.map((puzzle) => puzzle.puzzleNumber).sort((left, right) => left - right),
+  Array.from({ length: latestPuzzleNumber }, (_, index) => index + 1),
+  "Public Wend archive should have no missing puzzle numbers from launch through the latest verified puzzle",
+);
 
 const generatedSource = read("src/lib/generated/wend-puzzles.ts");
 const sitemapSource = read("src/app/sitemap.ts");
@@ -37,12 +41,6 @@ for (const puzzle of verifiedPuzzles) {
   assert.match(sitemapSource, /wendPuzzles\.map/, "sitemap should derive archive URLs from all Wend puzzles");
   assert.match(detailSource, /generateStaticParams[\s\S]*wendPuzzles\.map/, "archive detail static params should derive from all Wend puzzles");
   assert.ok(slug.startsWith("wend-answer-puzzle-"), `canonical slug should be generated for ${puzzle.date}`);
-}
-
-for (const puzzle of puzzles.filter((item) => !item.isVerified)) {
-  const slug = `wend-answer-puzzle-${puzzle.puzzleNumber}-${monthSlug(puzzle.dateLabel)}`;
-  assert.doesNotMatch(sitemapSource, new RegExp(`${puzzle.date}\\.json`), `sitemap source should not hard-code unverified ${puzzle.date}`);
-  assert.ok(slug.startsWith("wend-answer-puzzle-"), `unverified fixture slug should remain derivable for internal checks ${puzzle.date}`);
 }
 
 const puzzleSource = read("src/lib/puzzles.ts");

@@ -194,6 +194,24 @@ The older `/linkedin-wend-answer-{number}-{date}` URLs are legacy and should red
 - Verification commands that passed.
 - Any known risk, especially if `isVerified` is `false`.
 
+## Historical Archive Repair
+
+Historical backfills use a separate explicit command so an old date cannot enter the daily latest-date workflow by accident:
+
+```bash
+npm run backfill:wend-history -- --numbers=1,2,3 --dry-run
+npm run backfill:wend-history -- --numbers=1,2,3
+npm run generate:wend
+npm run test:wend-dataset
+```
+
+Rules:
+
+- The script accepts only its reviewed historical puzzle-number allowlist.
+- Always run dry-run first and retain the primary and corroborating URLs in `publication.sourceUrls`.
+- A historical record must pass date/number/word source agreement and full geometry validation before it is written.
+- Do not use `publish:wend` for historical dates; its latest-date guard is intentionally designed for daily publishing.
+
 ## Latest-Date Check
 
 Run:

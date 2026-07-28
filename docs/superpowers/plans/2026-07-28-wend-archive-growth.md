@@ -10,22 +10,22 @@
 
 ## Task 1: Lock dataset invariants
 
-- [ ] Add a failing dataset validation test.
-- [ ] Require unique puzzle numbers/dates, filename/date agreement, a valid date label, full geometry validation, and a matching provenance hash.
-- [ ] Verify the current fixture failure is the known unverified Wend #16 record.
+- [x] Add a failing dataset validation test.
+- [x] Require unique puzzle numbers/dates, filename/date agreement, a valid date label, full geometry validation, and a matching provenance hash.
+- [x] Verify and repair invalid #14/#15 records plus the unverified #16 placeholder.
 
 ## Task 2: Add a reproducible history parser
 
-- [ ] Add failing parser/source-quorum tests with minimal HTML and secondary-source fixtures.
-- [ ] Extract reusable archive-item parsing and source selection helpers.
-- [ ] Add a backfill command restricted to an explicit puzzle-number allowlist.
-- [ ] Dry-run all missing puzzle numbers and review source agreement before writing.
+- [x] Add failing parser/source-quorum tests with minimal HTML and secondary-source fixtures.
+- [x] Extract reusable archive-item parsing and source selection helpers.
+- [x] Add a backfill command restricted to an explicit puzzle-number allowlist.
+- [x] Dry-run all target puzzle numbers and review source agreement before writing.
 
 ## Task 3: Backfill verified permanent pages
 
-- [ ] Generate #1-#13, #16, #37, #39-#41, #43, and #46.
-- [ ] Regenerate `src/lib/generated/wend-puzzles.ts`.
-- [ ] Run parser, source-verification, geometry, dataset, archive-coverage, route, and sitemap tests.
+- [x] Generate #1-#16 (replacing invalid #14-#16 records), #37, #39-#41, #43, and #46.
+- [x] Regenerate `src/lib/generated/wend-puzzles.ts`.
+- [x] Run parser, source-verification, geometry, dataset, archive-coverage, route, and sitemap tests.
 - [ ] Commit, push, merge, deploy, and verify the new production URLs before continuing.
 
 ## Task 4: Add puzzle-derived metrics
@@ -55,4 +55,3 @@
 - [ ] Run all repository tests, `npm run typecheck`, `npm run build`, and local smoke.
 - [ ] Visually check homepage, detail, Archive, and Statistics at desktop and 390px.
 - [ ] Push, create PR, wait for the Vercel check, merge, and verify production routes and sitemap.
-
