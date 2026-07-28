@@ -22,7 +22,15 @@ function classNames(...items: Array<string | false | null | undefined>) {
   return items.filter(Boolean).join(" ");
 }
 
-export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuzzle; archived?: boolean }) {
+export function WendAnswerReveal({
+  puzzle,
+  archived = false,
+  latestVerified = false,
+}: {
+  puzzle: WendPuzzle;
+  archived?: boolean;
+  latestVerified?: boolean;
+}) {
   const [visibleWords, setVisibleWords] = useState<Set<string>>(new Set());
   const [visibleLetters, setVisibleLetters] = useState<Set<string>>(new Set());
 
@@ -94,7 +102,11 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
         </span>
         <div className="min-w-0">
           <h2 className="text-2xl font-black tracking-normal text-ink md:text-3xl">
-            {archived ? `Wend #${puzzle.puzzleNumber} Answer` : "Today's LinkedIn Wend Answer"}
+            {latestVerified
+              ? `Latest verified LinkedIn Wend answer — Wend #${puzzle.puzzleNumber}`
+              : archived
+                ? `Wend #${puzzle.puzzleNumber} Answer`
+                : "Today's LinkedIn Wend Answer"}
           </h2>
           <p className="mt-2 text-sm font-semibold text-slate-600">
             {puzzle.dateLabel} - Wend #{puzzle.puzzleNumber} - {puzzle.difficulty} - {puzzle.answers.length} words
@@ -174,15 +186,25 @@ export function WendAnswerReveal({ puzzle, archived = false }: { puzzle: WendPuz
                     })}
                   </div>
                   <p className="text-base font-black uppercase tracking-wide" style={{ color }}>
-                    {isComplete ? answer.word : "Hidden word"}
+                    {isComplete ? answer.word : "Not revealed"}
                   </p>
                   {!isComplete ? (
                     <div className="flex flex-wrap gap-1.5">
-                      <button className="wend-word-action wend-word-action-light" onClick={() => revealNextLetter(answer)} type="button">
-                        Reveal Letter
+                      <button
+                        aria-label={`Reveal next letter in answer ${wordIndex + 1}`}
+                        className="wend-word-action wend-word-action-light"
+                        onClick={() => revealNextLetter(answer)}
+                        type="button"
+                      >
+                        Next letter
                       </button>
-                      <button className="wend-word-action wend-word-action-solid" onClick={() => revealWord(answer)} type="button">
-                        Reveal Word
+                      <button
+                        aria-label={`Reveal answer word ${wordIndex + 1}`}
+                        className="wend-word-action wend-word-action-solid"
+                        onClick={() => revealWord(answer)}
+                        type="button"
+                      >
+                        Show word
                       </button>
                     </div>
                   ) : null}

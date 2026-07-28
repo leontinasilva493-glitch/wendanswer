@@ -24,7 +24,7 @@ assert.match(noticeSource, /Latest verified/i, "notice should label fallback dat
 assert.match(noticeSource, /expectedPuzzleNumber/, "notice should identify the expected puzzle number");
 assert.match(noticeSource, /fallbackPuzzleNumber/, "notice should identify the fallback puzzle number");
 
-for (const page of ["src/app/page.tsx", "src/app/linkedin-wend-answer-today/page.tsx"]) {
+for (const page of ["src/app/page.tsx"]) {
   const source = read(page);
   assert.match(source, /revalidate\s*=\s*60/, `${page} should use 60-second ISR so freshness checks update without forcing every request dynamic`);
   assert.match(source, /isWendReadyForToday/, `${page} should check whether today's Wend data is verified and current`);
@@ -32,17 +32,15 @@ for (const page of ["src/app/page.tsx", "src/app/linkedin-wend-answer-today/page
   assert.match(source, /displayWend/, `${page} should render a consistent game module from current or latest verified data`);
   assert.match(source, /expectedWendDisplay/, `${page} should expose the expected date and puzzle number while pending`);
   assert.match(source, /<WendFreshnessNotice/, `${page} should render an explicit pending notice`);
-  assert.match(source, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, `${page} should show the latest verified game module as archived fallback`);
+  assert.match(source, /<WendAnswerReveal archived=\{!wendReady\} latestVerified=\{!wendReady\} puzzle=\{displayWend\}/, `${page} should show the latest verified game module as archived fallback`);
 }
 
 const homeSource = read("src/app/page.tsx");
 assert.match(homeSource, /being verified/i, "homepage metadata and hero should use status wording while pending");
+assert.match(homeSource, /\(Verifying\)/, "homepage pending title should expose verification state in the title");
 assert.match(homeSource, /Latest Verified Answer/, "homepage pending CTA should not call the fallback today's answer");
-
-const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");
-assert.match(todaySource, /\{displayWend\.dateLabel\}/, "Today page badges should use the displayed verified puzzle");
-assert.match(todaySource, /Puzzle #\{displayWend\.puzzleNumber\}/, "Today page badges should use the displayed verified puzzle number");
-assert.doesNotMatch(todaySource, />\{todayWend\.dateLabel\}</, "Today page must not badge stale raw data as today's date");
+assert.match(homeSource, /Why does the page say verification pending\?/, "homepage pending FAQ should explain the state");
+assert.doesNotMatch(homeSource, /Why is today's solution valid\?/, "homepage FAQ should not mislabel fallback data as today's solution");
 
 const solverPage = read("src/app/linkedin-wend-solver/page.tsx");
 assert.match(solverPage, /isWendReadyForToday/, "Solver page should check whether the displayed Wend puzzle is current");

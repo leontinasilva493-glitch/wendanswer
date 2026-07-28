@@ -33,7 +33,6 @@ const archivePaths = recentWendPuzzles.map(wendArchivePath);
 
 const paths = [
   "/",
-  "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
   ...archivePaths,
@@ -59,6 +58,11 @@ const noindexPaths = [
 ];
 
 const redirectChecks = [
+  {
+    path: "/linkedin-wend-answer-today",
+    status: 301,
+    destinationPath: "/",
+  },
   {
     path: "/linkedin-games-answers-today",
     status: 301,

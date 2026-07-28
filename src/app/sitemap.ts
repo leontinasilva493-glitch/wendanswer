@@ -5,7 +5,6 @@ import { todayWend, wendPuzzles } from "@/lib/puzzles";
 
 const staticPaths = [
   "/",
-  "/linkedin-wend-answer-today",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
   "/where-is-linkedin-wend",
@@ -19,11 +18,10 @@ const staticPaths = [
   "/terms",
 ];
 
-const dailyContentPaths = new Set(["/", "/linkedin-wend-answer-today", "/linkedin-wend-solver", "/linkedin-wend-archive"]);
+const dailyContentPaths = new Set(["/", "/linkedin-wend-solver", "/linkedin-wend-archive"]);
 
 function priorityForPath(path: string) {
   if (path === "/") return 1;
-  if (path === "/linkedin-wend-answer-today") return 0.95;
   if (path === "/linkedin-wend-solver") return 0.85;
   if (path === "/linkedin-wend-archive") return 0.75;
   if (path === "/where-is-linkedin-wend") return 0.65;
@@ -33,7 +31,7 @@ function priorityForPath(path: string) {
 }
 
 function changeFrequencyForPath(path: string) {
-  if (path === "/" || path === "/linkedin-wend-answer-today") return "daily" as const;
+  if (path === "/") return "daily" as const;
   if (path === "/linkedin-wend-solver") return "daily" as const;
   if (path === "/linkedin-wend-archive") return "weekly" as const;
   return "monthly" as const;

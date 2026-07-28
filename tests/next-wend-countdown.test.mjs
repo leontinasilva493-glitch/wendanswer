@@ -42,7 +42,9 @@ assert.match(statusLib, /\.\/wend-schedule/, "next Wend display must use the Ame
 assert.match(homePage, /NextWendCountdown/, "homepage should render the next Wend countdown module");
 assert.match(homePage, /nextWendDisplay/, "homepage should compute next date and puzzle number from shared status logic");
 assert.match(homePage, /placeholder=\{!wendReady\}/, "homepage should keep the countdown visible and switch to placeholder mode when data is missing");
+const answerSectionIndex = homePage.indexOf('id="answer"');
+assert.ok(answerSectionIndex >= 0, "homepage should keep the answer anchor");
 assert.ok(
-  homePage.indexOf("<NextWendCountdown") < homePage.indexOf('<section className="section" id="answer">'),
+  homePage.indexOf("<NextWendCountdown") < answerSectionIndex,
   "countdown should sit inside the Hero before the answer module",
 );

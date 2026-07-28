@@ -40,7 +40,7 @@ The desktop header should keep the primary user path short:
 
 The `Play Game` dropdown should contain:
 
-- `Official Wend`: external link to `https://www.linkedin.com/games/wend`, labeled `Official`, opening in a new tab with `nofollow noopener`.
+- `Official Wend`: trusted external link to `https://www.linkedin.com/games/wend`, labeled `Official`, opening in a new tab with `noopener noreferrer`. Do not add `nofollow` to this authoritative game source.
 - `Wend Unlimited`: internal link to `/wend-unlimited`.
 
 Do not add `FAQ`, `Find Wend`, a mobile bottom-nav game item, or a `/wend-game` intermediary page during Phase 1. Keep the mobile bottom navigation focused on `Today`, `Solver`, and `Archive`. Keep `Find Wend` available from the FAQ page, and keep `How to Play` / `Solving Tips` in related-resource modules and contextual body links.
@@ -88,27 +88,33 @@ Exception: the homepage uses `absoluteTitle: true` because its launch title alre
 
 Recommended intent split:
 
-- `/`: `LinkedIn Wend Answer Today - {date} | Wend #{number} Answer`
-- `/linkedin-wend-answer-today`: `LinkedIn Wend Answer Today - {date} | Wend #{number}`
+- `/`: the only indexable daily answer URL, using `LinkedIn Wend Answer Today #{number} — {date}` when ready.
+- `/linkedin-wend-answer-today`: permanent `301` redirect to `/`; do not include it in internal links or the sitemap.
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
 - `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real generated unlimited mode exists.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
-The homepage and Today page both target `LinkedIn Wend Answer`, but split intent: homepage is the broad daily-answer hub, while `/linkedin-wend-answer-today` is the current daily walkthrough and reveal page. Avoid making supporting pages compete for the same generic keyword.
+The homepage owns both broad `LinkedIn Wend` discovery and daily-answer intent. Supporting pages target distinct solver, archive, access, and how-to queries instead of competing with the homepage for the same generic answer phrase.
 
 Use `LinkedIn Wend` and `Wend on LinkedIn` for natural copy. Keep awkward reverse-order variants such as `wend linkedin answer` to one FAQ-style placement instead of forcing them into the main title or H1.
 
 ## Homepage TDK
 
-Current homepage TDK:
+Current homepage TDK has separate Ready and Pending templates:
 
 ```text
-Title:
-LinkedIn Wend Answer Today - {date} | Wend #{number} Answer
+Ready title:
+LinkedIn Wend Answer Today #{number} — {date}
 
-Description:
-LinkedIn Wend answer today for {date} puzzle no {number}. Get spoiler-safe hints, word paths, solver help, and complete Wend archive pages.
+Pending title:
+LinkedIn Wend Answer Today #{number} — {month day} (Verifying)
+
+Ready description:
+Get the verified LinkedIn Wend answer today for {date} (Wend #{number}). Reveal a hint, one letter, one word, or the complete path without unwanted spoilers.
+
+Pending description:
+The LinkedIn Wend answer for {date} (Wend #{number}) is being verified. Use the latest verified hints and paths without mistaking them for today’s puzzle.
 
 Keywords:
 linkedin wend, linkedin wend answer, wend linkedin, wend linkedin answer, wend answer today, wend answer {date}, wend #{number} answer, wend answers, wend full answer, wend answer for date, wend answer for LinkedIn Games
@@ -117,7 +123,7 @@ linkedin wend, linkedin wend answer, wend linkedin, wend linkedin answer, wend a
 Homepage Hero copy should use the same source as metadata:
 
 ```text
-LinkedIn Wend answer today for {date} puzzle no {number}
+LinkedIn Wend Answer Today #{number} — {date}
 ```
 
 The status line above the Hero headline should include:
@@ -125,6 +131,18 @@ The status line above the Hero headline should include:
 ```text
 Wend #{number} answer | {date} | updated daily at midnight Pacific Time
 ```
+
+## Homepage Content Depth
+
+Keep the answer tool above long-form content so users can act immediately. The server-rendered page should also include useful explanations for these intents:
+
+- What the LinkedIn Wend game is and how paths and blocked cells work.
+- How to use hints, one-letter reveals, one-word reveals, and the full answer progressively.
+- How each LinkedIn Wend answer is verified and why pending content is labeled separately.
+- Where to play the official game, find availability help, read the rules, use the solver, and browse dated archives.
+- FAQ answers for release time, spoiler controls, verification pending, and older answers.
+
+The current editorial target is approximately 1,200-1,300 visible English words after dynamic puzzle text is rendered. Treat this as a completeness check for this page, not a universal ranking formula. Do not pad the page or force awkward keyword variants merely to hit a density score.
 
 ## Next Puzzle Countdown
 
@@ -143,7 +161,7 @@ Only the live hours/minutes/seconds values are client-side. The date, puzzle num
 
 Structured data is part of the launch SEO baseline:
 
-- Home and Today pages use FAQPage where visible FAQ content exists.
+- Home uses FAQPage where matching visible FAQ content exists.
 - Wend how-to pages use HowTo schema through `howToJson()`.
 - Wend archive detail pages use Article, BreadcrumbList, and FAQPage schema.
 - Solver uses BreadcrumbList and FAQPage schema.
@@ -211,7 +229,8 @@ To make Patches or Zip indexable later:
 
 Use one permanent high-authority daily URL plus canonical dated archives:
 
-- Daily evergreen URL: `/linkedin-wend-answer-today`
+- Daily evergreen URL: `/`
+- Deprecated daily URL: `/linkedin-wend-answer-today` returns a permanent `301` to `/`.
 - Archive URL pattern: `/wend-answer-puzzle-{puzzleNumber}-{month-day-year}`
 - Example archive URL: `/wend-answer-puzzle-17-june-25-2026`
 
@@ -226,12 +245,12 @@ Homepage archive coverage:
 
 ## Stale Today Protection
 
-After midnight in `America/Los_Angeles`, `/` and `/linkedin-wend-answer-today` must not label yesterday's answer as today's answer. The reset is 07:00 UTC during PDT and 08:00 UTC during PST. The pages use 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
+After midnight in `America/Los_Angeles`, `/` must not label yesterday's answer as today's answer. The reset is 07:00 UTC during PDT and 08:00 UTC during PST. The homepage uses 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
 
 - `isVerified: true`
 - dated as the expected current Wend date in `America/Los_Angeles`
 
-If either check fails, public pages show a verification-pending notice with the expected date/number and label the rendered fallback as `Latest verified`. They must not describe that fallback as today's answer. Article JSON-LD and current-answer modified/published timestamps remain absent until matching verified data exists.
+If either check fails, the homepage shows a verification-pending notice with the expected date/number and labels the rendered fallback as `Latest verified`. It must not describe that fallback as today's answer. The fallback answer module uses `data-nosnippet` while pending so an older date or word list is less likely to replace the current status description in search snippets.
 
 Homepage consistency rule:
 
@@ -239,17 +258,16 @@ Homepage consistency rule:
 - In the pending state, calendar-derived `expectedWendDisplay()` values may appear only as status/expected metadata; the answer module continues to use and label the latest verified puzzle.
 - The next-puzzle countdown should always render. If the current expected puzzle is missing, switch the card into placeholder mode instead of hiding it or promoting an unverified puzzle number beside an older game module.
 
-The Today page metadata should follow the same readiness rule:
+Homepage metadata follows the same readiness rule:
 
 - Ready: include `dateLabel` and `Wend #{puzzleNumber}` in the title, description, and social image subtitle.
-- Pending: avoid promoting an unverified answer as current. Use the latest verified puzzle or generic status-oriented metadata until the real current puzzle is published.
+- Pending: keep the expected date and puzzle number, add `(Verifying)` to the title, and explicitly state that the answer is still being verified.
 
 ## Sitemap Priorities
 
 Current priorities:
 
 - `/`: `1.0`
-- `/linkedin-wend-answer-today`: `0.95`
 - `/linkedin-wend-solver`: `0.85`
 - `/linkedin-wend-archive`: `0.75`
 - `/where-is-linkedin-wend`: `0.65`
@@ -277,6 +295,8 @@ Local spot checks:
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
 - `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
+- `/sitemap.xml` does not include `/linkedin-wend-answer-today`.
+- `/linkedin-wend-answer-today` returns a permanent `301` redirect to `/`.
 - A legacy archive URL such as `/linkedin-wend-answer-18-june-26-2026` returns a permanent `308` redirect to the canonical archive URL.
 - Patches, Zip, and paused practice pages include `noindex, follow`.
 
@@ -286,4 +306,4 @@ Production checks:
 npm run monitor:production
 ```
 
-The production monitor verifies that `/`, `/linkedin-wend-answer-today`, `/linkedin-wend-archive`, and the latest archive detail page are live, do not contain `noindex`, remain present in the sitemap, and that the latest legacy archive URL returns a real production `308` redirect.
+The production monitor verifies that `/`, `/linkedin-wend-archive`, and the latest archive detail page are live and indexable; that `/linkedin-wend-answer-today` returns `301` to `/` and stays out of the sitemap; and that the latest legacy archive URL returns its expected production `308` redirect.

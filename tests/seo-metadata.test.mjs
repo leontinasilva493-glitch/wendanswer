@@ -40,13 +40,23 @@ assert.match(homeSource, /displayWend/, "homepage should share one displayed puz
 assert.doesNotMatch(homeSource, /const heroWend = expectedWendDisplay/, "homepage hero should not advance by calendar before verified data exists");
 assert.match(
   homeSource,
-  /LinkedIn Wend Answer Today - \$\{heroWend\.dateLabel\} \| Wend #\$\{heroWend\.puzzleNumber\} Answer/,
-  "homepage title should include LinkedIn Wend, the displayed date, and puzzle number",
+  /LinkedIn Wend Answer Today #\$\{heroWend\.puzzleNumber\} \u2014 \$\{heroWend\.dateLabel\}/,
+  "homepage ready title should lead with LinkedIn Wend Answer Today and include the puzzle number and date",
 );
 assert.match(
   homeSource,
-  /LinkedIn Wend answer today for \$\{heroWend\.dateLabel\} puzzle no \$\{heroWend\.puzzleNumber\}/,
-  "homepage description should include the dynamic LinkedIn Wend search phrase",
+  /LinkedIn Wend Answer Today #\$\{heroWend\.puzzleNumber\} \u2014 \$\{shortDateLabel\(heroWend\.dateLabel\)\} \(Verifying\)/,
+  "homepage pending title should stay query-focused while clearly marking verification",
+);
+assert.match(
+  homeSource,
+  /Get the verified LinkedIn Wend answer today for \$\{heroWend\.dateLabel\} \(Wend #\$\{heroWend\.puzzleNumber\}\)/,
+  "homepage ready description should describe the verified answer and puzzle identity",
+);
+assert.match(
+  homeSource,
+  /The LinkedIn Wend answer for \$\{heroWend\.dateLabel\} \(Wend #\$\{heroWend\.puzzleNumber\}\) is being verified/,
+  "homepage pending description should state that the expected answer is still being verified",
 );
 assert.match(
   homeSource,
@@ -61,14 +71,19 @@ assert.doesNotMatch(homeSource, /wend-unlimited/, "homepage should not promote p
 assert.match(homeSource, /max-w-4xl py-12 text-center/, "homepage hero should use a centered single-column layout");
 assert.match(
   homeSource,
-  /LinkedIn Wend answer today for \$\{heroWend\.dateLabel\} puzzle no \$\{heroWend\.puzzleNumber\}/,
-  "homepage ready H1 should use the one-sentence LinkedIn Wend answer phrase",
+  /LinkedIn Wend Answer Today #\{heroWend\.puzzleNumber\} \u2014 \{heroWend\.dateLabel\}/,
+  "homepage H1 should match the core LinkedIn Wend answer title in both states",
 );
-assert.match(homeSource, /LinkedIn Wend answer status for \$\{heroWend\.dateLabel\}/, "homepage pending H1 should use status wording");
+const normalizedHomeSource = homeSource.replace(/\s+/g, " ");
 for (const expected of [
-  "LinkedIn Wend spoiler-safe hints",
-  "LinkedIn Wend step-by-step explanation",
-  "LinkedIn Wend FAQ",
+  "LinkedIn Wend hints without full spoilers",
+  "How today’s LinkedIn Wend answer is solved",
+  "LinkedIn Wend questions and answers",
+  "What is the LinkedIn Wend game?",
+  "How to use today’s LinkedIn Wend answer",
+  "A practical Wend solving checklist",
+  "How we verify each LinkedIn Wend answer",
+  "Where to play the LinkedIn Wend game",
   "Recent LinkedIn Wend Answers",
 ]) {
   assert.match(homeSource, new RegExp(expected), `homepage should include ${expected}`);
@@ -78,11 +93,13 @@ assert.match(
   /Wend #\{heroWend\.puzzleNumber\} \{wendReady \? "answer" : "status"\}/,
   "homepage status bar should distinguish current answer and pending status",
 );
-assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
+assert.match(homeSource, /data-nosnippet=\{!wendReady/, "homepage should keep fallback answer details out of pending-state search snippets");
+assert.match(homeSource, /<WendAnswerReveal archived=\{!wendReady\} latestVerified=\{!wendReady\} puzzle=\{displayWend\}/, "homepage should surface the real answer reveal module with latest verified fallback support");
 assert.match(homeSource, /Get Today's Answer/, "homepage primary CTA should jump to the answer reveal");
 assert.match(homeSource, /Official Wend Game/, "homepage secondary CTA should open the official Wend game");
 assert.match(homeSource, /href="https:\/\/www\.linkedin\.com\/games\/wend"/, "homepage secondary CTA should use the official Wend game URL");
-assert.match(homeSource, /rel="nofollow noopener"/, "homepage official game CTA should use safe external-link attributes");
+assert.match(homeSource, /rel="noopener noreferrer"/, "homepage official game CTA should use safe external-link attributes");
+assert.doesNotMatch(homeSource, /nofollow/, "homepage should not nofollow the trusted official LinkedIn Wend source");
 assert.match(homeSource, /target="_blank"/, "homepage official game CTA should open in a new tab");
 for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku", "Pinpoint", "Crossclimb"]) {
   assert.equal(homeSource.includes(secondaryGame), false, `homepage should not promote ${secondaryGame}`);
@@ -90,18 +107,33 @@ for (const secondaryGame of ["Patches", "Zip", "Tango", "Queens", "Mini Sudoku",
 
 const answerRevealSource = read("src/components/WendAnswerReveal.tsx");
 assert.match(answerRevealSource, /Today's LinkedIn Wend Answer/, "answer reveal should use the homepage module heading");
+assert.match(answerRevealSource, /Latest verified LinkedIn Wend answer/, "answer reveal should label pending fallback content precisely");
 assert.match(answerRevealSource, /Reveal all/, "answer reveal should include the full reveal action");
 assert.match(answerRevealSource, /Clear all/, "answer reveal should include the reset action");
-assert.match(answerRevealSource, /Reveal Word/, "answer reveal should reveal one word at a time");
+assert.match(answerRevealSource, /Not revealed/, "answer reveal should avoid repeating hidden-word filler text");
+assert.match(answerRevealSource, /Next letter/, "answer reveal should offer a concise letter action");
+assert.match(answerRevealSource, /Show word/, "answer reveal should offer a concise word action");
+assert.match(answerRevealSource, /aria-label=\{`Reveal next letter/, "answer reveal should retain a descriptive accessible letter label");
+assert.match(answerRevealSource, /aria-label=\{`Reveal answer word/, "answer reveal should retain a descriptive accessible word label");
 
-const todayWendSource = read("src/app/linkedin-wend-answer-today/page.tsx");
-assert.match(todayWendSource, /generateMetadata/, "today page should generate metadata from current Wend readiness");
-assert.match(todayWendSource, /LinkedIn Wend Answer Today - \$\{todayWend\.dateLabel\}/, "today page title should include date when the puzzle is verified");
-assert.match(todayWendSource, /Wend #\$\{todayWend\.puzzleNumber\}/, "today page metadata should include the puzzle number when verified");
-assert.match(todayWendSource, /LinkedIn Wend answer today for \$\{todayWend\.dateLabel\}/, "today page description should begin with the exact LinkedIn Wend answer phrase");
-assert.match(todayWendSource, /LinkedIn Wend Hints, Word Path & Answer/, "today page should use a LinkedIn Wend answer-focused H2");
-assert.match(todayWendSource, /Today's LinkedIn Wend Answer FAQ/, "today page FAQ H2 should include LinkedIn Wend Answer");
-assert.match(todayWendSource, /revalidate\s*=\s*60/, "today page should use ISR instead of force-dynamic rendering");
+for (const expected of [
+  "Open the official LinkedIn Wend game",
+  "This page is a spoiler-safe companion to the official Wend game",
+  "The help controls are ordered from the lightest clue to the strongest reveal",
+  "Before using a reveal, scan the board as a set of constrained routes rather than a normal word search",
+  "Compare the unsolved cells with the remaining word lengths after every confirmed path",
+  "Every published LinkedIn Wend answer is tied to one puzzle number and one Pacific Time date",
+  "WendAnswerToday.org is an independent, fan-made help site",
+  "The archive groups every verified LinkedIn Wend answer by puzzle number and date",
+  "Why does the page say verification pending?",
+  "Where can I find older LinkedIn Wend answers?",
+]) {
+  assert.match(normalizedHomeSource, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `homepage should include approved copy: ${expected}`);
+}
+assert.doesNotMatch(homeSource, /Why is today's solution valid\?/, "homepage FAQ must not call a fallback puzzle today's solution");
+for (const path of ["/where-is-linkedin-wend", "/how-to-play-linkedin-wend", "/linkedin-wend-solver", "/linkedin-wend-archive"]) {
+  assert.match(homeSource, new RegExp(`href="${path}"`), `homepage long-form copy should link to ${path}`);
+}
 
 const archiveSource = read("src/app/linkedin-wend-archive/page.tsx");
 assert.match(archiveSource, /All LinkedIn Wend Answers/, "archive page should label the answer list with LinkedIn Wend");
@@ -146,6 +178,7 @@ for (const excluded of [
   "/linkedin-zip-answer-today",
   "/linkedin-zip-solver",
   "/wend-unlimited",
+  "/linkedin-wend-answer-today",
 ]) {
   assert.equal(
     sitemapSource.includes(`"${excluded}"`),
@@ -169,7 +202,6 @@ for (const file of [
 }
 
 for (const [file, maxLength] of [
-  ["src/app/linkedin-wend-answer-today/page.tsx", 68],
   ["src/app/linkedin-wend-solver/page.tsx", 68],
   ["src/app/[slug]/page.tsx", 68],
 ]) {

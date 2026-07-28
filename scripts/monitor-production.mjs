@@ -9,6 +9,7 @@ const baseUrl = (process.env.MONITOR_BASE_URL || "https://wendanswertoday.org").
 const canonicalSiteUrl = (process.env.MONITOR_CANONICAL_SITE_URL || "https://wendanswertoday.org").replace(/\/$/, "");
 const requestTimeoutMs = Number(process.env.MONITOR_REQUEST_TIMEOUT_MS || 15_000);
 const failures = [];
+const duplicateTodayPath = "/linkedin-wend-answer-today";
 
 function monthSlug(label) {
   return label.toLowerCase().replace(",", "").replace(/\s+/g, "-");
@@ -84,7 +85,6 @@ async function checkCorePages(latestPuzzle, expected) {
   const latestArchivePath = archivePath(latestPuzzle);
   const checks = [
     ["/", "WendAnswerToday"],
-    ["/linkedin-wend-answer-today", "LinkedIn Wend Answer Today"],
     ["/linkedin-wend-archive", "LinkedIn Wend Answer Archive"],
     [latestArchivePath, `Wend #${latestPuzzle.puzzleNumber}`],
   ];
@@ -95,14 +95,8 @@ async function checkCorePages(latestPuzzle, expected) {
   }
 
   const homepage = await assertOkIndexable("/");
-  if (homepage && !homepage.includes(`Wend answer today for ${expected.dateLabel} puzzle no ${expected.puzzleNumber}`)) {
+  if (homepage && !homepage.includes(`LinkedIn Wend Answer Today #${expected.puzzleNumber} — ${expected.dateLabel}`)) {
     failures.push(`homepage hero is not using expected ${expected.dateLabel} / Wend #${expected.puzzleNumber}`);
-  }
-
-  const today = await assertOkIndexable("/linkedin-wend-answer-today");
-  const expectedPuzzlePattern = new RegExp(`(?:Puzzle|puzzle|Wend)\\s*#${expected.puzzleNumber}\\b`);
-  if (today && (!today.includes(expected.dateLabel) || !expectedPuzzlePattern.test(today))) {
-    failures.push(`today page appears stale; expected ${expected.dateLabel} / Puzzle #${expected.puzzleNumber}`);
   }
 }
 
@@ -139,8 +133,22 @@ async function checkRobotsAndSitemap(latestPuzzle) {
   const sitemap = await fetchPath("/sitemap.xml");
   const sitemapText = await sitemap.text();
   if (!sitemap.ok) failures.push(`/sitemap.xml returned ${sitemap.status}`);
-  for (const route of ["/", "/linkedin-wend-answer-today", "/linkedin-wend-archive", archivePath(latestPuzzle)]) {
+  for (const route of ["/", "/linkedin-wend-archive", archivePath(latestPuzzle)]) {
     if (!sitemapText.includes(`${canonicalSiteUrl}${route}`)) failures.push(`sitemap.xml missing ${route}`);
+  }
+  if (sitemapText.includes(`${canonicalSiteUrl}${duplicateTodayPath}`)) {
+    failures.push(`sitemap.xml should not include deprecated ${duplicateTodayPath}`);
+  }
+}
+
+async function checkTodayRedirect() {
+  const response = await fetchPath(duplicateTodayPath, { redirect: "manual" });
+  const location = response.headers.get("location") || "";
+  const destination = location ? new URL(location, baseUrl) : null;
+
+  if (response.status !== 301) failures.push(`${duplicateTodayPath} expected 301, got ${response.status}`);
+  if (!destination || destination.pathname !== "/") {
+    failures.push(`${duplicateTodayPath} expected redirect to /, got ${location || "missing location"}`);
   }
 }
 
@@ -164,6 +172,7 @@ async function main() {
   await checkWendStatus(expected);
   await checkCorePages(latestPuzzle, expected);
   await checkRobotsAndSitemap(latestPuzzle);
+  await checkTodayRedirect();
   await checkLegacyRedirect(latestPuzzle);
 
   if (failures.length) {

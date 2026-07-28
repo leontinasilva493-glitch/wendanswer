@@ -21,14 +21,8 @@ assert.match(archiveDetail, /faqJson/, "archive detail pages should emit FAQPage
 assert.match(archiveDetail, /Archived LinkedIn Wend FAQ/, "archive detail pages should show visible FAQ content");
 assert.match(archiveDetail, /FaqDetails/, "archive detail pages should use the shared FAQ disclosure component");
 
-const todaySource = read("src/app/linkedin-wend-answer-today/page.tsx");
-assert.match(todaySource, /expectedWendDisplay/, "Today page metadata should keep date and puzzle number even before verification");
-assert.match(todaySource, /LinkedIn Wend Answer Today - \$\{expectedWend\.dateLabel\}/, "Today fallback title should include expected date");
-assert.match(todaySource, /puzzle #\$\{expectedWend\.puzzleNumber\}/, "Today fallback description should include expected puzzle number");
-assert.match(todaySource, /revalidate\s*=\s*60/, "Today page should use ISR");
-assert.doesNotMatch(todaySource, /force-dynamic/, "Today page should not force dynamic rendering");
-
 const homeSource = read("src/app/page.tsx");
+assert.match(homeSource, /expectedWendDisplay/, "Homepage metadata should keep date and puzzle number even before verification");
 assert.match(homeSource, /revalidate\s*=\s*60/, "Homepage should use ISR");
 assert.doesNotMatch(homeSource, /force-dynamic/, "Homepage should not force dynamic rendering");
 

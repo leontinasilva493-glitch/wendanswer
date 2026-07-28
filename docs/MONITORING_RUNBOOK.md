@@ -15,13 +15,13 @@ npm run monitor:production
 It checks:
 
 - `/api/wend-status` returns HTTP `200`, `status: current`, and the exact expected Los Angeles date and puzzle number.
-- Production uptime for `/`, `/linkedin-wend-answer-today`, `/linkedin-wend-archive`, and the latest Wend archive detail page.
+- Production uptime for `/`, `/linkedin-wend-archive`, and the latest Wend archive detail page.
 - Core pages do not send `x-robots-tag: noindex`.
 - Core pages do not render a `robots` meta tag containing `noindex`.
 - `/robots.txt` allows crawling and points to the production sitemap. The monitor treats bot-specific `Disallow: /` groups as expected managed blocks and only flags a true global crawl block.
-- `/sitemap.xml` includes the homepage, Today page, Archive page, and latest archive detail page.
+- `/sitemap.xml` includes the homepage, Archive page, and latest archive detail page, and excludes `/linkedin-wend-answer-today`.
 - The homepage Hero uses the expected Wend date and puzzle number.
-- The Today page shows the expected Wend date and puzzle number after midnight Pacific Time (07:00 UTC in PDT, 08:00 UTC in PST).
+- `/linkedin-wend-answer-today` returns a permanent `301` redirect to `/`.
 - The latest legacy archive URL returns a real production `308` redirect to the canonical archive URL.
 
 ## Alert Channels
@@ -91,10 +91,10 @@ The monitor is the automated production check for:
 Manual verification is still required in Google Search Console after deployment:
 
 1. Inspect `https://wendanswertoday.org/`.
-2. Inspect `https://wendanswertoday.org/linkedin-wend-answer-today`.
+2. Inspect `https://wendanswertoday.org/linkedin-wend-answer-today` and confirm Google sees the redirect to `/`, not a separate indexable page.
 3. Inspect `https://wendanswertoday.org/linkedin-wend-archive`.
 4. Inspect the latest `/wend-answer-puzzle-{number}-{date}` page.
-5. Confirm each page is allowed to be indexed and can be crawled.
+5. Confirm the homepage, archive, and archive detail are indexable; confirm the deprecated Today URL is excluded as a redirect.
 
 ## Analytics And Cookie Notice
 

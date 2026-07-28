@@ -26,7 +26,6 @@ function defaultUrls() {
   const latest = readLatestWendPuzzle();
   return [
     `${siteUrl}/`,
-    `${siteUrl}/linkedin-wend-answer-today`,
     `${siteUrl}/linkedin-wend-archive`,
     `${siteUrl}/wend-answer-puzzle-${latest.puzzleNumber}-${monthSlug(latest.dateLabel)}`,
   ];
