@@ -26,14 +26,14 @@
 - [x] Generate #1-#16 (replacing invalid #14-#16 records), #37, #39-#41, #43, and #46.
 - [x] Regenerate `src/lib/generated/wend-puzzles.ts`.
 - [x] Run parser, source-verification, geometry, dataset, archive-coverage, route, and sitemap tests.
-- [ ] Commit, push, merge, deploy, and verify the new production URLs before continuing.
+- [x] Commit, push, merge, deploy, and verify the new production URLs before continuing.
 
 ## Task 4: Add puzzle-derived metrics
 
-- [ ] Add failing unit tests for grid, cell, word-length, turn, and start-position metrics.
-- [ ] Implement `src/lib/wend-statistics.ts` as pure functions.
-- [ ] Add a concise facts section to archive detail pages.
-- [ ] Confirm each verified puzzle produces a usable metrics summary.
+- [x] Add failing unit tests for grid, cell, word-length, turn, and start-position metrics.
+- [x] Implement `src/lib/wend-statistics.ts` as pure functions.
+- [x] Add a concise facts section to archive detail pages.
+- [x] Confirm each verified puzzle produces a distinct metrics summary.
 
 ## Task 5: Upgrade Archive discovery
 
