@@ -4,6 +4,13 @@ This file records changes that are useful for debugging, rollback decisions, and
 
 ## 2026-07-28
 
+### Filterable archive discovery
+
+- Added local archive search across puzzle number, date, and verified answer words, plus month, difficulty, and grid-size filters.
+- Added visible result counts, reset and empty states, and generated verified-coverage/month summaries.
+- Kept all canonical answer links in the initial server-rendered archive HTML and avoided query-string index variants.
+- Added pure filter tests and page-level SEO/UI guardrails for server-visible links and local-only filter state.
+
 ### Verified historical archive completion
 
 - Added source-quorum and geometry-validated records for Wend #1-#13, #37, #39-#41, #43, and #46, completing continuous verified coverage from #1 through #49.
