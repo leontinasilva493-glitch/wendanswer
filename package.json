@@ -29,6 +29,7 @@
     "test:wend-dataset": "node tests/wend-dataset-validation.test.mjs",
     "test:wend-history-backfill": "node tests/wend-history-backfill.test.mjs",
     "test:wend-statistics": "node tests/wend-statistics.test.mjs",
+    "test:wend-statistics-page": "node tests/wend-statistics-page.test.mjs",
     "test:growth-guardrails": "node tests/growth-guardrails.test.mjs",
     "test:next-wend-countdown": "node tests/next-wend-countdown.test.mjs",
     "test:ops-monitoring": "node tests/ops-monitoring.test.mjs",

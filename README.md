@@ -1,6 +1,6 @@
 # WendAnswerToday
 
-WendAnswerToday is a Next.js App Router site for publishing daily LinkedIn Wend answer pages, solver pages, archive pages, and SEO-friendly supporting pages.
+WendAnswerToday is a Next.js App Router site for publishing daily LinkedIn Wend answer pages, solver pages, a verified/filterable archive, archive statistics, and SEO-friendly supporting pages.
 
 ## Quick Start
 
@@ -29,6 +29,9 @@ npm run backfill:wend-history -- --numbers=1,2,3 --dry-run
 npm run test:wend-dataset
 npm run test:latest-date
 npm run test:wend-archive-url
+npm run test:wend-archive-filter
+npm run test:wend-statistics
+npm run test:wend-statistics-page
 npm run test:wend-mvp
 npm run test:wend-publish
 npm run test:seo-metadata
@@ -48,7 +51,7 @@ npm run smoke:local
 
 The MVP homepage is intentionally Wend-first and answer-first:
 
-- The desktop header includes `Today`, `Solver`, `Archive`, and a compact `Play Game` dropdown.
+- The desktop header includes `Today`, `Solver`, `Archive`, `Statistics`, and a compact `Play Game` dropdown.
 - The `Play Game` dropdown links to `Official Wend` and the internal `/wend-unlimited` practice page; `/wend-unlimited` stays `noindex,follow` until it becomes a true unlimited generator.
 - Mobile bottom navigation stays limited to `Today`, `Solver`, and `Archive`.
 - The footer stays limited to `Contact`, `Press`, `Disclaimer`, `Privacy Policy`, and `Terms`.
@@ -88,8 +91,11 @@ The verified archive currently covers Wend #1 through #49 without missing puzzle
 
 The public `/linkedin-wend-archive` page keeps every verified answer link in the initial server-rendered HTML, then adds local browser filters for puzzle number/date/answer word, month, difficulty, and grid size. Filters do not create query-string index pages. The page also derives its verified-count, first/latest puzzle coverage, missing-number notice, and monthly totals directly from `wendPuzzles`.
 
+The public `/linkedin-wend-statistics` page is generated from the same verified dataset. It reports archive coverage, answer totals, average board/path metrics, grid-size and monthly distributions, the longest stored answer, and the most winding puzzle. Calculated metrics stay separate from the editorial difficulty label, and the methodology is visible on the page.
+
 ## Recent Changes
 
+- 2026-07-28: added the indexable LinkedIn Wend Statistics page with verified aggregate metrics, transparent methodology, sitemap coverage, and Header/Archive/related-resource links.
 - 2026-07-28: upgraded the complete LinkedIn Wend archive with local search and month/difficulty/grid-size filters, generated coverage summaries, reset/empty states, and server-visible answer links.
 - 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
 - 2026-07-28: added puzzle-derived facts and distinct Meta Descriptions to all 49 permanent answer pages.

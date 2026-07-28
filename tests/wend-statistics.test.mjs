@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import {
+  aggregateWendStatistics,
   deriveWendMetrics,
   wendPuzzleSummary,
 } from "../src/lib/wend-statistics.ts";
@@ -51,6 +52,46 @@ for (const phrase of ["Wend #2", "3×3 grid", "8 open cells", "1 blocked cell", 
 }
 
 console.log("wend statistics metrics test passed");
+
+const compactPuzzle = {
+  ...puzzle,
+  puzzleNumber: 3,
+  date: "2026-07-01",
+  dateLabel: "July 1, 2026",
+  difficulty: "Hard",
+  grid: [["A", "B"], ["C", "D"]],
+  answers: [
+    { word: "AB", path: [[0, 0], [0, 1]] },
+    { word: "CD", path: [[1, 0], [1, 1]] },
+  ],
+};
+const aggregate = aggregateWendStatistics([puzzle, compactPuzzle]);
+assert.deepEqual(aggregate, {
+  averageAnswersPerPuzzle: 2,
+  averageBlockedCells: 0.5,
+  averageOpenCells: 6,
+  averageTurnsPerPuzzle: 1,
+  difficulties: [
+    { count: 1, label: "Hard" },
+    { count: 1, label: "Medium" },
+  ],
+  firstPuzzleNumber: 2,
+  gridSizes: [
+    { count: 1, label: "2×2" },
+    { count: 1, label: "3×3" },
+  ],
+  latestPuzzleNumber: 3,
+  longestAnswer: { dateLabel: "June 10, 2026", length: 5, puzzleNumber: 2, word: "DOGSS" },
+  monthlyCoverage: [
+    { count: 1, key: "2026-07", label: "July 2026" },
+    { count: 1, key: "2026-06", label: "June 2026" },
+  ],
+  mostWindingPuzzle: { dateLabel: "June 10, 2026", puzzleNumber: 2, turns: 2 },
+  totalAnswers: 4,
+  verifiedPuzzleCount: 2,
+});
+
+console.log("wend archive aggregate statistics test passed");
 
 const root = process.cwd();
 const detailSource = fs.readFileSync(path.join(root, "src", "app", "[slug]", "page.tsx"), "utf8");

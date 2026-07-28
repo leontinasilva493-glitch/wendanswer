@@ -36,6 +36,7 @@ The desktop header should keep the primary user path short:
 - `Today`
 - `Solver`
 - `Archive`
+- `Statistics`
 - `Play Game`
 
 The `Play Game` dropdown should contain:
@@ -84,7 +85,7 @@ The canonical site logo is the rounded yellow-and-white puzzle tile mark with a 
 
 Use short page titles. The root layout appends the brand name automatically.
 
-Exception: the homepage uses `absoluteTitle: true` because its launch title already includes the intended full SERP title.
+Exception: the homepage and statistics page use `absoluteTitle: true` because their approved SERP titles are already complete.
 
 Recommended intent split:
 
@@ -92,6 +93,7 @@ Recommended intent split:
 - `/linkedin-wend-answer-today`: permanent `301` redirect to `/`; do not include it in internal links or the sitemap.
 - `/linkedin-wend-solver`: `LinkedIn Wend Solver for Today's Puzzle`
 - `/linkedin-wend-archive`: `LinkedIn Wend Answer Archive`
+- `/linkedin-wend-statistics`: `LinkedIn Wend Statistics: Puzzle Sizes, Words & Difficulty`
 - `/wend-unlimited`: `Wend Practice Puzzle` with `noindex,follow` until real generated unlimited mode exists.
 - `/wend-answer-puzzle-{number}-{month-day-year}`: `LinkedIn Wend Answer #{number} - {date}`
 
@@ -248,6 +250,14 @@ Homepage archive coverage:
 - Each canonical detail page derives factual copy from its stored grid and paths: grid size, open/blocked cells, answer count, word-length range, path turns, and longest/most winding answers. Use `deriveWendMetrics()` rather than manually writing unverifiable difficulty claims.
 - Detail-page Meta Descriptions include the puzzle number, date, answer count, and grid size. `tests/wend-statistics.test.mjs` guards the calculations and confirms that verified pages retain distinct metric signatures.
 
+Statistics page rules:
+
+- `/linkedin-wend-statistics` is an indexable, self-canonical supporting page for aggregate-data intent, not daily answer intent.
+- Derive all totals, averages, longest answers, path turns, grid-size distributions, and monthly coverage from verified `wendPuzzles` through `aggregateWendStatistics()`.
+- State that difficulty is an editorial label and keep it separate from calculated grid/path facts; do not claim an official or causal difficulty ranking.
+- Keep a visible calculation methodology and link back to the relevant permanent puzzle pages, Archive, and Solver.
+- Update the page daily through the sitemap timestamp when the latest verified record changes. `tests/wend-statistics-page.test.mjs` guards the route, metadata, breadcrumb JSON-LD, sitemap, and internal links.
+
 ## Stale Today Protection
 
 After midnight in `America/Los_Angeles`, `/` must not label yesterday's answer as today's answer. The reset is 07:00 UTC during PDT and 08:00 UTC during PST. The homepage uses 60-second ISR (`revalidate = 60`) so freshness checks update quickly without forcing every visitor request to render on the server. A puzzle is current only when the latest data is both:
@@ -275,6 +285,7 @@ Current priorities:
 - `/`: `1.0`
 - `/linkedin-wend-solver`: `0.85`
 - `/linkedin-wend-archive`: `0.75`
+- `/linkedin-wend-statistics`: `0.70`
 - `/where-is-linkedin-wend`: `0.65`
 - Wend how-to pages: `0.65`
 - Wend history detail pages: `0.65`
@@ -300,6 +311,7 @@ Local spot checks:
 - `/api/og?title=LinkedIn%20Wend%20Answer%20Today` returns an image response.
 - `/sitemap.xml` does not include temporary noindex pages.
 - `/sitemap.xml` includes `/wend-answer-puzzle-{number}-{date}` archive URLs, not legacy `/linkedin-wend-answer-{number}-{date}` archive URLs.
+- `/sitemap.xml` includes `/linkedin-wend-statistics` with the latest verified content timestamp.
 - `/sitemap.xml` does not include `/linkedin-wend-answer-today`.
 - `/linkedin-wend-answer-today` returns a permanent `301` redirect to `/`.
 - A legacy archive URL such as `/linkedin-wend-answer-18-june-26-2026` returns a permanent `308` redirect to the canonical archive URL.

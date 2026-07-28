@@ -35,6 +35,7 @@ const paths = [
   "/",
   "/linkedin-wend-solver",
   "/linkedin-wend-archive",
+  "/linkedin-wend-statistics",
   ...archivePaths,
   "/where-is-linkedin-wend",
   "/how-to-play-linkedin-wend",

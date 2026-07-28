@@ -6,6 +6,7 @@ export function RelatedGames() {
     ["Wend Today", "/"],
     ["Wend Solver", "/linkedin-wend-solver"],
     ["Wend Archive", "/linkedin-wend-archive"],
+    ["Wend Statistics", "/linkedin-wend-statistics"],
     ["Find Wend", "/where-is-linkedin-wend"],
     ["How to Play", "/how-to-play-linkedin-wend"],
     ["Solving Tips", "/how-to-solve-linkedin-wend"],
