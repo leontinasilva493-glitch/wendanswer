@@ -81,7 +81,7 @@ The source URL can be a normalized, verified Wend JSON source, a page with a `we
 
 ## Historical Archive Backfill
 
-The verified archive currently covers Wend #1 through #49 without missing puzzle numbers. Historical records are reproducible rather than manually transcribed:
+The verified archive is checked for continuous coverage from Wend #1 through the latest stored puzzle; production reached Wend #50 on July 28, 2026 without missing puzzle numbers. Historical records are reproducible rather than manually transcribed:
 
 - `scripts/backfill-wend-history.mjs` extracts complete grids and ordered paths from the archived primary source.
 - A secondary source must match the date, puzzle number, and normalized answer words before `preparePublicPuzzle()` marks the record verified.
@@ -98,8 +98,9 @@ The public `/linkedin-wend-statistics` page is generated from the same verified 
 - 2026-07-28: added the indexable LinkedIn Wend Statistics page with verified aggregate metrics, transparent methodology, sitemap coverage, and Header/Archive/related-resource links.
 - 2026-07-28: upgraded the complete LinkedIn Wend archive with local search and month/difficulty/grid-size filters, generated coverage summaries, reset/empty states, and server-visible answer links.
 - 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
-- 2026-07-28: added puzzle-derived facts and distinct Meta Descriptions to all 49 permanent answer pages.
+- 2026-07-28: added puzzle-derived facts and distinct Meta Descriptions to every permanent answer page; the automated Wend #50 publish inherited them without manual page work.
 - 2026-07-28: deployed the canonical daily-page consolidation; `/linkedin-wend-answer-today` now redirects permanently to `/` and is absent from the sitemap.
+- 2026-07-28: completed the P0-P1 rollout through PRs #43, #45, #46, #47, and #48; Vercel checks and production route/sitemap verification passed after each release.
 - Detailed operational history remains in `docs/CHANGELOG.md`.
 
 ## Wend Board Model

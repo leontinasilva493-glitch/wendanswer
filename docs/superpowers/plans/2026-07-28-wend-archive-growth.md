@@ -51,7 +51,7 @@
 
 ## Task 7: Handoff and release
 
-- [ ] Update README and `docs/CHANGELOG.md` with the shipped routes, data workflow, deployment target, and recent changes.
-- [ ] Run all repository tests, `npm run typecheck`, `npm run build`, and local smoke.
-- [ ] Visually check homepage, detail, Archive, and Statistics at desktop and 390px.
-- [ ] Push, create PR, wait for the Vercel check, merge, and verify production routes and sitemap.
+- [x] Update README and `docs/CHANGELOG.md` with the shipped routes, data workflow, deployment target, and recent changes.
+- [x] Run all repository tests, `npm run typecheck`, `npm run build`, and local smoke.
+- [x] Visually check homepage, detail, Archive, and Statistics at desktop and 390px.
+- [x] Push, create PR, wait for the Vercel check, merge, and verify production routes and sitemap.
