@@ -1,0 +1,197 @@
+{
+  "game": "wend",
+  "puzzleNumber": 51,
+  "date": "2026-07-29",
+  "dateLabel": "July 29, 2026",
+  "updatedAt": "2026-07-29T09:45:26.414Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "H",
+      "I",
+      "L",
+      "M",
+      "N"
+    ],
+    [
+      "G",
+      "F",
+      null,
+      null,
+      "O"
+    ],
+    [
+      "U",
+      "O",
+      "D",
+      null,
+      "P"
+    ],
+    [
+      "A",
+      "B",
+      "C",
+      "O",
+      "U"
+    ],
+    [
+      "H",
+      "I",
+      "T",
+      "A",
+      "T"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with FILM; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "HABITAT is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "FILM",
+      "path": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "DOUGH",
+      "path": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "COUPON",
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "HABITAT",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ]
+      ]
+    }
+  ],
+  "explanation": "The July 29, 2026 Wend solution uses every open cell exactly once across FILM, DOUGH, COUPON, HABITAT. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating FILM, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm FILM first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-07-29T09:45:26.414Z",
+    "sourceHash": "ecd669b739797bcc2af7b14de8713a61529c36bc530c04946728703e40924d0c",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-07-29T09:45:26.414Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
