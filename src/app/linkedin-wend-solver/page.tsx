@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqDetails } from "@/components/FaqDetails";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
@@ -46,6 +47,7 @@ export default function WendSolverPage() {
     <main className="page-shell">
       <JsonLd data={breadcrumbJson([{ name: "Home", path: "/" }, { name: "Wend Solver", path: "/linkedin-wend-solver" }])} />
       <JsonLd data={faqJson(faq)} />
+      <Breadcrumbs items={[{ href: "/", label: "Home" }, { label: "LinkedIn Wend Solver" }]} />
       <section>
         <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">LinkedIn Wend Solver</h1>
         <p className="section-copy">
@@ -69,9 +71,12 @@ export default function WendSolverPage() {
       </section>
 
       <section className="section flex flex-wrap gap-2">
+        <Link className="chip" href={`/${wendArchiveSlug(solverWend.puzzleNumber, solverWend.dateLabel)}`}>
+          Wend #{solverWend.puzzleNumber} answer – {solverWend.dateLabel}
+        </Link>
         {neighbors.previous ? (
           <Link className="chip" href={`/${wendArchiveSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
-            Previous puzzle
+            Previous: Wend #{neighbors.previous.puzzleNumber} – {neighbors.previous.dateLabel}
           </Link>
         ) : null}
         <Link className="chip" href="/linkedin-wend-archive">
@@ -79,6 +84,9 @@ export default function WendSolverPage() {
         </Link>
         <Link className="chip" href="/#answer">
           Today’s answer
+        </Link>
+        <Link className="chip" href="/how-to-play-linkedin-wend">
+          How to play LinkedIn Wend
         </Link>
       </section>
 

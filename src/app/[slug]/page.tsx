@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqDetails } from "@/components/FaqDetails";
 import { HintAccordion } from "@/components/HintAccordion";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
+import { RelatedWendAnswers } from "@/components/RelatedWendAnswers";
 import { WendAnswerReveal } from "@/components/WendAnswerReveal";
 import { findWendByArchiveSlug, findWendBySlug, getWendNeighbors, wendPuzzles } from "@/lib/puzzles";
 import { articleJson, breadcrumbJson, faqJson, pageMetadata } from "@/lib/seo";
@@ -91,6 +93,13 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
         })}
       />
       <JsonLd data={faqJson(faq)} />
+      <Breadcrumbs
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/linkedin-wend-archive", label: "LinkedIn Wend Archive" },
+          { label: `Wend #${puzzle.puzzleNumber}` },
+        ]}
+      />
       <section>
         <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">
           LinkedIn Wend Answer #{puzzle.puzzleNumber}
@@ -107,6 +116,25 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
       <section className="section" id="answer">
         <WendAnswerReveal puzzle={puzzle} archived />
       </section>
+
+      <nav aria-label="Wend puzzle navigation" className="section flex flex-wrap gap-2">
+        {neighbors.previous ? (
+          <Link className="chip" href={`/${wendArchiveSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
+            Previous: Wend #{neighbors.previous.puzzleNumber} – {neighbors.previous.dateLabel}
+          </Link>
+        ) : null}
+        {neighbors.next ? (
+          <Link className="chip" href={`/${wendArchiveSlug(neighbors.next.puzzleNumber, neighbors.next.dateLabel)}`}>
+            Next: Wend #{neighbors.next.puzzleNumber} – {neighbors.next.dateLabel}
+          </Link>
+        ) : null}
+        <Link className="chip" href="/linkedin-wend-archive">
+          Browse all LinkedIn Wend answers
+        </Link>
+        <Link className="chip" href="/linkedin-wend-solver">
+          Open the LinkedIn Wend Solver
+        </Link>
+      </nav>
 
       <section className="section">
         <h2 className="section-title">LinkedIn Wend spoiler-safe hints</h2>
@@ -168,25 +196,7 @@ export default async function WendArchiveDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="section flex flex-wrap gap-2">
-        {neighbors.previous ? (
-          <Link className="chip" href={`/${wendArchiveSlug(neighbors.previous.puzzleNumber, neighbors.previous.dateLabel)}`}>
-            Previous puzzle
-          </Link>
-        ) : null}
-        {neighbors.next ? (
-          <Link className="chip" href={`/${wendArchiveSlug(neighbors.next.puzzleNumber, neighbors.next.dateLabel)}`}>
-            Next puzzle
-          </Link>
-        ) : null}
-        <Link className="chip" href="/linkedin-wend-archive">
-          Archive
-        </Link>
-        <Link className="chip" href="/linkedin-wend-solver">
-          Wend Solver
-        </Link>
-      </section>
-
+      <RelatedWendAnswers current={puzzle} puzzles={wendPuzzles} />
       <RelatedGames />
     </main>
   );

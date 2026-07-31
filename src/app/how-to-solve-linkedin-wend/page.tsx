@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { howToJson, pageMetadata } from "@/lib/seo";
 
@@ -27,6 +28,13 @@ export default function HowToSolveWendPage() {
           steps,
         })}
       />
+      <Breadcrumbs
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/how-to-play-linkedin-wend", label: "How to Play" },
+          { label: "LinkedIn Wend Solving Tips" },
+        ]}
+      />
       <h1 className="text-4xl font-black tracking-normal text-ink md:text-5xl">How to Solve LinkedIn Wend</h1>
       <p className="section-copy">
         The fastest Wend solves usually come from constraint checking, not guessing. Use the board shape to
@@ -46,6 +54,9 @@ export default function HowToSolveWendPage() {
         </Link>
         <Link className="chip" href="/linkedin-wend-archive">
           View Archive
+        </Link>
+        <Link className="chip" href="/#answer">
+          Today’s Wend answer
         </Link>
       </section>
     </main>

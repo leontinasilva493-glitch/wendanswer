@@ -10,6 +10,7 @@ import {
   archiveMonthLabel,
   defaultArchiveFilters,
   filterArchivePuzzles,
+  groupArchivePuzzlesByMonth,
   type ArchiveFilters,
 } from "@/lib/wend-archive";
 import type { WendPuzzle } from "@/lib/puzzles";
@@ -56,10 +57,7 @@ function ArchiveCards({ puzzles }: { puzzles: WendPuzzle[] }) {
           <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{puzzle.quickHint}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link className="chip" href={`/${wendArchiveSlug(puzzle.puzzleNumber, puzzle.dateLabel)}`}>
-              View answer
-            </Link>
-            <Link className="chip" href="/linkedin-wend-solver">
-              View solver
+              LinkedIn Wend #{puzzle.puzzleNumber} answer – {puzzle.dateLabel}
             </Link>
           </div>
         </article>
@@ -71,6 +69,7 @@ function ArchiveCards({ puzzles }: { puzzles: WendPuzzle[] }) {
 function FilterableArchiveList({ puzzles }: { puzzles: WendPuzzle[] }) {
   const [filters, setFilters] = useState<ArchiveFilters>(defaultArchiveFilters);
   const filteredPuzzles = useMemo(() => filterArchivePuzzles(puzzles, filters), [filters, puzzles]);
+  const groupedPuzzles = useMemo(() => groupArchivePuzzlesByMonth(filteredPuzzles), [filteredPuzzles]);
   const months = useMemo(
     () => [...new Set(puzzles.map(archiveMonthKey))].sort().reverse(),
     [puzzles],
@@ -149,7 +148,21 @@ function FilterableArchiveList({ puzzles }: { puzzles: WendPuzzle[] }) {
       </div>
 
       {filteredPuzzles.length > 0 ? (
-        <ArchiveCards puzzles={filteredPuzzles} />
+        <div className="space-y-10">
+          {groupedPuzzles.map((group) => (
+            <section aria-labelledby={`${group.anchor}-heading`} id={group.anchor} key={group.key}>
+              <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
+                <h2 className="text-2xl font-black text-ink" id={`${group.anchor}-heading`}>
+                  {group.label} LinkedIn Wend Answers
+                </h2>
+                <span className="text-sm font-bold text-slate-500">
+                  {group.puzzles.length} verified {group.puzzles.length === 1 ? "puzzle" : "puzzles"}
+                </span>
+              </div>
+              <ArchiveCards puzzles={group.puzzles} />
+            </section>
+          ))}
+        </div>
       ) : (
         <div className="content-card text-center">
           <h3 className="text-xl font-black text-ink">No Wend answers match these filters</h3>

@@ -26,8 +26,30 @@ export function archiveMonthLabel(month: string) {
   }).format(new Date(`${month}-01T00:00:00Z`));
 }
 
+export function archiveMonthAnchor(month: string) {
+  return archiveMonthLabel(month).toLowerCase().replace(/\s+/g, "-");
+}
+
 export function archiveGridSize(puzzle: WendPuzzle) {
   return `${puzzle.grid.length}×${puzzle.grid[0]?.length ?? 0}`;
+}
+
+export function groupArchivePuzzlesByMonth(puzzles: WendPuzzle[]) {
+  const grouped = new Map<string, WendPuzzle[]>();
+
+  for (const puzzle of puzzles) {
+    const key = archiveMonthKey(puzzle);
+    grouped.set(key, [...(grouped.get(key) ?? []), puzzle]);
+  }
+
+  return [...grouped.entries()]
+    .sort(([left], [right]) => right.localeCompare(left))
+    .map(([key, monthPuzzles]) => ({
+      anchor: archiveMonthAnchor(key),
+      key,
+      label: archiveMonthLabel(key),
+      puzzles: [...monthPuzzles].sort((left, right) => right.puzzleNumber - left.puzzleNumber),
+    }));
 }
 
 export function filterArchivePuzzles(puzzles: WendPuzzle[], filters: ArchiveFilters) {

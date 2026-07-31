@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { auditWendInternalLinks } from "./audit-wend-internal-links.mjs";
+import { redirectDestinationPath } from "./http-checks.mjs";
 
 const baseUrl = process.env.SMOKE_BASE_URL || "http://127.0.0.1:3000";
 const root = process.cwd();
@@ -99,9 +101,9 @@ for (const check of redirectChecks) {
     continue;
   }
 
-  const destination = new URL(location, baseUrl);
-  if (destination.pathname !== check.destinationPath) {
-    failures.push(`expected redirect ${check.path} -> ${check.destinationPath}, got ${destination.pathname}`);
+  const destinationPath = redirectDestinationPath(location, baseUrl);
+  if (destinationPath !== check.destinationPath) {
+    failures.push(`expected redirect ${check.path} -> ${check.destinationPath}, got ${location}`);
   }
 }
 
@@ -143,6 +145,9 @@ for (const path of paths) {
   }
 }
 
+const internalLinkAudit = await auditWendInternalLinks({ baseUrl });
+for (const failure of internalLinkAudit.failures) failures.push(`internal link: ${failure}`);
+
 if (failures.length) {
   console.error("Smoke check failed:");
   for (const failure of failures) console.error(`- ${failure}`);
@@ -150,3 +155,6 @@ if (failures.length) {
 }
 
 console.log(`Smoke check passed for ${paths.length} routes at ${baseUrl}`);
+console.log(
+  `Internal-link audit passed for ${internalLinkAudit.summary.answerPages} answer pages at max depth ${internalLinkAudit.summary.maxAnswerDepth}`,
+);

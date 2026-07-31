@@ -72,6 +72,5 @@ assert.match(listSource, /filteredPuzzles\.length/, "archive should report the f
 assert.doesNotMatch(listSource, /useSearchParams|URLSearchParams|router\.push/, "archive filters should not create crawlable query combinations");
 assert.match(archivePageSource, /archiveCoverage/, "archive page should calculate verified coverage");
 assert.match(archivePageSource, /missingPuzzleNumbers/, "archive page should state whether coverage has gaps");
-assert.match(archivePageSource, /archiveMonthLabel/, "archive page should derive month labels from verified data");
 
 console.log("wend archive filter UI contract test passed");

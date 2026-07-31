@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { howToJson, pageMetadata } from "@/lib/seo";
 
@@ -27,6 +28,7 @@ export default function HowToPlayWendPage() {
           steps,
         })}
       />
+      <Breadcrumbs items={[{ href: "/", label: "Home" }, { label: "How to Play LinkedIn Wend" }]} />
       <h1 className="text-4xl font-black tracking-normal text-ink md:text-5xl">How to Play LinkedIn Wend</h1>
       <p className="section-copy">
         Wend is a word-path puzzle where you use a letter grid to find hidden words and connect the right cells.
@@ -46,6 +48,12 @@ export default function HowToPlayWendPage() {
         </Link>
         <Link className="chip" href="/how-to-solve-linkedin-wend">
           Solving tips
+        </Link>
+        <Link className="chip" href="/linkedin-wend-solver">
+          Open the Wend Solver
+        </Link>
+        <Link className="chip" href="/linkedin-wend-archive">
+          Browse verified Wend answers
         </Link>
       </section>
     </main>
