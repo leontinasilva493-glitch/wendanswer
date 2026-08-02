@@ -2,6 +2,7 @@ import patchesToday from "../../data/puzzles/patches/2026-06-23.json";
 import zipToday from "../../data/puzzles/zip/2026-06-23.json";
 import { wendArchiveSlug, wendSlug } from "./dates";
 import { generatedWendPuzzles } from "./generated/wend-puzzles";
+import { getPuzzleNeighbors } from "./wend-neighbors";
 
 export type Cell = [number, number];
 
@@ -109,9 +110,5 @@ export function findWendByArchiveSlug(slug: string) {
 }
 
 export function getWendNeighbors(puzzleNumber: number) {
-  const index = wendPuzzles.findIndex((puzzle) => puzzle.puzzleNumber === puzzleNumber);
-  return {
-    previous: wendPuzzles[index + 1],
-    next: wendPuzzles[index - 1],
-  };
+  return getPuzzleNeighbors(wendPuzzles, puzzleNumber);
 }

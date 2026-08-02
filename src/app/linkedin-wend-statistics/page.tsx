@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BarChart3, CalendarDays, Grid3X3, Route, SpellCheck2 } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { wendArchiveSlug } from "@/lib/dates";
@@ -58,6 +59,7 @@ export default function WendStatisticsPage() {
           { name: "Wend Statistics", path: "/linkedin-wend-statistics" },
         ])}
       />
+      <Breadcrumbs items={[{ href: "/", label: "Home" }, { label: "LinkedIn Wend Statistics" }]} />
 
       <section className="max-w-4xl">
         <p className="eyebrow">Verified archive analysis</p>

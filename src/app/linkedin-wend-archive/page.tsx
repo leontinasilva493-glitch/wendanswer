@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArchiveList } from "@/components/ArchiveList";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedGames } from "@/components/RelatedGames";
 import { wendPuzzles } from "@/lib/puzzles";
 import { breadcrumbJson, pageMetadata } from "@/lib/seo";
-import { archiveCoverage, archiveMonthKey, archiveMonthLabel } from "@/lib/wend-archive";
+import { archiveCoverage, groupArchivePuzzlesByMonth } from "@/lib/wend-archive";
 
 export const metadata: Metadata = pageMetadata({
   title: "LinkedIn Wend Answer Archive",
@@ -20,11 +21,12 @@ export default function WendArchivePage() {
   const oldestWend = wendPuzzles.at(-1) ?? wendPuzzles[0];
   const latestWend = wendPuzzles[0];
   const coverage = archiveCoverage(wendPuzzles);
-  const months = [...new Set(wendPuzzles.map(archiveMonthKey))].sort().reverse();
+  const monthGroups = groupArchivePuzzlesByMonth(wendPuzzles);
 
   return (
     <main className="page-shell">
       <JsonLd data={breadcrumbJson([{ name: "Home", path: "/" }, { name: "Wend Archive", path: "/linkedin-wend-archive" }])} />
+      <Breadcrumbs items={[{ href: "/", label: "Home" }, { label: "LinkedIn Wend Archive" }]} />
       <section>
         <h1 className="break-words text-3xl font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-5xl">LinkedIn Wend Answer Archive</h1>
         <p className="section-copy">
@@ -44,6 +46,25 @@ export default function WendArchivePage() {
             </p>
           </div>
         ) : null}
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link className="btn btn-primary" href="/">Open today’s Wend answer</Link>
+          <Link className="btn btn-ghost" href="/linkedin-wend-solver">Use the Wend solver</Link>
+          <Link className="btn btn-ghost" href="/linkedin-wend-statistics">Explore Wend statistics</Link>
+        </div>
+      </section>
+
+      <section className="section">
+        <h2 className="section-title">Browse LinkedIn Wend by month</h2>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {monthGroups.map((group) => (
+            <Link className="chip" href={`#${group.anchor}`} key={group.key}>
+              {group.label} · {group.puzzles.length}
+            </Link>
+          ))}
+        </div>
+        <Link className="mt-5 inline-flex font-black text-brand hover:underline" href="/linkedin-wend-statistics">
+          Explore LinkedIn Wend statistics across the verified archive
+        </Link>
       </section>
 
       <section className="section">
@@ -51,20 +72,6 @@ export default function WendArchivePage() {
         <div className="mt-5">
           <ArchiveList puzzles={wendPuzzles} />
         </div>
-      </section>
-
-      <section className="section">
-        <h2 className="section-title">Browse LinkedIn Wend by month</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {months.map((month) => (
-            <span className="chip" key={month}>
-              {archiveMonthLabel(month)} · {wendPuzzles.filter((puzzle) => archiveMonthKey(puzzle) === month).length}
-            </span>
-          ))}
-        </div>
-        <Link className="mt-5 inline-flex font-black text-brand hover:underline" href="/linkedin-wend-statistics">
-          Explore LinkedIn Wend statistics across the verified archive
-        </Link>
       </section>
 
       <RelatedGames />
