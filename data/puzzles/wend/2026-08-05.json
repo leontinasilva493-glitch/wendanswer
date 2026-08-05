@@ -1,0 +1,210 @@
+{
+  "game": "wend",
+  "puzzleNumber": 58,
+  "date": "2026-08-05",
+  "dateLabel": "August 5, 2026",
+  "updatedAt": "2026-08-05T09:43:20.444Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      null,
+      "E",
+      "E",
+      null,
+      null,
+      null
+    ],
+    [
+      "A",
+      "T",
+      "X",
+      "A",
+      null,
+      null
+    ],
+    [
+      "U",
+      "Q",
+      "K",
+      "M",
+      "E",
+      null
+    ],
+    [
+      null,
+      "E",
+      "N",
+      "P",
+      "L",
+      "A"
+    ],
+    [
+      null,
+      null,
+      "I",
+      "F",
+      "R",
+      "E"
+    ],
+    [
+      null,
+      null,
+      null,
+      "E",
+      "A",
+      null
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with AREA; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "EXAMPLE is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "AREA",
+      "path": [
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "KNIFE",
+      "path": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "EQUATE",
+      "path": [
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "EXAMPLE",
+      "path": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 5, 2026 Wend solution uses every open cell exactly once across AREA, KNIFE, EQUATE, EXAMPLE. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating AREA, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm AREA first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-05T09:43:20.444Z",
+    "sourceHash": "260b17220a0d91bc956cb9be1c49a26ed08c2aea649c48600d774f6092da21c1",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-05T09:43:20.444Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
