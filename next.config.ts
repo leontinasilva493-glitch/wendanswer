@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const plausibleOrigin = "https://plausible.io";
 const googleTagManagerOrigin = "https://www.googletagmanager.com";
@@ -61,3 +62,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+initOpenNextCloudflareForDev();

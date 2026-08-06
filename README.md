@@ -16,8 +16,11 @@ Open `http://127.0.0.1:3000`.
 - Production: `https://wendanswertoday.org`
 - Source repository: `https://github.com/leontinasilva493-glitch/wendanswer`
 - Release branch: `main`
-- Hosting: Vercel Git deployments. The custom domain is fronted by Cloudflare, while the Next.js application is served by Vercel.
-- A push or local build is not deployment proof. Confirm the Vercel commit status and then test the production domain, sitemap, and status endpoint.
+- Current hosting during migration: the custom domain is fronted by Cloudflare, while the Next.js application remains served by Vercel until the Workers cutover is verified.
+- Target hosting: GitHub `main` -> Cloudflare Workers Builds -> OpenNext Worker `wendanswer`, with ISR stored in R2 bucket `wendanswer-next-cache` and time-based revalidation coordinated by a Durable Object queue.
+- The expected Worker entrypoint is `.open-next/worker.js`; static assets are emitted to `.open-next/assets`.
+- A push, local build, or uploaded Worker version is not production proof. Verify the exact commit on `workers.dev` before attaching the custom domain, then verify the production domain, sitemap, status endpoint, redirects, canonical URLs, and response headers.
+- See [Cloudflare Workers Deployment Runbook](docs/CLOUDFLARE_WORKERS_DEPLOYMENT.md) for the account-side setup and cutover gates.
 
 ## Useful Commands
 
@@ -38,6 +41,11 @@ npm run test:seo-metadata
 npm run test:seo-routes
 npm run typecheck
 npm run build
+npm run test:cloudflare-opennext
+npm run preview
+npm run deploy
+npm run upload
+npm run cf-typegen
 npm run smoke:local
 ```
 
@@ -45,6 +53,7 @@ npm run smoke:local
 
 - [Daily Update Runbook](docs/DAILY_UPDATE_RUNBOOK.md): how to add daily puzzle data, update imports, and verify the local site.
 - [SEO Runbook](docs/SEO_RUNBOOK.md): TDK rules, index strategy, OG image behavior, and sitemap priorities.
+- [Cloudflare Workers Deployment Runbook](docs/CLOUDFLARE_WORKERS_DEPLOYMENT.md): Git build settings, R2/runtime bindings, `workers.dev` checks, custom-domain cutover, and rollback.
 - [Changelog](docs/CHANGELOG.md): feature and operational changes that affect launch, SEO, data freshness, or troubleshooting.
 
 ## Homepage Structure
@@ -95,6 +104,7 @@ The public `/linkedin-wend-statistics` page is generated from the same verified 
 
 ## Recent Changes
 
+- 2026-08-06: prepared the repository for direct Cloudflare Workers deployment with OpenNext, a unified `wendanswer` Worker/service name, R2 incremental cache, Durable Object revalidation queue, deployment scripts, and a configuration contract test. Production remains on the existing origin until the manual `workers.dev` and custom-domain gates pass.
 - 2026-07-28: added the indexable LinkedIn Wend Statistics page with verified aggregate metrics, transparent methodology, sitemap coverage, and Header/Archive/related-resource links.
 - 2026-07-28: upgraded the complete LinkedIn Wend archive with local search and month/difficulty/grid-size filters, generated coverage summaries, reset/empty states, and server-visible answer links.
 - 2026-07-28: completed and repaired the verified Wend #1-#49 archive, added a reproducible historical backfill command, and added full-dataset validation.
