@@ -2,6 +2,17 @@
 
 This file records changes that are useful for debugging, rollback decisions, and launch-readiness review.
 
+## 2026-08-06
+
+### Cloudflare OpenNext migration preparation
+
+- Added OpenNext and Wrangler configuration for a direct Cloudflare Worker named `wendanswer`; the self-reference service binding uses the same service name.
+- Added R2 incremental-cache binding `NEXT_INC_CACHE_R2_BUCKET` for bucket `wendanswer-next-cache` and Durable Object queue binding `NEXT_CACHE_DO_QUEUE` for the homepage's 60-second ISR revalidation.
+- Added Cloudflare preview/deploy/upload/type-generation commands, immutable Next.js asset headers, ignored local Worker outputs/secrets, and a checked-in non-secret `.dev.vars.example`.
+- Upgraded Next.js from `16.2.9` to `16.2.11`, the first compatible Next.js 16 patch accepted by the installed OpenNext adapter.
+- Added a configuration contract test and a deployment runbook. These repository changes do not by themselves prove a Cloudflare deployment; `workers.dev`, custom-domain, DNS/TLS, exact-commit, and production route checks remain release gates.
+- Verified the exact migration files in a WSL native Linux checkout: dependency install, configuration test, TypeScript, Next.js production build, OpenNext bundle generation, Wrangler type generation, and Wrangler dry-run all passed. The dry-run reported `1330.39 KiB` gzip, below the current Workers Free compressed-script limit of `3 MB`.
+
 ## 2026-07-28
 
 ### P0-P1 release verification
