@@ -1,0 +1,247 @@
+{
+  "game": "wend",
+  "puzzleNumber": 59,
+  "date": "2026-08-06",
+  "dateLabel": "August 6, 2026",
+  "updatedAt": "2026-08-06T09:46:21.192Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "T",
+      "C",
+      "A",
+      "J",
+      "O",
+      "B"
+    ],
+    [
+      "E",
+      "K",
+      null,
+      null,
+      "C",
+      "W"
+    ],
+    [
+      "U",
+      "X",
+      "A",
+      "R",
+      "D",
+      "E"
+    ],
+    [
+      "L",
+      null,
+      "Z",
+      "I",
+      null,
+      "B"
+    ],
+    [
+      "F",
+      null,
+      "Q",
+      "L",
+      null,
+      "M"
+    ],
+    [
+      "N",
+      "I",
+      "U",
+      "O",
+      "R",
+      "U"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with COBWEB; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "All answer paths have the same length, so use the blocked-cell lanes instead of word length to choose your next route."
+    }
+  ],
+  "answers": [
+    {
+      "word": "COBWEB",
+      "path": [
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "INFLUX",
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "JACKET",
+      "path": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "LIZARD",
+      "path": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "QUORUM",
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 6, 2026 Wend solution uses every open cell exactly once across COBWEB, INFLUX, JACKET, LIZARD, QUORUM. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating COBWEB, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "When every word has the same length, solve by lane shape: lock the edge paths first, then fill the middle routes.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because all 5 answers have the same length, so the board shape matters more than word length.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-06T09:46:21.192Z",
+    "sourceHash": "7c517c815f86f4d03e5a364e33a108adbef21d016f1b726302b9623a3befc0cb",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-06T09:46:21.192Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
