@@ -1,0 +1,234 @@
+{
+  "game": "wend",
+  "puzzleNumber": 60,
+  "date": "2026-08-07",
+  "dateLabel": "August 7, 2026",
+  "updatedAt": "2026-08-07T08:19:34.917Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "R",
+      "O",
+      null,
+      null,
+      "U",
+      "X"
+    ],
+    [
+      "C",
+      "S",
+      "D",
+      "E",
+      "L",
+      "E"
+    ],
+    [
+      null,
+      "S",
+      "R",
+      "N",
+      "W",
+      null
+    ],
+    [
+      null,
+      "T",
+      "O",
+      "S",
+      "O",
+      null
+    ],
+    [
+      "E",
+      "C",
+      "A",
+      "D",
+      "N",
+      "U"
+    ],
+    [
+      "X",
+      "A",
+      null,
+      null,
+      "K",
+      "N"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with EXACT; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CROSSROADS is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "EXACT",
+      "path": [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "DELUXE",
+      "path": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "UNKNOWN",
+      "path": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "CROSSROADS",
+      "path": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 7, 2026 Wend solution uses every open cell exactly once across EXACT, DELUXE, UNKNOWN, CROSSROADS. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating EXACT, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm EXACT first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-07T08:19:34.917Z",
+    "sourceHash": "007fe5a32e5380163736bdd9a6d6ca010f3370ee26e99980cb80c99511d6a20e",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-07T08:19:34.917Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
