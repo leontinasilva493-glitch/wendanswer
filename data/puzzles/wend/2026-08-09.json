@@ -1,0 +1,322 @@
+{
+  "game": "wend",
+  "puzzleNumber": 62,
+  "date": "2026-08-09",
+  "dateLabel": "August 9, 2026",
+  "updatedAt": "2026-08-09T08:54:38.882Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "C",
+      "A",
+      "T",
+      null,
+      "C",
+      "A",
+      "T"
+    ],
+    [
+      "O",
+      "G",
+      "E",
+      "L",
+      "O",
+      "O",
+      "I"
+    ],
+    [
+      "R",
+      "I",
+      "E",
+      "S",
+      "E",
+      "N",
+      "C"
+    ],
+    [
+      "E",
+      null,
+      "C",
+      "A",
+      "T",
+      null,
+      "E"
+    ],
+    [
+      "D",
+      "G",
+      "I",
+      "F",
+      "I",
+      "T",
+      "R"
+    ],
+    [
+      "U",
+      "N",
+      "I",
+      "E",
+      "D",
+      "O",
+      "H"
+    ],
+    [
+      "C",
+      "A",
+      "T",
+      null,
+      "C",
+      "A",
+      "T"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with CATHODE; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "CERTIFICATE is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "CATHODE",
+      "path": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "LOCATION",
+      "path": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "word": "EDUCATING",
+      "path": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "CATEGORIES",
+      "path": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "CERTIFICATE",
+      "path": [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 9, 2026 Wend solution uses every open cell exactly once across CATHODE, LOCATION, EDUCATING, CATEGORIES, CERTIFICATE. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating CATHODE, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm CATHODE first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-09T08:54:38.882Z",
+    "sourceHash": "7bf3703e2bfa6a9327b7b9753b948b37a31607af49091e88097c7df1b5d2e10d",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-09T08:54:38.882Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
