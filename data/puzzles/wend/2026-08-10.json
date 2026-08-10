@@ -1,0 +1,181 @@
+{
+  "game": "wend",
+  "puzzleNumber": 63,
+  "date": "2026-08-10",
+  "dateLabel": "August 10, 2026",
+  "updatedAt": "2026-08-10T08:46:57.631Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      null,
+      "L",
+      null,
+      "R",
+      null
+    ],
+    [
+      null,
+      "L",
+      null,
+      "R",
+      null
+    ],
+    [
+      "Y",
+      "A",
+      null,
+      "U",
+      "W"
+    ],
+    [
+      "E",
+      "U",
+      "P",
+      "P",
+      "O"
+    ],
+    [
+      "L",
+      "L",
+      "A",
+      "R",
+      "R"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with ALL; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "PULLEY is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "ALL",
+      "path": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "PURR",
+      "path": [
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "word": "ARROW",
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "PULLEY",
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 10, 2026 Wend solution uses every open cell exactly once across ALL, PURR, ARROW, PULLEY. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating ALL, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm ALL first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-10T08:46:57.631Z",
+    "sourceHash": "cb66895563f1ab8bcb402cba7a5f162f987cb94a30c82592c6c8225d5d6ec119",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-10T08:46:57.631Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
