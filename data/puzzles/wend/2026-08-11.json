@@ -1,0 +1,189 @@
+{
+  "game": "wend",
+  "puzzleNumber": 64,
+  "date": "2026-08-11",
+  "dateLabel": "August 11, 2026",
+  "updatedAt": "2026-08-11T08:13:37.252Z",
+  "difficulty": "Medium",
+  "grid": [
+    [
+      "U",
+      "E",
+      "E",
+      "Z",
+      "E"
+    ],
+    [
+      "Q",
+      "S",
+      null,
+      null,
+      "Y"
+    ],
+    [
+      "U",
+      "S",
+      null,
+      "S",
+      "K"
+    ],
+    [
+      "R",
+      null,
+      null,
+      "S",
+      "I"
+    ],
+    [
+      "E",
+      "E",
+      "L",
+      "P",
+      "M"
+    ]
+  ],
+  "hints": [
+    {
+      "level": 1,
+      "title": "Gentle nudge",
+      "text": "Start with SKY; it uses one of the most constrained paths on the board."
+    },
+    {
+      "level": 2,
+      "title": "Direction clue",
+      "text": "Use the blocked cells to split the board into narrow lanes before tracing the longer answers."
+    },
+    {
+      "level": 3,
+      "title": "Almost there",
+      "text": "SQUEEZE is one of the longest paths, so save it until the shorter routes are locked in."
+    }
+  ],
+  "answers": [
+    {
+      "word": "SKY",
+      "path": [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ]
+    },
+    {
+      "word": "SURE",
+      "path": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "word": "SIMPLE",
+      "path": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "word": "SQUEEZE",
+      "path": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    }
+  ],
+  "explanation": "The August 11, 2026 Wend solution uses every open cell exactly once across SKY, SURE, SIMPLE, SQUEEZE. Follow the colored paths from each start marker and the blocked cells keep every route constrained.",
+  "quickHint": "Start by locating SKY, then use the blocked cells to narrow the remaining paths.",
+  "fastTip": "Confirm SKY first; shorter constrained paths make the longer Wend routes easier to place.",
+  "commonMistake": "Do not read the board like a normal word search. Wend paths can turn through adjacent cells and must avoid every blocked cell.",
+  "difficultyNote": "Medium because several paths run along narrow lanes and the longest answer is easier after the shorter routes are fixed.",
+  "relatedGames": [
+    "patches",
+    "zip",
+    "tango",
+    "queens"
+  ],
+  "isVerified": true,
+  "publication": {
+    "capturedAt": "2026-08-11T08:13:37.252Z",
+    "sourceHash": "c7a9ad8517e7361703fce0f1b9ed46528b1d8bc556bfc52173bee27615f2747a",
+    "sourceType": "public-html-quorum",
+    "sourceUrls": [
+      "https://wendanswertoday.me/",
+      "https://wendgames.org/src/answers-data.js"
+    ],
+    "state": "verified",
+    "verificationMethod": "two-source-agreement",
+    "verifiedAt": "2026-08-11T08:13:37.252Z",
+    "verifiedBy": "public-source-quorum"
+  }
+}
